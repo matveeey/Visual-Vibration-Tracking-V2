@@ -7,12 +7,9 @@
 // standart headers
 #include <iostream>
 
-// my headers
-#include "VVT-V2\contour_finder.h"
-
 using namespace cv;
 
-class VibrationDisplayer : public ContourFinder
+class VibrationDisplayer
 {
 public:
 	VibrationDisplayer(std::string window_name, int width, int height);

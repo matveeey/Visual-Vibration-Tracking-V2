@@ -14,7 +14,7 @@
 #include <opencv2/opencv.hpp>
 
 // my headers
-#include "VVT-V2\video_processing.h"
+#include "VVT-V2\frame_processor.h"
 
 class AmplitudeCalibrator// : public VideoProcessor
 {

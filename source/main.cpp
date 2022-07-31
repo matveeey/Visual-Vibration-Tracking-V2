@@ -1,7 +1,6 @@
 #include "VVT-V2\vibration_detector.h"
-#include "VVT-V2\video_undistorter.h"
-#include "VVT-V2\camera_calibrator.h"
-#include "VVT-V2\amplitude_calibrator.h"
+#include "CamCalib\video_undistorter.h"
+#include "CamCalib\camera_calibrator.h"
 
 #define CALIBRATION 0
 #define UNDISTORTION 1

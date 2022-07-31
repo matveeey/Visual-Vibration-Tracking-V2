@@ -1,5 +1,5 @@
-#ifndef DATA_DISPLAYER_H_
-#define DATA_DISPLAYER_H_
+#ifndef DATA_DISPLAYER_H
+#define DATA_DISPLAYER_H
 
 // OpenCV headers
 #include <opencv2/opencv.hpp>

@@ -1,4 +1,4 @@
-#include "VVT-V2\video_undistorter.h"
+#include "CamCalib\video_undistorter.h"
 
 VideoUndistorter::VideoUndistorter(std::string input_file_name, std::string output_file_name, std::string txt_file_name) :
 	input_file_name_{ input_file_name },

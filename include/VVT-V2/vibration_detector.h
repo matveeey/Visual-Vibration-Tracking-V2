@@ -15,11 +15,9 @@
 #include <opencv2/video/tracking.hpp>
 
 // my headers
-#include "VVT-V2\video_processing.h"
+#include "VVT-V2\frame_handler.h"
 #include "VVT-V2\fft_performer.h"
 #include "VVT-V2\data_displayer.h"
-#include "VVT-V2\vibration_displayer.h"
-#include "VVT-V2\amplitude_calibrator.h"
 
 class VibrationDetector
 {
@@ -29,9 +27,6 @@ public:
 	void ExecuteVibrationDetection();
 
 private:
-	// converts RGB to gray scale
-	Mat RgbToGray(Mat frame_to_be_grayed);
-
 	// callback functions for detecting the click
 	static void SelectPoint(int event, int x, int y, int flags, void* userdata);
 	void OnMouse(int event, int x, int y, int flags);
@@ -39,18 +34,10 @@ private:
 	// Lucas-Kanade tracking
 	void LucasKanadeTracking(Mat prev_img_gray, Mat next_img_gray, std::vector<Point2f>& prev_pts, std::vector<Point2f>& next_pts, std::vector<uchar>& status);
 
-	// Lucas-Kanade auto-tracking
-	std::vector<Point2f> GoodFeaturesToTrack(Mat frame, int MAX_PTS, const Rect& roi);
+	void LucasKanadeDoubleSideTracking(Mat prev_img_gray, Mat next_img_gray, std::vector<Point2f>& prev_pts, std::vector<Point2f>& next_pts, std::vector<uchar> status);
 
 	// draws a track of movements
 	void DrawLines(std::vector<Point2f> prev_pts, std::vector<Point2f> next_pts, Mat& frame);
-
-	// draws shapes of found contours
-	void DrawContours(Mat& frame, std::vector<std::vector<Point>> contour_shapes);
-
-	// reading amplitude coefficient from txt
-	double ReadCoeff();
-	// захардкодил, потому что на данный момент эта версия проекта тупиковая из-за своей архитектуры)
 
 private:
 	bool running_;

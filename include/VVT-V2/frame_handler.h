@@ -1,5 +1,5 @@
-#ifndef VIDEO_PROCESSING_H_
-#define VIDEO_PROCESSING_H_
+#ifndef FRAME_HANDLER_H
+#define FRAME_HANDLER_H
 
 // standart headers
 #include <iostream>
@@ -13,15 +13,16 @@
 
 using namespace cv;
 
-class VideoProcessor
+class FrameHandler
 {
 public:
-	VideoProcessor(const std::string input_file_name, const std::string output_file_name, const std::string window_name);
-	~VideoProcessor();
-	bool Init();
+	FrameHandler(const std::string input_file_name, const std::string output_file_name, const std::string window_name);
+	~FrameHandler();
 	void ReadNextFrame();
 	void ShowFrame(Mat frame);
 	void WriteFrame(Mat frame);
+	Mat GetGrayFrame(Mat frame_to_be_grayed);
+	Mat ConcatenateFrames(Mat left_frame, Mat right_frame);
 
 public:
 	bool GetInputCapStatus();
@@ -45,8 +46,8 @@ protected:
 	std::string output_path_;
 
 	// characteristics of a video
-	int input_frame_width_;
-	int input_frame_height_;
+	double input_frame_width_;
+	double input_frame_height_;
 	double input_fps_;
 
 	std::string window_name_;

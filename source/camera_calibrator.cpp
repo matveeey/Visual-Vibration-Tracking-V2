@@ -1,4 +1,4 @@
-#include "VVT-V2\camera_calibrator.h"
+#include "CamCalib\camera_calibrator.h"
 
 CameraCalibrator::CameraCalibrator(std::string input_file_name, std::string chessboards_path) :
 	input_file_name_{ input_file_name },
