@@ -7,16 +7,20 @@ VibrationDetector::VibrationDetector(std::string input_file_name, std::string ou
 	fft_performer_{nullptr},
 	number_of_points_{ 0 },
 	vec_of_frequencies_{ 0 },
-	amplitude_coeff_{ 1.0 }
+	frequency_update_rate_{ 20 }
 {
 	point_selected_ = false;
-	lk_win_size_ = 45;
+	lk_win_size_ = 91;
+	point_offset_ = 100;
+	res_mp_ = 1;
 }
 
 VibrationDetector::~VibrationDetector()
 {
-	delete[] this->fft_performer_;
-	delete[] this->data_displayer_;
+	// переделай
+	delete this->data_displayer_;
+	delete this->fft_performer_;
+	delete this->point_handler_;
 }
 
 // callback function for determining the event click on mouse
@@ -36,9 +40,13 @@ void VibrationDetector::OnMouse(int event, int x, int y, int flags)
 		this->point_selected_ = true;
 		this->click_coords_.x = x;
 		this->click_coords_.y = y;
+		this->text_coords_.push_back(click_coords_);
 		this->prev_pts_.push_back(click_coords_);
 
 		this->number_of_points_++;
+
+		this->point_handler_ = new PointHandler(frequency_update_rate_);
+		this->vec_of_point_handlers_.push_back(*point_handler_);
 
 		this->fft_performer_ = new FftPerformer();
 		this->vec_of_fft_performers_.push_back(*fft_performer_);
@@ -47,7 +55,50 @@ void VibrationDetector::OnMouse(int event, int x, int y, int flags)
 		this->vec_of_data_displayer_.push_back(*data_displayer_);
 		break;
 	}
+	case EVENT_RBUTTONDOWN:
+	{
+		this->point_to_be_deleted_.x = x;
+		point_to_be_deleted_.y = y;
+
+		for (int i = 0; i < prev_pts_.size(); i++)
+		{
+			intersection_ = IntersectionCheck(i);
+			point_id_ = i;
+			if (intersection_)
+			{
+				std::cout << "point number " << point_id_ << " is gonna be deleted" << std::endl;
+				prev_pts_.erase(std::begin(prev_pts_) + point_id_);
+				next_pts_.erase(std::begin(next_pts_) + point_id_);
+				text_coords_.erase(std::begin(text_coords_) + point_id_);
+				vec_of_data_displayer_.erase(std::begin(vec_of_data_displayer_) + point_id_);
+				vec_of_fft_performers_.erase(std::begin(vec_of_fft_performers_) + point_id_);
+				if (prev_pts_.size() == 0)
+				{
+					point_selected_ = false;
+				}
+			}
+		}
+		break;
 	}
+	}
+
+	if (!prev_pts_.empty())
+	{
+		last_mouse_position_.x = x;
+		last_mouse_position_.y = y;
+	}
+}
+
+bool VibrationDetector::IntersectionCheck(int point_num)
+{
+	Rect offset_box(Point(prev_pts_[point_num].x - point_offset_, prev_pts_[point_num].y - point_offset_), Point(prev_pts_[point_num].x + point_offset_, prev_pts_[point_num].y + point_offset_));
+	if (offset_box.contains(last_mouse_position_))
+	{
+		std::cout << "You are in neighbourhood of point " << point_num << std::endl;
+		return true;
+	}
+	return false;
+
 }
 
 void VibrationDetector::LucasKanadeTracking(Mat prev_img_gray, Mat next_img_gray, std::vector<Point2f>& prev_pts, std::vector<Point2f>& next_pts, std::vector<uchar>& status)
@@ -60,13 +111,14 @@ void VibrationDetector::LucasKanadeTracking(Mat prev_img_gray, Mat next_img_gray
 		next_pts,
 		status,
 		noArray(),
-		Size(lk_win_size_ * 2 + 1, lk_win_size_ * 2 + 1),
-		5,
+		Size(lk_win_size_, lk_win_size_),
+		7,
 		TermCriteria(
 			TermCriteria::MAX_ITER | TermCriteria::EPS,
 			50,
 			0.03
-		)
+		),
+		OPTFLOW_LK_GET_MIN_EIGENVALS
 	);
 }
 
@@ -88,7 +140,7 @@ void VibrationDetector::LucasKanadeDoubleSideTracking(Mat prev_img_gray, Mat nex
 }
 
 
-void VibrationDetector::DrawLines(std::vector<Point2f> prev_pts, std::vector<Point2f> next_pts, Mat& frame)
+void VibrationDetector::DrawPoints(std::vector<Point2f> prev_pts, std::vector<Point2f> next_pts, Mat& frame)
 {
 	for (int current_tracking_point = 0; current_tracking_point < static_cast<int>(prev_pts.size()); current_tracking_point++) {
 		// line between two dots (next and previous)
@@ -100,14 +152,29 @@ void VibrationDetector::DrawLines(std::vector<Point2f> prev_pts, std::vector<Poi
 			LINE_AA
 		);
 
+		rectangle(frame, Rect(Point2f(next_pts[current_tracking_point].x - lk_win_size_, next_pts[current_tracking_point].y - lk_win_size_),
+			Point2f(next_pts[current_tracking_point].x + lk_win_size_, next_pts[current_tracking_point].y + lk_win_size_)), Scalar(255, 0, 0), 1);
+
 		// circle
-		circle(frame, next_pts[current_tracking_point], 10, (0, 0, 255), 2);
+		if (vec_of_interacts_[current_tracking_point])
+		{
+			circle(frame, next_pts[current_tracking_point], 10, Scalar(255, 207, 64), 2);
+		}
+		else
+		{
+			circle(frame, next_pts[current_tracking_point], 10, Scalar(0, 0, 255), 2);
+		}
+
 	}
 }
 
 void VibrationDetector::ExecuteVibrationDetection()
 {
 	FrameHandler frame_processor(input_file_name_, output_file_name_, MAIN_WINDOW_NAME);
+	if (frame_processor.GetFrameHeight() > 1000)
+	{
+		res_mp_ = 2;
+	}
 
 	vibration_inited_ = false;
 	colors_inited_ = false;
@@ -123,7 +190,7 @@ void VibrationDetector::ExecuteVibrationDetection()
 	int current_num_of_frame = 0;
 	int amount_of_frames = frame_processor.GetAmountOfFrames();
 
-	while ((current_num_of_frame <= amount_of_frames) && running_ == true)
+	while ((current_num_of_frame < amount_of_frames) && running_ == true)
 	{
 		current_num_of_frame = frame_processor.GetCurrentPosOfFrame();
 		// reading next frame and converting it to gray color space
@@ -137,6 +204,7 @@ void VibrationDetector::ExecuteVibrationDetection()
 		// Lucas-Kanade tracking
 		if (this->point_selected_)
 		{
+			vec_of_interacts_.clear();
 			// getting next_pts_ updated from Lucas-Kanade tracking
 			LucasKanadeTracking(prev_img_gray_, next_img_gray_, prev_pts_, next_pts_, status_);
 
@@ -144,6 +212,12 @@ void VibrationDetector::ExecuteVibrationDetection()
 			std::cout << "doin " << std::endl;
 			for (int i = 0; i < next_pts_.size(); i++)
 			{
+				interaction_ = IntersectionCheck(i);
+				if (interaction_)
+					vec_of_interacts_.push_back(true);
+				else
+					vec_of_interacts_.push_back(false);
+
 				vec_of_fft_performers_[i].CollectTrackedPoints(frame_processor.GetCurrentPosOfFrame(), next_pts_[i], frame_processor.GetCurrentTimeOfFrame(), i);
 
 				if (((vec_of_fft_performers_[i].GetLengthOfPointData()) % 3 == 0) && (vec_of_fft_performers_[i].GetLengthOfPointData() != 0))
@@ -153,15 +227,13 @@ void VibrationDetector::ExecuteVibrationDetection()
 					vec_of_frequencies_ = vec_of_fft_performers_[i].ExecuteFft(sampling_frequency_, false, i); // for a certain point
 
 					vec_of_data_displayer_[i].SetVectorOfFrequencies(vec_of_frequencies_);
-					
-					current_amplitude_ = vec_of_fft_performers_[i].GetAmplitude();
 				}
 				
-				vec_of_data_displayer_[i].OutputVibrationParameters(current_tracking_frame_, next_pts_[i], amplitude_coeff_, current_amplitude_);
+				vec_of_data_displayer_[i].OutputVibrationParameters(current_tracking_frame_, text_coords_[i], res_mp_);
 			}
 
 			// drawing lines
-			DrawLines(prev_pts_, next_pts_, current_tracking_frame_);
+			DrawPoints(prev_pts_, next_pts_, current_tracking_frame_);
 
 			// update points and frames
 			this->prev_pts_ = next_pts_;
@@ -182,6 +254,11 @@ void VibrationDetector::ExecuteVibrationDetection()
 			frame_processor.~FrameHandler();
 			running_ = false;
 			std::cout << frame_processor.GetInputCapStatus() << std::endl;
+			break;
+		}
+		case 'p':
+		{
+			waitKey(0);
 			break;
 		}
 		}

@@ -2,8 +2,6 @@
 #define VIBRATION_DETECTOR_H
 
 // VREMENNO
-#define INPUT_FILE_NAME "Resources/7.mp4" // leaf.mp4 or engine.mp4 or vibration1.mp4
-#define OUTPUT_FILE_NAME "Output/vibration.avi" // leaf.mp4 or engine.mp4 or vibration1.mp4
 #define MAIN_WINDOW_NAME "Video"
 #define V_MONITOR_WINDOW_NAME "Vibration Monitor"
 
@@ -15,6 +13,7 @@
 #include <opencv2/video/tracking.hpp>
 
 // my headers
+#include "VVT-V2/point_handler.h"
 #include "VVT-V2\frame_handler.h"
 #include "VVT-V2\fft_performer.h"
 #include "VVT-V2\data_displayer.h"
@@ -31,16 +30,33 @@ private:
 	static void SelectPoint(int event, int x, int y, int flags, void* userdata);
 	void OnMouse(int event, int x, int y, int flags);
 
+	// for detecting intersection between cursor and point offset
+	bool IntersectionCheck(int point_num);
+
 	// Lucas-Kanade tracking
 	void LucasKanadeTracking(Mat prev_img_gray, Mat next_img_gray, std::vector<Point2f>& prev_pts, std::vector<Point2f>& next_pts, std::vector<uchar>& status);
 
 	void LucasKanadeDoubleSideTracking(Mat prev_img_gray, Mat next_img_gray, std::vector<Point2f>& prev_pts, std::vector<Point2f>& next_pts, std::vector<uchar> status);
 
 	// draws a track of movements
-	void DrawLines(std::vector<Point2f> prev_pts, std::vector<Point2f> next_pts, Mat& frame);
+	void DrawPoints(std::vector<Point2f> prev_pts, std::vector<Point2f> next_pts, Mat& frame);
 
 private:
 	bool running_;
+	int res_mp_;
+
+	// Points handling
+	PointHandler* point_handler_;
+	std::vector<PointHandler> vec_of_point_handlers_;
+	int point_offset_;
+	Point last_mouse_position_;
+	Point point_to_be_deleted_;
+	bool intersection_;
+	std::vector<bool> vec_of_intersections_;
+	int point_id_;
+	bool interaction_;
+	std::vector<bool> vec_of_interacts_;
+	std::vector<Point> text_coords_;
 
 	std::string input_file_name_;
 	std::string output_file_name_;
@@ -84,26 +100,16 @@ private:
 
 	// Fast Fourier Transform
 	int sampling_frequency_;
+	int frequency_update_rate_;
 	FftPerformer* fft_performer_;
 	std::vector<FftPerformer> vec_of_fft_performers_;
 
-	FftPerformer* rect_fft_performer_;
-	std::vector<FftPerformer> vec_of_rect_fft_performers_;
 
-	double amplitude_coeff_;
-	double current_amplitude_;
 
 	// for displaying data
 	DataDisplayer* data_displayer_;
 	std::vector<DataDisplayer> vec_of_data_displayer_;
 	std::vector<float> vec_of_frequencies_; // for a certain point
-
-	std::vector<float> vec_of_rect_frequencies_; // for a certain point
-	std::vector<float> vec_of_updated_frequencies_; // for a all points
-	float rect_point_frequency_;
-
-	// for displaying vibration with points
-	std::vector<std::vector<Point>> contour_shapes_;
 };
 
 #endif
