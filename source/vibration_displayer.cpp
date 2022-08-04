@@ -31,15 +31,16 @@ bool VibrationDisplayer::InitColors()
 	return true;
 }
 
-void VibrationDisplayer::ShowFrame(Mat tmp_frame)
+void VibrationDisplayer::ProcessFrame(Mat tmp_frame)
 {
 	// "le kostyl", going to be fixed later
 	tmp_frame_ = tmp_frame;
 	//ClearFrame();
 
 	// drawing ROI and updating colors
-	UpdateDisplayingRectangle();
+	//UpdateDisplayingRectangle();
 	UpdateColors();
+	std::cout << colors_.size() << std::endl;
 
 	for (int i = 0; i < points_.size(); i++)
 	{
@@ -48,6 +49,7 @@ void VibrationDisplayer::ShowFrame(Mat tmp_frame)
 	}
 
 	// adding frequency gradient
+
 	AddGradient();
 
 	// finally showing frame
@@ -91,11 +93,22 @@ void VibrationDisplayer::UpdateColors()
 	// translate frequency [0; range_] to [0; 255] int color value;
 	if (!frequencies_.empty())
 	{
+		std::cout << "UPDATING COLORS" << std::endl;
+		std::cout << frequencies_.size() << std::endl;
+		std::cout << points_.size() << std::endl;
+		
 		colors_.clear();
 		for (int i = 0; i < points_.size(); i++)
 		{
 			std::vector<int> color = Rgb(frequencies_[i] / range_);
 			colors_.push_back(Scalar(color[0], color[1], color[2]));
+		}
+	}
+	else
+	{
+		for (int i = 0; i < points_.size(); i++)
+		{
+			colors_.push_back(Scalar(0, 0, 0));
 		}
 	}
 }

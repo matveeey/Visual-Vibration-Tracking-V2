@@ -14,9 +14,11 @@
 
 // my headers
 #include "VVT-V2/point_handler.h"
+#include "VVT-V2/contour_handler.h"
 #include "VVT-V2\frame_handler.h"
 #include "VVT-V2\fft_performer.h"
 #include "VVT-V2\data_displayer.h"
+#include "VVT-V2/vibration_displayer.h"
 
 class VibrationDetector
 {
@@ -28,7 +30,11 @@ public:
 private:
 	// callback functions for detecting the click
 	static void SelectPoint(int event, int x, int y, int flags, void* userdata);
-	void OnMouse(int event, int x, int y, int flags);
+	void ClickDetect(int event, int x, int y, int flags);
+	
+	// callback functions for detecting the click
+	static void SelectRoi(int event, int x, int y, int flags, void* userdata);
+	void DragDetect(int event, int x, int y, int flags);
 
 	// for detecting intersection between cursor and point offset
 	bool IntersectionCheck(int point_num);
@@ -39,7 +45,7 @@ private:
 	void LucasKanadeDoubleSideTracking(Mat prev_img_gray, Mat next_img_gray, std::vector<Point2f>& prev_pts, std::vector<Point2f>& next_pts, std::vector<uchar> status);
 
 	// draws a track of movements
-	void DrawPoints(std::vector<Point2f> prev_pts, std::vector<Point2f> next_pts, Mat& frame);
+	void DrawPoints(std::vector<Point2f> prev_pts, std::vector<Point2f> next_pts, Mat& frame, bool rectangle_needed);
 
 private:
 	bool running_;
@@ -72,9 +78,11 @@ private:
 	Point2f click_coords_;
 
 	// for rectangle
-	Point2f tl_click_coords_;
-	Point2f br_click_coords_;
-	Point2f mouse_move_coords_;
+	ContourHandler* contour_handler_;
+	Mat unchanged_frame_;
+	Point2i tl_click_coords_;
+	Point2i br_click_coords_;
+	Point2i mouse_move_coords_;
 	bool right_button_down_;
 	bool rectangle_selected_;
 	bool colors_inited_;
@@ -104,7 +112,8 @@ private:
 	FftPerformer* fft_performer_;
 	std::vector<FftPerformer> vec_of_fft_performers_;
 
-
+	// for coloring data
+	std::vector<float> freqs_to_be_colored_;
 
 	// for displaying data
 	DataDisplayer* data_displayer_;

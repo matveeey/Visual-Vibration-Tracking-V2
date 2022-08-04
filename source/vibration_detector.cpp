@@ -27,11 +27,11 @@ VibrationDetector::~VibrationDetector()
 void VibrationDetector::SelectPoint(int event, int x, int y, int flags, void* userdata)
 {
 	VibrationDetector* d = static_cast<VibrationDetector*>(userdata);
-	d->OnMouse(event, x, y, flags);
+	d->ClickDetect(event, x, y, flags);
 }
 
 // "helper" function for implementing callback function as a method of C++ class
-void VibrationDetector::OnMouse(int event, int x, int y, int flags)
+void VibrationDetector::ClickDetect(int event, int x, int y, int flags)
 {
 	switch (event) {
 	// ЛКМ была прожата вниз
@@ -89,6 +89,46 @@ void VibrationDetector::OnMouse(int event, int x, int y, int flags)
 	}
 }
 
+void VibrationDetector::SelectRoi(int event, int x, int y, int flags, void* userdata)
+{
+	VibrationDetector* b = static_cast<VibrationDetector*>(userdata);
+	b->DragDetect(event, x, y, flags);
+}
+
+void VibrationDetector::DragDetect(int event, int x, int y, int flags)
+{
+	switch (event)
+	{
+	case EVENT_RBUTTONDOWN:
+		// we need to initialize coordinates so if we select roi again, the default bottim right coordinates would be reset
+		this->right_button_down_ = true;
+		this->tl_click_coords_.x = x;
+		this->tl_click_coords_.y = y;
+		this->br_click_coords_.x = x;
+		this->br_click_coords_.y = y;
+		mouse_move_coords_.x = x;
+		mouse_move_coords_.y = y;
+		roi_ = Rect(tl_click_coords_, br_click_coords_);
+		std::cout << "rbuttondown" << std::endl;
+		break;
+	case EVENT_RBUTTONUP:
+		this->right_button_down_ = false;
+		this->rectangle_selected_ = true;
+		this->br_click_coords_.x = x;
+		this->br_click_coords_.y = y;
+		roi_ = Rect(tl_click_coords_, br_click_coords_);
+		break;
+	case EVENT_MOUSEMOVE:
+		if (right_button_down_)
+		{
+			mouse_move_coords_.x = x;
+			mouse_move_coords_.y = y;
+			roi_ = Rect(tl_click_coords_, mouse_move_coords_);
+		}
+		break;
+	}
+}
+
 bool VibrationDetector::IntersectionCheck(int point_num)
 {
 	Rect offset_box(Point(prev_pts_[point_num].x - point_offset_, prev_pts_[point_num].y - point_offset_), Point(prev_pts_[point_num].x + point_offset_, prev_pts_[point_num].y + point_offset_));
@@ -140,7 +180,7 @@ void VibrationDetector::LucasKanadeDoubleSideTracking(Mat prev_img_gray, Mat nex
 }
 
 
-void VibrationDetector::DrawPoints(std::vector<Point2f> prev_pts, std::vector<Point2f> next_pts, Mat& frame)
+void VibrationDetector::DrawPoints(std::vector<Point2f> prev_pts, std::vector<Point2f> next_pts, Mat& frame, bool rectangle_needed)
 {
 	for (int current_tracking_point = 0; current_tracking_point < static_cast<int>(prev_pts.size()); current_tracking_point++) {
 		// line between two dots (next and previous)
@@ -152,19 +192,21 @@ void VibrationDetector::DrawPoints(std::vector<Point2f> prev_pts, std::vector<Po
 			LINE_AA
 		);
 
-		rectangle(frame, Rect(Point2f(next_pts[current_tracking_point].x - lk_win_size_, next_pts[current_tracking_point].y - lk_win_size_),
-			Point2f(next_pts[current_tracking_point].x + lk_win_size_, next_pts[current_tracking_point].y + lk_win_size_)), Scalar(255, 0, 0), 1);
-
-		// circle
-		if (vec_of_interacts_[current_tracking_point])
+		if (rectangle_needed)
 		{
-			circle(frame, next_pts[current_tracking_point], 10, Scalar(255, 207, 64), 2);
-		}
-		else
-		{
-			circle(frame, next_pts[current_tracking_point], 10, Scalar(0, 0, 255), 2);
-		}
+			rectangle(frame, Rect(Point2f(next_pts[current_tracking_point].x - lk_win_size_, next_pts[current_tracking_point].y - lk_win_size_),
+				Point2f(next_pts[current_tracking_point].x + lk_win_size_, next_pts[current_tracking_point].y + lk_win_size_)), Scalar(255, 0, 0), 1);
 
+			// circle
+			if (vec_of_interacts_[current_tracking_point])
+			{
+				circle(frame, next_pts[current_tracking_point], 10, Scalar(255, 207, 64), 2);
+			}
+			else
+			{
+				circle(frame, next_pts[current_tracking_point], 10, Scalar(0, 0, 255), 2);
+			}
+		}
 	}
 }
 
@@ -175,6 +217,7 @@ void VibrationDetector::ExecuteVibrationDetection()
 	{
 		res_mp_ = 2;
 	}
+	VibrationDisplayer vibration_displayer(MAIN_WINDOW_NAME, frame_processor.GetFrameWidth(), frame_processor.GetFrameHeight());
 
 	vibration_inited_ = false;
 	colors_inited_ = false;
@@ -208,8 +251,12 @@ void VibrationDetector::ExecuteVibrationDetection()
 			// getting next_pts_ updated from Lucas-Kanade tracking
 			LucasKanadeTracking(prev_img_gray_, next_img_gray_, prev_pts_, next_pts_, status_);
 
+			vibration_displayer.UpdateDisplayingPoints(next_pts_);
+			
+
 			// collecting just tracked points
 			std::cout << "doin " << std::endl;
+			std::cout << next_pts_.size();
 			for (int i = 0; i < next_pts_.size(); i++)
 			{
 				interaction_ = IntersectionCheck(i);
@@ -222,24 +269,54 @@ void VibrationDetector::ExecuteVibrationDetection()
 
 				if (((vec_of_fft_performers_[i].GetLengthOfPointData()) % 3 == 0) && (vec_of_fft_performers_[i].GetLengthOfPointData() != 0))
 				{
-
 					vec_of_frequencies_.clear();
 					vec_of_frequencies_ = vec_of_fft_performers_[i].ExecuteFft(sampling_frequency_, false, i); // for a certain point
 
 					vec_of_data_displayer_[i].SetVectorOfFrequencies(vec_of_frequencies_);
+
+					freqs_to_be_colored_.push_back(vec_of_frequencies_[0]);
 				}
-				
-				vec_of_data_displayer_[i].OutputVibrationParameters(current_tracking_frame_, text_coords_[i], res_mp_);
+				if (roi_.empty())
+					vec_of_data_displayer_[i].OutputVibrationParameters(current_tracking_frame_, text_coords_[i], res_mp_);
 			}
 
+			// coloring points
+			vibration_displayer.UpdateFrequencies(freqs_to_be_colored_, 60.0);
+			Mat tmp = current_tracking_frame_;
+			vibration_displayer.ProcessFrame(tmp);
+			current_tracking_frame_ = vibration_displayer.GetFrame();
+
 			// drawing lines
-			DrawPoints(prev_pts_, next_pts_, current_tracking_frame_);
+			DrawPoints(prev_pts_, next_pts_, current_tracking_frame_, roi_.empty());
 
 			// update points and frames
 			this->prev_pts_ = next_pts_;
 			this->prev_vibrating_pts_ = next_vibrating_pts_;
 			next_img_gray_.copyTo(this->prev_img_gray_);
-		}		
+		}	
+		if (this->rectangle_selected_)
+		{
+			//contour_handler_->DrawContours(current_tracking_frame_);
+
+			prev_pts_ = contour_handler_->GetContinousContours();
+			point_selected_ = true;
+			rectangle_selected_ = false;
+
+			for (int i = 0; i < prev_pts_.size(); i++)
+			{
+				colors_inited_ = vibration_displayer.InitColors();
+				this->text_coords_.push_back(prev_pts_[i]);
+
+				this->point_handler_ = new PointHandler(frequency_update_rate_);
+				this->vec_of_point_handlers_.push_back(*point_handler_);
+
+				this->fft_performer_ = new FftPerformer();
+				this->vec_of_fft_performers_.push_back(*fft_performer_);
+
+				this->data_displayer_ = new DataDisplayer();
+				this->vec_of_data_displayer_.push_back(*data_displayer_);
+			}
+		}
 
 		// display and write frame
 		frame_processor.ShowFrame(current_tracking_frame_);
@@ -259,6 +336,21 @@ void VibrationDetector::ExecuteVibrationDetection()
 		case 'p':
 		{
 			waitKey(0);
+			break;
+		}
+		case 'r':
+		{
+			rectangle_selected_ = false;
+			while (!rectangle_selected_)
+			{
+				current_tracking_frame_.copyTo(unchanged_frame_);
+				setMouseCallback(frame_processor.GetWindowName(), SelectRoi, (void*)this);
+				rectangle(unchanged_frame_, roi_.tl(), roi_.br(), Scalar(0, 255, 0), 1);
+				frame_processor.ShowFrame(unchanged_frame_);
+				waitKey(20);
+			}
+			std::cout << "ROI selected..." << std::endl;
+			contour_handler_ = new ContourHandler(current_tracking_frame_, roi_);
 			break;
 		}
 		}
