@@ -95,17 +95,22 @@ std::vector<float> FftPerformer::ExecuteFft(int sampling_frequency, bool absolut
 	}
 
 	/////////////////////////////////////
-
-	/*std::fstream file;
-	file.open("magnitudes.txt", 'w');
-	
-	for (int i = 0; i < magnitudes.size(); i++)
+	std::cout << "coords of point size is: " << coordinates_of_point_.size() << std::endl;
+	if (coordinates_of_point_.size() > 200)
 	{
-		std::string tmp = std::to_string(frequencies[i]) + " " + std::to_string(magnitudes[i]) + " " + std::to_string(p1[i].x) + " " + std::to_string(p1[i].y);
-		file << tmp << std::endl;
+		std::fstream file;
+		file.open("C:/Users/seeyo/source/repos/Visual-Vibration-Tracking-V2/docs/magnitudes.txt", 'w');
+
+		for (int i = 0; i < magnitudes.size(); i++)
+		{
+			std::string tmp = std::to_string(frequencies[i]) + " " + std::to_string(magnitudes[i]) + " " + std::to_string(p1[i].x) + " " + std::to_string(p1[i].y);
+			file << tmp << std::endl;
+		}
+		std::cout << "written written written written written written written written" << std::endl;
+		file.close();
+
+		WriteFftDataToTxt();
 	}
-	std::cout << "written written written written written written written written" << std::endl;
-	file.close();*/
 
 	/////////////////////////////////////
 
@@ -193,14 +198,10 @@ void FftPerformer::WriteSpectrumToTxt()
 	file.close();*/
 }
 
-void FftPerformer::WriteDataToTxt()
+void FftPerformer::WriteFftDataToTxt()
 {
 	std::fstream file;
-	file.open("data.txt", 'w');
-
-	if (file.is_open())
-	{
-	}
+	file.open("C:/Users/seeyo/source/repos/Visual-Vibration-Tracking-V2/docs/data.txt", 'w');
 
 	for (int i = 0; i < this->coordinates_of_point_.size(); i++)
 	{

@@ -26,7 +26,7 @@ public:
 
 	// debug
 	void WriteSpectrumToTxt();
-	void WriteDataToTxt();
+	void WriteFftDataToTxt();
 
 	double GetAmplitude();
 

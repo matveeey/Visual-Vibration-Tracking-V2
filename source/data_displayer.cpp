@@ -4,7 +4,7 @@ void DataDisplayer::OutputVibrationParameters(Mat& frame, Point2f point, int res
 {
 	for (int j = 0; j < static_cast<int>(vec_of_frequencies_.size()); j++)
 	{
-		/*if (!vec_of_frequencies_.empty())
+		if (!vec_of_frequencies_.empty())
 		{
 			putText(
 				frame,
@@ -16,7 +16,7 @@ void DataDisplayer::OutputVibrationParameters(Mat& frame, Point2f point, int res
 				2
 			);
 			
-		}*/
+		}
 	}
 
 }

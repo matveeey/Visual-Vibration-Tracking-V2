@@ -40,7 +40,7 @@ void VibrationDisplayer::ProcessFrame(Mat tmp_frame)
 	// drawing ROI and updating colors
 	//UpdateDisplayingRectangle();
 	UpdateColors();
-	std::cout << colors_.size() << std::endl;
+	//std::cout << colors_.size() << std::endl;
 
 	for (int i = 0; i < points_.size(); i++)
 	{
@@ -93,9 +93,9 @@ void VibrationDisplayer::UpdateColors()
 	// translate frequency [0; range_] to [0; 255] int color value;
 	if (!frequencies_.empty())
 	{
-		std::cout << "UPDATING COLORS" << std::endl;
-		std::cout << frequencies_.size() << std::endl;
-		std::cout << points_.size() << std::endl;
+		//std::cout << "UPDATING COLORS" << std::endl;
+		//std::cout << frequencies_.size() << std::endl;
+		//std::cout << points_.size() << std::endl;
 		
 		colors_.clear();
 		for (int i = 0; i < points_.size(); i++)

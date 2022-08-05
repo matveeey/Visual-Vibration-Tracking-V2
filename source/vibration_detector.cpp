@@ -194,8 +194,8 @@ void VibrationDetector::DrawPoints(std::vector<Point2f> prev_pts, std::vector<Po
 
 		if (rectangle_needed)
 		{
-			rectangle(frame, Rect(Point2f(next_pts[current_tracking_point].x - lk_win_size_, next_pts[current_tracking_point].y - lk_win_size_),
-				Point2f(next_pts[current_tracking_point].x + lk_win_size_, next_pts[current_tracking_point].y + lk_win_size_)), Scalar(255, 0, 0), 1);
+			/*rectangle(frame, Rect(Point2f(next_pts[current_tracking_point].x - lk_win_size_, next_pts[current_tracking_point].y - lk_win_size_),
+				Point2f(next_pts[current_tracking_point].x + lk_win_size_, next_pts[current_tracking_point].y + lk_win_size_)), Scalar(255, 0, 0), 1);*/
 
 			// circle
 			if (vec_of_interacts_[current_tracking_point])
@@ -253,10 +253,9 @@ void VibrationDetector::ExecuteVibrationDetection()
 
 			vibration_displayer.UpdateDisplayingPoints(next_pts_);
 			
-
 			// collecting just tracked points
-			std::cout << "doin " << std::endl;
-			std::cout << next_pts_.size();
+			std::cout << "doin " << next_pts_.size() << std::endl;
+
 			for (int i = 0; i < next_pts_.size(); i++)
 			{
 				interaction_ = IntersectionCheck(i);
