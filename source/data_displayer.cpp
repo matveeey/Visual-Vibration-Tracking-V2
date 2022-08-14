@@ -1,6 +1,6 @@
 #include "VVT-V2\data_displayer.h"
 
-void DataDisplayer::OutputVibrationParameters(Mat& frame, Point2f point, int res_mp)
+void DataDisplayer::OutputVibrationParameters(Mat& frame, Point2f point, int res_mp, Point2f amplitude)
 {
 	for (int j = 0; j < static_cast<int>(vec_of_frequencies_.size()); j++)
 	{
@@ -15,8 +15,28 @@ void DataDisplayer::OutputVibrationParameters(Mat& frame, Point2f point, int res
 				Scalar(0, 69, 255),
 				2
 			);
-			
 		}
+	}
+	if (!vec_of_frequencies_.empty())
+	{
+		putText(
+			frame,
+			"x: " + std::to_string(amplitude.x),
+			Point(point.x, point.y - res_mp * 20),
+			FONT_HERSHEY_PLAIN,
+			res_mp * 1,
+			Scalar(0, 255, 255),
+			2
+		);
+		putText(
+			frame,
+			"y: " + std::to_string(amplitude.y),
+			Point(point.x, point.y - res_mp * 2 * 20),
+			FONT_HERSHEY_PLAIN,
+			res_mp * 1,
+			Scalar(0, 255, 255),
+			2
+		);
 	}
 
 }

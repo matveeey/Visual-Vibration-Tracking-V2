@@ -4,10 +4,11 @@ VibrationDetector::VibrationDetector(std::string input_file_name, std::string ou
 	input_file_name_{ input_file_name },
 	output_file_name_{ output_file_name },
 	window_name_{ window_name },
-	fft_performer_{nullptr},
+	fft_performer_{ nullptr },
 	number_of_points_{ 0 },
 	vec_of_frequencies_{ 0 },
-	frequency_update_rate_{ 20 }
+	frequency_update_rate_{ 20 },
+	warping_figure_selected_{ false }
 {
 	point_selected_ = false;
 	lk_win_size_ = 91;
@@ -53,6 +54,9 @@ void VibrationDetector::ClickDetect(int event, int x, int y, int flags)
 
 		this->data_displayer_ = new DataDisplayer();
 		this->vec_of_data_displayer_.push_back(*data_displayer_);
+
+		this->amplitude_handler_ = new AmplitudeHandler();
+		this->vec_of_amplitude_handlers_.push_back(*amplitude_handler_);
 		break;
 	}
 	case EVENT_RBUTTONDOWN:
@@ -126,6 +130,24 @@ void VibrationDetector::DragDetect(int event, int x, int y, int flags)
 			roi_ = Rect(tl_click_coords_, mouse_move_coords_);
 		}
 		break;
+	}
+}
+
+void VibrationDetector::SelectFigure(int event, int x, int y, int flags, void* userdata)
+{
+	VibrationDetector* b = static_cast<VibrationDetector*>(userdata);
+	b->FigureMountDetect(event, x, y, flags);
+}
+
+void VibrationDetector::FigureMountDetect(int event, int x, int y, int flags)
+{
+	switch (event) {
+		// ЛКМ была прожата вниз
+	case EVENT_LBUTTONDOWN:
+	{
+		warping_figure_.push_back(Point(x, y));
+		break;
+	}
 	}
 }
 
@@ -210,6 +232,17 @@ void VibrationDetector::DrawPoints(std::vector<Point2f> prev_pts, std::vector<Po
 	}
 }
 
+Mat VibrationDetector::GetWarpedFrame(Mat frame, std::vector<Point> points, float w, float h)
+{
+	Point2f src[4] = { points[0], points[1], points [2], points[3] };
+	Point2f dst[4] = { {0.0f,0.0f},{w,0.0f},{0.0f,h},{w,h} };
+
+	Mat matrix = getPerspectiveTransform(src, dst);
+	Mat warped_frame;
+	warpPerspective(frame, warped_frame, matrix, Point(w, h));
+	return warped_frame;
+}
+
 void VibrationDetector::ExecuteVibrationDetection()
 {
 	FrameHandler frame_processor(input_file_name_, output_file_name_, MAIN_WINDOW_NAME);
@@ -225,6 +258,12 @@ void VibrationDetector::ExecuteVibrationDetection()
 	// reading the first frame of sequence so we can convert it to gray color space
 	frame_processor.ReadNextFrame();
 	current_tracking_frame_ = frame_processor.GetCurrentFrame();
+
+	if (warping_figure_selected_)
+	{
+		current_tracking_frame_ = GetWarpedFrame(current_tracking_frame_, warping_figure_, frame_processor.GetFrameWidth(), frame_processor.GetFrameHeight());
+	}
+
 	prev_img_gray_ = frame_processor.GetGrayFrame(current_tracking_frame_);
 	sampling_frequency_ = frame_processor.GetInputFps();
 
@@ -239,7 +278,24 @@ void VibrationDetector::ExecuteVibrationDetection()
 		// reading next frame and converting it to gray color space
 		frame_processor.ReadNextFrame();
 		current_tracking_frame_ = frame_processor.GetCurrentFrame();
+		current_tracking_frame_.copyTo(copy_of_current_tracking_frame_);
+
+		if (warping_figure_selected_)
+		{
+			current_tracking_frame_ = GetWarpedFrame(current_tracking_frame_, warping_figure_, frame_processor.GetFrameWidth(), frame_processor.GetFrameHeight());
+		}
+
 		next_img_gray_ = frame_processor.GetGrayFrame(current_tracking_frame_);
+
+		/// adding tip but in stupid way
+		if (!this->point_selected_)
+		{
+			Mat tmp = current_tracking_frame_;
+			vibration_displayer.ProcessFrame(tmp);
+			current_tracking_frame_ = vibration_displayer.GetFrame();
+			
+		}
+		///
 
 		// callback function for detecting the click - these coords are our starting point
 		setMouseCallback(frame_processor.GetWindowName(), SelectPoint, (void*)this);
@@ -265,18 +321,20 @@ void VibrationDetector::ExecuteVibrationDetection()
 					vec_of_interacts_.push_back(false);
 
 				vec_of_fft_performers_[i].CollectTrackedPoints(frame_processor.GetCurrentPosOfFrame(), next_pts_[i], frame_processor.GetCurrentTimeOfFrame(), i);
+				vec_of_amplitude_handlers_[i].CollectTrackedPoints(next_pts_[i]);
 
 				if (((vec_of_fft_performers_[i].GetLengthOfPointData()) % 3 == 0) && (vec_of_fft_performers_[i].GetLengthOfPointData() != 0))
 				{
 					vec_of_frequencies_.clear();
 					vec_of_frequencies_ = vec_of_fft_performers_[i].ExecuteFft(sampling_frequency_, false, i); // for a certain point
+					amplitude_ = vec_of_amplitude_handlers_[i].CalculateAmplitude();
 
 					vec_of_data_displayer_[i].SetVectorOfFrequencies(vec_of_frequencies_);
 
 					freqs_to_be_colored_.push_back(vec_of_frequencies_[0]);
 				}
 				if (roi_.empty())
-					vec_of_data_displayer_[i].OutputVibrationParameters(current_tracking_frame_, text_coords_[i], res_mp_);
+					vec_of_data_displayer_[i].OutputVibrationParameters(current_tracking_frame_, text_coords_[i], res_mp_, amplitude_);
 			}
 
 			// coloring points
@@ -314,6 +372,9 @@ void VibrationDetector::ExecuteVibrationDetection()
 
 				this->data_displayer_ = new DataDisplayer();
 				this->vec_of_data_displayer_.push_back(*data_displayer_);
+
+				this->amplitude_handler_ = new AmplitudeHandler();
+				this->vec_of_amplitude_handlers_.push_back(*amplitude_handler_);
 			}
 		}
 
@@ -325,24 +386,69 @@ void VibrationDetector::ExecuteVibrationDetection()
 		int code = waitKey(20);
 		switch (code)
 		{
-		case 'q':
+		case 32:
 		{
-			frame_processor.~FrameHandler();
-			running_ = false;
-			std::cout << frame_processor.GetInputCapStatus() << std::endl;
+			vibration_displayer.SetMode(0);
+
+			Mat tmp = copy_of_current_tracking_frame_;
+			vibration_displayer.ProcessFrame(tmp);
+			copy_of_current_tracking_frame_ = vibration_displayer.GetFrame();
+			frame_processor.ShowFrame(copy_of_current_tracking_frame_);
+			frame_processor.WriteFrame(copy_of_current_tracking_frame_);
+
+			waitKey(0);
+			vibration_displayer.SetMode(-1);
 			break;
 		}
-		case 'p':
+		case 'c':
 		{
-			waitKey(0);
+			vibration_displayer.SetMode(1);
+
+			Mat tmp = copy_of_current_tracking_frame_;
+			vibration_displayer.ProcessFrame(tmp);
+			copy_of_current_tracking_frame_ = vibration_displayer.GetFrame();
+			frame_processor.ShowFrame(copy_of_current_tracking_frame_);
+
+			if (warping_figure_selected_)
+			{
+				warping_figure_selected_ = false;
+				warping_figure_.clear();
+			}
+			while (!warping_figure_selected_)
+			{
+				std::cout << "size is: " << warping_figure_.size() << std::endl;
+				copy_of_current_tracking_frame_.copyTo(unchanged_frame_);
+				setMouseCallback(frame_processor.GetWindowName(), SelectFigure, (void*)this);
+
+				for (int i = 0; i < warping_figure_.size(); i++)
+				{
+					circle(unchanged_frame_, warping_figure_[i], 10, Scalar(255, 207, 64), 2);
+				}
+
+				if (warping_figure_.size() == 4)
+					warping_figure_selected_ = true;
+
+				frame_processor.ShowFrame(unchanged_frame_);
+				waitKey(20);
+			}
+
+			//waitKey(0);
+			vibration_displayer.SetMode(-1);
 			break;
 		}
 		case 'r':
 		{
+			vibration_displayer.SetMode(2);
+
+			Mat tmp = copy_of_current_tracking_frame_;
+			vibration_displayer.ProcessFrame(tmp);
+			copy_of_current_tracking_frame_ = vibration_displayer.GetFrame();
+			frame_processor.ShowFrame(copy_of_current_tracking_frame_);
+
 			rectangle_selected_ = false;
 			while (!rectangle_selected_)
 			{
-				current_tracking_frame_.copyTo(unchanged_frame_);
+				copy_of_current_tracking_frame_.copyTo(unchanged_frame_);
 				setMouseCallback(frame_processor.GetWindowName(), SelectRoi, (void*)this);
 				rectangle(unchanged_frame_, roi_.tl(), roi_.br(), Scalar(0, 255, 0), 1);
 				frame_processor.ShowFrame(unchanged_frame_);
@@ -350,6 +456,21 @@ void VibrationDetector::ExecuteVibrationDetection()
 			}
 			std::cout << "ROI selected..." << std::endl;
 			contour_handler_ = new ContourHandler(current_tracking_frame_, roi_);
+			vibration_displayer.SetMode(-1);
+			break;
+		}
+		case 'q':
+		{
+			vibration_displayer.SetMode(3);
+
+			Mat tmp = copy_of_current_tracking_frame_;
+			vibration_displayer.ProcessFrame(tmp);
+			copy_of_current_tracking_frame_ = vibration_displayer.GetFrame();
+			frame_processor.ShowFrame(copy_of_current_tracking_frame_);
+
+			frame_processor.~FrameHandler();
+			running_ = false;
+			std::cout << frame_processor.GetInputCapStatus() << std::endl;
 			break;
 		}
 		}

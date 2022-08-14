@@ -22,8 +22,10 @@ public:
 	void SetRoi(Rect roi);
 	void UpdateFrequencies(std::vector<float> frequencies, double range);
 	void UpdateDisplayingPoints(std::vector<Point2f> points);
+	void SetMode(int mode);
+
 private:
-	// making frame black
+	Mat AddTipText(Mat frame);
 	void ClearFrame();
 	void UpdateDisplayingRectangle();
 	void UpdateColors();
@@ -34,6 +36,7 @@ public:
 	std::vector<int> Rgb(double ratio);
 private:
 	Mat tmp_frame_;
+	int mode_;
 
 	std::string window_name_;
 	int frame_width_;

@@ -3,7 +3,8 @@
 VibrationDisplayer::VibrationDisplayer(std::string window_name, int frame_width, int frame_height)
 	:window_name_{ window_name },
 	frame_width_{ frame_width },
-	frame_height_{ frame_height }
+	frame_height_{ frame_height },
+	mode_{ -1 }
 {
 	
 }
@@ -31,6 +32,46 @@ bool VibrationDisplayer::InitColors()
 	return true;
 }
 
+Mat VibrationDisplayer::AddTipText(Mat frame)
+{
+	std::vector<std::string> tip_text = { "SPACE pause", "C calib mode for amplitude", "R set ROI", "Q quit" };
+	Point local_offset = Point(0, 20);
+	Point top_left_offset = Point(5, local_offset.y);
+	switch (mode_)
+	{
+	case -1:
+	{
+		putText(/*frame_*/frame, tip_text[0], top_left_offset, FONT_HERSHEY_PLAIN, 1, Scalar(255, 100, 100), 1, 8, false);
+		putText(/*frame_*/frame, tip_text[1], top_left_offset + local_offset, FONT_HERSHEY_PLAIN, 1, Scalar(255, 100, 100), 1, 8, false);
+		putText(/*frame_*/frame, tip_text[2], top_left_offset + local_offset * 2, FONT_HERSHEY_PLAIN, 1, Scalar(255, 100, 100), 1, 8, false);
+		putText(/*frame_*/frame, tip_text[3], top_left_offset + local_offset * 3, FONT_HERSHEY_PLAIN, 1, Scalar(255, 100, 100), 1, 8, false);
+		break;
+	}
+	case 0:
+	{
+
+		putText(/*frame_*/frame, tip_text[0], top_left_offset, FONT_HERSHEY_PLAIN, 1, Scalar(255, 100, 100), 1, 8, false);
+		break;
+	}
+	case 1:
+	{
+		putText(/*frame_*/frame, tip_text[1], top_left_offset + local_offset, FONT_HERSHEY_PLAIN, 1, Scalar(255, 100, 100), 1, 8, false);
+		break;
+	}
+	case 2:
+	{
+		putText(/*frame_*/frame, tip_text[2], top_left_offset + local_offset * 2, FONT_HERSHEY_PLAIN, 1, Scalar(255, 100, 100), 1, 8, false);
+		break;
+	}
+	case 3:
+	{
+		putText(/*frame_*/frame, tip_text[3], top_left_offset + local_offset * 3, FONT_HERSHEY_PLAIN, 1, Scalar(255, 100, 100), 1, 8, false);
+		break;
+	}
+	}
+	return frame;
+}
+
 void VibrationDisplayer::ProcessFrame(Mat tmp_frame)
 {
 	// "le kostyl", going to be fixed later
@@ -48,13 +89,8 @@ void VibrationDisplayer::ProcessFrame(Mat tmp_frame)
 		circle(/*frame_*/tmp_frame_, points_[i], 1, colors_[i], FILLED);
 	}
 
-	// adding frequency gradient
-
 	AddGradient();
-
-	// finally showing frame
-	// uncomment to show in another window
-	//imshow(window_name_, frame_);
+	tmp_frame_ = AddTipText(tmp_frame_);
 }
 
 Mat VibrationDisplayer::GetFrame()
@@ -76,6 +112,11 @@ void VibrationDisplayer::UpdateFrequencies(std::vector<float> frequencies, doubl
 void VibrationDisplayer::UpdateDisplayingPoints(std::vector<Point2f> points)
 {
 	points_ = points;
+}
+
+void VibrationDisplayer::SetMode(int mode)
+{
+	mode_ = mode;
 }
 
 void VibrationDisplayer::ClearFrame()

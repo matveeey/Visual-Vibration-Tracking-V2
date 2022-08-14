@@ -15,16 +15,18 @@
 // my headers
 #include "VVT-V2/point_handler.h"
 #include "VVT-V2/contour_handler.h"
-#include "VVT-V2\frame_handler.h"
-#include "VVT-V2\fft_performer.h"
-#include "VVT-V2\data_displayer.h"
+#include "VVT-V2/frame_handler.h"
+#include "VVT-V2/fft_performer.h"
+#include "VVT-V2/data_displayer.h"
 #include "VVT-V2/vibration_displayer.h"
+#include "VVT-V2/amplitude_handler.h"
 
 class VibrationDetector
 {
 public:
 	VibrationDetector(std::string input_file_name, std::string output_file_name, std::string window_name);
 	~VibrationDetector();
+	Mat GetWarpedFrame(Mat frame, std::vector<Point> points, float w, float h);
 	void ExecuteVibrationDetection();
 
 private:
@@ -35,6 +37,10 @@ private:
 	// callback functions for detecting the click
 	static void SelectRoi(int event, int x, int y, int flags, void* userdata);
 	void DragDetect(int event, int x, int y, int flags);
+
+	// callback functions for warping figure
+	static void SelectFigure(int event, int x, int y, int flags, void* userdata);
+	void FigureMountDetect(int event, int x, int y, int flags);
 
 	// for detecting intersection between cursor and point offset
 	bool IntersectionCheck(int point_num);
@@ -72,6 +78,7 @@ private:
 	String v_monitor_window_name_;
 
 	Mat current_tracking_frame_;
+	Mat copy_of_current_tracking_frame_;
 	
 	// for detecting the click
 	bool point_selected_;
@@ -89,6 +96,10 @@ private:
 	Rect roi_;
 	std::vector<Point2f> prev_vibrating_pts_;
 	std::vector<Point2f> next_vibrating_pts_;
+
+	// for warping rectangle
+	bool warping_figure_selected_;
+	std::vector<Point> warping_figure_;
 
 	// for Lucas-Kanade tracking
 	Mat prev_img_gray_;
@@ -119,6 +130,10 @@ private:
 	DataDisplayer* data_displayer_;
 	std::vector<DataDisplayer> vec_of_data_displayer_;
 	std::vector<float> vec_of_frequencies_; // for a certain point
+
+	AmplitudeHandler* amplitude_handler_;
+	std::vector<AmplitudeHandler> vec_of_amplitude_handlers_;
+	Point2f amplitude_;
 };
 
 #endif
