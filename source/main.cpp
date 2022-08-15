@@ -95,8 +95,6 @@ int main(int argc, char** argv)
 	}
 	int code = std::stoi(type);
 
-	std::cout << "\nProgram " << program_name << " started\n" << std::endl;
-
 	return Execute(txt_file_name, code);
 }
 

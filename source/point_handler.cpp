@@ -17,6 +17,10 @@ PointHandler::PointHandler(Point2f init_coordinates, int update_rate, double sam
 	// DELETE THIS WHEN ULL IMPLEMENT FFT
 }
 
+PointHandler::~PointHandler()
+{
+}
+
 void PointHandler::ExecuteFft()
 {
 	bool absolute_peak = false;
@@ -107,7 +111,7 @@ void PointHandler::ExecuteFft()
 
 	/////////////////////////////////////
 
-	if (point_coordinates_.size() > 200)
+	if (point_coordinates_.size() > 1000)
 	{
 		std::fstream file;
 		file.open("C:/Users/seeyo/source/repos/Visual-Vibration-Tracking-V2/docs/magnitudes.txt", 'w');

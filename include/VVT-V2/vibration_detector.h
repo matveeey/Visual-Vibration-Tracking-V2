@@ -13,7 +13,6 @@
 #include <opencv2/video/tracking.hpp>
 
 // my headers
-#include "VVT-V2/data_displayer.h"
 #include "VVT-V2/point_handler.h"
 #include "VVT-V2/frame_handler.h"
 

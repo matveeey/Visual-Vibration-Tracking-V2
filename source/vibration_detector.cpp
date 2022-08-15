@@ -17,7 +17,6 @@ VibrationDetector::VibrationDetector(std::string input_file_name, std::string ou
 
 VibrationDetector::~VibrationDetector()
 {
-
 }
 
 void VibrationDetector::ServeTheQueues()
@@ -56,6 +55,7 @@ void VibrationDetector::DeletePoints(Point2i mouse_coordinates)
 			point_ids_to_be_deleted_.push_back(i);
 		}
 	}
+	std::cout << "DEBUG: deleting "<< point_ids_to_be_deleted_.size() << " point" << std::endl;
 	// проходимся по вектору точек на удаление
 	while (!point_ids_to_be_deleted_.empty())
 	{
@@ -124,14 +124,15 @@ Mat VibrationDetector::MakeWarpedFrame(Mat frame, std::vector<Point2i> warping_f
 		warping_figure[i].y = warping_figure[i].y * coeff;
 	}
 
-	float w =
+	/*float w =
 		sqrt((warping_figure[2].x - warping_figure[3].x) * (warping_figure[2].x - warping_figure[3].x)
 		+
-		(warping_figure[2].y - warping_figure[3].y) * (warping_figure[2].y - warping_figure[3].y));
+		(warping_figure[2].y - warping_figure[3].y) * (warping_figure[2].y - warping_figure[3].y)) * 2 / 3;*/
 	float h =
 		sqrt((warping_figure[1].x - warping_figure[3].x) * (warping_figure[1].x - warping_figure[3].x)
 		+
 		(warping_figure[1].y - warping_figure[3].y) * (warping_figure[1].y - warping_figure[3].y));
+	float w = h * 2 / 3;
 
 	Point2f dst[4] = { {0.0f,0.0f},{w,0.0f},{0.0f,h},{w,h} };
 
@@ -457,11 +458,12 @@ void VibrationDetector::ExecuteVibrationDetection()
 			copy_of_current_tracking_frame_ = vibration_displayer.GetFrame();
 			frame_processor.ShowFrame(copy_of_current_tracking_frame_);*/
 
-			frame_processor.~FrameHandler();
+			
 			running_ = false;
 			std::cout << frame_processor.GetInputCapStatus() << std::endl;
 			break;
 		}
 		}
 	}
+	
 }

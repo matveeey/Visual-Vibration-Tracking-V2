@@ -23,12 +23,11 @@ FrameHandler::FrameHandler(const std::string input_file_name, const std::string 
 
 FrameHandler::~FrameHandler()
 {
+	destroyWindow(window_name_);
 	this->input_cap_->release();
 	delete this->input_cap_;
 	this->output_cap_->release();
 	delete this->output_cap_;
-
-	destroyWindow(window_name_);
 }
 
 void FrameHandler::ReadNextFrame()

@@ -18,6 +18,7 @@ class PointHandler
 {
 public:
 	PointHandler(Point2f init_coordinates, int update_rate, double sampling_rate);
+	~PointHandler();
 	// Применяет БПФ (FFT) для координат (позиций) точки
 	void ExecuteFft();
 	// Возвращает последний элемент вектора координат
