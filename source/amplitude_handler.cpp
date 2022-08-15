@@ -53,17 +53,6 @@ Point2f AmplitudeHandler::CalculateAmplitude()
 	else return Point2f(amplitude_in_percents_x, amplitude_in_percents_y);
 }
 
-Mat AmplitudeHandler::GetWarpedFrame(Mat frame, Rect r, float w, float h)
-{
-	Point2f src[4] = { Point2f(r.tl().x, r.br().y), r.br(), Point2f(r.br().x, r.tl().y), r.tl() };
-	Point2f dst[4] = { {0.0f,0.0f},{w,0.0f},{0.0f,h},{w,h} };
-
-	Mat matrix = getPerspectiveTransform(src, dst);
-	Mat warped_frame;
-	warpPerspective(frame, warped_frame, matrix, Point(w, h));
-	return warped_frame;
-}
-
 double AmplitudeHandler::DistanceBtwn2Points(Point2f first_point, Point2f second_point)
 {
 	return sqrt((second_point.x - first_point.x) * (second_point.x - first_point.x) + (second_point.y - first_point.y) * (second_point.y - first_point.y));

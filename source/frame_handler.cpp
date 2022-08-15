@@ -52,8 +52,6 @@ void FrameHandler::WriteFrame(Mat frame)
 Mat FrameHandler::GetGrayFrame(Mat frame_to_be_grayed)
 {
 	Mat grayed_frame;
-	std::cout << "master" << std::endl;
-	std::cout << current_pos_of_frame_ << std::endl;
 
 	cvtColor(frame_to_be_grayed, grayed_frame, COLOR_BGR2GRAY);
 	
@@ -61,7 +59,6 @@ Mat FrameHandler::GetGrayFrame(Mat frame_to_be_grayed)
 	{		
 		GaussianBlur(grayed_frame, grayed_frame, Size(3, 3), 0);
 	}
-	std::cout << "slave" << std::endl;
 	return grayed_frame;
 }
 

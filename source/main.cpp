@@ -99,3 +99,35 @@ int main(int argc, char** argv)
 
 	return Execute(txt_file_name, code);
 }
+
+
+//#include <iostream>
+//#include <opencv2/opencv.hpp>
+//
+//void main()
+//{
+//	std::vector<int> vector_;
+//	for (int i = 0; i < 9; i++)
+//	{
+//		vector_.push_back(i);
+//	}
+//	int num = 0;
+//	for (int i = 0; i < vector_.size(); i++)
+//	{
+//		std::cout << "vector_[" << i << "] contains: " << vector_[i] << std::endl;
+//		if (i == 4)
+//		{
+//			num = i;
+//		}
+//	}
+//	vector_.erase(std::begin(vector_) + num);
+//	std::cout << "deleting " << num << "-th element" << std::endl;
+//	for (int i = 0; i < vector_.size(); i++)
+//	{
+//		std::cout << "vector_[" << i << "] contains: " << vector_[i] << std::endl;
+//		if (i == 4)
+//		{
+//			num = i;
+//		}
+//	}
+//}
