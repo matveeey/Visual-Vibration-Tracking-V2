@@ -56,7 +56,7 @@ Mat FrameHandler::GetGrayFrame(Mat frame_to_be_grayed)
 	
 	if (!frame_to_be_grayed.empty())
 	{		
-		GaussianBlur(grayed_frame, grayed_frame, Size(3, 3), 0);
+		GaussianBlur(grayed_frame, grayed_frame, Size(5, 5), 0);
 	}
 	return grayed_frame;
 }

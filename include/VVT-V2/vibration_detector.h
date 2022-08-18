@@ -14,6 +14,7 @@
 
 // my headers
 #include "VVT-V2/point_handler.h"
+#include "VVT-V2/histogram.h"
 #include "VVT-V2/frame_handler.h"
 
 class VibrationDetector 
@@ -31,6 +32,8 @@ private:
 	void CreateNewPoint(Point2f mouse_coordinates);
 	// Удаляем объект точку
 	void DeletePoints(Point2i mouse_coordinates);
+	// Вывод гистограммы (нет блин инстаграммы)
+	void PlotHistogram(Point2i mouse_coordinates);
 	// callback functions for detecting the click
 	static void OnMouse(int event, int x, int y, int flags, void* userdata);
 	void DetectEvent(int event, int x, int y, int flags);
@@ -52,10 +55,14 @@ private:
 	std::vector<Point2i> create_queue_;
 	// Очередь на удаление точек
 	std::vector<Point2i> delete_queue_;
+	// Очередь на отрисовку гистограм
+	std::vector<Point2i> histograms_queue_;
 	// Предыдущие позиции точек
 	std::vector<Point2f> previous_points_coordinates_;
 	// Points handling
 	std::vector<PointHandler> vec_point_handlers_;
+	// Histogram
+	std::vector<Histogram> vec_histograms_;
 
 	// R MODE
 	// 

@@ -5,16 +5,15 @@ PointHandler::PointHandler(Point2f init_coordinates, int update_rate, double sam
 	interaction_offset_{ 100 },
 	sampling_rate_{ sampling_rate }
 {
+	// ƒобавл€ем первые координаты клика мышью
 	point_coordinates_.push_back(init_coordinates);
 	interaction_box_ = Rect(
 		Point2i(init_coordinates.x - interaction_offset_, init_coordinates.y - interaction_offset_),
 		Point2i(init_coordinates.x + interaction_offset_, init_coordinates.y + interaction_offset_)
 	);
 
-	// TEMPORARY:
 	frequencies_.push_back(0.0);
 	amplitude_ = Point3f(0.0, 0.0, 0.0);
-	// DELETE THIS WHEN ULL IMPLEMENT FFT
 }
 
 PointHandler::~PointHandler()
@@ -111,7 +110,7 @@ void PointHandler::ExecuteFft()
 
 	/////////////////////////////////////
 
-	if (point_coordinates_.size() > 1000)
+	if (point_coordinates_.size() > 300)
 	{
 		std::fstream file;
 		file.open("C:/Users/seeyo/source/repos/Visual-Vibration-Tracking-V2/docs/magnitudes.txt", 'w');
@@ -126,6 +125,9 @@ void PointHandler::ExecuteFft()
 
 		//WriteFftDataToTxt();
 	}
+
+	x_ = frequencies;
+	y_ = magnitudes;
 
 	/////////////////////////////////////
 
@@ -164,7 +166,8 @@ void PointHandler::ExecuteFft()
 			//std::cout << "Max is " << frequencies[indexes_of_peak_frequencies[i]] << std::endl;
 		}
 	}
-
+	// DEBUG
+	/*std::cout << "frequencies amount: " << indexes_of_peak_frequencies.size() << std::endl;*/
 	if (absolute_peak)
 	{
 		int maxIdx = 0;
@@ -184,7 +187,7 @@ void PointHandler::ExecuteFft()
 	}
 
 
-
+	
 	frequencies_ = peak_frequencies;
 }
 
@@ -193,9 +196,9 @@ Point2f PointHandler::GetLastFoundCoordinates()
 	return point_coordinates_.back();
 }
 
-double PointHandler::GetCurrentVibrationFrequency()
+std::vector<double> PointHandler::GetCurrentVibrationFrequency()
 {
-	return frequencies_.back();
+	return frequencies_;
 }
 
 Point3f PointHandler::GetCurrentAmplitude()
@@ -229,4 +232,14 @@ void PointHandler::AddNewCoordinate(Point2f position)
 void PointHandler::AddFrameTimePos(double frame_time)
 {
 	point_time_coordinates_.push_back(frame_time);
+}
+
+std::vector<double> PointHandler::GetX()
+{
+	return x_;
+}
+
+std::vector<float> PointHandler::GetY()
+{
+	return y_;
 }

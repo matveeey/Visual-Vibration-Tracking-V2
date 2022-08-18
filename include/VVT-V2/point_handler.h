@@ -7,7 +7,6 @@
 
 // OpenCV headers
 #include <opencv2/opencv.hpp>
-//#include <opencv2/ml.hpp>
 
 // other headers
 #include "VVT-V2/PeakFinder.h"
@@ -23,8 +22,8 @@ public:
 	void ExecuteFft();
 	// Возвращает последний элемент вектора координат
 	Point2f GetLastFoundCoordinates();
-	// Возвращает текущую частоту точки
-	double GetCurrentVibrationFrequency();
+	// Возвращает текущие частоты точки
+	std::vector<double> GetCurrentVibrationFrequency();
 	// Возвращает текущую найденную амплитуду
 	Point3f GetCurrentAmplitude();
 	// Возвращает точку, необходимую для отображения координат
@@ -35,6 +34,10 @@ public:
 	void AddNewCoordinate(Point2f position);
 	// Добавляет новое значение времени кадра для трекаемой точки извне
 	void AddFrameTimePos(double time);
+
+	// TEMPORARY
+	std::vector<double> GetX();
+	std::vector<float> GetY();
 
 private:
 
@@ -53,6 +56,11 @@ private:
 	std::vector<double> point_time_coordinates_;
 	// Параметры БПФ (FFT)
 	double sampling_rate_;
+
+	// TEMPORARY
+	std::vector<double> x_;
+	std::vector<float> y_;
+
 };
 
 #endif
