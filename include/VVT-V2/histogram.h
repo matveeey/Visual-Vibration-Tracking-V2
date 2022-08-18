@@ -48,6 +48,7 @@ private:
 
 	std::vector<double> x_values_;
 	std::vector<float> y_values_;
+	std::vector<int> values_accordance_;
 
 	int x_limit_;
 

@@ -301,6 +301,12 @@ void VibrationDetector::DrawData(Mat& frame)
 		}
 		else circle_color = Scalar(255, 75, 25);
 
+		// отрисовываем прямоугольник взаимодействия (если оно есть)
+		if (vec_point_handlers_[i].IsInteracted(last_mouse_position_))
+		{
+			rectangle(frame, vec_point_handlers_[i].GetInteractionBox(), Scalar(0, 255, 0), 1);
+		}
+
 		// отрисовываем линии точек
 		line(frame, previous_points_coordinates_[i], new_point, Scalar(0, 255, 0), 1, LINE_AA);
 

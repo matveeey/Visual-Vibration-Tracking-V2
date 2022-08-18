@@ -3,7 +3,7 @@
 PointHandler::PointHandler(Point2f init_coordinates, int update_rate, double sampling_rate, int point_id) :
 	Histogram{ 600, 300, sampling_rate / 2, point_id },
 	update_rate_{ update_rate },
-	interaction_offset_{ 100 },
+	interaction_offset_{ 50 },
 	sampling_rate_{ sampling_rate },
 	point_id_{ point_id }
 {
@@ -214,6 +214,11 @@ Point2f PointHandler::GetTextCoordinates()
 	if (!point_coordinates_.empty())
 		return point_coordinates_[0];
 	else return Point2f(0.0, 0.0);
+}
+
+Rect PointHandler::GetInteractionBox()
+{
+	return interaction_box_;
 }
 
 bool PointHandler::IsInteracted(Point2i coordinates)

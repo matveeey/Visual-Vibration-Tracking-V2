@@ -23,14 +23,6 @@ public:
 	~PointHandler();
 	// Применяет БПФ (FFT) для координат (позиций) точки
 	void ExecuteFft();
-	// Возвращает последний элемент вектора координат
-	Point2f GetLastFoundCoordinates();
-	// Возвращает текущие частоты точки
-	std::vector<double> GetCurrentVibrationFrequency();
-	// Возвращает текущую найденную амплитуду
-	Point3f GetCurrentAmplitude();
-	// Возвращает точку, необходимую для отображения координат
-	Point2f GetTextCoordinates();
 	// Возвращает true в случае попадания координат из входного значения в interaction_box точки
 	bool IsInteracted(Point2i coordinates);
 	// Добавляет новые координаты точки извне
@@ -43,6 +35,19 @@ public:
 	// TEMPORARY
 	std::vector<double> GetX();
 	std::vector<float> GetY();
+
+// Геттеры
+public:
+	// Возвращает последний элемент вектора координат
+	Point2f GetLastFoundCoordinates();
+	// Возвращает текущие частоты точки
+	std::vector<double> GetCurrentVibrationFrequency();
+	// Возвращает текущую найденную амплитуду
+	Point3f GetCurrentAmplitude();
+	// Возвращает точку, необходимую для отображения координат
+	Point2f GetTextCoordinates();
+	// Возвращает координаты прямоугольника взаимодействия
+	Rect GetInteractionBox();
 
 private:
 
