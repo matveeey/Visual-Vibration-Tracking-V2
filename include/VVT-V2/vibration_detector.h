@@ -30,6 +30,8 @@ private:
 	void ServeTheQueues();
 	// Создаем объект точку
 	void CreateNewPoint(Point2f mouse_coordinates);
+	// Обработчик левых кликов
+	void LeftClickHandler(Point2f mouse_coordinates);
 	// Удаляем объект точку
 	void DeletePoints(Point2i mouse_coordinates);
 	// callback functions for detecting the click
@@ -50,7 +52,7 @@ private:
 	// NORMAL MODE
 	// 
 	// Очередь на создание точек
-	std::vector<Point2i> create_queue_;
+	std::vector<Point2i> l_click_queue_;
 	// Очередь на удаление точек
 	std::vector<Point2i> delete_queue_;
 	// Очередь на отрисовку гистограм
@@ -59,8 +61,6 @@ private:
 	std::vector<Point2f> previous_points_coordinates_;
 	// Points handling
 	std::vector<PointHandler> vec_point_handlers_;
-	// Histogram
-	std::vector<Histogram> vec_histograms_;
 	
 
 	// R MODE

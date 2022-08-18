@@ -7,7 +7,8 @@ VibrationDetector::VibrationDetector(std::string input_file_name, std::string ou
 	number_of_points_{ 0 },
 	update_rate_{ 20 },
 	warping_figure_selecting_{ false },
-	roi_selecting_{ false }
+	roi_selecting_{ false },
+	point_id_{ 0 }
 {
 	point_selected_ = false;
 	lk_win_size_ = 30;
@@ -23,27 +24,49 @@ VibrationDetector::~VibrationDetector()
 
 void VibrationDetector::ServeTheQueues()
 {
-	for (int i = 0; i < create_queue_.size(); i++)
+	for (int i = 0; i < l_click_queue_.size(); i++)
 	{
-		CreateNewPoint(create_queue_[i]);
+		LeftClickHandler(l_click_queue_[i]);
 	}
 	for (int i = 0; i < delete_queue_.size(); i++)
 	{
 		DeletePoints(delete_queue_[i]);
 	}
-	create_queue_.clear();
+	l_click_queue_.clear();
 	delete_queue_.clear();
 }
 
 void VibrationDetector::CreateNewPoint(Point2f mouse_coordinates)
 {
-	PointHandler point_handler_ = PointHandler(mouse_coordinates, update_rate_, fps_);
+	PointHandler point_handler_ = PointHandler(mouse_coordinates, update_rate_, fps_, point_id_++);
 	vec_point_handlers_.push_back(point_handler_);
 
-	Histogram histogram = Histogram(600, 300, static_cast<int>(fps_ / 2));
-	vec_histograms_.push_back(histogram);
-
 	std::cout << "DEBUG: creating new point" << std::endl;
+}
+
+void VibrationDetector::LeftClickHandler(Point2f mouse_coordinates)
+{
+	// если вектор пустой - просто добавляем новую точку
+	if (vec_point_handlers_.empty())
+	{
+		CreateNewPoint(mouse_coordinates);
+	}
+	else
+	{
+		// проходим по всему вектору точек
+		bool flag_interacted_ = false;
+		for (int i = 0; i < vec_point_handlers_.size(); i++)
+		{
+			// если произошло пересечение с мышкой, то новую точку не добавляем
+			if (vec_point_handlers_[i].IsInteracted(mouse_coordinates))
+			{
+				vec_point_handlers_[i].SetHistogramFlag(true);
+				flag_interacted_ = true;
+			}
+		}
+		if (!flag_interacted_)
+			CreateNewPoint(mouse_coordinates);
+	}
 }
 
 void VibrationDetector::DeletePoints(Point2i mouse_coordinates)
@@ -93,7 +116,7 @@ void VibrationDetector::DetectEvent(int event, int x, int y, int flags)
 	{
 		if (!roi_selecting_ && !warping_figure_selecting_)
 		{
-			create_queue_.push_back(Point2i(x, y));
+			l_click_queue_.push_back(Point2i(x, y));
 		}
 		if (warping_figure_selecting_)
 		{
@@ -284,12 +307,10 @@ void VibrationDetector::DrawData(Mat& frame)
 		// отрисовываем круг вокруг точки
 		circle(frame, new_point, 10, circle_color, 2);
 
-		std::vector<double> frequency = vec_point_handlers_[i].GetCurrentVibrationFrequency();
+		// отрисовываем гистограмму
+		vec_point_handlers_[i].PlotHistogram();
 
-		// обновляем данные гистограммы и отрисовываем их
-		vec_histograms_[i].set_y_values(vec_point_handlers_[i].GetY());
-		vec_histograms_[i].set_x_values(vec_point_handlers_[i].GetX());
-		vec_histograms_[i].plot_histogram();
+		std::vector<double> frequency = vec_point_handlers_[i].GetCurrentVibrationFrequency();
 
 		// отрисовываем частоту вибрации
 		for (int j = 0; j < frequency.size(); j++)

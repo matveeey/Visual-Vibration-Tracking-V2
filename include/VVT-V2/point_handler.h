@@ -8,15 +8,18 @@
 // OpenCV headers
 #include <opencv2/opencv.hpp>
 
+// my headers
+#include "VVT-V2/histogram.h"
+
 // other headers
 #include "VVT-V2/PeakFinder.h"
 
 using namespace cv;
 
-class PointHandler
+class PointHandler : public Histogram
 {
 public:
-	PointHandler(Point2f init_coordinates, int update_rate, double sampling_rate);
+	PointHandler(Point2f init_coordinates, int update_rate, double sampling_rate, int point_id);
 	~PointHandler();
 	// Применяет БПФ (FFT) для координат (позиций) точки
 	void ExecuteFft();
@@ -34,6 +37,8 @@ public:
 	void AddNewCoordinate(Point2f position);
 	// Добавляет новое значение времени кадра для трекаемой точки извне
 	void AddFrameTimePos(double time);
+	// Отрисовывает гистограмму
+	void PlotHistogram();
 
 	// TEMPORARY
 	std::vector<double> GetX();
@@ -42,6 +47,7 @@ public:
 private:
 
 private:
+	int point_id_;
 	// Частота обновления частоты, цвета и тп
 	int update_rate_;
 	// Прямоугольник для взаимодействия с точкой

@@ -1,9 +1,11 @@
 #include "VVT-V2/point_handler.h"
 
-PointHandler::PointHandler(Point2f init_coordinates, int update_rate, double sampling_rate) :
+PointHandler::PointHandler(Point2f init_coordinates, int update_rate, double sampling_rate, int point_id) :
+	Histogram{ 600, 300, sampling_rate / 2, point_id },
 	update_rate_{ update_rate },
 	interaction_offset_{ 100 },
-	sampling_rate_{ sampling_rate }
+	sampling_rate_{ sampling_rate },
+	point_id_{ point_id }
 {
 	// Добавляем первые координаты клика мышью
 	point_coordinates_.push_back(init_coordinates);
@@ -110,7 +112,7 @@ void PointHandler::ExecuteFft()
 
 	/////////////////////////////////////
 
-	if (point_coordinates_.size() > 300)
+	if (point_coordinates_.size() > 5)
 	{
 		std::fstream file;
 		file.open("C:/Users/seeyo/source/repos/Visual-Vibration-Tracking-V2/docs/magnitudes.txt", 'w');
@@ -120,7 +122,7 @@ void PointHandler::ExecuteFft()
 			std::string tmp = std::to_string(frequencies[i]) + " " + std::to_string(magnitudes[i]) + " " + std::to_string(p1[i].x) + " " + std::to_string(p1[i].y);
 			file << tmp << std::endl;
 		}
-		std::cout << "written written written written written written written written" << std::endl;
+		//std::cout << "written written written written written written written written" << std::endl;
 		file.close();
 
 		//WriteFftDataToTxt();
@@ -130,6 +132,9 @@ void PointHandler::ExecuteFft()
 	y_ = magnitudes;
 
 	/////////////////////////////////////
+
+	// Вызов отрисовщика гистограммы
+	PlotHistogram();
 
 	if (!absolute_peak)
 	{
@@ -186,8 +191,6 @@ void PointHandler::ExecuteFft()
 		peak_frequencies.push_back(frequencies[maxIdx]);
 	}
 
-
-	
 	frequencies_ = peak_frequencies;
 }
 
@@ -233,6 +236,17 @@ void PointHandler::AddFrameTimePos(double frame_time)
 {
 	point_time_coordinates_.push_back(frame_time);
 }
+
+void PointHandler::PlotHistogram()
+{
+	if (is_histogram_plotted_)
+	{
+		set_x_values(x_);
+		set_y_values(y_);
+		plot_histogram();
+	}
+}
+
 
 std::vector<double> PointHandler::GetX()
 {

@@ -1,21 +1,55 @@
 #include "VVT-V2/histogram.h"
 
-Histogram::Histogram(int width, int height, int x_limit) :
+//Histogram::Histogram()
+//{
+//}
+
+Histogram::Histogram(int width, int height, int x_limit, int id) :
 	histogram_frame_width_{ width },
 	histogram_frame_height_{ height },
-	x_limit_{ x_limit }
+	x_limit_{ x_limit },
+	is_histogram_plotted_{ false }
 
 {
 	// Инициализация гистограммы пустым кадром черного цвета
 	histogram_offset_ = static_cast<float>(histogram_frame_width_) * 0.05;
 	histogram_ = Mat(Size(histogram_frame_width_, histogram_frame_height_), CV_32F, Scalar(0, 0, 0));
-	namedWindow("histogram", WINDOW_AUTOSIZE);
+	// Инициализируем название окна
+	winname_ = "histogram " + std::to_string(id);
+}
+
+Histogram::~Histogram()
+{
+	// Пока это закоменчено, тк есть проблема с выделением памяти. Когда решу, раскоменчу
+	//destroyWindow(winname_);
+}
+
+void Histogram::OnMouse(int event, int x, int y, int flags, void* userdata)
+{
+	Histogram* d = static_cast<Histogram*>(userdata);
+	d->DetectEvent(event, x, y, flags);
+}
+
+void Histogram::DetectEvent(int event, int x, int y, int flags)
+{
+	switch (event) {
+		// ЛКМ была прожата вниз
+	case EVENT_LBUTTONDOWN:
+	{
+		is_histogram_plotted_ = false;
+		destroyWindow(winname_);
+	}
+	}
 }
 
 void Histogram::plot_histogram()
 {
-	histogram_ = calc_histogram();
-	imshow("histogram", histogram_);
+	if (is_histogram_plotted_)
+	{
+		histogram_ = calc_histogram();
+		imshow(winname_, histogram_);
+		setMouseCallback(winname_, OnMouse, (void*)this);
+	}
 }
 
 void Histogram::set_x_values(std::vector<double> x_values)
@@ -26,6 +60,11 @@ void Histogram::set_x_values(std::vector<double> x_values)
 void Histogram::set_y_values(std::vector<float> y_values)
 {
 	y_values_ = y_values;
+}
+
+void Histogram::SetHistogramFlag(bool flag)
+{
+	is_histogram_plotted_ = flag;
 }
 
 Mat Histogram::calc_histogram()

@@ -13,20 +13,34 @@ using namespace cv;
 class Histogram
 {
 public:
-	Histogram(int width, int height, int x_limit);
+	/*Histogram();*/
+	Histogram(int width, int height, int x_limit, int id);
+	~Histogram();
 
+	// callback functions for detecting the click
+	static void OnMouse(int event, int x, int y, int flags, void* userdata);
+	void DetectEvent(int event, int x, int y, int flags);
 	// Отрисовывает гистограмму
 	void plot_histogram();
 	// Устанавливает X-ы
 	void set_x_values(std::vector<double> x_values);
 	// Устанавливает Y-и
 	void set_y_values(std::vector<float> y_values);
+	// Обновляет статус флага отрисовки гистограммы
+	void SetHistogramFlag(bool flag);
 
 private:
 	// Вычисляет значения для гистограммы
 	Mat calc_histogram();
 
+protected:
+	// Флаг для отрисовки гистограммы
+	bool is_histogram_plotted_;
+
 private:
+	// Название окна
+	std::string winname_;
+
 	float histogram_offset_;
 	int histogram_frame_width_;
 	int histogram_frame_height_;
