@@ -32,8 +32,6 @@ private:
 	void CreateNewPoint(Point2f mouse_coordinates);
 	// Удаляем объект точку
 	void DeletePoints(Point2i mouse_coordinates);
-	// Вывод гистограммы (нет блин инстаграммы)
-	void PlotHistogram(Point2i mouse_coordinates);
 	// callback functions for detecting the click
 	static void OnMouse(int event, int x, int y, int flags, void* userdata);
 	void DetectEvent(int event, int x, int y, int flags);
@@ -63,6 +61,7 @@ private:
 	std::vector<PointHandler> vec_point_handlers_;
 	// Histogram
 	std::vector<Histogram> vec_histograms_;
+	
 
 	// R MODE
 	// 

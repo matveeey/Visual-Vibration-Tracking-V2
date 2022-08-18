@@ -31,10 +31,6 @@ void VibrationDetector::ServeTheQueues()
 	{
 		DeletePoints(delete_queue_[i]);
 	}
-	for (int i = 0; i < histograms_queue_.size(); i++)
-	{
-		PlotHistogram(histograms_queue_[i]);
-	}
 	create_queue_.clear();
 	delete_queue_.clear();
 }
@@ -47,7 +43,7 @@ void VibrationDetector::CreateNewPoint(Point2f mouse_coordinates)
 	Histogram histogram = Histogram(600, 300, static_cast<int>(fps_ / 2));
 	vec_histograms_.push_back(histogram);
 
-	std::cout << "DEBUG: creating new point" << std::endl;	
+	std::cout << "DEBUG: creating new point" << std::endl;
 }
 
 void VibrationDetector::DeletePoints(Point2i mouse_coordinates)
@@ -81,37 +77,6 @@ void VibrationDetector::DeletePoints(Point2i mouse_coordinates)
 	}
 }
 
-void VibrationDetector::PlotHistogram(Point2i mouse_coordinates)
-{
-	// создаем вектор ID (номеров) для точек, которые удалим
-	std::vector<int> hist_ids_to_be_plotted;
-
-	// проходим по всему вектору точек
-	for (int i = 0; i < vec_point_handlers_.size(); i++)
-	{
-		// если произошло пересечение с мышкой, вносим ID (номер) точки в "вектор точек на удаление"
-		if (vec_point_handlers_[i].IsInteracted(mouse_coordinates))
-		{
-			// Защита от повторного добавления точки в список для плоттинга
-			bool flag_of_already_plotting = false;
-			for (int j = 0; j < hist_ids_to_be_plotted.size(); j++)
-			{
-				if (hist_ids_to_be_plotted[j] == i)
-					flag_of_already_plotting = true;
-			}
-			if (!flag_of_already_plotting)
-				hist_ids_to_be_plotted.push_back(i);
-		}
-	}
-	for (int i = 0; i < hist_ids_to_be_plotted.size(); i++)
-	{
-		// обновляем данные гистограммы и отрисовываем их
-		vec_histograms_[i].set_y_values(vec_point_handlers_[i].GetY());
-		vec_histograms_[i].set_x_values(vec_point_handlers_[i].GetX());
-		vec_histograms_[i].plot_histogram();
-	}
-}
-
 // callback function for determining the event click on mouse
 void VibrationDetector::OnMouse(int event, int x, int y, int flags, void* userdata)
 {
@@ -128,27 +93,8 @@ void VibrationDetector::DetectEvent(int event, int x, int y, int flags)
 	{
 		if (!roi_selecting_ && !warping_figure_selecting_)
 		{
-			for (int i = 0; i < vec_point_handlers_.size(); i++)
-			{
-				// если произошло пересечение с мышкой существующей точки, то кидаем в очередь к гистограммам, обратное - к добавлению
-				if (!vec_point_handlers_[i].IsInteracted(Point2i(x, y)))
-				{
-					histograms_queue_.push_back(Point2i(x, y));
-				}
-				else
-				{
-					create_queue_.push_back(Point2i(x, y));
-					std::cout << "DEBUG: creating new point" << std::endl;
-				}
-			}
-			// если точек ещё не существует - просто добавляем новую
-			if (vec_point_handlers_.empty())
-			{
-				create_queue_.push_back(Point2i(x, y));
-				std::cout << "DEBUG: creating new point" << std::endl;
-			}
+			create_queue_.push_back(Point2i(x, y));
 		}
-		// Это для "исправления" перспективы
 		if (warping_figure_selecting_)
 		{
 			warping_figure_.push_back(Point2i(x, y));
@@ -339,6 +285,11 @@ void VibrationDetector::DrawData(Mat& frame)
 		circle(frame, new_point, 10, circle_color, 2);
 
 		std::vector<double> frequency = vec_point_handlers_[i].GetCurrentVibrationFrequency();
+
+		// обновляем данные гистограммы и отрисовываем их
+		vec_histograms_[i].set_y_values(vec_point_handlers_[i].GetY());
+		vec_histograms_[i].set_x_values(vec_point_handlers_[i].GetX());
+		vec_histograms_[i].plot_histogram();
 
 		// отрисовываем частоту вибрации
 		for (int j = 0; j < frequency.size(); j++)
