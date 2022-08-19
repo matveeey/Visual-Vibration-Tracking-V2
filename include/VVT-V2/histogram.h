@@ -3,6 +3,7 @@
 
 // standart headers
 #include <iostream>
+//#include <sstream>
 
 // OpenCV headers
 #include <opencv2/opencv.hpp>
@@ -32,6 +33,12 @@ public:
 private:
 	// Вычисляет значения для гистограммы
 	Mat calc_histogram();
+	// Проверяет, соответствует ли точка координате мыши
+	bool IsInteracted(int x, int interval);
+	// Выводит значение частоты рядом с мышкой
+	void PlotMouseValue(Mat& frame, int value_idx);
+	// Для ограничения кол-ва знаков
+	std::string to_string_with_precision(const float value, const int n = 6);
 
 protected:
 	// Флаг для отрисовки гистограммы
@@ -40,17 +47,22 @@ protected:
 private:
 	// Название окна
 	std::string winname_;
-
+	// Оффсет рамки гистограммы
 	float histogram_offset_;
+	// Высота и ширина окна гистограммы (включая оффсет)
 	int histogram_frame_width_;
 	int histogram_frame_height_;
+	// Сама гистограмма
 	Mat histogram_;
-
+	// Значения по x, y
 	std::vector<double> x_values_;
 	std::vector<float> y_values_;
+	// Соответствие значениям
 	std::vector<int> values_accordance_;
-
+	// Максимальное (предельное) значение по оси X
 	int x_limit_;
+	// Координаты мыши
+	Point2i last_mouse_coordinates_;
 
 
 };

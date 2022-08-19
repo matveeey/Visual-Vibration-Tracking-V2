@@ -38,6 +38,13 @@ void Histogram::DetectEvent(int event, int x, int y, int flags)
 	{
 		is_histogram_plotted_ = false;
 		destroyWindow(winname_);
+		break;
+	}
+	case EVENT_MOUSEMOVE:
+	{
+		last_mouse_coordinates_.x = x;
+		last_mouse_coordinates_.y = y;
+		break;
 	}
 	}
 }
@@ -80,16 +87,50 @@ Mat Histogram::calc_histogram()
 		1
 	);
 
+	int coeff = 5;
 
 	for (int i = 0; i < y_values_.size(); i++)
 	{
 		float x_0 = histogram_offset_ + i * interval + interval;
 		float y_0 = histogram_frame_height_ - histogram_offset_;
 		float x_1 = x_0;
-		float y_1 = histogram_frame_height_ - histogram_offset_ - y_values_[i] * histogram_frame_height_ * 7;
+		float y_1 = histogram_frame_height_ - histogram_offset_ - y_values_[i] * histogram_frame_height_ * coeff;
+
+		// Если мышь указывает на текущее значение, выводим его
+		if (IsInteracted(static_cast<int>(x_0), interval))
+		{
+			PlotMouseValue(frame, i);
+			std::cout << i << std::endl;
+		}
 
 		line(frame, Point2f(x_0, y_0), Point2f(x_1, y_1), Scalar(255, 255, 255), 1, LINE_AA);
 	}
 
 	return frame;
+}
+
+bool Histogram::IsInteracted(int x, int interval)
+{
+	Rect interaction_box = Rect(Point2f(x - interval * 0.9, -1), Point2f(x + interval * 0.9, 1));
+	return ((interaction_box.contains(Point2i(last_mouse_coordinates_.x, 0))) ? true : false);
+}
+
+void Histogram::PlotMouseValue(Mat& frame, int value_idx)
+{
+	putText(
+		frame,
+		to_string_with_precision(x_values_[value_idx], 2),
+		Point2f(last_mouse_coordinates_.x + histogram_offset_ * 0.5, last_mouse_coordinates_.y + histogram_offset_ * 0.5),
+		FONT_HERSHEY_PLAIN,
+		1,
+		Scalar(255, 255, 255)
+	);
+}
+
+std::string Histogram::to_string_with_precision(const float value, const int n)
+{
+	std::ostringstream out;
+	out.precision(n);
+	out << std::fixed << value;
+	return out.str();
 }
