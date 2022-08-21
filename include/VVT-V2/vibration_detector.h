@@ -14,7 +14,6 @@
 
 // my headers
 #include "VVT-V2/point_handler.h"
-#include "VVT-V2/histogram.h"
 #include "VVT-V2/frame_handler.h"
 
 class VibrationDetector 

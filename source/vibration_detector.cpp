@@ -232,18 +232,14 @@ void VibrationDetector::TrackAndCalc()
 {
 	std::vector<Point2f> PrevPts;
 	std::vector<Point2f> NextPts;
-	std::vector<uchar> tmp_status;
-	
-	//
-	// попробуй два варианта: два цикла / один цикл и трек одной точки
-	//
+	std::vector<uchar> status;
+	std::vector<float> error;
 
+	// "Достаем" из point handler'ов последние найденные точки, чтобы использовать их в качестве "начальных" значений для calcOpticalFlowPyrLK()
 	for (int i = 0; i < vec_point_handlers_.size(); i++)
 	{
 		PrevPts.push_back(vec_point_handlers_[i].GetLastFoundCoordinates());
 	}
-	
-	Mat tmp;
 
 	// вызов Lucas-Kanade алгоритма
 	calcOpticalFlowPyrLK(
@@ -251,18 +247,18 @@ void VibrationDetector::TrackAndCalc()
 		next_img_gray_,
 		PrevPts,
 		NextPts,
-		tmp_status,
-		noArray(),
+		status,
+		error,
 		Size(lk_win_size_, lk_win_size_),
-		7,
+		3,
 		TermCriteria(
 			TermCriteria::MAX_ITER | TermCriteria::EPS,
-			50,
-			0.03
+			500,
+			0.001
 		),
 		OPTFLOW_LK_GET_MIN_EIGENVALS
 	);
-	
+
 	// проверяем равны ли размеры векторов хэндлеров точек и найденных точек на картинке
 	if (NextPts.size() != vec_point_handlers_.size())
 	{
@@ -270,9 +266,10 @@ void VibrationDetector::TrackAndCalc()
 		return;
 	}
 	
+	// Сохраняем наши "предыдущие" точки для вывода на экран
 	previous_points_coordinates_ = PrevPts;
 
-	// закидываем найденные значения обратно в хэндлер точек
+	// Закидываем найденные значения обратно в point handler
 	for (int i = 0; i < vec_point_handlers_.size(); i++)
 	{
 		vec_point_handlers_[i].AddNewCoordinate(NextPts[i]);

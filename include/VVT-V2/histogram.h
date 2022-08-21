@@ -14,7 +14,6 @@ using namespace cv;
 class Histogram
 {
 public:
-	/*Histogram();*/
 	Histogram(int width, int height, int x_limit, int id);
 	~Histogram();
 
@@ -57,6 +56,8 @@ private:
 	// Значения по x, y
 	std::vector<double> x_values_;
 	std::vector<float> y_values_;
+	// Коэффицеинт для отображения гистограммы
+	float scale_coefficient_;
 	// Соответствие значениям
 	std::vector<int> values_accordance_;
 	// Максимальное (предельное) значение по оси X
