@@ -1,11 +1,15 @@
 #include "VVT-V2\vibration_detector.h"
 #include "CamCalib\video_undistorter.h"
 #include "CamCalib\camera_calibrator.h"
+#include "MovEn/movement_enlargement.h"
 
-#define CALIBRATION 0
-#define UNDISTORTION 1
-#define VIBRMON 2
-
+enum MODE
+{
+	CALIBRATION,
+	UNDISTORTION,
+	VIBRATION_MONITORING,
+	MOVEMENT_ENLARGEMENT
+};
 
 void ExecuteCameraCalibration(std::string input_file_name, std::string chessboards_path)
 {
@@ -31,7 +35,14 @@ void ExecuteVibrationMonitoring(std::string input_file_name, std::string output_
 	vibration_detector.ExecuteVibrationDetection();
 }
 
-int Execute(std::string txt_file_name, int type)
+void ExecuteMotionMagnification(std::string input_file_name, std::string output_file_name)
+{
+	MovementEnlarger movement_enlarger(input_file_name, output_file_name);
+	//movement_enlarger.ExecuteLaplaceEnlargement();
+	movement_enlarger.ExecuteRieszEnlargement();
+}
+
+int Execute(std::string txt_file_name, int mode)
 {
 	std::ifstream params_file;
 	params_file.open(txt_file_name);
@@ -48,6 +59,8 @@ int Execute(std::string txt_file_name, int type)
 	std::string input_vibration_detection;
 	std::string output_vibration_detection;
 	std::string chessboards_path;
+	std::string input_movement_enlargment;
+	std::string output_movement_enlargement;
 
 	std::getline(params_file, input_calibration_video);
 	std::getline(params_file, input_distorted_video);
@@ -55,21 +68,27 @@ int Execute(std::string txt_file_name, int type)
 	std::getline(params_file, input_vibration_detection);
 	std::getline(params_file, output_vibration_detection);
 	std::getline(params_file, chessboards_path);
+	std::getline(params_file, input_movement_enlargment);
+	std::getline(params_file, output_movement_enlargement);
 
-	// calls of modules
-	switch (type)
+	// Вызов нужного режима
+	switch (mode)
 	{
-	case CALIBRATION:
+	case MODE::CALIBRATION:
 		std::cout << "u've chosen camera calibration" << std::endl;
 		ExecuteCameraCalibration(input_calibration_video, chessboards_path);
 		break;
-	case UNDISTORTION:
+	case MODE::UNDISTORTION:
 		std::cout << "u've chosen undistortion" << std::endl;
 		ExecuteVideoUndistortion(input_distorted_video, output_undistorted_video);
 		break;
-	case VIBRMON:
+	case MODE::VIBRATION_MONITORING:
 		std::cout << "u've chosen vibration monitoring" << std::endl;
 		ExecuteVibrationMonitoring(input_vibration_detection, output_vibration_detection);
+		break;
+	case MODE::MOVEMENT_ENLARGEMENT:
+		std::cout << "u've chosen movement enlarging" << std::endl;
+		ExecuteMotionMagnification(input_movement_enlargment, output_movement_enlargement);
 		break;
 	}
 	return 1;
@@ -97,35 +116,3 @@ int main(int argc, char** argv)
 
 	return Execute(txt_file_name, code);
 }
-
-
-//#include <iostream>
-//#include <opencv2/opencv.hpp>
-//
-//void main()
-//{
-//	std::vector<int> vector_;
-//	for (int i = 0; i < 9; i++)
-//	{
-//		vector_.push_back(i);
-//	}
-//	int num = 0;
-//	for (int i = 0; i < vector_.size(); i++)
-//	{
-//		std::cout << "vector_[" << i << "] contains: " << vector_[i] << std::endl;
-//		if (i == 4)
-//		{
-//			num = i;
-//		}
-//	}
-//	vector_.erase(std::begin(vector_) + num);
-//	std::cout << "deleting " << num << "-th element" << std::endl;
-//	for (int i = 0; i < vector_.size(); i++)
-//	{
-//		std::cout << "vector_[" << i << "] contains: " << vector_[i] << std::endl;
-//		if (i == 4)
-//		{
-//			num = i;
-//		}
-//	}
-//}

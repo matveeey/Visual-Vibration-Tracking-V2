@@ -370,51 +370,51 @@ void VibrationDetector::DrawData(Mat& frame)
 
 void VibrationDetector::ExecuteVibrationDetection()
 {
-	FrameHandler frame_processor(input_file_name_, output_file_name_, MAIN_WINDOW_NAME);
-	if (frame_processor.GetFrameHeight() > 1000)
+	FrameHandler frame_handler(input_file_name_, output_file_name_, MAIN_WINDOW_NAME);
+	if (frame_handler.GetFrameHeight() > 1000)
 	{
 		res_mp_ = 2;
 	}
 
 	// reading the first frame of sequence so we can convert it to gray color space
-	frame_processor.ReadNextFrame();
-	current_tracking_frame_ = frame_processor.GetCurrentFrame();
+	frame_handler.ReadNextFrame();
+	current_tracking_frame_ = frame_handler.GetCurrentFrame();
 
 	/*if (warping_figure_selected_)
 	{
 		current_tracking_frame_ = GetWarpedFrame(current_tracking_frame_, warping_figure_, frame_processor.GetFrameWidth(), frame_processor.GetFrameHeight());
 	}*/
 
-	prev_img_gray_ = frame_processor.GetGrayFrame(current_tracking_frame_);
-	fps_ = frame_processor.GetInputFps();
+	prev_img_gray_ = frame_handler.GetGrayFrame(current_tracking_frame_);
+	fps_ = frame_handler.GetInputFps();
 
 	// conditions of exit
 	running_ = true;
 	int current_num_of_frame = 0;
-	int amount_of_frames = frame_processor.GetAmountOfFrames();
+	int amount_of_frames = frame_handler.GetAmountOfFrames();
 
 	// устанавливаем callback handler на наше окно
-	setMouseCallback(frame_processor.GetWindowName(), OnMouse, (void*)this);
+	setMouseCallback(frame_handler.GetWindowName(), OnMouse, (void*)this);
 
 	while ((current_num_of_frame < amount_of_frames - 1) && running_ == true)
 	{
-		current_num_of_frame = frame_processor.GetCurrentPosOfFrame();
+		current_num_of_frame = frame_handler.GetCurrentPosOfFrame();
 
 		// reading next frame and converting it to gray color space
-		frame_processor.ReadNextFrame();
-		current_tracking_frame_ = frame_processor.GetCurrentFrame();
+		frame_handler.ReadNextFrame();
+		current_tracking_frame_ = frame_handler.GetCurrentFrame();
 
 		if (!warping_figure_.empty())
 		{
 			current_tracking_frame_ = MakeWarpedFrame(current_tracking_frame_, warping_figure_);
 		}
 
-		next_img_gray_ = frame_processor.GetGrayFrame(current_tracking_frame_);
+		next_img_gray_ = frame_handler.GetGrayFrame(current_tracking_frame_);
 
 		if (!vec_point_handlers_.empty())
 		{
 			// Трекинг и вычисление частоты вибрации
-			frame_time_ = frame_processor.GetCurrentTimeOfFrame();
+			frame_time_ = frame_handler.GetCurrentTimeOfFrame();
 			TrackAndCalc();
 
 			// Рисование точек, треков и данных (вибрации, амплитуды и т.п.)
@@ -425,9 +425,9 @@ void VibrationDetector::ExecuteVibrationDetection()
 		ServeTheQueues();
 
 		// Выводим на экран ресайзнутый фрейм и записываем изначальный (не ресайзнутый)
-		frame_processor.WriteFrame(current_tracking_frame_);
+		frame_handler.WriteFrame(current_tracking_frame_);
 		//current_tracking_frame_ = frame_processor.ResizeFrame(current_tracking_frame_);
-		frame_processor.ShowFrame(current_tracking_frame_);
+		frame_handler.ShowFrame(current_tracking_frame_);
 
 		prev_img_gray_ = next_img_gray_;
 
@@ -454,7 +454,7 @@ void VibrationDetector::ExecuteVibrationDetection()
 		case 'c':
 		{
 			Mat unchanged_frame = current_tracking_frame_;
-			frame_processor.ShowFrame(current_tracking_frame_);
+			frame_handler.ShowFrame(current_tracking_frame_);
 			
 			warping_figure_.clear();
 			warping_figure_selecting_ = true;
@@ -469,7 +469,7 @@ void VibrationDetector::ExecuteVibrationDetection()
 				if (warping_figure_.size() == 4)
 					warping_figure_selecting_ = false;
 		
-				frame_processor.ShowFrame(unchanged_frame);
+				frame_handler.ShowFrame(unchanged_frame);
 				waitKey(20);
 			}
 			break;
@@ -508,7 +508,7 @@ void VibrationDetector::ExecuteVibrationDetection()
 
 			
 			running_ = false;
-			std::cout << frame_processor.GetInputCapStatus() << std::endl;
+			std::cout << frame_handler.GetInputCapStatus() << std::endl;
 			break;
 		}
 		}
