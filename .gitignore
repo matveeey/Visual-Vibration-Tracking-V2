@@ -1,5 +1,6 @@
-data.txt
-magnitudes.txt
+docs/data.txt
+docs/magnitudes.txt
+docs/input.txt
 product/
 build/
 _msvs2022/

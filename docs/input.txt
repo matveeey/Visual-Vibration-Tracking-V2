@@ -1,6 +1,0 @@
-C:\Users\seeyo\source\repos\Vibration-Detection-using-OpenCV\Vibration-Detection-using-OpenCV\CameraCalibration\calib.MP4
-C:\Users\seeyo\source\repos\Vibration-Detection-using-OpenCV\Vibration-Detection-using-OpenCV\DistortedVideo\dist.mp4
-C:\Users\seeyo\source\repos\Vibration-Detection-using-OpenCV\Vibration-Detection-using-OpenCV\UndistortedVideo\undist.mp4
-C:\Users\seeyo\source\repos\Vibration-Detection-using-OpenCV\Vibration-Detection-using-OpenCV\Resources\two_freq_21_50.mp4
-C:\Users\seeyo\source\repos\Vibration-Detection-using-OpenCV\Vibration-Detection-using-OpenCV\Output\output_vd2.avi
-C:\Users\seeyo\source\repos\Vibration-Detection-using-OpenCV\Vibration-Detection-using-OpenCV\Chessboards\
