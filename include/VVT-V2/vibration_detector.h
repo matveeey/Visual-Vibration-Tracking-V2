@@ -118,7 +118,10 @@ private:
 	std::vector<Point2f> contour_next_pts_;
 	std::vector<uchar> status_; // 1 if features found, 0 if not
 	std::vector<uchar> rect_status_;
+	// Размер окна для алгоритма Лукаса-Канаде
 	int lk_win_size_;
+	// Количество слоев пирамиды изображений в алгоритме Л-К
+	int level_amount_;
 
 	// useful parameters
 	int number_of_points_;
@@ -128,6 +131,7 @@ private:
 	// Fast Fourier Transform
 	int fps_;
 	int update_rate_;
+	double frame_time_;
 };
 
 #endif

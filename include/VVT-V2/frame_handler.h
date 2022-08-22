@@ -21,10 +21,12 @@ public:
 	void ReadNextFrame();
 	void ShowFrame(Mat frame);
 	void WriteFrame(Mat frame);
-	Mat GetGrayFrame(Mat frame_to_be_grayed);
 	Mat ConcatenateFrames(Mat left_frame, Mat right_frame);
 
+// Геттеры
 public:
+	Mat GetGrayFrame(Mat frame_to_be_grayed);
+	Mat ResizeFrame(Mat frame);
 	bool GetInputCapStatus();
 	Mat GetCurrentFrame();
 	String GetWindowName();
@@ -56,6 +58,10 @@ protected:
 	double current_time_of_frame_;
 	int current_pos_of_frame_;
 
+	Size resized_resolution_;
+
+private:
+	void ResizeResolution();
 };
 
 #endif

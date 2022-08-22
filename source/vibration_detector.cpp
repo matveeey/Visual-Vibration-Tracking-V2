@@ -11,11 +11,10 @@ VibrationDetector::VibrationDetector(std::string input_file_name, std::string ou
 	point_id_{ 0 }
 {
 	point_selected_ = false;
-	lk_win_size_ = 30;
+	lk_win_size_ = 20;
+	level_amount_ = 1;
 	point_offset_ = 100;
 	res_mp_ = 1;
-
-
 }
 
 VibrationDetector::~VibrationDetector()
@@ -250,7 +249,7 @@ void VibrationDetector::TrackAndCalc()
 		status,
 		error,
 		Size(lk_win_size_, lk_win_size_),
-		3,
+		level_amount_,
 		TermCriteria(
 			TermCriteria::MAX_ITER | TermCriteria::EPS,
 			500,
@@ -273,6 +272,7 @@ void VibrationDetector::TrackAndCalc()
 	for (int i = 0; i < vec_point_handlers_.size(); i++)
 	{
 		vec_point_handlers_[i].AddNewCoordinate(NextPts[i]);
+		vec_point_handlers_[i].AddFrameTimePos(frame_time_);
 		// Вызов БПФ (FFT)
 		vec_point_handlers_[i].ExecuteFft();
 	}
@@ -301,8 +301,15 @@ void VibrationDetector::DrawData(Mat& frame)
 		// отрисовываем прямоугольник взаимодействия (если оно есть)
 		if (vec_point_handlers_[i].IsInteracted(last_mouse_position_))
 		{
-			rectangle(frame, vec_point_handlers_[i].GetInteractionBox(), Scalar(0, 255, 0), 1);
+			rectangle(frame, vec_point_handlers_[i].GetInteractionRect(), Scalar(0, 255, 0), 1);
 		}
+
+		// DEBUG
+		Rect debug_lk_win_size = Rect(
+			Point2i(vec_point_handlers_[i].GetLastFoundCoordinates().x - lk_win_size_, vec_point_handlers_[i].GetLastFoundCoordinates().y - lk_win_size_),
+			Point2i(vec_point_handlers_[i].GetLastFoundCoordinates().x + lk_win_size_, vec_point_handlers_[i].GetLastFoundCoordinates().y + lk_win_size_)
+		);
+		rectangle(frame, debug_lk_win_size, Scalar(0, 0, 255), 1);
 
 		// отрисовываем линии точек
 		line(frame, previous_points_coordinates_[i], new_point, Scalar(0, 255, 0), 1, LINE_AA);
@@ -407,6 +414,7 @@ void VibrationDetector::ExecuteVibrationDetection()
 		if (!vec_point_handlers_.empty())
 		{
 			// Трекинг и вычисление частоты вибрации
+			frame_time_ = frame_processor.GetCurrentTimeOfFrame();
 			TrackAndCalc();
 
 			// Рисование точек, треков и данных (вибрации, амплитуды и т.п.)
@@ -416,9 +424,10 @@ void VibrationDetector::ExecuteVibrationDetection()
 		// обслуживаем и очищаем очереди на создание и удаление точек
 		ServeTheQueues();
 
-		// display and write frame
-		frame_processor.ShowFrame(current_tracking_frame_);
+		// Выводим на экран ресайзнутый фрейм и записываем изначальный (не ресайзнутый)
 		frame_processor.WriteFrame(current_tracking_frame_);
+		//current_tracking_frame_ = frame_processor.ResizeFrame(current_tracking_frame_);
+		frame_processor.ShowFrame(current_tracking_frame_);
 
 		prev_img_gray_ = next_img_gray_;
 

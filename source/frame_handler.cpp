@@ -14,11 +14,10 @@ FrameHandler::FrameHandler(const std::string input_file_name, const std::string 
 	input_frame_width_{ input_cap_->get(CAP_PROP_FRAME_WIDTH) }
 {
 	std::cout << "Input fps is: " << input_fps_ << std::endl;
-
-	// making a window
-	namedWindow(window_name_, WINDOW_AUTOSIZE);
-
-	std::cout << "Inited successfully" << std::endl;
+	// создаём окно
+	namedWindow(window_name_);
+	// 
+	ResizeResolution();
 }
 
 FrameHandler::~FrameHandler()
@@ -56,9 +55,17 @@ Mat FrameHandler::GetGrayFrame(Mat frame_to_be_grayed)
 	
 	if (!frame_to_be_grayed.empty())
 	{		
-		GaussianBlur(grayed_frame, grayed_frame, Size(5, 5), 0);
+		GaussianBlur(grayed_frame, grayed_frame, Size(3, 3), 0);
 	}
+	
 	return grayed_frame;
+}
+
+Mat FrameHandler::ResizeFrame(Mat frame)
+{
+	if (!resized_resolution_.empty())
+		resize(frame, frame, resized_resolution_);
+	return frame;
 }
 
 Mat FrameHandler::ConcatenateFrames(Mat left_frame, Mat right_frame)
@@ -114,4 +121,75 @@ int FrameHandler::GetFrameWidth()
 int FrameHandler::GetFrameHeight()
 {
 	return input_frame_height_;
+}
+
+void FrameHandler::ResizeResolution()
+{
+	if (input_frame_width_ > input_frame_height_)
+	{
+		switch (static_cast<int>(input_frame_height_))
+		{
+		case (480):
+		{
+			std::cout << "0" << std::endl;
+			resized_resolution_ = Size(input_frame_width_ * 2, input_frame_height_ * 2);
+			break;
+		}
+		case (720):
+		{
+			std::cout << "1" << std::endl;
+			resized_resolution_ = Size(input_frame_width_, input_frame_height_);
+			break;
+		}
+		case (1080):
+		{
+			std::cout << "2" << std::endl;
+			resized_resolution_ = Size(input_frame_width_ * 0.67, input_frame_height_ * 0.67);
+			break;
+		}
+		case (1520):
+		{
+			std::cout << "3" << std::endl;
+			resized_resolution_ = Size(input_frame_width_ * 0.25, input_frame_height_ * 0.25);
+			break;
+		}
+		case (2160):
+		{
+			std::cout << "4" << std::endl;
+			resized_resolution_ = Size(input_frame_width_ * 0.25, input_frame_height_ * 0.25);
+			break;
+		}
+		}
+	}
+	else
+	{
+		switch (static_cast<int>(input_frame_width_))
+		{
+		case (480):
+		{
+			resized_resolution_ = Size(static_cast<int>(input_frame_width_ * 2), static_cast<int>(input_frame_height_ * 2));
+			break;
+		}
+		case (720):
+		{
+			resized_resolution_ = Size(static_cast<int>(input_frame_width_), static_cast<int>(input_frame_height_));
+			break;
+		}
+		case (1080):
+		{
+			resized_resolution_ = Size(input_frame_width_ * 0.5, input_frame_height_ * 0.5);
+			break;
+		}
+		case (1520):
+		{
+			resized_resolution_ = Size(input_frame_width_ * 0.25, input_frame_height_ * 0.25);
+			break;
+		}
+		case (2160):
+		{
+			resized_resolution_ = Size(input_frame_width_ * 0.25, input_frame_height_ * 0.25);
+			break;
+		}
+		}
+	}
 }

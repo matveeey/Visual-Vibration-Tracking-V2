@@ -47,7 +47,7 @@ public:
 	// Возвращает точку, необходимую для отображения координат
 	Point2f GetTextCoordinates();
 	// Возвращает координаты прямоугольника взаимодействия
-	Rect GetInteractionBox();
+	Rect GetInteractionRect();
 
 private:
 

@@ -117,21 +117,25 @@ void PointHandler::ExecuteFft()
 		std::fstream file;
 		file.open("C:/Users/seeyo/source/repos/Visual-Vibration-Tracking-V2/docs/magnitudes.txt", 'w');
 
-		for (int i = 0; i < magnitudes.size(); i++)
+		/*for (int i = 0; i < magnitudes.size(); i++)
 		{
 			std::string tmp = std::to_string(frequencies[i]) + " " + std::to_string(magnitudes[i]) + " " + std::to_string(p1[i].x) + " " + std::to_string(p1[i].y);
 			file << tmp << std::endl;
-		}
-		//std::cout << "written written written written written written written written" << std::endl;
-		file.close();
+		}*/
 
-		//WriteFftDataToTxt();
+		for (int i = 0; i < point_coordinates_.size(); i++)
+		{
+			std::string tmp = std::to_string(point_coordinates_[i].x) + " " + std::to_string(point_coordinates_[i].y) + " " + std::to_string(point_time_coordinates_[i]);
+			file << tmp << std::endl;
+		}
+
+		file.close();
 	}
+
+	/////////////////////////////////////
 
 	x_ = frequencies;
 	y_ = magnitudes;
-
-	/////////////////////////////////////
 
 	// Вызов отрисовщика гистограммы
 	PlotHistogram();
@@ -216,7 +220,7 @@ Point2f PointHandler::GetTextCoordinates()
 	else return Point2f(0.0, 0.0);
 }
 
-Rect PointHandler::GetInteractionBox()
+Rect PointHandler::GetInteractionRect()
 {
 	return interaction_box_;
 }

@@ -88,6 +88,7 @@ Mat Histogram::calc_histogram()
 		1
 	);
 
+	// Инициализируем максимальные и минимальные значения магнитуд
 	float max_value = 0.0;
 	float min_value = 10.0;
 
