@@ -62,7 +62,7 @@ private:
 	// Предыдущие позиции точек
 	std::vector<Point2f> previous_points_coordinates_;
 	// Points handling
-	std::vector<PointHandler> vec_point_handlers_;
+	std::vector<PointHandler*> vec_point_handlers_;
 
 	// Не ресайзнутый фрейм
 	Mat current_tracking_frame_;

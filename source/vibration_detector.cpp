@@ -42,7 +42,7 @@ void VibrationDetector::ServeTheQueues()
 void VibrationDetector::CreateNewPoint(Point2f mouse_coordinates)
 {
 
-	PointHandler point_handler_ = PointHandler(mouse_coordinates, update_rate_, fps_, point_id_++, res_mp_);
+	PointHandler* point_handler_ = new PointHandler(mouse_coordinates, update_rate_, fps_, point_id_++, res_mp_);
 	vec_point_handlers_.push_back(point_handler_);
 
 	std::cout << "DEBUG: creating new point" << std::endl;
@@ -62,9 +62,9 @@ void VibrationDetector::LeftClickHandler(Point2f mouse_coordinates)
 		for (int i = 0; i < vec_point_handlers_.size(); i++)
 		{
 			// если произошло пересечение с мышкой, то новую точку не добавл€ем
-			if (vec_point_handlers_[i].IsInteracted(mouse_coordinates))
+			if (vec_point_handlers_[i]->IsInteracted(mouse_coordinates))
 			{
-				vec_point_handlers_[i].SetHistogramFlag(true);
+				vec_point_handlers_[i]->SetHistogramFlag(true);
 				flag_interacted_ = true;
 			}
 		}
@@ -82,15 +82,19 @@ void VibrationDetector::DeletePoints(Point2i mouse_coordinates)
 	for (int i = 0; i < vec_point_handlers_.size(); i++)
 	{
 		// если произошло пересечение с мышкой, вносим ID (номер) точки в "вектор точек на удаление"
-		if (vec_point_handlers_[i].IsInteracted(mouse_coordinates))
+		if (vec_point_handlers_[i]->IsInteracted(mouse_coordinates))
 		{
 			point_ids_to_be_deleted_.push_back(i);
 		}
 	}
 	std::cout << "DEBUG: deleting "<< point_ids_to_be_deleted_.size() << " point" << std::endl;
+
+	std::vector<PointHandler*>::iterator it = vec_point_handlers_.begin();
+
 	// проходимс€ по вектору точек на удаление
 	while (!point_ids_to_be_deleted_.empty())
 	{
+		delete(*(std::begin(vec_point_handlers_) + point_ids_to_be_deleted_[0]));
 		// удал€ем первую точку (первую в векторе и по сути первую по номеру)
 		vec_point_handlers_.erase(std::begin(vec_point_handlers_) + point_ids_to_be_deleted_[0]);
 		// удал€ем номер только что удалЄнной точки из вектора
@@ -246,7 +250,7 @@ void VibrationDetector::TrackAndCalc()
 	// "ƒостаем" из point handler'ов последние найденные точки, чтобы использовать их в качестве "начальных" значений дл€ calcOpticalFlowPyrLK()
 	for (int i = 0; i < vec_point_handlers_.size(); i++)
 	{
-		PrevPts.push_back(vec_point_handlers_[i].GetLastFoundCoordinates());
+		PrevPts.push_back(vec_point_handlers_[i]->GetLastFoundCoordinates());
 	}
 
 	// вызов Lucas-Kanade алгоритма
@@ -280,10 +284,10 @@ void VibrationDetector::TrackAndCalc()
 	// «акидываем найденные значени€ обратно в point handler
 	for (int i = 0; i < vec_point_handlers_.size(); i++)
 	{
-		vec_point_handlers_[i].AddNewCoordinate(NextPts[i]);
-		vec_point_handlers_[i].AddFrameTimePos(frame_time_);
+		vec_point_handlers_[i]->AddNewCoordinate(NextPts[i]);
+		vec_point_handlers_[i]->AddFrameTimePos(frame_time_);
 		// ¬ызов Ѕѕ‘ (FFT)
-		vec_point_handlers_[i].ExecuteFft();
+		vec_point_handlers_[i]->ExecuteFft();
 	}
 }
 
@@ -299,8 +303,8 @@ void VibrationDetector::DrawDebugLkWinRectangle(Mat& frame)
 	{
 		// DEBUG
 		Rect debug_lk_win_size = Rect(
-			Point2i(vec_point_handlers_[i].GetLastFoundCoordinates().x - lk_win_size_, vec_point_handlers_[i].GetLastFoundCoordinates().y - lk_win_size_),
-			Point2i(vec_point_handlers_[i].GetLastFoundCoordinates().x + lk_win_size_, vec_point_handlers_[i].GetLastFoundCoordinates().y + lk_win_size_)
+			Point2i(vec_point_handlers_[i]->GetLastFoundCoordinates().x - lk_win_size_, vec_point_handlers_[i]->GetLastFoundCoordinates().y - lk_win_size_),
+			Point2i(vec_point_handlers_[i]->GetLastFoundCoordinates().x + lk_win_size_, vec_point_handlers_[i]->GetLastFoundCoordinates().y + lk_win_size_)
 		);
 		rectangle(frame, debug_lk_win_size, Scalar(0, 0, 255), 1);
 	}
@@ -352,8 +356,8 @@ void VibrationDetector::ExecuteVibrationDetection()
 			for (int i = 0; i < vec_point_handlers_.size(); i++)
 			{
 				// –исование точек, треков и данных (вибрации, амплитуды и т.п.)
-				vec_point_handlers_[i].IsInteracted(last_mouse_position_);
-				vec_point_handlers_[i].Draw(current_tracking_frame_);
+				vec_point_handlers_[i]->IsInteracted(last_mouse_position_);
+				vec_point_handlers_[i]->Draw(current_tracking_frame_);
 			}
 		}
 

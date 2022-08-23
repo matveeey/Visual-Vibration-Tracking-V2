@@ -22,7 +22,10 @@ Histogram::Histogram(int width, int height, int x_limit, int id) :
 Histogram::~Histogram()
 {
 	// Пока это закоменчено, тк есть проблема с выделением памяти. Когда решу, раскоменчу
-	//destroyWindow(winname_);
+	std::cout << "Histogram destructor" << std::endl;
+
+	if (is_histogram_plotted_)
+		destroyWindow(winname_);
 }
 
 void Histogram::OnMouse(int event, int x, int y, int flags, void* userdata)

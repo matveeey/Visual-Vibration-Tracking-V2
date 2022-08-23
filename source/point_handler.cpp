@@ -22,6 +22,7 @@ PointHandler::PointHandler(Point2f init_coordinates, int update_rate, double sam
 
 PointHandler::~PointHandler()
 {
+	std::cout << "PointHandler destructor" << std::endl;
 }
 
 void PointHandler::ExecuteFft()
