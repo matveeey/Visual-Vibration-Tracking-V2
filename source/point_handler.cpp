@@ -1,11 +1,13 @@
 #include "VVT-V2/point_handler.h"
 
-PointHandler::PointHandler(Point2f init_coordinates, int update_rate, double sampling_rate, int point_id) :
+PointHandler::PointHandler(Point2f init_coordinates, int update_rate, double sampling_rate, int point_id, float resizing_coefficient) :
 	Histogram{ 600, 300, sampling_rate / 2, point_id },
 	update_rate_{ update_rate },
 	interaction_offset_{ 50 },
 	sampling_rate_{ sampling_rate },
-	point_id_{ point_id }
+	point_id_{ point_id },
+	// TEMPORARY
+	resizing_coefficient_{ 1.25f / resizing_coefficient }
 {
 	// ƒобавл€ем первые координаты клика мышью
 	point_coordinates_.push_back(init_coordinates);
@@ -138,7 +140,7 @@ void PointHandler::ExecuteFft()
 	y_ = magnitudes;
 
 	// ¬ызов отрисовщика гистограммы
-	PlotHistogram();
+	DrawHistogram();
 
 	if (!absolute_peak)
 	{
@@ -225,9 +227,18 @@ Rect PointHandler::GetInteractionRect()
 	return interaction_box_;
 }
 
+void PointHandler::UpdatePointColor()
+{
+	if (interacted_)
+		point_color_ = Scalar(255, 150, 50); // синий светлее
+	else
+		point_color_ = Scalar(255, 75, 25); // синий темнее
+}
+
 bool PointHandler::IsInteracted(Point2i coordinates)
 {
-	return ((interaction_box_.contains(coordinates)) ? true : false);
+	interacted_ = interaction_box_.contains(coordinates);
+	return interacted_;
 }
 
 void PointHandler::AddNewCoordinate(Point2f position)
@@ -246,7 +257,21 @@ void PointHandler::AddFrameTimePos(double frame_time)
 	point_time_coordinates_.push_back(frame_time);
 }
 
-void PointHandler::PlotHistogram()
+void PointHandler::Draw(Mat& frame)
+{
+	// отрисовываем пр€моугольник взаимодействи€ (если оно есть)
+	DrawInteractionRectangle(frame);
+	// отрисовываем линии точек
+	DrawPointTrack(frame);
+	// отрисовываем круг вокруг точки
+	DrawPoint(frame);
+	// отрисовываем гистограмму
+	DrawHistogram();
+	// отрисовываем частоту вибрации
+	DrawTextData(frame);
+}
+
+void PointHandler::DrawHistogram()
 {
 	if (is_histogram_plotted_)
 	{
@@ -254,6 +279,73 @@ void PointHandler::PlotHistogram()
 		SetYValues(y_);
 		ShowHistogram();
 	}
+}
+
+void PointHandler::DrawPoint(Mat& frame)
+{
+	UpdatePointColor();
+	// отрисовываем круг вокруг точки
+	circle(frame, point_coordinates_.back(), 10, point_color_, 2);
+
+}
+
+void PointHandler::DrawPointTrack(Mat& frame)
+{
+	if (point_coordinates_.size() > 2)
+		line(frame, point_coordinates_[point_coordinates_.size() - 2], point_coordinates_[point_coordinates_.size() - 1], Scalar(0, 255, 0), 1, LINE_AA);
+}
+
+void PointHandler::DrawInteractionRectangle(Mat& frame)
+{
+	if (interacted_)
+		rectangle(frame, interaction_box_, Scalar(0, 255, 0), 2);
+}
+
+void PointHandler::DrawTextData(Mat& frame)
+{
+	// отрисовываем частоту вибрации
+	for (int j = 0; j < frequencies_.size(); j++)
+	{
+		putText(
+			frame,
+			"hz: " + std::to_string(frequencies_[j]),
+			Point(point_coordinates_.front().x + 15, point_coordinates_.front().y + resizing_coefficient_ * j * 20),
+			FONT_HERSHEY_PLAIN,
+			resizing_coefficient_ * 1.25,
+			Scalar(0, 69, 255),
+			2
+		);
+	}
+
+	// отрисовываем амплитуды вибрации
+	putText(
+		frame,
+		"x: " + std::to_string(amplitude_.x),
+		Point(point_coordinates_.front().x, point_coordinates_.front().y - resizing_coefficient_ * 20),
+		FONT_HERSHEY_PLAIN,
+		resizing_coefficient_ * 1,
+		Scalar(0, 255, 255),
+		2
+	);
+	putText(
+		frame,
+		"y: " + std::to_string(amplitude_.y),
+		Point(point_coordinates_.front().x, point_coordinates_.front().y - resizing_coefficient_ * 2 * 20),
+		FONT_HERSHEY_PLAIN,
+		resizing_coefficient_ * 1,
+		Scalar(0, 255, 255),
+		2
+	);
+	// uncomment когда по€витс€ 3-€ координата дл€ амплитуды :)
+	/*putText(
+		frame,
+		"z: " + std::to_string(amplitude_.z),
+		Point(point_coordinates_.front().x, point_coordinates_.front().y - res_mp_ * 3 * 20),
+		FONT_HERSHEY_PLAIN,
+		res_mp_ * 1,
+		Scalar(0, 255, 255),
+		2
+	);*/
 }
 
 

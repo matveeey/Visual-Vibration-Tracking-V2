@@ -41,11 +41,14 @@ private:
 	// Трекает точки алгоритмом Лукаса-Канаде и вызывает БПФ
 	void TrackAndCalc();
 	// Рисует точки и выводит данные
-	void DrawData(Mat& frame);
+	void DrawDebugLkWinRectangle(Mat& frame);
+	// Транслирует координаты ресайзнутого окна в пространство координат нересайзнутого окна
+	Point2f TranslateCoordinates(Point2f point);
 
 private:
+	FrameHandler* frame_handler;
 	bool running_;
-	int res_mp_;
+	float res_mp_;
 	int point_id_;
 
 	// NORMAL MODE
@@ -60,7 +63,11 @@ private:
 	std::vector<Point2f> previous_points_coordinates_;
 	// Points handling
 	std::vector<PointHandler> vec_point_handlers_;
-	
+
+	// Не ресайзнутый фрейм
+	Mat current_tracking_frame_;
+	// Ресайзнутый фрейм
+	Mat current_tracking_frame_resized_;
 
 	// R MODE
 	// 
@@ -86,8 +93,6 @@ private:
 	String main_window_name_;
 	String v_monitor_window_name_;
 
-	Mat current_tracking_frame_;
-	Mat copy_of_current_tracking_frame_;
 	
 	// for detecting the click
 	bool point_selected_;

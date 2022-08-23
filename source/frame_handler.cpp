@@ -123,6 +123,11 @@ int FrameHandler::GetFrameHeight()
 	return input_frame_height_;
 }
 
+float FrameHandler::GetResizingCoefficient()
+{
+	return resizing_coefficient_;
+}
+
 void FrameHandler::ResizeResolution()
 {
 	if (input_frame_width_ > input_frame_height_)
@@ -131,32 +136,32 @@ void FrameHandler::ResizeResolution()
 		{
 		case (480):
 		{
-			std::cout << "0" << std::endl;
-			resized_resolution_ = Size(input_frame_width_ * 2, input_frame_height_ * 2);
+			resizing_coefficient_ = 2.0;
+			resized_resolution_ = Size(input_frame_width_ * resizing_coefficient_, input_frame_height_ * resizing_coefficient_);
 			break;
 		}
 		case (720):
 		{
-			std::cout << "1" << std::endl;
+			resizing_coefficient_ = 1.0;
 			resized_resolution_ = Size(input_frame_width_, input_frame_height_);
 			break;
 		}
 		case (1080):
 		{
-			std::cout << "2" << std::endl;
-			resized_resolution_ = Size(input_frame_width_ * 0.67, input_frame_height_ * 0.67);
+			resizing_coefficient_ = 0.67;
+			resized_resolution_ = Size(input_frame_width_ * resizing_coefficient_, input_frame_height_ * resizing_coefficient_);
 			break;
 		}
 		case (1520):
 		{
-			std::cout << "3" << std::endl;
-			resized_resolution_ = Size(input_frame_width_ * 0.25, input_frame_height_ * 0.25);
+			resizing_coefficient_ = 0.25;
+			resized_resolution_ = Size(input_frame_width_ * resizing_coefficient_, input_frame_height_ * resizing_coefficient_);
 			break;
 		}
 		case (2160):
 		{
-			std::cout << "4" << std::endl;
-			resized_resolution_ = Size(input_frame_width_ * 0.25, input_frame_height_ * 0.25);
+			resizing_coefficient_ = 0.25;
+			resized_resolution_ = Size(input_frame_width_ * resizing_coefficient_, input_frame_height_ * resizing_coefficient_);
 			break;
 		}
 		}
@@ -167,27 +172,32 @@ void FrameHandler::ResizeResolution()
 		{
 		case (480):
 		{
-			resized_resolution_ = Size(static_cast<int>(input_frame_width_ * 2), static_cast<int>(input_frame_height_ * 2));
+			resizing_coefficient_ = 2.0;
+			resized_resolution_ = Size(static_cast<int>(input_frame_width_ * resizing_coefficient_), static_cast<int>(input_frame_height_ * resizing_coefficient_));
 			break;
 		}
 		case (720):
 		{
+			resizing_coefficient_ = 1.0;
 			resized_resolution_ = Size(static_cast<int>(input_frame_width_), static_cast<int>(input_frame_height_));
 			break;
 		}
 		case (1080):
 		{
-			resized_resolution_ = Size(input_frame_width_ * 0.5, input_frame_height_ * 0.5);
+			resizing_coefficient_ = 0.5;
+			resized_resolution_ = Size(input_frame_width_ * resizing_coefficient_, input_frame_height_ * resizing_coefficient_);
 			break;
 		}
 		case (1520):
 		{
-			resized_resolution_ = Size(input_frame_width_ * 0.25, input_frame_height_ * 0.25);
+			resizing_coefficient_ = 0.25;
+			resized_resolution_ = Size(input_frame_width_ * resizing_coefficient_, input_frame_height_ * resizing_coefficient_);
 			break;
 		}
 		case (2160):
 		{
-			resized_resolution_ = Size(input_frame_width_ * 0.25, input_frame_height_ * 0.25);
+			resizing_coefficient_ = 0.25;
+			resized_resolution_ = Size(input_frame_width_ * resizing_coefficient_, input_frame_height_ * resizing_coefficient_);
 			break;
 		}
 		}

@@ -13,6 +13,7 @@
 
 using namespace cv;
 
+// Класс позволяет создать объект, который может выводить видео в окне
 class FrameHandler
 {
 public:
@@ -36,6 +37,7 @@ public:
 	int GetInputFps();
 	int GetFrameWidth();
 	int GetFrameHeight();
+	float GetResizingCoefficient();
 
 protected:
 	Mat input_frame_;
@@ -59,6 +61,7 @@ protected:
 	int current_pos_of_frame_;
 
 	Size resized_resolution_;
+	float resizing_coefficient_;
 
 private:
 	void ResizeResolution();

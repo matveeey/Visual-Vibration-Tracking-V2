@@ -19,7 +19,7 @@ using namespace cv;
 class PointHandler : public Histogram
 {
 public:
-	PointHandler(Point2f init_coordinates, int update_rate, double sampling_rate, int point_id);
+	PointHandler(Point2f init_coordinates, int update_rate, double sampling_rate, int point_id, float resizing_coefficient);
 	~PointHandler();
 	// Применяет БПФ (FFT) для координат (позиций) точки
 	void ExecuteFft();
@@ -29,15 +29,27 @@ public:
 	void AddNewCoordinate(Point2f position);
 	// Добавляет новое значение времени кадра для трекаемой точки извне
 	void AddFrameTimePos(double time);
-	// Отрисовывает гистограмму
-	void PlotHistogram();
+	// Отрисовывает точку и данные, связанные с ней
+	void Draw(Mat& frame);
 
-	// TEMPORARY
-	std::vector<double> GetX();
-	std::vector<float> GetY();
+private:
+	// Отрисовывает гистограмму
+	void DrawHistogram();
+	// Отрисовывает точку на кадре
+	void DrawPoint(Mat& frame);
+	// Отрисовывает линию перемещения точки
+	void DrawPointTrack(Mat& frame);
+	// Отрисовывает прямоугольник взаимодействия
+	void DrawInteractionRectangle(Mat& frame);
+	// Отрисовывает текстовые данные рядом с точкой
+	void DrawTextData(Mat& frame);
+
 
 // Геттеры
 public:
+	// TEMPORARY
+	std::vector<double> GetX();
+	std::vector<float> GetY();
 	// Возвращает последний элемент вектора координат
 	Point2f GetLastFoundCoordinates();
 	// Возвращает текущие частоты точки
@@ -50,8 +62,12 @@ public:
 	Rect GetInteractionRect();
 
 private:
-
+	// Обновляем текущий цвет точки
+	void UpdatePointColor();
 private:
+	// Коэффициент рескейла для отрисовки данных
+	float resizing_coefficient_;
+	// ID точки (нет блин почки)
 	int point_id_;
 	// Частота обновления частоты, цвета и тп
 	int update_rate_;
@@ -59,6 +75,10 @@ private:
 	Rect interaction_box_;
 	// Половина длины прямоугольника взаимодействия
 	int interaction_offset_;
+	// True - в случае взаимодействия, false - в противном
+	bool interacted_;
+	// Цвет точки
+	Scalar point_color_;
 	// Амплитуды вибрации по x, y, z
 	Point3f amplitude_;
 	// Контейнеры для координат (позиций) точки, её частот и временных координат

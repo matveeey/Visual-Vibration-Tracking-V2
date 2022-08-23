@@ -14,11 +14,15 @@ VibrationDetector::VibrationDetector(std::string input_file_name, std::string ou
 	lk_win_size_ = 20;
 	level_amount_ = 1;
 	point_offset_ = 100;
-	res_mp_ = 1;
+
+	frame_handler = new FrameHandler(input_file_name_, output_file_name_, MAIN_WINDOW_NAME);
+
+	res_mp_ = frame_handler->GetResizingCoefficient();
 }
 
 VibrationDetector::~VibrationDetector()
 {
+	delete frame_handler;
 }
 
 void VibrationDetector::ServeTheQueues()
@@ -37,7 +41,8 @@ void VibrationDetector::ServeTheQueues()
 
 void VibrationDetector::CreateNewPoint(Point2f mouse_coordinates)
 {
-	PointHandler point_handler_ = PointHandler(mouse_coordinates, update_rate_, fps_, point_id_++);
+
+	PointHandler point_handler_ = PointHandler(mouse_coordinates, update_rate_, fps_, point_id_++, res_mp_);
 	vec_point_handlers_.push_back(point_handler_);
 
 	std::cout << "DEBUG: creating new point" << std::endl;
@@ -109,6 +114,10 @@ void VibrationDetector::OnMouse(int event, int x, int y, int flags, void* userda
 // "helper" function for implementing callback function as a method of C++ class
 void VibrationDetector::DetectEvent(int event, int x, int y, int flags)
 {
+	Point tmp = TranslateCoordinates(Point2f(x, y));
+	x = tmp.x;
+	y = tmp.y;
+
 	switch (event) {
 		// ЛКМ была прожата вниз
 	case EVENT_LBUTTONDOWN:
@@ -278,156 +287,86 @@ void VibrationDetector::TrackAndCalc()
 	}
 }
 
-void VibrationDetector::DrawData(Mat& frame)
+Point2f VibrationDetector::TranslateCoordinates(Point2f point)
 {
-	if (previous_points_coordinates_.size() != vec_point_handlers_.size())
-	{
-		std::cout << "DEBUG: ERROR - previous_points_coordinates_ size doesnt match vec_point_handlers_ size" << std::endl;
-		return;
-	}
+	return Point2f(point.x / res_mp_, point.y / res_mp_);
+}
+
+void VibrationDetector::DrawDebugLkWinRectangle(Mat& frame)
+{
 
 	for (int i = 0; i < vec_point_handlers_.size(); i++)
 	{
-		Scalar circle_color;
-		Point2f new_point = vec_point_handlers_[i].GetLastFoundCoordinates();
-		Point2f text_coordinates = vec_point_handlers_[i].GetTextCoordinates();
-		Point3f amplitude = vec_point_handlers_[i].GetCurrentAmplitude();
-		if (vec_point_handlers_[i].IsInteracted(last_mouse_position_))
-		{
-			circle_color = Scalar(255, 150, 50);
-		}
-		else circle_color = Scalar(255, 75, 25);
-
-		// отрисовываем прямоугольник взаимодействия (если оно есть)
-		if (vec_point_handlers_[i].IsInteracted(last_mouse_position_))
-		{
-			rectangle(frame, vec_point_handlers_[i].GetInteractionRect(), Scalar(0, 255, 0), 1);
-		}
-
 		// DEBUG
 		Rect debug_lk_win_size = Rect(
 			Point2i(vec_point_handlers_[i].GetLastFoundCoordinates().x - lk_win_size_, vec_point_handlers_[i].GetLastFoundCoordinates().y - lk_win_size_),
 			Point2i(vec_point_handlers_[i].GetLastFoundCoordinates().x + lk_win_size_, vec_point_handlers_[i].GetLastFoundCoordinates().y + lk_win_size_)
 		);
 		rectangle(frame, debug_lk_win_size, Scalar(0, 0, 255), 1);
-
-		// отрисовываем линии точек
-		line(frame, previous_points_coordinates_[i], new_point, Scalar(0, 255, 0), 1, LINE_AA);
-
-		// отрисовываем круг вокруг точки
-		circle(frame, new_point, 10, circle_color, 2);
-
-		// отрисовываем гистограмму
-		vec_point_handlers_[i].PlotHistogram();
-
-		std::vector<double> frequency = vec_point_handlers_[i].GetCurrentVibrationFrequency();
-
-		// отрисовываем частоту вибрации
-		for (int j = 0; j < frequency.size(); j++)
-		{
-			putText(
-				frame,
-				"hz: " + std::to_string(frequency[j]),
-				Point(text_coordinates.x + 15, text_coordinates.y + res_mp_ * j * 20),
-				FONT_HERSHEY_PLAIN,
-				res_mp_ * 1.25,
-				Scalar(0, 69, 255),
-				2
-			);
-		}
-
-		// отрисовываем амплитуды вибрации
-		putText(
-			frame,
-			"x: " + std::to_string(amplitude.x),
-			Point(text_coordinates.x, text_coordinates.y - res_mp_ * 20),
-			FONT_HERSHEY_PLAIN,
-			res_mp_ * 1,
-			Scalar(0, 255, 255),
-			2
-		);
-		putText(
-			frame,
-			"y: " + std::to_string(amplitude.y),
-			Point(text_coordinates.x, text_coordinates.y - res_mp_ * 2 * 20),
-			FONT_HERSHEY_PLAIN,
-			res_mp_ * 1,
-			Scalar(0, 255, 255),
-			2
-		);
-		// uncomment когда появится 3-я координата для амплитуды :)
-		/*putText(
-			frame,
-			"z: " + std::to_string(amplitude.z),
-			Point(text_coordinates.x, text_coordinates.y - res_mp_ * 3 * 20),
-			FONT_HERSHEY_PLAIN,
-			res_mp_ * 1,
-			Scalar(0, 255, 255),
-			2
-		);*/
 	}
 }
 
 void VibrationDetector::ExecuteVibrationDetection()
 {
-	FrameHandler frame_handler(input_file_name_, output_file_name_, MAIN_WINDOW_NAME);
-	if (frame_handler.GetFrameHeight() > 1000)
-	{
-		res_mp_ = 2;
-	}
-
 	// reading the first frame of sequence so we can convert it to gray color space
-	frame_handler.ReadNextFrame();
-	current_tracking_frame_ = frame_handler.GetCurrentFrame();
+	frame_handler->ReadNextFrame();
+	current_tracking_frame_ = frame_handler->GetCurrentFrame();
 
 	/*if (warping_figure_selected_)
 	{
 		current_tracking_frame_ = GetWarpedFrame(current_tracking_frame_, warping_figure_, frame_processor.GetFrameWidth(), frame_processor.GetFrameHeight());
 	}*/
 
-	prev_img_gray_ = frame_handler.GetGrayFrame(current_tracking_frame_);
-	fps_ = frame_handler.GetInputFps();
+	prev_img_gray_ = frame_handler->GetGrayFrame(current_tracking_frame_);
+	fps_ = frame_handler->GetInputFps();
 
 	// conditions of exit
 	running_ = true;
 	int current_num_of_frame = 0;
-	int amount_of_frames = frame_handler.GetAmountOfFrames();
+	int amount_of_frames = frame_handler->GetAmountOfFrames();
 
 	// устанавливаем callback handler на наше окно
-	setMouseCallback(frame_handler.GetWindowName(), OnMouse, (void*)this);
+	setMouseCallback(frame_handler->GetWindowName(), OnMouse, (void*)this);
 
 	while ((current_num_of_frame < amount_of_frames - 1) && running_ == true)
 	{
-		current_num_of_frame = frame_handler.GetCurrentPosOfFrame();
+		current_num_of_frame = frame_handler->GetCurrentPosOfFrame();
 
 		// reading next frame and converting it to gray color space
-		frame_handler.ReadNextFrame();
-		current_tracking_frame_ = frame_handler.GetCurrentFrame();
+		frame_handler->ReadNextFrame();
 
+		current_tracking_frame_ = frame_handler->GetCurrentFrame();
 		if (!warping_figure_.empty())
 		{
 			current_tracking_frame_ = MakeWarpedFrame(current_tracking_frame_, warping_figure_);
 		}
 
-		next_img_gray_ = frame_handler.GetGrayFrame(current_tracking_frame_);
+		next_img_gray_ = frame_handler->GetGrayFrame(current_tracking_frame_);
 
 		if (!vec_point_handlers_.empty())
 		{
 			// Трекинг и вычисление частоты вибрации
-			frame_time_ = frame_handler.GetCurrentTimeOfFrame();
+			frame_time_ = frame_handler->GetCurrentTimeOfFrame();
 			TrackAndCalc();
 
-			// Рисование точек, треков и данных (вибрации, амплитуды и т.п.)
-			DrawData(current_tracking_frame_);
+			for (int i = 0; i < vec_point_handlers_.size(); i++)
+			{
+				// Рисование точек, треков и данных (вибрации, амплитуды и т.п.)
+				vec_point_handlers_[i].IsInteracted(last_mouse_position_);
+				vec_point_handlers_[i].Draw(current_tracking_frame_);
+			}
 		}
 
 		// обслуживаем и очищаем очереди на создание и удаление точек
 		ServeTheQueues();
 
 		// Выводим на экран ресайзнутый фрейм и записываем изначальный (не ресайзнутый)
-		frame_handler.WriteFrame(current_tracking_frame_);
-		//current_tracking_frame_ = frame_processor.ResizeFrame(current_tracking_frame_);
-		frame_handler.ShowFrame(current_tracking_frame_);
+		frame_handler->WriteFrame(current_tracking_frame_);
+
+		current_tracking_frame_.copyTo(current_tracking_frame_resized_);
+		current_tracking_frame_resized_ = frame_handler->ResizeFrame(current_tracking_frame_resized_);
+
+		frame_handler->ShowFrame(current_tracking_frame_resized_);
 
 		prev_img_gray_ = next_img_gray_;
 
@@ -454,7 +393,7 @@ void VibrationDetector::ExecuteVibrationDetection()
 		case 'c':
 		{
 			Mat unchanged_frame = current_tracking_frame_;
-			frame_handler.ShowFrame(current_tracking_frame_);
+			frame_handler->ShowFrame(current_tracking_frame_);
 			
 			warping_figure_.clear();
 			warping_figure_selecting_ = true;
@@ -469,7 +408,7 @@ void VibrationDetector::ExecuteVibrationDetection()
 				if (warping_figure_.size() == 4)
 					warping_figure_selecting_ = false;
 		
-				frame_handler.ShowFrame(unchanged_frame);
+				frame_handler->ShowFrame(unchanged_frame);
 				waitKey(20);
 			}
 			break;
@@ -508,7 +447,7 @@ void VibrationDetector::ExecuteVibrationDetection()
 
 			
 			running_ = false;
-			std::cout << frame_handler.GetInputCapStatus() << std::endl;
+			std::cout << frame_handler->GetInputCapStatus() << std::endl;
 			break;
 		}
 		}
