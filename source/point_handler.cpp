@@ -250,9 +250,9 @@ void PointHandler::PlotHistogram()
 {
 	if (is_histogram_plotted_)
 	{
-		set_x_values(x_);
-		set_y_values(y_);
-		plot_histogram();
+		SetXValues(x_);
+		SetYValues(y_);
+		ShowHistogram();
 	}
 }
 

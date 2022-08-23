@@ -21,17 +21,19 @@ public:
 	static void OnMouse(int event, int x, int y, int flags, void* userdata);
 	void DetectEvent(int event, int x, int y, int flags);
 	// Отрисовывает гистограмму
-	void plot_histogram();
+	void ShowHistogram();
 	// Устанавливает X-ы
-	void set_x_values(std::vector<double> x_values);
+	void SetXValues(std::vector<double> x_values);
 	// Устанавливает Y-и
-	void set_y_values(std::vector<float> y_values);
+	void SetYValues(std::vector<float> y_values);
 	// Обновляет статус флага отрисовки гистограммы
 	void SetHistogramFlag(bool flag);
 
 private:
+	// Подгатавливаем histogram_background_ для дальнейшего использования
+	void InitHistogramBackground();
 	// Вычисляет значения для гистограммы
-	Mat calc_histogram();
+	Mat CalcHistogram();
 	// Проверяет, соответствует ли точка координате мыши
 	bool IsInteracted(int x, int interval);
 	// Выводит значение частоты рядом с мышкой
@@ -53,13 +55,16 @@ private:
 	int histogram_frame_height_;
 	// Сама гистограмма
 	Mat histogram_;
+	// Фон для гистограммы
+	Mat histogram_background_;
 	// Значения по x, y
 	std::vector<double> x_values_;
 	std::vector<float> y_values_;
-	// Коэффицеинт для отображения гистограммы
-	float scale_coefficient_;
-	// Соответствие значениям
-	std::vector<int> values_accordance_;
+	// Отступ для подписей оси
+	float axis_signature_offset_;
+	// Интервал для делений оси и количество этих делений
+	float signature_interval_;
+	int signature_amount_;
 	// Максимальное (предельное) значение по оси X
 	int x_limit_;
 	// Координаты мыши

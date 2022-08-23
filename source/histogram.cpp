@@ -1,22 +1,22 @@
 #include "VVT-V2/histogram.h"
 
-//Histogram::Histogram()
-//{
-//}
-
 Histogram::Histogram(int width, int height, int x_limit, int id) :
 	histogram_frame_width_{ width },
 	histogram_frame_height_{ height },
 	x_limit_{ x_limit },
 	is_histogram_plotted_{ false },
-	scale_coefficient_{ 5 }
-
+	signature_amount_{ 8 }
 {
 	// Инициализация гистограммы пустым кадром черного цвета
 	histogram_offset_ = static_cast<float>(histogram_frame_width_) * 0.05;
+	axis_signature_offset_ = static_cast<float>(histogram_frame_width_) * 0.03;
 	histogram_ = Mat(Size(histogram_frame_width_, histogram_frame_height_), CV_32F, Scalar(0, 0, 0));
 	// Инициализируем название окна
 	winname_ = "histogram " + std::to_string(id);
+	// Посчитаем интервал между подписями оси
+	signature_interval_ = (histogram_.cols - histogram_offset_ * 2.0) / static_cast<float>(signature_amount_ - 1);
+	// Подгатавливаем фон гистограммы
+	InitHistogramBackground();
 }
 
 Histogram::~Histogram()
@@ -50,22 +50,22 @@ void Histogram::DetectEvent(int event, int x, int y, int flags)
 	}
 }
 
-void Histogram::plot_histogram()
+void Histogram::ShowHistogram()
 {
 	if (is_histogram_plotted_)
 	{
-		histogram_ = calc_histogram();
+		histogram_ = CalcHistogram();
 		imshow(winname_, histogram_);
 		setMouseCallback(winname_, OnMouse, (void*)this);
 	}
 }
 
-void Histogram::set_x_values(std::vector<double> x_values)
+void Histogram::SetXValues(std::vector<double> x_values)
 {
 	x_values_ = x_values;
 }
 
-void Histogram::set_y_values(std::vector<float> y_values)
+void Histogram::SetYValues(std::vector<float> y_values)
 {
 	y_values_ = y_values;
 }
@@ -75,42 +75,59 @@ void Histogram::SetHistogramFlag(bool flag)
 	is_histogram_plotted_ = flag;
 }
 
-Mat Histogram::calc_histogram()
+void Histogram::InitHistogramBackground()
 {
-	float interval = ((histogram_.cols) - histogram_offset_ * 2.0) / y_values_.size();
-	
 	Mat frame = Mat(Size(histogram_frame_width_, histogram_frame_height_), CV_32F, Scalar(0, 0, 0));
-	
+
+	// Отрисовываем рамку гистограммы
 	rectangle(frame, Rect(
-		Point2f(histogram_offset_ * 0.5, histogram_offset_ * 0.5),
-		Point2f(histogram_frame_width_ - histogram_offset_ * 0.5, histogram_frame_height_ - histogram_offset_ * 0.5)),
+		Point2f(histogram_offset_ * 0.5, histogram_offset_ * 0.5), // top-left
+		Point2f(histogram_frame_width_ - histogram_offset_ * 0.5, histogram_frame_height_ - histogram_offset_ * 0.5 - axis_signature_offset_)), // bottom-right
 		Scalar(255, 255, 255),
 		1
 	);
 
+	// Отрисовываем подписи
+	for (int i = 0; i <= signature_amount_; i++)
+	{
+		float value = static_cast<float>(x_limit_) / static_cast<float>(signature_amount_ - 1);
+		putText(
+			frame,
+			to_string_with_precision(value * i, 1),
+			Point2f(histogram_offset_ / 2.0 + i * signature_interval_, histogram_frame_height_ - axis_signature_offset_ / 2.0),
+			FONT_HERSHEY_PLAIN,
+			1,
+			Scalar(255, 255, 255)
+		);
+	}
+
+	frame.copyTo(histogram_background_);
+}
+
+Mat Histogram::CalcHistogram()
+{
+	float interval = ((histogram_.cols) - histogram_offset_ * 2.0) / y_values_.size();
+	
+	Mat frame = histogram_background_.clone();
+
 	// Инициализируем максимальные и минимальные значения магнитуд
 	float max_value = 0.0;
-	float min_value = 10.0;
 
 	for (int i = 0; i < y_values_.size(); i++)
 	{
 		if (y_values_[i] > max_value)
 			max_value = y_values_[i];
-		if (y_values_[i] < min_value)
-			min_value = y_values_[i];
 	}
 
-	scale_coefficient_ = (min_value / max_value);
-
-	std::cout << y_values_.size() << std::endl;
+	// Отрисовка столбцов
 	for (int i = 0; i < y_values_.size(); i++)
 	{
 		float x_0 = histogram_offset_ + i * interval + interval;
-		float y_0 = histogram_frame_height_ - histogram_offset_;
+		float y_0 = histogram_frame_height_ - histogram_offset_ - axis_signature_offset_;
 		float x_1 = x_0;
-		float y_1 = histogram_frame_height_ - histogram_offset_ - y_values_[i] / max_value * (histogram_frame_height_ - 2 * histogram_offset_);
+		float y_1 = y_0 - y_values_[i] / max_value * (histogram_frame_height_ - 2 * histogram_offset_ - axis_signature_offset_);
 
-		// Если мышь указывает на текущее значение, выводим его
+		// Если мышь указывает на текущее значение, отрисовываем это значение рядом с курсором
 		if (IsInteracted(static_cast<int>(x_0), interval))
 		{
 			PlotMouseValue(frame, i);
