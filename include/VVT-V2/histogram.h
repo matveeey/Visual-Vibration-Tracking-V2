@@ -69,7 +69,8 @@ private:
 	int x_limit_;
 	// Координаты мыши
 	Point2i last_mouse_coordinates_;
-
+	// Процент диапазона, который будет нижней мертвой зоной
+	float dead_zone_coeff_;
 
 };
 

@@ -1,16 +1,16 @@
-#ifndef LAPLACE_ENLARGEMENT_H
-#define LAPLACE_ENLARGEMENT_H
+#ifndef EULERIAN_ENLARGEMENT_H
+#define EULERIAN_ENLARGEMENT_H
 
 // OpenCV headers
 #include <opencv2/opencv.hpp>
 
 using namespace cv;
 
-class LaplaceEnlarger
+class EulerEnlarger
 {
 protected:
-	LaplaceEnlarger();
-	~LaplaceEnlarger();
+	EulerEnlarger();
+	~EulerEnlarger();
 
 protected:
 	// Основные методы

@@ -9,12 +9,12 @@
 
 // my headers
 #include "VVT-V2/frame_handler.h"
-#include "MovEn/laplace_enlargement.h"
+#include "MovEn/eulerian_enlargement.h"
 #include "MovEn/riesz_enlargement.h"
 
 using namespace cv;
 
-class MovementEnlarger : public LaplaceEnlarger, RieszEnlarger
+class MovementEnlarger : public EulerEnlarger, RieszEnlarger
 {
 public:
 	MovementEnlarger(std::string input_file_name, std::string output_file_name);

@@ -11,7 +11,8 @@ FrameHandler::FrameHandler(const std::string input_file_name, const std::string 
 	current_pos_of_frame_{ 0 },
 	input_fps_{ input_cap_->get(CAP_PROP_FPS) },
 	input_frame_height_{ input_cap_->get(CAP_PROP_FRAME_HEIGHT) },
-	input_frame_width_{ input_cap_->get(CAP_PROP_FRAME_WIDTH) }
+	input_frame_width_{ input_cap_->get(CAP_PROP_FRAME_WIDTH) },
+	resizing_coefficient_{ 1.0f }
 {
 	std::cout << "Input fps is: " << input_fps_ << std::endl;
 	// создаём окно
@@ -130,6 +131,8 @@ float FrameHandler::GetResizingCoefficient()
 
 void FrameHandler::ResizeResolution()
 {
+	std::cout << "frame width" << input_frame_width_ << std::endl;
+	std::cout << "frame height" << input_frame_height_ << std::endl;
 	if (input_frame_width_ > input_frame_height_)
 	{
 		switch (static_cast<int>(input_frame_height_))

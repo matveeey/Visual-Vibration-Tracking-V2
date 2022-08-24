@@ -23,6 +23,8 @@ public:
 	~PointHandler();
 	// Применяет БПФ (FFT) для координат (позиций) точки
 	void ExecuteFft();
+	// Частотный фильтр для нижней части диапазона
+	void Filter(std::vector<float>& magnitudes);
 	// Возвращает true в случае попадания координат из входного значения в interaction_box точки
 	bool IsInteracted(Point2i coordinates);
 	// Добавляет новые координаты точки извне

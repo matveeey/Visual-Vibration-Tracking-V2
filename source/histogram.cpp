@@ -5,7 +5,8 @@ Histogram::Histogram(int width, int height, int x_limit, int id) :
 	histogram_frame_height_{ height },
 	x_limit_{ x_limit },
 	is_histogram_plotted_{ false },
-	signature_amount_{ 8 }
+	signature_amount_{ 8 },
+	dead_zone_coeff_{ 0.1f }
 {
 	// Инициализация гистограммы пустым кадром черного цвета
 	histogram_offset_ = static_cast<float>(histogram_frame_width_) * 0.05;
@@ -21,7 +22,6 @@ Histogram::Histogram(int width, int height, int x_limit, int id) :
 
 Histogram::~Histogram()
 {
-	// Пока это закоменчено, тк есть проблема с выделением памяти. Когда решу, раскоменчу
 	std::cout << "Histogram destructor" << std::endl;
 
 	if (is_histogram_plotted_)
@@ -91,12 +91,14 @@ void Histogram::InitHistogramBackground()
 	);
 
 	// Отрисовываем подписи
-	for (int i = 0; i <= signature_amount_; i++)
+	for (int i = 0; i < signature_amount_; i++)
 	{
-		float value = static_cast<float>(x_limit_) / static_cast<float>(signature_amount_ - 1);
+		float signature_start = static_cast<int>(dead_zone_coeff_ * x_limit_);
+		float signature_interval = static_cast<float>(x_limit_ - signature_start) / static_cast<float>(signature_amount_ - 1);
+		float value = signature_start + signature_interval * i;
 		putText(
 			frame,
-			to_string_with_precision(value * i, 1),
+			to_string_with_precision(value, 1),
 			Point2f(histogram_offset_ / 2.0 + i * signature_interval_, histogram_frame_height_ - axis_signature_offset_ / 2.0),
 			FONT_HERSHEY_PLAIN,
 			1,
@@ -109,6 +111,13 @@ void Histogram::InitHistogramBackground()
 
 Mat Histogram::CalcHistogram()
 {
+	// Создаем мертвую зону
+	for (int i = 0; i < static_cast<int>(x_values_.size() * dead_zone_coeff_); i++)
+	{
+		x_values_.erase(x_values_.begin());
+		y_values_.erase(y_values_.begin());
+	}
+
 	float interval = ((histogram_.cols) - histogram_offset_ * 2.0) / y_values_.size();
 	
 	Mat frame = histogram_background_.clone();
@@ -121,6 +130,7 @@ Mat Histogram::CalcHistogram()
 		if (y_values_[i] > max_value)
 			max_value = y_values_[i];
 	}
+
 
 	// Отрисовка столбцов
 	for (int i = 0; i < y_values_.size(); i++)

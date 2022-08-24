@@ -113,6 +113,8 @@ void PointHandler::ExecuteFft()
 		magnitudes.push_back(current_magnitude);
 	}
 
+	//Filter(magnitudes);
+
 	/////////////////////////////////////
 
 	if (point_coordinates_.size() > 5)
@@ -199,6 +201,16 @@ void PointHandler::ExecuteFft()
 	}
 
 	frequencies_ = peak_frequencies;
+}
+
+void PointHandler::Filter(std::vector<float>& magnitudes)
+{
+	float cutoff_freq_limit = 0.1f;
+	for (int i = 0; i < static_cast<int>(magnitudes.size() * cutoff_freq_limit); i++)
+	{
+		float coeff = 0.1f / (1.0f / magnitudes[i]);
+		magnitudes[i] = magnitudes[i] * coeff;
+	}
 }
 
 Point2f PointHandler::GetLastFoundCoordinates()

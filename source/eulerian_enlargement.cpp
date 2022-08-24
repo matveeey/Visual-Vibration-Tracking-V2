@@ -1,6 +1,6 @@
-#include "MovEn/laplace_enlargement.h"
+#include "MovEn/eulerian_enlargement.h"
 
-LaplaceEnlarger::LaplaceEnlarger() :
+EulerEnlarger::EulerEnlarger() :
 	cutoff_low_{ 0.05 },
 	cutoff_high_{ 0.95 },
 	exaggeraiton_coefficient_{ 0.5 },
@@ -11,15 +11,15 @@ LaplaceEnlarger::LaplaceEnlarger() :
 	alpha_{ 0.8 },
 	levels_amount_{ 3 }
 {
-	std::cout << "Laplace Enlarger constructor" << std::endl;
+	std::cout << "Euler Enlarger constructor" << std::endl;
 }
 
-LaplaceEnlarger::~LaplaceEnlarger()
+EulerEnlarger::~EulerEnlarger()
 {
-	std::cout << "Laplace Enlarger destructor" << std::endl;
+	std::cout << "Euler Enlarger destructor" << std::endl;
 }
 
-void LaplaceEnlarger::LaplaceEnlarge(Mat& motion_pyramid_level, int current_level)
+void EulerEnlarger::LaplaceEnlarge(Mat& motion_pyramid_level, int current_level)
 {
 	float current_alpha = (lambda_ / (delta_ / 8.0) - 1.0) * exaggeraiton_coefficient_;
 
@@ -35,7 +35,7 @@ void LaplaceEnlarger::LaplaceEnlarge(Mat& motion_pyramid_level, int current_leve
 	}
 }
 
-void LaplaceEnlarger::Attenuate(Mat& motion_frame)
+void EulerEnlarger::Attenuate(Mat& motion_frame)
 {
 	// "ѕриглушение" будет происходить только дл€ цветных кадров
 	if (motion_frame.channels() > 2)
@@ -50,7 +50,7 @@ void LaplaceEnlarger::Attenuate(Mat& motion_frame)
 	}
 }
 
-void LaplaceEnlarger::BuildLaplacePyramid(Mat& input_frame, std::vector<Mat>& input_pyramid, int levels)
+void EulerEnlarger::BuildLaplacePyramid(Mat& input_frame, std::vector<Mat>& input_pyramid, int levels)
 {
 	std::vector<Mat> pyramid;
 	Mat current_level = input_frame.clone();
@@ -71,7 +71,7 @@ void LaplaceEnlarger::BuildLaplacePyramid(Mat& input_frame, std::vector<Mat>& in
 	input_pyramid = pyramid;
 }
 
-void LaplaceEnlarger::IirFilter(Mat& input_pyramid_level, Mat& motion_pyramid_level, Mat& low_pass_high_level, Mat& low_pass_low_level, double cutoff_low, double cutoff_high)
+void EulerEnlarger::IirFilter(Mat& input_pyramid_level, Mat& motion_pyramid_level, Mat& low_pass_high_level, Mat& low_pass_low_level, double cutoff_low, double cutoff_high)
 {
 	low_pass_high_level = (1 - cutoff_high) * low_pass_high_level + cutoff_high * input_pyramid_level;
 	low_pass_low_level = (1 - cutoff_low) * low_pass_low_level + cutoff_low * input_pyramid_level;
@@ -79,7 +79,7 @@ void LaplaceEnlarger::IirFilter(Mat& input_pyramid_level, Mat& motion_pyramid_le
 	motion_pyramid_level = low_pass_high_level - low_pass_low_level;
 }
 
-void LaplaceEnlarger::BuildFromLaplacePyramid(std::vector<Mat>& motion_pyramid, Mat& motion_frame, const int levels)
+void EulerEnlarger::BuildFromLaplacePyramid(std::vector<Mat>& motion_pyramid, Mat& motion_frame, const int levels)
 {
 	// —начала рассматриваем последний элемент вектора - он же первый уровень пирамиды
 	std::cout << "motion_pyramid size " << motion_pyramid.size() << " and levels is " << levels << std::endl;
