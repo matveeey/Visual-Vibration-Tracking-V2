@@ -62,7 +62,7 @@ void VibrationDetector::LeftClickHandler(Point2f mouse_coordinates)
 		for (int i = 0; i < vec_point_handlers_.size(); i++)
 		{
 			// если произошло пересечение с мышкой, то новую точку не добавляем
-			if (vec_point_handlers_[i]->IsInteracted(mouse_coordinates))
+			if (vec_point_handlers_[i]->VibratingPoint::IsInteracted(mouse_coordinates))
 			{
 				vec_point_handlers_[i]->SetHistogramFlag(true);
 				flag_interacted_ = true;
@@ -82,7 +82,7 @@ void VibrationDetector::DeletePoints(Point2i mouse_coordinates)
 	for (int i = 0; i < vec_point_handlers_.size(); i++)
 	{
 		// если произошло пересечение с мышкой, вносим ID (номер) точки в "вектор точек на удаление"
-		if (vec_point_handlers_[i]->IsInteracted(mouse_coordinates))
+		if (vec_point_handlers_[i]->VibratingPoint::IsInteracted(mouse_coordinates))
 		{
 			point_ids_to_be_deleted_.push_back(i);
 		}
@@ -284,10 +284,10 @@ void VibrationDetector::TrackAndCalc()
 	// Закидываем найденные значения обратно в point handler
 	for (int i = 0; i < vec_point_handlers_.size(); i++)
 	{
-		vec_point_handlers_[i]->AddNewCoordinate(NextPts[i]);
-		vec_point_handlers_[i]->AddFrameTimePos(frame_time_);
+		vec_point_handlers_[i]->AddNewPointPosition(NextPts[i]);
+		vec_point_handlers_[i]->AddNewPointTime(frame_time_);
 		// Вызов БПФ (FFT)
-		vec_point_handlers_[i]->ExecuteFft();
+		vec_point_handlers_[i]->ExecuteFFT();
 	}
 }
 
@@ -356,7 +356,7 @@ void VibrationDetector::ExecuteVibrationDetection()
 			for (int i = 0; i < vec_point_handlers_.size(); i++)
 			{
 				// Рисование точек, треков и данных (вибрации, амплитуды и т.п.)
-				vec_point_handlers_[i]->IsInteracted(last_mouse_position_);
+				vec_point_handlers_[i]->VibratingPoint::IsInteracted(last_mouse_position_);
 				vec_point_handlers_[i]->Draw(current_tracking_frame_);
 			}
 		}
