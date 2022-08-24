@@ -13,10 +13,17 @@
 #include <opencv2/video/tracking.hpp>
 
 // my headers
-#include "VVT-V2/point_handler.h"
+#include "VVT-V2/lonely_point_handler.h"
 #include "VVT-V2/frame_handler.h"
 
-class VibrationDetector 
+enum mode
+{
+	DEFAULT,
+	SELECTINGROI,
+	PAUSE
+};
+
+class VibrationDetector
 {
 public:
 	VibrationDetector(std::string input_file_name, std::string output_file_name, std::string window_name);
@@ -36,20 +43,34 @@ private:
 	// callback functions for detecting the click
 	static void OnMouse(int event, int x, int y, int flags, void* userdata);
 	void DetectEvent(int event, int x, int y, int flags);
+	// Обычный режим
+	void DefaultModeHandler(int event, int x, int y);
+	// Режим выделения региона интереса
+	void RoiSelectionHandler(int event, int x, int y);
 	// Удаляет перспективные искажения
 	Mat MakeWarpedFrame(Mat frame, std::vector<Point2i> warping_figure);
 	// Трекает точки алгоритмом Лукаса-Канаде и вызывает БПФ
 	void TrackAndCalc();
+	// Находит подходящие для трекинга точки на изображении
+	std::vector<Point2f> FindGoodFeatures(Mat frame, Rect roi);
 	// Рисует точки и выводит данные
 	void DrawDebugLkWinRectangle(Mat& frame);
 	// Транслирует координаты ресайзнутого окна в пространство координат нересайзнутого окна
 	Point2f TranslateCoordinates(Point2f point);
 
 private:
+	// Фреймпроцессор
 	FrameHandler* frame_handler;
+	// Флаг работающей программы
 	bool running_;
+	// Коэффициент автоскейла размеров окна в зависимости от разрешения исходного видео
 	float res_mp_;
+	// Псевдо-id (порядковывй номер точки)
 	int point_id_;
+	// Последняя позиция курсора в главном окне
+	Point last_mouse_position_;
+	// Режим работы 
+	int current_mode_;
 
 	// NORMAL MODE
 	// 
@@ -62,7 +83,7 @@ private:
 	// Предыдущие позиции точек
 	std::vector<Point2f> previous_points_coordinates_;
 	// Points handling
-	std::vector<PointHandler*> vec_point_handlers_;
+	std::vector<LonelyPointHandler*> vec_lonely_point_handlers_;
 
 	// Не ресайзнутый фрейм
 	Mat current_tracking_frame_;
@@ -71,13 +92,17 @@ private:
 
 	// R MODE
 	// 
-	// Флаг для выделения ROI
+	// Флаг происходящего выделения ROI
 	bool roi_selecting_;
-	// ROI хэндлер
+	// Флаг произведенного выделения ROI
+	bool roi_selected_;
+	// Координаты первой противоположной точки на краю диагонали прямоугольника (top left, bottom left, top right, bottom right - смотря в какую сторону проводить ROI)
+	Point2i tl_click_coords_;
+	// Регион интереса
+	Rect roi_;
 	
 
 	int point_offset_;
-	Point last_mouse_position_;
 	Point point_to_be_deleted_;
 	bool intersection_;
 	std::vector<bool> vec_of_intersections_;
@@ -100,13 +125,10 @@ private:
 
 	// for rectangle
 	Mat unchanged_frame_;
-	Point2i tl_click_coords_;
 	Point2i br_click_coords_;
 	Point2i mouse_move_coords_;
 	bool right_button_down_;
-	bool rectangle_selected_;
 	bool colors_inited_;
-	Rect roi_;
 	std::vector<Point2f> prev_vibrating_pts_;
 	std::vector<Point2f> next_vibrating_pts_;
 

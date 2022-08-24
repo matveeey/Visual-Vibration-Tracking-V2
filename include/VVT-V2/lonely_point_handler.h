@@ -1,9 +1,8 @@
-#ifndef POINT_HANDLER_H
-#define POINT_HANDLER_H
+#ifndef LONELY_POINT_HANDLER_H
+#define LONELY_POINT_HANDLER_H
 
 // standart headers
 #include <iostream>
-#include <fstream>
 
 // OpenCV headers
 #include <opencv2/opencv.hpp>
@@ -12,16 +11,13 @@
 #include "VVT-V2/vibrating_point.h"
 #include "VVT-V2/histogram.h"
 
-// other headers
-#include "VVT-V2/PeakFinder.h"
-
 using namespace cv;
 
-class PointHandler : public Histogram, public VibratingPoint
+class LonelyPointHandler : public Histogram, public VibratingPoint
 {
 public:
-	PointHandler(Point2f init_coordinates, int update_rate, double sampling_rate, int point_id, float resizing_coefficient);
-	~PointHandler();
+	LonelyPointHandler(Point2f init_coordinates, int update_rate, double sampling_rate, int point_id, float resizing_coefficient);
+	~LonelyPointHandler();
 	// Частотный фильтр для нижней части диапазона
 	void Filter(std::vector<float>& magnitudes);
 	// Отрисовывает точку и данные, связанные с ней

@@ -1,10 +1,9 @@
-#include "VVT-V2/point_handler.h"
+#include "VVT-V2/lonely_point_handler.h"
 
-PointHandler::PointHandler(Point2f init_coordinates, int update_rate, double sampling_rate, int point_id, float resizing_coefficient) :
+LonelyPointHandler::LonelyPointHandler(Point2f init_coordinates, int update_rate, double sampling_rate, int point_id, float resizing_coefficient) :
 	Histogram{ 600, 300, sampling_rate / 2, point_id },
 	update_rate_{ update_rate },
 	point_id_{ point_id },
-	// TEMPORARY
 	resizing_coefficient_{ 1.25f / resizing_coefficient }
 {
 	interaction_offset_ = 50;
@@ -22,12 +21,12 @@ PointHandler::PointHandler(Point2f init_coordinates, int update_rate, double sam
 	amplitude_ = Point3f(0.0, 0.0, 0.0);
 }
 
-PointHandler::~PointHandler()
+LonelyPointHandler::~LonelyPointHandler()
 {
 	std::cout << "PointHandler destructor" << std::endl;
 }
 
-void PointHandler::Filter(std::vector<float>& magnitudes)
+void LonelyPointHandler::Filter(std::vector<float>& magnitudes)
 {
 	float cutoff_freq_limit = 0.1f;
 	for (int i = 0; i < static_cast<int>(magnitudes.size() * cutoff_freq_limit); i++)
@@ -37,19 +36,19 @@ void PointHandler::Filter(std::vector<float>& magnitudes)
 	}
 }
 
-Point2f PointHandler::GetTextCoordinates()
+Point2f LonelyPointHandler::GetTextCoordinates()
 {
 	if (!point_coordinates_.empty())
 		return point_coordinates_[0];
 	else return Point2f(0.0, 0.0);
 }
 
-Rect PointHandler::GetInteractionRect()
+Rect LonelyPointHandler::GetInteractionRect()
 {
 	return interaction_box_;
 }
 
-void PointHandler::UpdatePointColor()
+void LonelyPointHandler::UpdatePointColor()
 {
 	if (interacted_)
 		point_color_ = Scalar(255, 150, 50); // синий светлее
@@ -57,7 +56,7 @@ void PointHandler::UpdatePointColor()
 		point_color_ = Scalar(255, 75, 25); // синий темнее
 }
 
-void PointHandler::Draw(Mat& frame)
+void LonelyPointHandler::Draw(Mat& frame)
 {
 	// отрисовываем прямоугольник взаимодействия (если оно есть)
 	DrawInteractionRectangle(frame);
@@ -71,7 +70,7 @@ void PointHandler::Draw(Mat& frame)
 	DrawTextData(frame);
 }
 
-void PointHandler::DrawHistogram()
+void LonelyPointHandler::DrawHistogram()
 {
 	if (is_histogram_plotted_)
 	{
@@ -81,7 +80,7 @@ void PointHandler::DrawHistogram()
 	}
 }
 
-void PointHandler::DrawPoint(Mat& frame)
+void LonelyPointHandler::DrawPoint(Mat& frame)
 {
 	UpdatePointColor();
 	// отрисовываем круг вокруг точки
@@ -89,19 +88,19 @@ void PointHandler::DrawPoint(Mat& frame)
 
 }
 
-void PointHandler::DrawPointTrack(Mat& frame)
+void LonelyPointHandler::DrawPointTrack(Mat& frame)
 {
 	if (point_coordinates_.size() > 2)
 		line(frame, point_coordinates_[point_coordinates_.size() - 2], point_coordinates_[point_coordinates_.size() - 1], Scalar(0, 255, 0), 1, LINE_AA);
 }
 
-void PointHandler::DrawInteractionRectangle(Mat& frame)
+void LonelyPointHandler::DrawInteractionRectangle(Mat& frame)
 {
 	if (interacted_)
 		rectangle(frame, interaction_box_, Scalar(0, 255, 0), 2);
 }
 
-void PointHandler::DrawTextData(Mat& frame)
+void LonelyPointHandler::DrawTextData(Mat& frame)
 {
 	// отрисовываем частоту вибрации
 	for (int j = 0; j < frequencies_.size(); j++)

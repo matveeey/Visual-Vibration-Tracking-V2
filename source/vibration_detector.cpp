@@ -8,9 +8,10 @@ VibrationDetector::VibrationDetector(std::string input_file_name, std::string ou
 	update_rate_{ 20 },
 	warping_figure_selecting_{ false },
 	roi_selecting_{ false },
-	point_id_{ 0 }
+	point_id_{ 0 },
+	current_mode_{ DEFAULT }
 {
-	point_selected_ = false;
+	roi_selected_ = false;
 	lk_win_size_ = 20;
 	level_amount_ = 1;
 	point_offset_ = 100;
@@ -42,8 +43,8 @@ void VibrationDetector::ServeTheQueues()
 void VibrationDetector::CreateNewPoint(Point2f mouse_coordinates)
 {
 
-	PointHandler* point_handler_ = new PointHandler(mouse_coordinates, update_rate_, fps_, point_id_++, res_mp_);
-	vec_point_handlers_.push_back(point_handler_);
+	LonelyPointHandler* point_handler_ = new LonelyPointHandler(mouse_coordinates, update_rate_, fps_, point_id_++, res_mp_);
+	vec_lonely_point_handlers_.push_back(point_handler_);
 
 	std::cout << "DEBUG: creating new point" << std::endl;
 }
@@ -51,7 +52,7 @@ void VibrationDetector::CreateNewPoint(Point2f mouse_coordinates)
 void VibrationDetector::LeftClickHandler(Point2f mouse_coordinates)
 {
 	// если вектор пустой - просто добавляем новую точку
-	if (vec_point_handlers_.empty())
+	if (vec_lonely_point_handlers_.empty())
 	{
 		CreateNewPoint(mouse_coordinates);
 	}
@@ -59,12 +60,12 @@ void VibrationDetector::LeftClickHandler(Point2f mouse_coordinates)
 	{
 		// проходим по всему вектору точек
 		bool flag_interacted_ = false;
-		for (int i = 0; i < vec_point_handlers_.size(); i++)
+		for (int i = 0; i < vec_lonely_point_handlers_.size(); i++)
 		{
 			// если произошло пересечение с мышкой, то новую точку не добавляем
-			if (vec_point_handlers_[i]->VibratingPoint::IsInteracted(mouse_coordinates))
+			if (vec_lonely_point_handlers_[i]->VibratingPoint::IsInteracted(mouse_coordinates))
 			{
-				vec_point_handlers_[i]->SetHistogramFlag(true);
+				vec_lonely_point_handlers_[i]->SetHistogramFlag(true);
 				flag_interacted_ = true;
 			}
 		}
@@ -79,24 +80,24 @@ void VibrationDetector::DeletePoints(Point2i mouse_coordinates)
 	std::vector<int> point_ids_to_be_deleted_;
 
 	// проходим по всему вектору точек
-	for (int i = 0; i < vec_point_handlers_.size(); i++)
+	for (int i = 0; i < vec_lonely_point_handlers_.size(); i++)
 	{
 		// если произошло пересечение с мышкой, вносим ID (номер) точки в "вектор точек на удаление"
-		if (vec_point_handlers_[i]->VibratingPoint::IsInteracted(mouse_coordinates))
+		if (vec_lonely_point_handlers_[i]->VibratingPoint::IsInteracted(mouse_coordinates))
 		{
 			point_ids_to_be_deleted_.push_back(i);
 		}
 	}
 	std::cout << "DEBUG: deleting "<< point_ids_to_be_deleted_.size() << " point" << std::endl;
 
-	std::vector<PointHandler*>::iterator it = vec_point_handlers_.begin();
+	std::vector<LonelyPointHandler*>::iterator it = vec_lonely_point_handlers_.begin();
 
 	// проходимся по вектору точек на удаление
 	while (!point_ids_to_be_deleted_.empty())
 	{
-		delete(*(std::begin(vec_point_handlers_) + point_ids_to_be_deleted_[0]));
+		delete(*(std::begin(vec_lonely_point_handlers_) + point_ids_to_be_deleted_[0]));
 		// удаляем первую точку (первую в векторе и по сути первую по номеру)
-		vec_point_handlers_.erase(std::begin(vec_point_handlers_) + point_ids_to_be_deleted_[0]);
+		vec_lonely_point_handlers_.erase(std::begin(vec_lonely_point_handlers_) + point_ids_to_be_deleted_[0]);
 		// удаляем номер только что удалённой точки из вектора
 		point_ids_to_be_deleted_.erase(std::begin(point_ids_to_be_deleted_));
 		// меняем номера других точек в списке, если там ещё что-то есть
@@ -118,21 +119,39 @@ void VibrationDetector::OnMouse(int event, int x, int y, int flags, void* userda
 // "helper" function for implementing callback function as a method of C++ class
 void VibrationDetector::DetectEvent(int event, int x, int y, int flags)
 {
-	Point tmp = TranslateCoordinates(Point2f(x, y));
-	x = tmp.x;
-	y = tmp.y;
+	Point tmp_container = TranslateCoordinates(Point2f(x, y));
+	x = tmp_container.x;
+	y = tmp_container.y;
 
-	switch (event) {
-		// ЛКМ была прожата вниз
+	switch (current_mode_)
+	{
+	case DEFAULT:
+	{
+		DefaultModeHandler(event, x, y);
+		break;
+	}
+	case SELECTINGROI:
+	{
+		RoiSelectionHandler(event, x, y);
+		break;
+	}
+	case PAUSE:
+	{
+		break;
+	}
+	}
+}
+
+void VibrationDetector::DefaultModeHandler(int event, int x, int y)
+{
+	switch (event)
+	{
 	case EVENT_LBUTTONDOWN:
 	{
-		if (!roi_selecting_ && !warping_figure_selecting_)
+		// Проверяем флаги выделения ROI и фигуры для варпа
+		if (!roi_selecting_)
 		{
 			l_click_queue_.push_back(Point2i(x, y));
-		}
-		if (warping_figure_selecting_)
-		{
-			warping_figure_.push_back(Point2i(x, y));
 		}
 		break;
 	}
@@ -142,14 +161,50 @@ void VibrationDetector::DetectEvent(int event, int x, int y, int flags)
 			delete_queue_.push_back(Point2i(x, y));
 		break;
 	}
-
 	case EVENT_MOUSEMOVE:
 	{
+		// Координаты последнего перемещения мыши
 		last_mouse_position_.x = x;
 		last_mouse_position_.y = y;
 	}
 	}
 }
+void VibrationDetector::RoiSelectionHandler(int event, int x, int y)
+{
+	switch (event)
+	{
+	case EVENT_LBUTTONDOWN:
+	{
+		// Делаем флаг для выделения ROI активным
+		roi_selecting_ = true;
+		// Сохраняем координаты клика как одну из границ ROI
+		tl_click_coords_.x = x;
+		tl_click_coords_.y = y;
+		break;
+	}
+	case EVENT_LBUTTONUP:
+	{
+		if (roi_selecting_)
+		{
+			// Отключаем флаг для выделения ROI
+			roi_selecting_ = false;
+			roi_selected_ = true;
+			// Сохраняем последние позиции
+			last_mouse_position_.x = x;
+			last_mouse_position_.y = y;
+		}
+		break;
+	}
+	case EVENT_MOUSEMOVE:
+	{
+		// Координаты последнего перемещения мыши
+		last_mouse_position_.x = x;
+		last_mouse_position_.y = y;
+		break;
+	}
+	}
+}
+
 Mat VibrationDetector::MakeWarpedFrame(Mat frame, std::vector<Point2i> warping_figure)
 {
 	int coeff = 1;
@@ -181,64 +236,6 @@ Mat VibrationDetector::MakeWarpedFrame(Mat frame, std::vector<Point2i> warping_f
 
 	return frame;
 }
-//
-//void VibrationDetector::SelectRoi(int event, int x, int y, int flags, void* userdata)
-//{
-//	VibrationDetector* b = static_cast<VibrationDetector*>(userdata);
-//	b->DragDetect(event, x, y, flags);
-//}
-//
-//void VibrationDetector::DragDetect(int event, int x, int y, int flags)
-//{
-//	switch (event)
-//	{
-//	case EVENT_RBUTTONDOWN:
-//		// we need to initialize coordinates so if we select roi again, the default bottim right coordinates would be reset
-//		this->right_button_down_ = true;
-//		this->tl_click_coords_.x = x;
-//		this->tl_click_coords_.y = y;
-//		this->br_click_coords_.x = x;
-//		this->br_click_coords_.y = y;
-//		mouse_move_coords_.x = x;
-//		mouse_move_coords_.y = y;
-//		roi_ = Rect(tl_click_coords_, br_click_coords_);
-//		std::cout << "rbuttondown" << std::endl;
-//		break;
-//	case EVENT_RBUTTONUP:
-//		this->right_button_down_ = false;
-//		this->rectangle_selected_ = true;
-//		this->br_click_coords_.x = x;
-//		this->br_click_coords_.y = y;
-//		roi_ = Rect(tl_click_coords_, br_click_coords_);
-//		break;
-//	case EVENT_MOUSEMOVE:
-//		if (right_button_down_)
-//		{
-//			mouse_move_coords_.x = x;
-//			mouse_move_coords_.y = y;
-//			roi_ = Rect(tl_click_coords_, mouse_move_coords_);
-//		}
-//		break;
-//	}
-//}
-//
-//void VibrationDetector::SelectFigure(int event, int x, int y, int flags, void* userdata)
-//{
-//	VibrationDetector* b = static_cast<VibrationDetector*>(userdata);
-//	b->FigureMountDetect(event, x, y, flags);
-//}
-//
-//void VibrationDetector::FigureMountDetect(int event, int x, int y, int flags)
-//{
-//	switch (event) {
-//		// ЛКМ была прожата вниз
-//	case EVENT_LBUTTONDOWN:
-//	{
-//		warping_figure_.push_back(Point(x, y));
-//		break;
-//	}
-//	}
-//}
 
 void VibrationDetector::TrackAndCalc()
 {
@@ -248,9 +245,9 @@ void VibrationDetector::TrackAndCalc()
 	std::vector<float> error;
 
 	// "Достаем" из point handler'ов последние найденные точки, чтобы использовать их в качестве "начальных" значений для calcOpticalFlowPyrLK()
-	for (int i = 0; i < vec_point_handlers_.size(); i++)
+	for (int i = 0; i < vec_lonely_point_handlers_.size(); i++)
 	{
-		PrevPts.push_back(vec_point_handlers_[i]->GetLastFoundCoordinates());
+		PrevPts.push_back(vec_lonely_point_handlers_[i]->GetLastFoundCoordinates());
 	}
 
 	// вызов Lucas-Kanade алгоритма
@@ -272,7 +269,7 @@ void VibrationDetector::TrackAndCalc()
 	);
 
 	// проверяем равны ли размеры векторов хэндлеров точек и найденных точек на картинке
-	if (NextPts.size() != vec_point_handlers_.size())
+	if (NextPts.size() != vec_lonely_point_handlers_.size())
 	{
 		std::cout << "DEBUG: ERROR - NextPts size doesnt match vec_point_handlers_ size" << std::endl;
 		return;
@@ -282,13 +279,23 @@ void VibrationDetector::TrackAndCalc()
 	previous_points_coordinates_ = PrevPts;
 
 	// Закидываем найденные значения обратно в point handler
-	for (int i = 0; i < vec_point_handlers_.size(); i++)
+	for (int i = 0; i < vec_lonely_point_handlers_.size(); i++)
 	{
-		vec_point_handlers_[i]->AddNewPointPosition(NextPts[i]);
-		vec_point_handlers_[i]->AddNewPointTime(frame_time_);
+		vec_lonely_point_handlers_[i]->AddNewPointPosition(NextPts[i]);
+		vec_lonely_point_handlers_[i]->AddNewPointTime(frame_time_);
 		// Вызов БПФ (FFT)
-		vec_point_handlers_[i]->ExecuteFFT();
+		vec_lonely_point_handlers_[i]->ExecuteFFT();
 	}
+}
+
+std::vector<Point2f> VibrationDetector::FindGoodFeatures(Mat frame, Rect roi)
+{
+	std::vector<Point2f> good_features;
+
+	Mat frame_with_roi = frame(roi);
+	goodFeaturesToTrack(frame_with_roi, good_features, 5, 0.01, 3, noArray(), true);
+
+	return good_features;
 }
 
 Point2f VibrationDetector::TranslateCoordinates(Point2f point)
@@ -296,15 +303,16 @@ Point2f VibrationDetector::TranslateCoordinates(Point2f point)
 	return Point2f(point.x / res_mp_, point.y / res_mp_);
 }
 
+// DEBUG
 void VibrationDetector::DrawDebugLkWinRectangle(Mat& frame)
 {
 
-	for (int i = 0; i < vec_point_handlers_.size(); i++)
+	for (int i = 0; i < vec_lonely_point_handlers_.size(); i++)
 	{
 		// DEBUG
 		Rect debug_lk_win_size = Rect(
-			Point2i(vec_point_handlers_[i]->GetLastFoundCoordinates().x - lk_win_size_, vec_point_handlers_[i]->GetLastFoundCoordinates().y - lk_win_size_),
-			Point2i(vec_point_handlers_[i]->GetLastFoundCoordinates().x + lk_win_size_, vec_point_handlers_[i]->GetLastFoundCoordinates().y + lk_win_size_)
+			Point2i(vec_lonely_point_handlers_[i]->GetLastFoundCoordinates().x - lk_win_size_, vec_lonely_point_handlers_[i]->GetLastFoundCoordinates().y - lk_win_size_),
+			Point2i(vec_lonely_point_handlers_[i]->GetLastFoundCoordinates().x + lk_win_size_, vec_lonely_point_handlers_[i]->GetLastFoundCoordinates().y + lk_win_size_)
 		);
 		rectangle(frame, debug_lk_win_size, Scalar(0, 0, 255), 1);
 	}
@@ -347,17 +355,17 @@ void VibrationDetector::ExecuteVibrationDetection()
 
 		next_img_gray_ = frame_handler->GetGrayFrame(current_tracking_frame_);
 
-		if (!vec_point_handlers_.empty())
+		if (!vec_lonely_point_handlers_.empty())
 		{
 			// Трекинг и вычисление частоты вибрации
 			frame_time_ = frame_handler->GetCurrentTimeOfFrame();
 			TrackAndCalc();
 
-			for (int i = 0; i < vec_point_handlers_.size(); i++)
+			// Рисование точек, треков и данных (вибрации, амплитуды и т.п.)
+			for (int i = 0; i < vec_lonely_point_handlers_.size(); i++)
 			{
-				// Рисование точек, треков и данных (вибрации, амплитуды и т.п.)
-				vec_point_handlers_[i]->VibratingPoint::IsInteracted(last_mouse_position_);
-				vec_point_handlers_[i]->Draw(current_tracking_frame_);
+				vec_lonely_point_handlers_[i]->VibratingPoint::IsInteracted(last_mouse_position_);
+				vec_lonely_point_handlers_[i]->Draw(current_tracking_frame_);
 			}
 		}
 
@@ -381,17 +389,9 @@ void VibrationDetector::ExecuteVibrationDetection()
 		// пауза (пробел)
 		case 32:
 		{
+			current_mode_ = PAUSE;
 			waitKey(0);
-			/*vibration_displayer.SetMode(0);
-
-			Mat tmp = copy_of_current_tracking_frame_;
-			vibration_displayer.ProcessFrame(tmp);
-			copy_of_current_tracking_frame_ = vibration_displayer.GetFrame();
-			frame_processor.ShowFrame(copy_of_current_tracking_frame_);
-			frame_processor.WriteFrame(copy_of_current_tracking_frame_);
-
-			waitKey(0);
-			vibration_displayer.SetMode(-1);*/
+			current_mode_ = DEFAULT;
 			break;
 		}
 		case 'c':
@@ -421,35 +421,29 @@ void VibrationDetector::ExecuteVibrationDetection()
 		// Выделение региона интереса (ROI)
 		case 'r':
 		{
+			// Обновляем текущий режим
+			current_mode_ = SELECTINGROI;
+			// Сбрасываеи флаг выделенного региона интереса
+			roi_selected_ = false;
 
-			/*Mat tmp = copy_of_current_tracking_frame_;
-			vibration_displayer.ProcessFrame(tmp);
-			copy_of_current_tracking_frame_ = vibration_displayer.GetFrame();
-			frame_processor.ShowFrame(copy_of_current_tracking_frame_);
-
-			rectangle_selected_ = false;
-			while (!rectangle_selected_)
+			while (!roi_selected_)
 			{
-				copy_of_current_tracking_frame_.copyTo(unchanged_frame_);
-				setMouseCallback(frame_processor.GetWindowName(), SelectRoi, (void*)this);
-				rectangle(unchanged_frame_, roi_.tl(), roi_.br(), Scalar(0, 255, 0), 1);
-				frame_processor.ShowFrame(unchanged_frame_);
+				// создаю копию current_tracking_frame_
+				Mat frame = current_tracking_frame_resized_.clone();
+				// Пока происходит выделение региона интереса (в нашем случае пока не была отпущена ЛКМ), отрисовываем прямоугольник
+				if (roi_selecting_)
+				{
+					roi_ = Rect(tl_click_coords_, last_mouse_position_);
+					rectangle(frame, roi_, Scalar(0, 255, 0), 1);
+				}
+				frame_handler->ShowFrame(frame);
 				waitKey(20);
 			}
-			std::cout << "ROI selected..." << std::endl;
-			contour_handler_ = new ContourHandler(current_tracking_frame_, roi_);
-			vibration_displayer.SetMode(-1);*/
+			current_mode_ = DEFAULT;
 			break;
 		}
 		case 'q':
 		{
-
-			/*Mat tmp = copy_of_current_tracking_frame_;
-			vibration_displayer.ProcessFrame(tmp);
-			copy_of_current_tracking_frame_ = vibration_displayer.GetFrame();
-			frame_processor.ShowFrame(copy_of_current_tracking_frame_);*/
-
-			
 			running_ = false;
 			std::cout << frame_handler->GetInputCapStatus() << std::endl;
 			break;
