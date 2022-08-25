@@ -51,7 +51,7 @@ private:
 	// Обычный режим
 	void DefaultModeHandler(int event, int x, int y);
 	// Режим выделения региона интереса
-	void RoiSelectionHandler(int event, int x, int y);
+	void RoiSelectionModeHandler(int event, int x, int y);
 	// Удаляет перспективные искажения
 	Mat MakeWarpedFrame(Mat frame, std::vector<Point2i> warping_figure);
 	// Трекает точки алгоритмом Лукаса-Канаде и вызывает БПФ

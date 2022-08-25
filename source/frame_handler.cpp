@@ -29,7 +29,6 @@ FrameHandler::~FrameHandler()
 	this->output_cap_->release();
 	delete this->output_cap_;
 }
-
 void FrameHandler::ReadNextFrame()
 {
 	input_cap_status_ = input_cap_->read(input_frame_);
@@ -46,6 +45,10 @@ void FrameHandler::ShowFrame(Mat frame)
 void FrameHandler::WriteFrame(Mat frame)
 {
 	output_cap_->write(frame);
+}
+
+void FrameHandler::AddTips(Mat& frame)
+{
 }
 
 Mat FrameHandler::GetGrayFrame(Mat frame_to_be_grayed)

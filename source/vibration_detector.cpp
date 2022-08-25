@@ -171,7 +171,7 @@ void VibrationDetector::DetectEvent(int event, int x, int y, int flags)
 	}
 	case SELECTINGROI:
 	{
-		RoiSelectionHandler(event, x, y);
+		RoiSelectionModeHandler(event, x, y);
 		break;
 	}
 	case PAUSE:
@@ -208,7 +208,7 @@ void VibrationDetector::DefaultModeHandler(int event, int x, int y)
 	}
 	}
 }
-void VibrationDetector::RoiSelectionHandler(int event, int x, int y)
+void VibrationDetector::RoiSelectionModeHandler(int event, int x, int y)
 {
 	switch (event)
 	{
@@ -356,7 +356,7 @@ std::vector<Point2f> VibrationDetector::FindGoodFeatures(Mat frame, Rect roi)
 		cvtColor(frame, frame, COLOR_BGR2GRAY);
 	// Устанавливаем ROI на нашем изображении
 	Mat frame_with_roi = frame(roi);
-	goodFeaturesToTrack(frame_with_roi, good_features, 500, 0.01, 3, noArray(), true);
+	goodFeaturesToTrack(frame_with_roi, good_features, 50, 0.01, 3, noArray());
 
 	// Перевод в координаты изначального изображения
 	for (int i = 0; i < good_features.size(); i++)
@@ -504,7 +504,8 @@ void VibrationDetector::ExecuteVibrationDetection()
 			while (!roi_selected_)
 			{
 				// создаю копию current_tracking_frame_
-				Mat frame = current_tracking_frame_resized_.clone();
+				Mat frame = current_tracking_frame_.clone();
+				Mat frame_resized_;
 				
 				// Пока происходит выделение региона интереса (в нашем случае пока не была отпущена ЛКМ), отрисовываем прямоугольник
 				if (roi_selecting_)
@@ -512,7 +513,12 @@ void VibrationDetector::ExecuteVibrationDetection()
 					roi = Rect(tl_click_coords_, last_mouse_position_);
 					rectangle(frame, roi, Scalar(0, 255, 0), 1);
 				}
-				frame_handler->ShowFrame(frame);
+
+				// Ресайзим (если надо) фрейм для вывода в окно
+				frame.copyTo(frame_resized_);
+				frame_resized_ = frame_handler->ResizeFrame(frame_resized_);
+
+				frame_handler->ShowFrame(frame_resized_);
 				switch (waitKey(20))
 				{
 				// R for reset

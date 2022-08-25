@@ -18,7 +18,7 @@ ColoredPointHandler::ColoredPointHandler(Point2f init_coordinates, int update_ra
 	);
 	interacted_ = false;
 
-	point_radius_ = 1 * resizing_coefficient_;
+	point_radius_ = 2 * resizing_coefficient_;
 	frequencies_.push_back(0.0);
 	amplitude_ = Point3f(0.0, 0.0, 0.0);
 
