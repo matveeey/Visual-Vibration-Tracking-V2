@@ -5,7 +5,7 @@ ColoredPointHandler::ColoredPointHandler(Point2f init_coordinates, int update_ra
 	update_rate_{ update_rate },
 	point_id_{ point_id },
 	resizing_coefficient_{ 1.25f / resizing_coefficient },
-	mode_{ /*DEFAULT*/COLORING_BASED_ON_FREQUENCY }
+	mode_{ /*DEFAULT*//*COLORING_BASED_ON_FREQUENCY*/COLORING_BASED_ON_AMPLITUDE }
 {
 	interaction_offset_ = 3;
 	sampling_rate_ = sampling_rate;
@@ -91,6 +91,9 @@ void ColoredPointHandler::UpdatePointColor()
 	case COLORING_BASED_ON_AMPLITUDE:
 	{
 		point_radius_ = 1;
+		// переведём диапазон амплитуд [0; max_amplitude_] в [0; 255] int color value;
+		double amplitude = sqrt(amplitude_.x * amplitude_.x + amplitude_.y * amplitude_.y);
+		point_color_ = Rgb(amplitude / max_amplitude_);
 		break;
 	}
 	}

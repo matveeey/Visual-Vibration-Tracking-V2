@@ -24,6 +24,8 @@ public:
 	void AddNewPointTime(double time);
 	// Прaверяет точку на наличие взаимодействия
 	bool IsInteracted(Point2i coordinates);
+	// Устанавливает максимальное найденное значение амплитуды точки в кадре
+	void SetMaxAmplitude(double amplitude);
 	// Отрисовывает точку на кадре
 	virtual void Draw(Mat& frame) = 0;
 
@@ -58,6 +60,8 @@ protected:
 	double sampling_rate_;
 	// Радиус точки
 	int point_radius_;
+	// Максимальная амплитуда
+	double max_amplitude_;
 
 	// TEMPORARY
 	std::vector<double> x_;

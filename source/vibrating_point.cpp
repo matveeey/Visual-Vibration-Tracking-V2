@@ -200,6 +200,11 @@ bool VibratingPoint::IsInteracted(Point2i coordinates)
 	return interacted_;
 }
 
+void VibratingPoint::SetMaxAmplitude(double max_amplitude)
+{
+	max_amplitude_ = max_amplitude;
+}
+
 Point2f VibratingPoint::GetLastFoundCoordinates()
 {
 	return point_coordinates_.back();

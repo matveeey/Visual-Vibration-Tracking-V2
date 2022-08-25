@@ -7,6 +7,7 @@ VibrationDetector::VibrationDetector(std::string input_file_name, std::string ou
 	number_of_points_{ 0 },
 	update_rate_{ 20 },
 	warping_figure_selecting_{ false },
+	max_amplitude_scalar_{ 0.0 },
 	roi_selecting_{ false },
 	point_id_{ 0 },
 	current_mode_{ DEFAULT }
@@ -283,6 +284,7 @@ void VibrationDetector::TrackAndCalc()
 	std::vector<Point2f> NextPts;
 	std::vector<uchar> status;
 	std::vector<float> error;
+	double amplitude_scalar = 0;
 
 	// "Достаем" из lonely point handler'ов последние найденные точки, чтобы использовать их в качестве "начальных" значений для calcOpticalFlowPyrLK()
 	for (int i = 0; i < vec_lonely_point_handlers_.size(); i++)
@@ -292,6 +294,12 @@ void VibrationDetector::TrackAndCalc()
 	// "Достаем" из colored point handler'ов последние найденные точки, чтобы использовать их в качестве "начальных" значений для calcOpticalFlowPyrLK()
 	for (int i = 0; i < vec_colored_point_handlers_.size(); i++)
 	{
+		// Определяем самую большую амплитуду на экране в данный момент
+		amplitude_scalar = sqrt(current_amplitude_.x * current_amplitude_.x + current_amplitude_.y * current_amplitude_.y);
+		current_amplitude_ = vec_colored_point_handlers_[i]->GetCurrentAmplitude();
+		if (amplitude_scalar < sqrt(current_amplitude_.x * current_amplitude_.x + current_amplitude_.y * current_amplitude_.y))
+			max_amplitude_scalar_ = sqrt(current_amplitude_.x * current_amplitude_.x + current_amplitude_.y * current_amplitude_.y);
+
 		PrevPts.push_back(vec_colored_point_handlers_[i]->GetLastFoundCoordinates());
 	}
 
@@ -429,6 +437,7 @@ void VibrationDetector::ExecuteVibrationDetection()
 		}
 		for (int i = 0; i < vec_colored_point_handlers_.size(); i++)
 		{
+			vec_colored_point_handlers_[i]->SetMaxAmplitude(max_amplitude_scalar_);
 			vec_colored_point_handlers_[i]->VibratingPoint::IsInteracted(last_mouse_position_);
 			vec_colored_point_handlers_[i]->Draw(current_tracking_frame_);
 		}

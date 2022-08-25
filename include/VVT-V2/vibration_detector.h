@@ -92,6 +92,9 @@ private:
 	// Points handling
 	std::vector<LonelyPointHandler*> vec_lonely_point_handlers_;
 	std::vector<ColoredPointHandler*> vec_colored_point_handlers_;
+	// Максимальная амплитуда точки на экране
+	Point3f current_amplitude_;
+	double max_amplitude_scalar_;
 
 	// Не ресайзнутый фрейм
 	Mat current_tracking_frame_;
