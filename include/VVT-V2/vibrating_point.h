@@ -56,6 +56,8 @@ protected:
 	std::vector<double> point_time_coordinates_;
 	// Параметры БПФ (FFT)
 	double sampling_rate_;
+	// Радиус точки
+	int point_radius_;
 
 	// TEMPORARY
 	std::vector<double> x_;

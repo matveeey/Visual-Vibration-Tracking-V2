@@ -32,21 +32,23 @@ void VibrationDetector::ServeTheQueues()
 	{
 		LeftClickHandler(l_click_queue_[i]);
 	}
+	for (int i = 0; i < c_point_queue_.size(); i++)
+	{
+		CreateNewColoredPoint(c_point_queue_[i]);
+	}
 	for (int i = 0; i < delete_queue_.size(); i++)
 	{
 		DeletePoints(delete_queue_[i]);
 	}
 	l_click_queue_.clear();
+	c_point_queue_.clear();
 	delete_queue_.clear();
 }
 
 void VibrationDetector::CreateNewPoint(Point2f mouse_coordinates)
 {
-
 	LonelyPointHandler* point_handler_ = new LonelyPointHandler(mouse_coordinates, update_rate_, fps_, point_id_++, res_mp_);
 	vec_lonely_point_handlers_.push_back(point_handler_);
-
-	std::cout << "DEBUG: creating new point" << std::endl;
 }
 
 void VibrationDetector::LeftClickHandler(Point2f mouse_coordinates)
@@ -54,24 +56,49 @@ void VibrationDetector::LeftClickHandler(Point2f mouse_coordinates)
 	// если вектор пустой - просто добавляем новую точку
 	if (vec_lonely_point_handlers_.empty())
 	{
-		CreateNewPoint(mouse_coordinates);
+		bool flag_colored_interacted_ = false;
+		for (int i = 0; i < vec_colored_point_handlers_.size(); i++)
+		{
+			if (vec_colored_point_handlers_[i]->VibratingPoint::IsInteracted(mouse_coordinates))
+			{
+				vec_colored_point_handlers_[i]->SetHistogramFlag(true);
+				flag_colored_interacted_ = true;
+			}
+		}
+		if (flag_colored_interacted_ == false)
+			CreateNewPoint(mouse_coordinates);
 	}
 	else
 	{
 		// проходим по всему вектору точек
-		bool flag_interacted_ = false;
+		bool flag_lonely_interacted_ = false;
+		bool flag_colored_interacted_ = false;
 		for (int i = 0; i < vec_lonely_point_handlers_.size(); i++)
 		{
 			// если произошло пересечение с мышкой, то новую точку не добавляем
 			if (vec_lonely_point_handlers_[i]->VibratingPoint::IsInteracted(mouse_coordinates))
 			{
 				vec_lonely_point_handlers_[i]->SetHistogramFlag(true);
-				flag_interacted_ = true;
+				flag_lonely_interacted_ = true;
 			}
 		}
-		if (!flag_interacted_)
+		for (int i = 0; i < vec_colored_point_handlers_.size(); i++)
+		{
+			if (vec_colored_point_handlers_[i]->VibratingPoint::IsInteracted(mouse_coordinates))
+			{
+				vec_colored_point_handlers_[i]->SetHistogramFlag(true);
+				flag_colored_interacted_ = true;
+			}
+		}
+		if (flag_lonely_interacted_ == false && flag_colored_interacted_ == false)
 			CreateNewPoint(mouse_coordinates);
 	}
+}
+
+void VibrationDetector::CreateNewColoredPoint(Point2f mouse_coordinates)
+{
+	ColoredPointHandler* point_handler_ = new ColoredPointHandler(mouse_coordinates, update_rate_, fps_, point_id_++, res_mp_);
+	vec_colored_point_handlers_.push_back(point_handler_);
 }
 
 void VibrationDetector::DeletePoints(Point2i mouse_coordinates)
@@ -106,6 +133,17 @@ void VibrationDetector::DeletePoints(Point2i mouse_coordinates)
 			// уменьшаем номер оставшихся в очереди на удаление точек на один, тк номера в vec_point_handlers сместились на один вниз (влево и тп, как удобнее для понимания :))
 			point_ids_to_be_deleted_[i] = point_ids_to_be_deleted_[i] - 1;
 		}
+	}
+}
+
+void VibrationDetector::DeleteColoredPoints()
+{
+	std::cout << "deleting..." << std::endl;
+	while (!vec_colored_point_handlers_.empty())
+	{
+		delete(*(std::begin(vec_colored_point_handlers_)));
+		// удаляем первую точку (первую в векторе и по сути первую по номеру)
+		vec_colored_point_handlers_.erase(std::begin(vec_colored_point_handlers_));
 	}
 }
 
@@ -175,6 +213,8 @@ void VibrationDetector::RoiSelectionHandler(int event, int x, int y)
 	{
 	case EVENT_LBUTTONDOWN:
 	{
+		// Удаляем старые "цветные" точки
+		DeleteColoredPoints();
 		// Делаем флаг для выделения ROI активным
 		roi_selecting_ = true;
 		// Сохраняем координаты клика как одну из границ ROI
@@ -244,41 +284,45 @@ void VibrationDetector::TrackAndCalc()
 	std::vector<uchar> status;
 	std::vector<float> error;
 
-	// "Достаем" из point handler'ов последние найденные точки, чтобы использовать их в качестве "начальных" значений для calcOpticalFlowPyrLK()
+	// "Достаем" из lonely point handler'ов последние найденные точки, чтобы использовать их в качестве "начальных" значений для calcOpticalFlowPyrLK()
 	for (int i = 0; i < vec_lonely_point_handlers_.size(); i++)
 	{
 		PrevPts.push_back(vec_lonely_point_handlers_[i]->GetLastFoundCoordinates());
 	}
+	// "Достаем" из colored point handler'ов последние найденные точки, чтобы использовать их в качестве "начальных" значений для calcOpticalFlowPyrLK()
+	for (int i = 0; i < vec_colored_point_handlers_.size(); i++)
+	{
+		PrevPts.push_back(vec_colored_point_handlers_[i]->GetLastFoundCoordinates());
+	}
 
-	// вызов Lucas-Kanade алгоритма
-	calcOpticalFlowPyrLK(
-		prev_img_gray_,
-		next_img_gray_,
-		PrevPts,
-		NextPts,
-		status,
-		error,
-		Size(lk_win_size_, lk_win_size_),
-		level_amount_,
-		TermCriteria(
-			TermCriteria::MAX_ITER | TermCriteria::EPS,
-			500,
-			0.001
-		),
-		OPTFLOW_LK_GET_MIN_EIGENVALS
-	);
+	if ((!vec_lonely_point_handlers_.empty()) || (!vec_colored_point_handlers_.empty()))
+		// вызов Lucas-Kanade алгоритма
+		calcOpticalFlowPyrLK(
+			prev_img_gray_,
+			next_img_gray_,
+			PrevPts,
+			NextPts,
+			status,
+			error,
+			Size(lk_win_size_, lk_win_size_),
+			level_amount_,
+			TermCriteria(
+				TermCriteria::MAX_ITER | TermCriteria::EPS,
+				500,
+				0.001
+			),
+			OPTFLOW_LK_GET_MIN_EIGENVALS
+		);
 
 	// проверяем равны ли размеры векторов хэндлеров точек и найденных точек на картинке
-	if (NextPts.size() != vec_lonely_point_handlers_.size())
+	if (NextPts.size() != (vec_lonely_point_handlers_.size() + vec_colored_point_handlers_.size()))
 	{
 		std::cout << "DEBUG: ERROR - NextPts size doesnt match vec_point_handlers_ size" << std::endl;
 		return;
 	}
-	
-	// Сохраняем наши "предыдущие" точки для вывода на экран
-	previous_points_coordinates_ = PrevPts;
 
-	// Закидываем найденные значения обратно в point handler
+	// Закидываем найденные значения обратно в point handler'ы
+	// Сначала идёт lonely
 	for (int i = 0; i < vec_lonely_point_handlers_.size(); i++)
 	{
 		vec_lonely_point_handlers_[i]->AddNewPointPosition(NextPts[i]);
@@ -286,14 +330,32 @@ void VibrationDetector::TrackAndCalc()
 		// Вызов БПФ (FFT)
 		vec_lonely_point_handlers_[i]->ExecuteFFT();
 	}
+	// После colored
+	for (int i = vec_lonely_point_handlers_.size(); i < vec_colored_point_handlers_.size(); i++)
+	{
+		vec_colored_point_handlers_[i]->AddNewPointPosition(NextPts[i]);
+		vec_colored_point_handlers_[i]->AddNewPointTime(frame_time_);
+		// Вызов БПФ (FFT)
+		vec_colored_point_handlers_[i]->ExecuteFFT();
+	}
 }
 
 std::vector<Point2f> VibrationDetector::FindGoodFeatures(Mat frame, Rect roi)
 {
 	std::vector<Point2f> good_features;
-
+	// Если изображение не черно-белое
+	if (frame.channels() > 2)
+		cvtColor(frame, frame, COLOR_BGR2GRAY);
+	// Устанавливаем ROI на нашем изображении
 	Mat frame_with_roi = frame(roi);
-	goodFeaturesToTrack(frame_with_roi, good_features, 5, 0.01, 3, noArray(), true);
+	goodFeaturesToTrack(frame_with_roi, good_features, 500, 0.01, 3, noArray(), true);
+
+	// Перевод в координаты изначального изображения
+	for (int i = 0; i < good_features.size(); i++)
+	{
+		good_features[i].x = good_features[i].x + roi.tl().x;
+		good_features[i].y = good_features[i].y + roi.tl().y;
+	}
 
 	return good_features;
 }
@@ -355,18 +417,20 @@ void VibrationDetector::ExecuteVibrationDetection()
 
 		next_img_gray_ = frame_handler->GetGrayFrame(current_tracking_frame_);
 
-		if (!vec_lonely_point_handlers_.empty())
-		{
-			// Трекинг и вычисление частоты вибрации
-			frame_time_ = frame_handler->GetCurrentTimeOfFrame();
-			TrackAndCalc();
+		// Трекинг и вычисление частоты вибрации
+		frame_time_ = frame_handler->GetCurrentTimeOfFrame();
+		TrackAndCalc();
 
-			// Рисование точек, треков и данных (вибрации, амплитуды и т.п.)
-			for (int i = 0; i < vec_lonely_point_handlers_.size(); i++)
-			{
-				vec_lonely_point_handlers_[i]->VibratingPoint::IsInteracted(last_mouse_position_);
-				vec_lonely_point_handlers_[i]->Draw(current_tracking_frame_);
-			}
+		// Рисование точек, треков и данных (вибрации, амплитуды и т.п.)
+		for (int i = 0; i < vec_lonely_point_handlers_.size(); i++)
+		{
+			vec_lonely_point_handlers_[i]->VibratingPoint::IsInteracted(last_mouse_position_);
+			vec_lonely_point_handlers_[i]->Draw(current_tracking_frame_);
+		}
+		for (int i = 0; i < vec_colored_point_handlers_.size(); i++)
+		{
+			vec_colored_point_handlers_[i]->VibratingPoint::IsInteracted(last_mouse_position_);
+			vec_colored_point_handlers_[i]->Draw(current_tracking_frame_);
 		}
 
 		// обслуживаем и очищаем очереди на создание и удаление точек
@@ -423,6 +487,8 @@ void VibrationDetector::ExecuteVibrationDetection()
 		{
 			// Обновляем текущий режим
 			current_mode_ = SELECTINGROI;
+			// Регион интереса
+			Rect roi;
 			// Сбрасываеи флаг выделенного региона интереса
 			roi_selected_ = false;
 
@@ -430,15 +496,36 @@ void VibrationDetector::ExecuteVibrationDetection()
 			{
 				// создаю копию current_tracking_frame_
 				Mat frame = current_tracking_frame_resized_.clone();
+				
 				// Пока происходит выделение региона интереса (в нашем случае пока не была отпущена ЛКМ), отрисовываем прямоугольник
 				if (roi_selecting_)
 				{
-					roi_ = Rect(tl_click_coords_, last_mouse_position_);
-					rectangle(frame, roi_, Scalar(0, 255, 0), 1);
+					roi = Rect(tl_click_coords_, last_mouse_position_);
+					rectangle(frame, roi, Scalar(0, 255, 0), 1);
 				}
 				frame_handler->ShowFrame(frame);
-				waitKey(20);
+				switch (waitKey(20))
+				{
+				// R for reset
+				case 'r':
+				{
+					// Удаляем старые "цветные" точки
+					DeleteColoredPoints();
+					roi_selected_ = true;
+					break;
+				}
+				// Esc
+				case 27:
+				{
+					roi_selected_ = true;
+					break;
+				}
+				}
 			}
+			// ROI может быть пустым после выхода из цикла выше кейсом в свитче
+			if (!roi.empty())
+				c_point_queue_ = FindGoodFeatures(current_tracking_frame_, roi);
+
 			current_mode_ = DEFAULT;
 			break;
 		}

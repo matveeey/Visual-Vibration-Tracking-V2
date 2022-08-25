@@ -13,9 +13,50 @@
 
 using namespace cv;
 
+enum mode
+{
+	DEFAULT,
+	COLORING_BASED_ON_AMPLITUDE,
+	COLORING_BASED_ON_FREQUENCY
+};
+
+// Класс описывает объект-маленькую точку с возможностью подсветки цветом в зависимости от амплитуды или частоты вибрации
 class ColoredPointHandler : public Histogram, public VibratingPoint
 {
-	ColoredPointHandler();
+public:
+	ColoredPointHandler(Point2f init_coordinates, int update_rate, double sampling_rate, int point_id, float resizing_coefficient);
+	~ColoredPointHandler();
+	// Отрисовывает точку и данные, связанные с ней
+	void Draw(Mat& frame) override;
+	void SetMode(int mode);
+
+private:
+	// Отрисовывает гистограмму
+	void DrawHistogram() override;
+	// Отрисовывает точку на кадре
+	void DrawPoint(Mat& frame);
+	// Отрисовывает линию перемещения точки
+	void DrawInteractionRectangle(Mat& frame);
+
+private:
+	// Обновляем текущий цвет точки
+	void UpdatePointColor() override;
+	// Получает на вход отношение (максимум - 1.0), возвращает цвет в диапазоне градиента от красного к синему
+	Scalar Rgb(double ratio);
+
+private:
+	// Текущий режим работы (цвета на основе амплитуд/частот)
+	int mode_;
+	// Коэффициент рескейла для отрисовки данных
+	float resizing_coefficient_;
+	// ID точки (нет блин почки)
+	int point_id_;
+	// Частота обновления частоты, цвета и тп
+	int update_rate_;
+	// Цвет точки
+	Scalar point_color_;
+	// Флаг, отвечающий за тип окраски точки
+
 };
 
 #endif

@@ -13,6 +13,7 @@
 
 using namespace cv;
 
+//  ласс описывает объект-крупную точку на видео, положение которой отслеживаетс€ с течением времени дл€ вычислени€ частоты вибрации этой точки
 class LonelyPointHandler : public Histogram, public VibratingPoint
 {
 public:

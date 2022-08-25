@@ -14,17 +14,18 @@
 
 // my headers
 #include "VVT-V2/lonely_point_handler.h"
+#include "VVT-V2/colored_point_handler.h"
 #include "VVT-V2/frame_handler.h"
-
-enum mode
-{
-	DEFAULT,
-	SELECTINGROI,
-	PAUSE
-};
 
 class VibrationDetector
 {
+	enum main_mode
+	{
+		DEFAULT,
+		SELECTINGROI,
+		PAUSE
+	};
+
 public:
 	VibrationDetector(std::string input_file_name, std::string output_file_name, std::string window_name);
 	~VibrationDetector();
@@ -34,12 +35,16 @@ public:
 private:
 	// Обслуживает очереди на удаление и создание. Необходимо для того, чтобы не нарушить нумерацию точек во время выполнения основного цикла
 	void ServeTheQueues();
-	// Создаем объект точку
+	// Создаем "обычную" точку
 	void CreateNewPoint(Point2f mouse_coordinates);
 	// Обработчик левых кликов
 	void LeftClickHandler(Point2f mouse_coordinates);
-	// Удаляем объект точку
+	// Обработчик "цветных" точек
+	void CreateNewColoredPoint(Point2f mouse_coordinates);
+	// Удаляем объект "обычную" точку
 	void DeletePoints(Point2i mouse_coordinates);
+	// Удаляем объекты "цветная" точка
+	void DeleteColoredPoints();
 	// callback functions for detecting the click
 	static void OnMouse(int event, int x, int y, int flags, void* userdata);
 	void DetectEvent(int event, int x, int y, int flags);
@@ -74,8 +79,10 @@ private:
 
 	// NORMAL MODE
 	// 
-	// Очередь на создание точек
+	// Очередь на создание "обычных" точек
 	std::vector<Point2i> l_click_queue_;
+	// Очередь на создание "цветных" точек
+	std::vector<Point2f> c_point_queue_;
 	// Очередь на удаление точек
 	std::vector<Point2i> delete_queue_;
 	// Очередь на отрисовку гистограм
@@ -84,6 +91,7 @@ private:
 	std::vector<Point2f> previous_points_coordinates_;
 	// Points handling
 	std::vector<LonelyPointHandler*> vec_lonely_point_handlers_;
+	std::vector<ColoredPointHandler*> vec_colored_point_handlers_;
 
 	// Не ресайзнутый фрейм
 	Mat current_tracking_frame_;
@@ -98,8 +106,6 @@ private:
 	bool roi_selected_;
 	// Координаты первой противоположной точки на краю диагонали прямоугольника (top left, bottom left, top right, bottom right - смотря в какую сторону проводить ROI)
 	Point2i tl_click_coords_;
-	// Регион интереса
-	Rect roi_;
 	
 
 	int point_offset_;
