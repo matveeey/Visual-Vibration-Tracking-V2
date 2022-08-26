@@ -17,8 +17,12 @@ FrameHandler::FrameHandler(const std::string input_file_name, const std::string 
 	std::cout << "Input fps is: " << input_fps_ << std::endl;
 	// создаём окно
 	namedWindow(window_name_);
-	// 
+	// Находим коэффициент масштабирования и размер отмасштабированного кадра
 	ResizeResolution();
+	// Инициализируем текст подсказок
+	tip_text_.push_back("Default Mode");
+	tip_text_.push_back("ROI selecting mode (Press 'R')");
+	tip_text_.push_back("Pause (Press 'Space')");
 }
 
 FrameHandler::~FrameHandler()
@@ -47,8 +51,33 @@ void FrameHandler::WriteFrame(Mat frame)
 	output_cap_->write(frame);
 }
 
-void FrameHandler::AddTips(Mat& frame)
+Mat FrameHandler::AddTips(Mat frame, int mode)
 {
+	// Параметры шрифта
+	int font = FONT_HERSHEY_PLAIN;
+	double font_scale = 1;
+	int thickness = 2;
+	int baseline = 0;
+	int line_spacing = 5;
+	Scalar default_color(150, 150, 150);
+	Scalar mode_color(100, 255, 100);
+	for (int i = 0; i < tip_text_.size(); i++)
+	{
+		Scalar font_color = default_color;
+		if (i == mode)
+			font_color = mode_color;
+		putText(
+			frame,
+			tip_text_[i],
+			Point2i(15 * (1 / resizing_coefficient_), 15 * (1 / resizing_coefficient_) + i * (getTextSize(tip_text_[i], font, font_scale, thickness, &baseline).height + line_spacing)),
+			font,
+			font_scale,
+			font_color,
+			thickness,
+			4
+		);
+	}
+	return frame;
 }
 
 Mat FrameHandler::GetGrayFrame(Mat frame_to_be_grayed)

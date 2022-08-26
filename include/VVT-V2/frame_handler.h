@@ -31,7 +31,7 @@ public:
 // Геттеры
 public:
 	// Добавляет подсказки и шкалы на кадр
-	void AddTips(Mat& frame);
+	Mat AddTips(Mat frame, int mode);
 	// Возвращает серый кадр с блюром
 	Mat GetGrayFrame(Mat frame_to_be_grayed);
 	// Масштабирует и возвращает кадр в зависимости от разрешения видео
@@ -67,19 +67,20 @@ protected:
 	std::string input_path_;
 	std::string output_path_;
 
-	// characteristics of a video
+	// Параметры видео
 	double input_frame_width_;
 	double input_frame_height_;
 	double input_fps_;
-
+	// Имя главного окна
 	std::string window_name_;
-
-	// for fast fourier transform and etc.
+	// Текущая информация о кадре
 	double current_time_of_frame_;
 	int current_pos_of_frame_;
-
+	// Для масштабирования изображения
 	Size resized_resolution_;
 	float resizing_coefficient_;
+	// Тексты подсказок для пользователя
+	std::vector<std::string> tip_text_;
 
 private:
 	void ResizeResolution();

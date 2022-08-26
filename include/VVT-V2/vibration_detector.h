@@ -62,6 +62,8 @@ private:
 	void DrawDebugLkWinRectangle(Mat& frame);
 	// Транслирует координаты ресайзнутого окна в пространство координат нересайзнутого окна
 	Point2f TranslateCoordinates(Point2f point);
+	// Масштабирует, рисует и выводит на экран обработанный кадр с точками
+	void DrawAndOutput(Mat& frame);
 
 private:
 	// Фреймпроцессор

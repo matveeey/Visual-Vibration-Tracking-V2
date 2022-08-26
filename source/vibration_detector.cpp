@@ -139,7 +139,6 @@ void VibrationDetector::DeletePoints(Point2i mouse_coordinates)
 
 void VibrationDetector::DeleteColoredPoints()
 {
-	std::cout << "deleting..." << std::endl;
 	while (!vec_colored_point_handlers_.empty())
 	{
 		delete(*(std::begin(vec_colored_point_handlers_)));
@@ -373,6 +372,16 @@ Point2f VibrationDetector::TranslateCoordinates(Point2f point)
 	return Point2f(point.x / res_mp_, point.y / res_mp_);
 }
 
+void VibrationDetector::DrawAndOutput(Mat& frame)
+{
+	// Масштабируем кадр для вывода на экран и добавляем на него подсказки для пользователя
+	frame.copyTo(current_tracking_frame_resized_);
+	current_tracking_frame_resized_ = frame_handler->ResizeFrame(current_tracking_frame_resized_);
+	current_tracking_frame_resized_ = frame_handler->AddTips(current_tracking_frame_resized_, current_mode_);
+	// Выводим кадр на экран
+	frame_handler->ShowFrame(current_tracking_frame_resized_);
+}
+
 // DEBUG
 void VibrationDetector::DrawDebugLkWinRectangle(Mat& frame)
 {
@@ -445,17 +454,15 @@ void VibrationDetector::ExecuteVibrationDetection()
 		// обслуживаем и очищаем очереди на создание и удаление точек
 		ServeTheQueues();
 
-		// Выводим на экран ресайзнутый фрейм и записываем изначальный (не ресайзнутый)
+		// Записываем изначальный (не ресайзнутый)
 		frame_handler->WriteFrame(current_tracking_frame_);
+		
+		DrawAndOutput(current_tracking_frame_);
 
-		current_tracking_frame_.copyTo(current_tracking_frame_resized_);
-		current_tracking_frame_resized_ = frame_handler->ResizeFrame(current_tracking_frame_resized_);
-
-		frame_handler->ShowFrame(current_tracking_frame_resized_);
-
+		// Обновляем предыдущий кадр
 		prev_img_gray_ = next_img_gray_;
 
-		// 20 - delay in ms
+		// 20 - задержка в мс
 		int code = waitKey(20);
 		switch (code)
 		{
@@ -463,6 +470,9 @@ void VibrationDetector::ExecuteVibrationDetection()
 		case 32:
 		{
 			current_mode_ = PAUSE;
+			
+			DrawAndOutput(current_tracking_frame_);
+
 			waitKey(0);
 			current_mode_ = DEFAULT;
 			break;
@@ -505,7 +515,6 @@ void VibrationDetector::ExecuteVibrationDetection()
 			{
 				// создаю копию current_tracking_frame_
 				Mat frame = current_tracking_frame_.clone();
-				Mat frame_resized_;
 				
 				// Пока происходит выделение региона интереса (в нашем случае пока не была отпущена ЛКМ), отрисовываем прямоугольник
 				if (roi_selecting_)
@@ -514,11 +523,8 @@ void VibrationDetector::ExecuteVibrationDetection()
 					rectangle(frame, roi, Scalar(0, 255, 0), 1);
 				}
 
-				// Ресайзим (если надо) фрейм для вывода в окно
-				frame.copyTo(frame_resized_);
-				frame_resized_ = frame_handler->ResizeFrame(frame_resized_);
+				DrawAndOutput(frame);
 
-				frame_handler->ShowFrame(frame_resized_);
 				switch (waitKey(20))
 				{
 				// R for reset
