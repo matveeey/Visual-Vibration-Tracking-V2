@@ -83,7 +83,7 @@ void ColoredPointHandler::UpdatePointColor()
 		{
 			for (int i = 0; i < frequencies_.size(); i++)
 			{
-				point_color_= Rgb(frequencies_[i] / (sampling_rate_ / 2));
+				point_color_= RatioToRgb(frequencies_[i] / (sampling_rate_ / 2));
 			}
 		}
 		break;
@@ -93,7 +93,7 @@ void ColoredPointHandler::UpdatePointColor()
 		point_radius_ = 1;
 		// переведём диапазон амплитуд [0; max_amplitude_] в [0; 255] int color value;
 		double amplitude = sqrt(amplitude_.x * amplitude_.x + amplitude_.y * amplitude_.y);
-		point_color_ = Rgb(amplitude / max_amplitude_);
+		point_color_ = RatioToRgb(amplitude / max_amplitude_);
 		break;
 	}
 	}
@@ -104,7 +104,7 @@ void ColoredPointHandler::UpdatePointColor()
 	}
 }
 
-Scalar ColoredPointHandler::Rgb(double ratio)
+Scalar ColoredPointHandler::RatioToRgb(double ratio)
 {
 	// we want to normalize ratio so that it fits in to 6 regions
 	// where each region is 256 units long
@@ -123,7 +123,7 @@ Scalar ColoredPointHandler::Rgb(double ratio)
 	case 1: r = 255; g = 255; b = 0;   r -= x; break; // желтый
 	case 2: r = 0;   g = 255; b = 0;   b += x; break; // зеленый
 	case 3: r = 0;   g = 255; b = 255; g -= x; break; // сине-зеленый
-		//case 4: r = 0;   g = 0;   b = 255; r += x; break;
+	case 4: r = 0;   g = 0;   b = 255; r += x; break; // синий
 		//case 5: r = 255; g = 0;   b = 255; b -= x; break;
 	}
 	return Scalar(b, g, r);

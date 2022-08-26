@@ -42,7 +42,7 @@ private:
 	// Обновляем текущий цвет точки
 	void UpdatePointColor() override;
 	// Получает на вход отношение (максимум - 1.0), возвращает цвет в диапазоне градиента от красного к синему
-	Scalar Rgb(double ratio);
+	Scalar RatioToRgb(double ratio);
 
 private:
 	// Текущий режим работы (цвета на основе амплитуд/частот)

@@ -26,12 +26,16 @@ public:
 	// Записывает кадр с помощью output_Cap
 	void WriteFrame(Mat frame);
 	// Объединяет два кадра горизонтально
-	Mat ConcatenateFrames(Mat left_frame, Mat right_frame);
+	Mat ConcatenateFramesHorizontally(Mat left_frame, Mat right_frame);
+	// Объединяет два кадра вертикально
+	Mat ConcatenateFramesVertically(Mat top_frame, Mat bottom_frame);
 
 // Геттеры
 public:
-	// Добавляет подсказки и шкалы на кадр
+	// Добавляет подсказки для пользователя на кадр
 	Mat AddTips(Mat frame, int mode);
+	// Генерирует шкалу с градиентом и подписями. Ширина шкалы - ширина исходного видео. Высота регулируется внутри
+	Mat GenerateGradScale(int left_limit, int right_limit);
 	// Возвращает серый кадр с блюром
 	Mat GetGrayFrame(Mat frame_to_be_grayed);
 	// Масштабирует и возвращает кадр в зависимости от разрешения видео

@@ -102,6 +102,8 @@ private:
 	Mat current_tracking_frame_;
 	// –есайзнутый фрейм
 	Mat current_tracking_frame_resized_;
+	// Ўкала с градиентом
+	Mat grad_scale_;
 
 	// R MODE
 	// 

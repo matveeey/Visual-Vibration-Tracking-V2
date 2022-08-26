@@ -374,6 +374,10 @@ Point2f VibrationDetector::TranslateCoordinates(Point2f point)
 
 void VibrationDetector::DrawAndOutput(Mat& frame)
 {
+	if (roi_selected_)
+	{
+		frame = frame_handler->ConcatenateFramesVertically(frame, grad_scale_);
+	}
 	// Масштабируем кадр для вывода на экран и добавляем на него подсказки для пользователя
 	frame.copyTo(current_tracking_frame_resized_);
 	current_tracking_frame_resized_ = frame_handler->ResizeFrame(current_tracking_frame_resized_);
@@ -403,13 +407,11 @@ void VibrationDetector::ExecuteVibrationDetection()
 	frame_handler->ReadNextFrame();
 	current_tracking_frame_ = frame_handler->GetCurrentFrame();
 
-	/*if (warping_figure_selected_)
-	{
-		current_tracking_frame_ = GetWarpedFrame(current_tracking_frame_, warping_figure_, frame_processor.GetFrameWidth(), frame_processor.GetFrameHeight());
-	}*/
-
 	prev_img_gray_ = frame_handler->GetGrayFrame(current_tracking_frame_);
 	fps_ = frame_handler->GetInputFps();
+
+	// Генерируем шкалу
+	grad_scale_ = frame_handler->GenerateGradScale(0, fps_ / 2);
 
 	// conditions of exit
 	running_ = true;
@@ -510,8 +512,10 @@ void VibrationDetector::ExecuteVibrationDetection()
 			Rect roi;
 			// Сбрасываеи флаг выделенного региона интереса
 			roi_selected_ = false;
+			// Флаг выхода из режима
+			bool wanna_quit = false;
 
-			while (!roi_selected_)
+			while (!roi_selected_ && !wanna_quit)
 			{
 				// создаю копию current_tracking_frame_
 				Mat frame = current_tracking_frame_.clone();
@@ -530,15 +534,15 @@ void VibrationDetector::ExecuteVibrationDetection()
 				// R for reset
 				case 'r':
 				{
+					wanna_quit = true;
 					// Удаляем старые "цветные" точки
 					DeleteColoredPoints();
-					roi_selected_ = true;
 					break;
 				}
 				// Esc
 				case 27:
 				{
-					roi_selected_ = true;
+					wanna_quit = true;
 					break;
 				}
 				}
