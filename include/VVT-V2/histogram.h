@@ -28,6 +28,8 @@ public:
 	void SetYValues(std::vector<float> y_values);
 	// Обновляет статус флага отрисовки гистограммы
 	void SetHistogramFlag(bool flag);
+	// Обновляет статус окна гистограммы (например, для вывода на передний план)
+	void SetHistogramWindowProperty(int prop_id, int prop_value);
 
 private:
 	// Подгатавливаем histogram_background_ для дальнейшего использования

@@ -5,7 +5,7 @@ ColoredPointHandler::ColoredPointHandler(Point2f init_coordinates, int update_ra
 	update_rate_{ update_rate },
 	point_id_{ point_id },
 	resizing_coefficient_{ 1.25f / resizing_coefficient },
-	mode_{ /*DEFAULT*/COLORING_BASED_ON_FREQUENCY/*COLORING_BASED_ON_AMPLITUDE*/ }
+	mode_{ COLORING_BASED_ON_FREQUENCY }
 {
 	interaction_offset_ = 3;
 	sampling_rate_ = sampling_rate;

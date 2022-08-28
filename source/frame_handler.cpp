@@ -9,17 +9,17 @@ FrameHandler::FrameHandler(const std::string input_file_name, const std::string 
 	window_name_{ window_name },
 	current_time_of_frame_{ 0 },
 	current_pos_of_frame_{ 0 },
+	fullscreen_{ false },
 	input_fps_{ input_cap_->get(CAP_PROP_FPS) },
 	input_frame_height_{ input_cap_->get(CAP_PROP_FRAME_HEIGHT) },
 	input_frame_width_{ input_cap_->get(CAP_PROP_FRAME_WIDTH) },
 	input_frame_size_ratio_{ input_frame_width_ / input_frame_height_ },
-	text_resize_factor_{ 1.0f },
-
-	lk_win_size_{ 0 }
+	text_resize_factor_{ 1.0f }
 {
 	std::cout << "Input fps is: " << input_fps_ << std::endl;
 	// создаём окно
 	namedWindow(window_name_, WINDOW_NORMAL);
+
 	// Находим коэффициент масштабирования для текста
 	CalculateTextResizeFactors();
 	
@@ -46,8 +46,19 @@ void FrameHandler::ReadNextFrame()
 	input_frame_.copyTo(current_frame_);
 }
 
-void FrameHandler::ShowFrame(Mat frame)
+void FrameHandler::ShowFrame(Mat frame, bool fullscreen)
 {
+	fullscreen_ = fullscreen;
+
+	if (fullscreen_)
+	{
+		setWindowProperty(window_name_, WND_PROP_FULLSCREEN, WINDOW_FULLSCREEN);
+	}
+	else
+	{
+		setWindowProperty(window_name_, WND_PROP_FULLSCREEN, WINDOW_NORMAL);
+	}
+
 	imshow(window_name_, frame);
 }
 
@@ -64,17 +75,25 @@ Mat FrameHandler::AddTips(Mat frame, int mode)
 	int thickness = 2;
 	int baseline = 0;
 	int line_spacing = 5;
-	Scalar default_color(150, 150, 150);
+	int border_offset = 15;
+	Scalar default_tip_color(150, 150, 150);
 	Scalar mode_color(100, 255, 100);
-	for (int i = 0; i < tip_text_.size(); i++)
+	// Выводим тексты подсказок для режимов
+	for (int i = 0; i < tip_text_.size() - 1; i++)
 	{
-		Scalar font_color = default_color;
+		Scalar font_color = default_tip_color;
 		if (i == mode)
+		{
 			font_color = mode_color;
+			// Замена кнопки для переключения режимов подсвечивания точек. Пока так)
+		}
 		putText(
 			frame,
 			tip_text_[i],
-			Point2i(15 * (1 / text_resize_factor_), 15 * (1 / text_resize_factor_) + i * (getTextSize(tip_text_[i], font, font_scale, thickness, &baseline).height + line_spacing)),
+			Point2i(
+				border_offset * (1 / text_resize_factor_),
+				border_offset * input_frame_size_ratio_ * (1 / text_resize_factor_) + i * (getTextSize(tip_text_[i], font, font_scale, thickness, &baseline).height + line_spacing)
+			),
 			font,
 			font_scale,
 			font_color,
@@ -82,6 +101,25 @@ Mat FrameHandler::AddTips(Mat frame, int mode)
 			4
 		);
 	}
+
+	// Выводим текст подсказки для полноэкранного режима
+	Scalar font_color = default_tip_color;
+	if (fullscreen_)
+		font_color = Scalar(255, 100, 100);
+	putText(
+		frame,
+		tip_text_.back(),
+		Point2i(
+			(input_frame_width_ - border_offset - (getTextSize(tip_text_.back(), font, font_scale, thickness, &baseline).width)) * (1 / text_resize_factor_),
+			border_offset * input_frame_size_ratio_ * (1 / text_resize_factor_) /*+ (getTextSize(tip_text_.back(), font, font_scale, thickness, &baseline).height + line_spacing)*/
+		),
+		font,
+		font_scale,
+		font_color,
+		thickness,
+		4
+	);
+
 	return frame;
 }
 
@@ -110,29 +148,33 @@ Scalar RatioToRgb(double ratio)
 	return Scalar(b, g, r);
 }
 
-Mat FrameHandler::GenerateGradScale(int left_limit, int right_limit)
+Mat FrameHandler::GenerateGradScale(int left_limit, int right_limit, int colored_point_mode)
 {
 	// Параметры шрифта
 	int font = FONT_HERSHEY_PLAIN;
-	double font_scale = 1;
+	double font_scale = 1 * text_resize_factor_;
 	int thickness = 1;
 	int baseline = 0;
-	int line_spacing = 5;
+	int font_offset = 5;
+	int font_height = getTextSize("tmp", font, font_scale, thickness, &baseline).height;
 	// Параметры окна шкалы
-	int scale_height = 20;
-	int scale_bottom_offset = scale_height / 2;
-	int scale_width = input_frame_width_;
+	int mat_width = input_frame_width_;
+	int scale_height = 10;
+	int mat_height = scale_height + font_height + font_offset;
+	int scale_left_offset = input_frame_width_ * 0.1;
+	int scale_width = input_frame_width_ - scale_left_offset;
 
-	Mat frame = Mat(Size(scale_width, scale_height), input_frame_.type(), Scalar(0, 0, 0));
-	int interval = scale_width / (right_limit - left_limit + 1);
+	Mat frame = Mat(Size(mat_width, mat_height), input_frame_.type(), Scalar(0, 0, 0));
+	float interval = static_cast<float>(scale_width) / static_cast<float>(right_limit - left_limit + 1);
 	// Флаг текущей итерации
 	int iteration = 0;
 
+	// Отрисовываем цветные прямоугольнички
 	for (int x = left_limit; x <= right_limit; x++)
 	{
 		Rect scale_unit = Rect(
-			Point2i(interval * iteration, 0),
-			Point2i(interval + interval * iteration, scale_height - scale_bottom_offset)
+			Point2f(interval * iteration + scale_left_offset, 0),
+			Point2f(interval + interval * iteration + scale_left_offset, scale_height)
 		);
 		rectangle(
 			frame,
@@ -147,9 +189,9 @@ Mat FrameHandler::GenerateGradScale(int left_limit, int right_limit)
 		putText(
 			frame,
 			scale_signature,
-			Point2i(
+			Point2f(
 				scale_unit.tl().x + (interval) / 2 - current_text_size.width / 2,
-				scale_unit.br().y + (scale_height - scale_bottom_offset) / 2 + (current_text_size.height) / 2
+				scale_unit.br().y + scale_height + (current_text_size.height) / 2
 			),
 			font,
 			font_scale,
@@ -160,6 +202,25 @@ Mat FrameHandler::GenerateGradScale(int left_limit, int right_limit)
 
 		iteration++;
 	}
+
+	// TEMPORARY!!!
+	// Отдельно выводим два варианта режима при активном ROI - подсвечивание точек по амплитуде/частоте
+	std::string coloring_points_mode_tips[3] = { "Default", "Coloring by Amplitude", "Coloring by Frequency" };
+	Size current_text_size = getTextSize(coloring_points_mode_tips[colored_point_mode], font, font_scale, thickness, &baseline);
+
+	putText(
+		frame,
+		coloring_points_mode_tips[colored_point_mode],
+		Point2f(
+			scale_left_offset / 2 - current_text_size.width / 2,
+			mat_height / 2 + current_text_size.height / 2
+		),
+		font,
+		font_scale,
+		Scalar(255, 255, 255),
+		thickness,
+		4
+	);
 
 	return frame;
 }

@@ -8,6 +8,7 @@ VibrationDetector::VibrationDetector(std::string input_file_name, std::string ou
 	update_rate_{ 20 },
 	warping_figure_selecting_{ false },
 	max_amplitude_scalar_{ 0.0 },
+	colored_point_mode_{ COLORING_BASED_ON_FREQUENCY },
 	roi_selecting_{ false },
 	point_id_{ 0 },
 	current_mode_{ DEFAULT },
@@ -81,6 +82,7 @@ void VibrationDetector::LeftClickHandler(Point2f mouse_coordinates)
 			if (vec_lonely_point_handlers_[i]->VibratingPoint::IsInteracted(mouse_coordinates))
 			{
 				vec_lonely_point_handlers_[i]->SetHistogramFlag(true);
+				//vec_lonely_point_handlers_[i]->SetHistogramWindowProperty(WND_PROP_TOPMOST, true);
 				flag_lonely_interacted_ = true;
 			}
 		}
@@ -384,7 +386,7 @@ void VibrationDetector::DrawAndOutput(Mat& frame)
 	//current_tracking_frame_resized_ = frame_handler->ResizeFrame(current_tracking_frame_resized_);
 	current_tracking_frame_resized_ = frame_handler->AddTips(current_tracking_frame_resized_, current_mode_);
 	// Выводим кадр на экран
-	frame_handler->ShowFrame(current_tracking_frame_resized_);
+	frame_handler->ShowFrame(current_tracking_frame_resized_, fullscreen_);
 }
 
 // DEBUG
@@ -412,7 +414,7 @@ void VibrationDetector::ExecuteVibrationDetection()
 	fps_ = frame_handler->GetInputFps();
 
 	// Генерируем шкалу
-	grad_scale_ = frame_handler->GenerateGradScale(0, fps_ / 2);
+	grad_scale_ = frame_handler->GenerateGradScale(0, fps_ / 2, colored_point_mode_);
 
 	// conditions of exit
 	running_ = true;
@@ -449,8 +451,10 @@ void VibrationDetector::ExecuteVibrationDetection()
 		}
 		for (int i = 0; i < vec_colored_point_handlers_.size(); i++)
 		{
+			// Обновляем максимальную амплитуду
 			vec_colored_point_handlers_[i]->SetMaxAmplitude(max_amplitude_scalar_);
 			vec_colored_point_handlers_[i]->VibratingPoint::IsInteracted(last_mouse_position_);
+			vec_colored_point_handlers_[i]->SetMode(colored_point_mode_);
 			vec_colored_point_handlers_[i]->Draw(current_tracking_frame_);
 		}
 
@@ -484,7 +488,7 @@ void VibrationDetector::ExecuteVibrationDetection()
 		case 'c':
 		{
 			Mat unchanged_frame = current_tracking_frame_;
-			frame_handler->ShowFrame(current_tracking_frame_);
+			frame_handler->ShowFrame(current_tracking_frame_, fullscreen_);
 			
 			warping_figure_.clear();
 			warping_figure_selecting_ = true;
@@ -499,7 +503,7 @@ void VibrationDetector::ExecuteVibrationDetection()
 				if (warping_figure_.size() == 4)
 					warping_figure_selecting_ = false;
 		
-				frame_handler->ShowFrame(unchanged_frame);
+				frame_handler->ShowFrame(unchanged_frame, fullscreen_);
 				waitKey(20);
 			}
 			break;
@@ -509,18 +513,29 @@ void VibrationDetector::ExecuteVibrationDetection()
 		case 102:
 		case 70:
 		{
+			// Проверка на флаг полноэкранного режима. Если он изначально был false, меняем на true, и наоборот в противном случае
 			if (!fullscreen_)
 			{
-				current_mode_ = FULLSCREEN;
 				fullscreen_ = true;
-				setWindowProperty(window_name_, WND_PROP_FULLSCREEN, WINDOW_FULLSCREEN);
 			}
 			else
 			{
-				current_mode_ = DEFAULT;
 				fullscreen_ = false;
-				setWindowProperty(window_name_, WND_PROP_FULLSCREEN, WINDOW_NORMAL);
 			}
+			break;
+		}
+		// Изменение режима подсветки точек при активном регионе интереса (ROI)
+		// Клавиши - "M" или "m" (ASCII code)
+		case 77:
+		case 109:
+		{
+			// Перебираем режимы по порядку
+			if (colored_point_mode_ == 2)
+				colored_point_mode_ = 0;
+			else
+				colored_point_mode_++;
+
+			grad_scale_ = frame_handler->GenerateGradScale(0, fps_ / 2, colored_point_mode_);
 			break;
 		}
 		// Выделение региона интереса (ROI)
@@ -584,5 +599,4 @@ void VibrationDetector::ExecuteVibrationDetection()
 		}
 		}
 	}
-	
 }

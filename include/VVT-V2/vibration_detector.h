@@ -23,8 +23,14 @@ class VibrationDetector
 	{
 		DEFAULT,
 		SELECTINGROI,
-		PAUSE,
-		FULLSCREEN
+		PAUSE
+	};
+
+	enum colored_point_mode
+	{
+		COLORING_DEFAULT,
+		COLORING_BASED_ON_FREQUENCY,
+		COLORING_BASED_ON_AMPLITUDE
 	};
 
 public:
@@ -77,7 +83,7 @@ private:
 	int point_id_;
 	// Последняя позиция курсора в главном окне
 	Point last_mouse_position_;
-	// Режим работы 
+	// Основной режим работы (enum main_mode)
 	int current_mode_;
 	// Флаг для полноэкранного режима
 	bool fullscreen_;
@@ -94,8 +100,9 @@ private:
 	std::vector<Point2i> histograms_queue_;
 	// Предыдущие позиции точек
 	std::vector<Point2f> previous_points_coordinates_;
-	// Points handling
+	// Single points handling
 	std::vector<LonelyPointHandler*> vec_lonely_point_handlers_;
+	// Colored points handling
 	std::vector<ColoredPointHandler*> vec_colored_point_handlers_;
 	// Максимальная амплитуда точки на экране
 	Point3f current_amplitude_;
@@ -107,6 +114,8 @@ private:
 	Mat current_tracking_frame_resized_;
 	// Шкала с градиентом
 	Mat grad_scale_;
+	// Режим подсветки цветных точек
+	int colored_point_mode_;
 
 	// R MODE
 	// 
@@ -114,6 +123,7 @@ private:
 	bool roi_selecting_;
 	// Флаг произведенного выделения ROI
 	bool roi_selected_;
+	// 
 	// Координаты первой противоположной точки на краю диагонали прямоугольника (top left, bottom left, top right, bottom right - смотря в какую сторону проводить ROI)
 	Point2i tl_click_coords_;
 	
@@ -133,7 +143,6 @@ private:
 
 	String main_window_name_;
 	String v_monitor_window_name_;
-
 	
 	// for detecting the click
 	bool point_selected_;

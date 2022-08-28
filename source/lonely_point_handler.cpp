@@ -102,25 +102,36 @@ void LonelyPointHandler::DrawInteractionRectangle(Mat& frame)
 
 void LonelyPointHandler::DrawTextData(Mat& frame)
 {
+	//  оличество строк частот, выводимых на экран
+	int lines_amount = 3;
 	// отрисовываем частоту вибрации
-	for (int j = 0; j < frequencies_.size(); j++)
+	for (int j = 0; j < ((frequencies_.size()) && (lines_amount)); j++)
 	{
 		putText(
 			frame,
 			"hz: " + std::to_string(frequencies_[j]),
 			Point(point_coordinates_.front().x + 15, point_coordinates_.front().y + resizing_coefficient_ * j * 20),
 			FONT_HERSHEY_PLAIN,
-			resizing_coefficient_ * 1.25,
+			resizing_coefficient_ * 1,
 			Scalar(0, 69, 255),
 			2
 		);
 	}
 
-	// отрисовываем амплитуды вибрации
+	// отрисовываем амплитуды вибрации и ID точки
+	putText(
+		frame,
+		"ID: " + std::to_string(point_id_),
+		Point(point_coordinates_.front().x, point_coordinates_.front().y - resizing_coefficient_ * 20),
+		FONT_HERSHEY_PLAIN,
+		resizing_coefficient_ * 1,
+		Scalar(100, 255, 100),
+		2
+	);
 	putText(
 		frame,
 		"x: " + std::to_string(amplitude_.x),
-		Point(point_coordinates_.front().x, point_coordinates_.front().y - resizing_coefficient_ * 20),
+		Point(point_coordinates_.front().x, point_coordinates_.front().y - resizing_coefficient_ * 2 * 20),
 		FONT_HERSHEY_PLAIN,
 		resizing_coefficient_ * 1,
 		Scalar(0, 255, 255),
@@ -129,7 +140,7 @@ void LonelyPointHandler::DrawTextData(Mat& frame)
 	putText(
 		frame,
 		"y: " + std::to_string(amplitude_.y),
-		Point(point_coordinates_.front().x, point_coordinates_.front().y - resizing_coefficient_ * 2 * 20),
+		Point(point_coordinates_.front().x, point_coordinates_.front().y - resizing_coefficient_ * 3 * 20),
 		FONT_HERSHEY_PLAIN,
 		resizing_coefficient_ * 1,
 		Scalar(0, 255, 255),
@@ -139,7 +150,7 @@ void LonelyPointHandler::DrawTextData(Mat& frame)
 	/*putText(
 		frame,
 		"z: " + std::to_string(amplitude_.z),
-		Point(point_coordinates_.front().x, point_coordinates_.front().y - res_mp_ * 3 * 20),
+		Point(point_coordinates_.front().x, point_coordinates_.front().y - res_mp_ * 4 * 20),
 		FONT_HERSHEY_PLAIN,
 		res_mp_ * 1,
 		Scalar(0, 255, 255),

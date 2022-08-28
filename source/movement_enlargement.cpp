@@ -93,7 +93,7 @@ void MovementEnlarger::ExecuteLaplaceEnlargement()
 		std::cout << "frame " << current_num_of_frame << " is processed. The are also " << amount_of_frames - current_num_of_frame << " frames left. " << std::endl;
 
 		std::cout << "CUM" << std::endl;
-		frame_handler.ShowFrame(frame_enlarged_);
+		frame_handler.ShowFrame(frame_enlarged_, false);
 		frame_handler.WriteFrame(frame_enlarged_);
 
 		int code = waitKey(20);

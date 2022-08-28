@@ -28,6 +28,7 @@ public:
 	~ColoredPointHandler();
 	// Отрисовывает точку и данные, связанные с ней
 	void Draw(Mat& frame) override;
+	// Устанавливает нужный режим отрисовки цветом
 	void SetMode(int mode);
 
 private:

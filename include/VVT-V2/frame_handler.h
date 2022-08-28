@@ -22,7 +22,7 @@ public:
 	// Считывает следующий кадр видео
 	void ReadNextFrame();
 	// Выводит в окно принимаемый кадр
-	void ShowFrame(Mat frame);
+	void ShowFrame(Mat frame, bool fullscreen);
 	// Записывает кадр с помощью output_Cap
 	void WriteFrame(Mat frame);
 	// Объединяет два кадра горизонтально
@@ -35,7 +35,7 @@ public:
 	// Добавляет подсказки для пользователя на кадр
 	Mat AddTips(Mat frame, int mode);
 	// Генерирует шкалу с градиентом и подписями. Ширина шкалы - ширина исходного видео. Высота регулируется внутри
-	Mat GenerateGradScale(int left_limit, int right_limit);
+	Mat GenerateGradScale(int left_limit, int right_limit, int colored_point_mode);
 	// Возвращает серый кадр с блюром
 	Mat GetGrayFrame(Mat frame_to_be_grayed);
 	// Масштабирует и возвращает кадр в зависимости от разрешения видео
@@ -71,7 +71,8 @@ protected:
 	std::string input_path_;
 	std::string output_path_;
 
-	int lk_win_size_;
+	// Флаг полноэкранного режима
+	bool fullscreen_;
 
 	// Параметры видео
 	double input_frame_width_;

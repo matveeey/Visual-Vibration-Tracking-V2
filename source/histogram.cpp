@@ -78,6 +78,11 @@ void Histogram::SetHistogramFlag(bool flag)
 	is_histogram_plotted_ = flag;
 }
 
+void Histogram::SetHistogramWindowProperty(int prop_id, int prop_value)
+{
+	setWindowProperty(winname_, prop_id, prop_value);
+}
+
 void Histogram::InitHistogramBackground()
 {
 	Mat frame = Mat(Size(histogram_frame_width_, histogram_frame_height_), CV_32F, Scalar(0, 0, 0));
