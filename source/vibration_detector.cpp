@@ -10,16 +10,17 @@ VibrationDetector::VibrationDetector(std::string input_file_name, std::string ou
 	max_amplitude_scalar_{ 0.0 },
 	roi_selecting_{ false },
 	point_id_{ 0 },
-	current_mode_{ DEFAULT }
+	current_mode_{ DEFAULT },
+	fullscreen_{ false }
 {
 	roi_selected_ = false;
-	lk_win_size_ = 20;
+	lk_win_size_ = 60;
 	level_amount_ = 1;
 	point_offset_ = 100;
 
 	frame_handler = new FrameHandler(input_file_name_, output_file_name_, MAIN_WINDOW_NAME);
 
-	res_mp_ = frame_handler->GetResizingCoefficient();
+	res_mp_ = 1.0;//= frame_handler->GetResizingCoefficient();
 }
 
 VibrationDetector::~VibrationDetector()
@@ -380,7 +381,7 @@ void VibrationDetector::DrawAndOutput(Mat& frame)
 	}
 	// Масштабируем кадр для вывода на экран и добавляем на него подсказки для пользователя
 	frame.copyTo(current_tracking_frame_resized_);
-	current_tracking_frame_resized_ = frame_handler->ResizeFrame(current_tracking_frame_resized_);
+	//current_tracking_frame_resized_ = frame_handler->ResizeFrame(current_tracking_frame_resized_);
 	current_tracking_frame_resized_ = frame_handler->AddTips(current_tracking_frame_resized_, current_mode_);
 	// Выводим кадр на экран
 	frame_handler->ShowFrame(current_tracking_frame_resized_);
@@ -468,7 +469,8 @@ void VibrationDetector::ExecuteVibrationDetection()
 		int code = waitKey(20);
 		switch (code)
 		{
-		// пауза (пробел)
+		// Пауза
+		// Клавиши - пробел (ASCII code)
 		case 32:
 		{
 			current_mode_ = PAUSE;
@@ -502,9 +504,29 @@ void VibrationDetector::ExecuteVibrationDetection()
 			}
 			break;
 		}
-		
+		// Фуллскрин. 
+		// Клавиши - "F" или "f" (ASCII code)
+		case 102:
+		case 70:
+		{
+			if (!fullscreen_)
+			{
+				current_mode_ = FULLSCREEN;
+				fullscreen_ = true;
+				setWindowProperty(window_name_, WND_PROP_FULLSCREEN, WINDOW_FULLSCREEN);
+			}
+			else
+			{
+				current_mode_ = DEFAULT;
+				fullscreen_ = false;
+				setWindowProperty(window_name_, WND_PROP_FULLSCREEN, WINDOW_NORMAL);
+			}
+			break;
+		}
 		// Выделение региона интереса (ROI)
-		case 'r':
+		// Клавиши - "R" или "r" (ASCII code)
+		case 82:
+		case 114:
 		{
 			// Обновляем текущий режим
 			current_mode_ = SELECTINGROI;
@@ -524,7 +546,7 @@ void VibrationDetector::ExecuteVibrationDetection()
 				if (roi_selecting_)
 				{
 					roi = Rect(tl_click_coords_, last_mouse_position_);
-					rectangle(frame, roi, Scalar(0, 255, 0), 1);
+					rectangle(frame, roi, Scalar(0, 255, 0), 1 * (1 / res_mp_));
 				}
 
 				DrawAndOutput(frame);

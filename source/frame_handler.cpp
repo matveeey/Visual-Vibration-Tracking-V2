@@ -12,17 +12,22 @@ FrameHandler::FrameHandler(const std::string input_file_name, const std::string 
 	input_fps_{ input_cap_->get(CAP_PROP_FPS) },
 	input_frame_height_{ input_cap_->get(CAP_PROP_FRAME_HEIGHT) },
 	input_frame_width_{ input_cap_->get(CAP_PROP_FRAME_WIDTH) },
-	resizing_coefficient_{ 1.0f }
+	input_frame_size_ratio_{ input_frame_width_ / input_frame_height_ },
+	text_resize_factor_{ 1.0f },
+
+	lk_win_size_{ 0 }
 {
 	std::cout << "Input fps is: " << input_fps_ << std::endl;
 	// создаём окно
-	namedWindow(window_name_);
-	// Находим коэффициент масштабирования и размер отмасштабированного кадра
-	ResizeResolution();
+	namedWindow(window_name_, WINDOW_NORMAL);
+	// Находим коэффициент масштабирования для текста
+	CalculateTextResizeFactors();
+	
 	// Инициализируем текст подсказок
 	tip_text_.push_back("Default Mode");
 	tip_text_.push_back("ROI selecting mode (Press 'R')");
 	tip_text_.push_back("Pause (Press 'Space')");
+	tip_text_.push_back("Fullscreen (Press 'F')");
 }
 
 FrameHandler::~FrameHandler()
@@ -69,7 +74,7 @@ Mat FrameHandler::AddTips(Mat frame, int mode)
 		putText(
 			frame,
 			tip_text_[i],
-			Point2i(15 * (1 / resizing_coefficient_), 15 * (1 / resizing_coefficient_) + i * (getTextSize(tip_text_[i], font, font_scale, thickness, &baseline).height + line_spacing)),
+			Point2i(15 * (1 / text_resize_factor_), 15 * (1 / text_resize_factor_) + i * (getTextSize(tip_text_[i], font, font_scale, thickness, &baseline).height + line_spacing)),
 			font,
 			font_scale,
 			font_color,
@@ -162,11 +167,11 @@ Mat FrameHandler::GenerateGradScale(int left_limit, int right_limit)
 Mat FrameHandler::GetGrayFrame(Mat frame_to_be_grayed)
 {
 	Mat grayed_frame;
-	// Конвертируем входной Mat из РГБ(БГР) в грейскейл
-	cvtColor(frame_to_be_grayed, grayed_frame, COLOR_BGR2GRAY);
 	
 	if (!frame_to_be_grayed.empty())
-	{		
+	{
+		// Конвертируем входной Mat из РГБ(БГР) в грейскейл
+		cvtColor(frame_to_be_grayed, grayed_frame, COLOR_BGR2GRAY);
 		GaussianBlur(grayed_frame, grayed_frame, Size(3, 3), 0);
 	}
 	
@@ -245,47 +250,48 @@ int FrameHandler::GetFrameHeight()
 	return input_frame_height_;
 }
 
-float FrameHandler::GetResizingCoefficient()
+float FrameHandler::GetTextResizeFactor()
 {
-	return resizing_coefficient_;
+	return text_resize_factor_;
 }
 
-void FrameHandler::ResizeResolution()
+void FrameHandler::CalculateTextResizeFactors()
 {
-	std::cout << "frame width" << input_frame_width_ << std::endl;
-	std::cout << "frame height" << input_frame_height_ << std::endl;
-	if (input_frame_width_ > input_frame_height_)
+	std::cout << "frame width: " << input_frame_width_ << std::endl;
+	std::cout << "frame height: " << input_frame_height_ << std::endl;
+
+	if (static_cast<int>(input_frame_size_ratio_))
 	{
 		switch (static_cast<int>(input_frame_height_))
 		{
 		case (480):
 		{
-			resizing_coefficient_ = 2.0;
-			resized_resolution_ = Size(input_frame_width_ * resizing_coefficient_, input_frame_height_ * resizing_coefficient_);
+			text_resize_factor_ = 0.44f;
+			resized_resolution_ = Size(input_frame_width_ * text_resize_factor_, input_frame_height_ * text_resize_factor_);
 			break;
 		}
 		case (720):
 		{
-			resizing_coefficient_ = 1.0;
+			text_resize_factor_ = 0.67f;
 			resized_resolution_ = Size(input_frame_width_, input_frame_height_);
 			break;
 		}
 		case (1080):
 		{
-			resizing_coefficient_ = 0.67;
-			resized_resolution_ = Size(input_frame_width_ * resizing_coefficient_, input_frame_height_ * resizing_coefficient_);
+			text_resize_factor_ = 1.0f;
+			resized_resolution_ = Size(input_frame_width_ * text_resize_factor_, input_frame_height_ * text_resize_factor_);
 			break;
 		}
 		case (1520):
 		{
-			resizing_coefficient_ = 0.25;
-			resized_resolution_ = Size(input_frame_width_ * resizing_coefficient_, input_frame_height_ * resizing_coefficient_);
+			text_resize_factor_ = 1.40f;
+			resized_resolution_ = Size(input_frame_width_ * text_resize_factor_, input_frame_height_ * text_resize_factor_);
 			break;
 		}
 		case (2160):
 		{
-			resizing_coefficient_ = 0.25;
-			resized_resolution_ = Size(input_frame_width_ * resizing_coefficient_, input_frame_height_ * resizing_coefficient_);
+			text_resize_factor_ = 2.0f;
+			resized_resolution_ = Size(input_frame_width_ * text_resize_factor_, input_frame_height_ * text_resize_factor_);
 			break;
 		}
 		}
@@ -296,32 +302,32 @@ void FrameHandler::ResizeResolution()
 		{
 		case (480):
 		{
-			resizing_coefficient_ = 2.0;
-			resized_resolution_ = Size(static_cast<int>(input_frame_width_ * resizing_coefficient_), static_cast<int>(input_frame_height_ * resizing_coefficient_));
+			text_resize_factor_ = 0.44f;
+			resized_resolution_ = Size(static_cast<int>(input_frame_width_ * text_resize_factor_), static_cast<int>(input_frame_height_ * text_resize_factor_));
 			break;
 		}
 		case (720):
 		{
-			resizing_coefficient_ = 1.0;
+			text_resize_factor_ = 0.67f;
 			resized_resolution_ = Size(static_cast<int>(input_frame_width_), static_cast<int>(input_frame_height_));
 			break;
 		}
 		case (1080):
 		{
-			resizing_coefficient_ = 0.5;
-			resized_resolution_ = Size(input_frame_width_ * resizing_coefficient_, input_frame_height_ * resizing_coefficient_);
+			text_resize_factor_ = 1.0f;
+			resized_resolution_ = Size(input_frame_width_ * text_resize_factor_, input_frame_height_ * text_resize_factor_);
 			break;
 		}
 		case (1520):
 		{
-			resizing_coefficient_ = 0.25;
-			resized_resolution_ = Size(input_frame_width_ * resizing_coefficient_, input_frame_height_ * resizing_coefficient_);
+			text_resize_factor_ = 1.4f;
+			resized_resolution_ = Size(input_frame_width_ * text_resize_factor_, input_frame_height_ * text_resize_factor_);
 			break;
 		}
 		case (2160):
 		{
-			resizing_coefficient_ = 0.25;
-			resized_resolution_ = Size(input_frame_width_ * resizing_coefficient_, input_frame_height_ * resizing_coefficient_);
+			text_resize_factor_ = 2.0f;
+			resized_resolution_ = Size(input_frame_width_ * text_resize_factor_, input_frame_height_ * text_resize_factor_);
 			break;
 		}
 		}

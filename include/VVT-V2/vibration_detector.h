@@ -23,7 +23,8 @@ class VibrationDetector
 	{
 		DEFAULT,
 		SELECTINGROI,
-		PAUSE
+		PAUSE,
+		FULLSCREEN
 	};
 
 public:
@@ -78,6 +79,8 @@ private:
 	Point last_mouse_position_;
 	// Режим работы 
 	int current_mode_;
+	// Флаг для полноэкранного режима
+	bool fullscreen_;
 
 	// NORMAL MODE
 	// 

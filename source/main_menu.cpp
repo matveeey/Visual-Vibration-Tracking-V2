@@ -8,8 +8,6 @@ MainMenu::MainMenu(std::string params_file_name) :
 	button_amount_{ 4 },
 	mode_chosen_{ false }
 {
-	// Загружаем названия директорий
-	LoadPaths();
 	namedWindow(winname_, WINDOW_AUTOSIZE);
 	// Инициализируем отступы
 	int x = 20;
@@ -164,6 +162,9 @@ void MainMenu::OnMouse(int event, int x, int y, int flags, void* userdata)
 
 void MainMenu::DetectEvent(int event, int x, int y, int flags)
 {
+	// Загружаем названия директорий
+	LoadPaths();
+
 	switch (event)
 	{
 	case EVENT_LBUTTONDOWN:

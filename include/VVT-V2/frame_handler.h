@@ -59,7 +59,7 @@ public:
 	// Возвращает высоту считываемого видео
 	int GetFrameHeight();
 	// Возвращает коэффициент масштабирования
-	float GetResizingCoefficient();
+	float GetTextResizeFactor();
 
 protected:
 	Mat input_frame_;
@@ -71,9 +71,12 @@ protected:
 	std::string input_path_;
 	std::string output_path_;
 
+	int lk_win_size_;
+
 	// Параметры видео
 	double input_frame_width_;
 	double input_frame_height_;
+	double input_frame_size_ratio_;
 	double input_fps_;
 	// Имя главного окна
 	std::string window_name_;
@@ -82,12 +85,12 @@ protected:
 	int current_pos_of_frame_;
 	// Для масштабирования изображения
 	Size resized_resolution_;
-	float resizing_coefficient_;
+	float text_resize_factor_;
 	// Тексты подсказок для пользователя
 	std::vector<std::string> tip_text_;
 
 private:
-	void ResizeResolution();
+	void CalculateTextResizeFactors();
 };
 
 #endif
