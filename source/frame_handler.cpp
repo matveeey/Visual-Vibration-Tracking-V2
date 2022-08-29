@@ -111,7 +111,7 @@ Mat FrameHandler::AddTips(Mat frame, int mode)
 		tip_text_.back(),
 		Point2i(
 			(input_frame_width_ - border_offset - (getTextSize(tip_text_.back(), font, font_scale, thickness, &baseline).width)) * (1 / text_resize_factor_),
-			border_offset * input_frame_size_ratio_ * (1 / text_resize_factor_) /*+ (getTextSize(tip_text_.back(), font, font_scale, thickness, &baseline).height + line_spacing)*/
+			border_offset * input_frame_size_ratio_ * (1 / text_resize_factor_)
 		),
 		font,
 		font_scale,

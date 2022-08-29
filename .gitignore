@@ -1,6 +1,7 @@
 docs/data.txt
 docs/magnitudes.txt
 docs/input.txt
+docs/*.csv
 product/
 build/
 _msvs2022/

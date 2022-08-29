@@ -23,7 +23,8 @@ LonelyPointHandler::LonelyPointHandler(Point2f init_coordinates, int update_rate
 
 LonelyPointHandler::~LonelyPointHandler()
 {
-	std::cout << "PointHandler destructor" << std::endl;
+	OutputToCsv output_to_scv("C:/Users/seeyo/source/repos/Visual-Vibration-Tracking-V2/docs/output.csv", point_coordinates_, point_time_coordinates_, point_id_);
+	output_to_scv.Write();
 }
 
 void LonelyPointHandler::Filter(std::vector<float>& magnitudes)

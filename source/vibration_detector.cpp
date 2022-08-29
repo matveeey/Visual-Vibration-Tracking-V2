@@ -27,6 +27,13 @@ VibrationDetector::VibrationDetector(std::string input_file_name, std::string ou
 VibrationDetector::~VibrationDetector()
 {
 	delete frame_handler;
+	DeleteColoredPoints();
+	while (!vec_lonely_point_handlers_.empty())
+	{
+		delete(*(std::begin(vec_lonely_point_handlers_)));
+		// удаляем первую точку (первую в векторе и по сути первую по номеру)
+		vec_lonely_point_handlers_.erase(std::begin(vec_lonely_point_handlers_));
+	}
 }
 
 void VibrationDetector::ServeTheQueues()

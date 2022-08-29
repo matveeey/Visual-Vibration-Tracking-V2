@@ -10,6 +10,7 @@
 // my headers
 #include "VVT-V2/vibrating_point.h"
 #include "VVT-V2/histogram.h"
+#include "VVT-V2/output_to_csv.h"
 
 using namespace cv;
 
@@ -42,6 +43,7 @@ private:
 private:
 	// Обновляем текущий цвет точки
 	void UpdatePointColor() override;
+public:
 	// Получает на вход отношение (максимум - 1.0), возвращает цвет в диапазоне градиента от красного к синему
 	Scalar RatioToRgb(double ratio);
 
