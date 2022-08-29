@@ -367,7 +367,7 @@ std::vector<Point2f> VibrationDetector::FindGoodFeatures(Mat frame, Rect roi)
 		cvtColor(frame, frame, COLOR_BGR2GRAY);
 	// Устанавливаем ROI на нашем изображении
 	Mat frame_with_roi = frame(roi);
-	goodFeaturesToTrack(frame_with_roi, good_features, 50, 0.01, 3, noArray());
+	goodFeaturesToTrack(frame_with_roi, good_features, 1000, 0.01, 3, noArray());
 
 	// Перевод в координаты изначального изображения
 	for (int i = 0; i < good_features.size(); i++)

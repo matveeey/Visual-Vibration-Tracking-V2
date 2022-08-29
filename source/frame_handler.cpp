@@ -71,7 +71,7 @@ Mat FrameHandler::AddTips(Mat frame, int mode)
 {
 	// Параметры шрифта
 	int font = FONT_HERSHEY_PLAIN;
-	double font_scale = 1;
+	double font_scale = 1 * text_resize_factor_;
 	int thickness = 2;
 	int baseline = 0;
 	int line_spacing = 5;
@@ -91,8 +91,8 @@ Mat FrameHandler::AddTips(Mat frame, int mode)
 			frame,
 			tip_text_[i],
 			Point2i(
-				border_offset * (1 / text_resize_factor_),
-				border_offset * input_frame_size_ratio_ * (1 / text_resize_factor_) + i * (getTextSize(tip_text_[i], font, font_scale, thickness, &baseline).height + line_spacing)
+				border_offset,
+				border_offset * input_frame_size_ratio_ + i * (getTextSize(tip_text_[i], font, font_scale, thickness, &baseline).height + line_spacing)
 			),
 			font,
 			font_scale,
@@ -104,14 +104,15 @@ Mat FrameHandler::AddTips(Mat frame, int mode)
 
 	// Выводим текст подсказки для полноэкранного режима
 	Scalar font_color = default_tip_color;
+
 	if (fullscreen_)
 		font_color = Scalar(255, 100, 100);
 	putText(
 		frame,
 		tip_text_.back(),
 		Point2i(
-			(input_frame_width_ - border_offset - (getTextSize(tip_text_.back(), font, font_scale, thickness, &baseline).width)) * (1 / text_resize_factor_),
-			border_offset * input_frame_size_ratio_ * (1 / text_resize_factor_)
+			(input_frame_width_ - border_offset - (getTextSize(tip_text_.back(), font, font_scale, thickness, &baseline).width)),
+			border_offset * input_frame_size_ratio_
 		),
 		font,
 		font_scale,
