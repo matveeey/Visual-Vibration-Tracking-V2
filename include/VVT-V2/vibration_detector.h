@@ -16,8 +16,9 @@
 #include "VVT-V2/lonely_point_handler.h"
 #include "VVT-V2/colored_point_handler.h"
 #include "VVT-V2/frame_handler.h"
+#include "VVT-V2/helper.h"
 
-class VibrationDetector
+class VibrationDetector 
 {
 	enum main_mode
 	{
@@ -139,6 +140,7 @@ private:
 
 	std::string input_file_name_;
 	std::string output_file_name_;
+	std::string output_csv_file_name_;
 	std::string window_name_;
 
 	String main_window_name_;

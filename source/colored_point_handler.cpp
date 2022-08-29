@@ -1,7 +1,8 @@
 #include "VVT-V2/colored_point_handler.h"
 
-ColoredPointHandler::ColoredPointHandler(Point2f init_coordinates, int update_rate, double sampling_rate, int point_id, float resizing_coefficient) :
+ColoredPointHandler::ColoredPointHandler(Point2f init_coordinates, int update_rate, double sampling_rate, int point_id, float resizing_coefficient, std::string output_csv_filename) :
 	Histogram{ 600, 300, sampling_rate / 2, point_id },
+	OutputToCsv{ output_csv_filename, point_coordinates_, point_time_coordinates_, point_id },
 	update_rate_{ update_rate },
 	point_id_{ point_id },
 	resizing_coefficient_{ 1.25f / resizing_coefficient },
@@ -28,8 +29,7 @@ ColoredPointHandler::ColoredPointHandler(Point2f init_coordinates, int update_ra
 
 ColoredPointHandler::~ColoredPointHandler()
 {
-	OutputToCsv output_to_scv("C:/Users/seeyo/source/repos/Visual-Vibration-Tracking-V2/docs/output.csv", point_coordinates_, point_time_coordinates_, point_id_);
-	output_to_scv.Write();
+	Write();
 }
 
 void ColoredPointHandler::Draw(Mat& frame)
@@ -42,6 +42,7 @@ void ColoredPointHandler::Draw(Mat& frame)
 
 void ColoredPointHandler::SetMode(int mode)
 {
+	std::cout << "current mode is " << mode << std::endl;
 	mode_ = mode;
 }
 
@@ -104,29 +105,4 @@ void ColoredPointHandler::UpdatePointColor()
 		point_color_ = Scalar(255, 255, 255);
 		point_radius_ *= 10;
 	}
-}
-
-Scalar ColoredPointHandler::RatioToRgb(double ratio)
-{
-	// we want to normalize ratio so that it fits in to 6 regions
-	// where each region is 256 units long
-	int normalized = int(ratio * 256 * 4);
-
-	// find the region for this position
-	int region = normalized / 256;
-
-	// find the distance to the start of the closest region
-	int x = normalized % 256;
-
-	int r = 0, g = 0, b = 0;
-	switch (region)
-	{
-	case 0: r = 255; g = 0;   b = 0;   g += x; break; // красный
-	case 1: r = 255; g = 255; b = 0;   r -= x; break; // желтый
-	case 2: r = 0;   g = 255; b = 0;   b += x; break; // зеленый
-	case 3: r = 0;   g = 255; b = 255; g -= x; break; // сине-зеленый
-	case 4: r = 0;   g = 0;   b = 255; r += x; break; // синий
-		//case 5: r = 255; g = 0;   b = 255; b -= x; break;
-	}
-	return Scalar(b, g, r);
 }

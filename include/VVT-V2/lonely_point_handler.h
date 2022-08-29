@@ -15,10 +15,10 @@
 using namespace cv;
 
 // Класс описывает объект-крупную точку на видео, положение которой отслеживается с течением времени для вычисления частоты вибрации этой точки
-class LonelyPointHandler : public Histogram, public VibratingPoint
+class LonelyPointHandler : public Histogram, public VibratingPoint, public OutputToCsv
 {
 public:
-	LonelyPointHandler(Point2f init_coordinates, int update_rate, double sampling_rate, int point_id, float resizing_coefficient);
+	LonelyPointHandler(Point2f init_coordinates, int update_rate, double sampling_rate, int point_id, float resizing_coefficient, std::string output_csv_filename);
 	~LonelyPointHandler();
 	// Частотный фильтр для нижней части диапазона
 	void Filter(std::vector<float>& magnitudes);

@@ -22,6 +22,8 @@ VibrationDetector::VibrationDetector(std::string input_file_name, std::string ou
 	frame_handler = new FrameHandler(input_file_name_, output_file_name_, MAIN_WINDOW_NAME);
 
 	res_mp_ = 1.0;//= frame_handler->GetResizingCoefficient();
+
+	output_csv_file_name_ = GenerateCsvFilename();
 }
 
 VibrationDetector::~VibrationDetector()
@@ -57,7 +59,7 @@ void VibrationDetector::ServeTheQueues()
 
 void VibrationDetector::CreateNewPoint(Point2f mouse_coordinates)
 {
-	LonelyPointHandler* point_handler_ = new LonelyPointHandler(mouse_coordinates, update_rate_, fps_, point_id_++, res_mp_);
+	LonelyPointHandler* point_handler_ = new LonelyPointHandler(mouse_coordinates, update_rate_, fps_, point_id_++, res_mp_, output_csv_file_name_);
 	vec_lonely_point_handlers_.push_back(point_handler_);
 }
 
@@ -108,7 +110,7 @@ void VibrationDetector::LeftClickHandler(Point2f mouse_coordinates)
 
 void VibrationDetector::CreateNewColoredPoint(Point2f mouse_coordinates)
 {
-	ColoredPointHandler* point_handler_ = new ColoredPointHandler(mouse_coordinates, update_rate_, fps_, point_id_++, res_mp_);
+	ColoredPointHandler* point_handler_ = new ColoredPointHandler(mouse_coordinates, update_rate_, fps_, point_id_++, res_mp_, output_csv_file_name_);
 	vec_colored_point_handlers_.push_back(point_handler_);
 }
 
@@ -421,6 +423,7 @@ void VibrationDetector::ExecuteVibrationDetection()
 	fps_ = frame_handler->GetInputFps();
 
 	// Генерируем шкалу
+	std::cout << "col mode " << colored_point_mode_ << std::endl;
 	grad_scale_ = frame_handler->GenerateGradScale(0, fps_ / 2, colored_point_mode_);
 
 	// conditions of exit
@@ -536,6 +539,7 @@ void VibrationDetector::ExecuteVibrationDetection()
 		case 77:
 		case 109:
 		{
+			std::cout << "colored point mode is " << colored_point_mode_ << std::endl;
 			// Перебираем режимы по порядку
 			if (colored_point_mode_ == 2)
 				colored_point_mode_ = 0;

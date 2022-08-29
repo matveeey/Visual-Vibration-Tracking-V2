@@ -11,6 +11,9 @@
 #include <opencv2/video/tracking.hpp>
 #include <opencv2/opencv.hpp>
 
+// my headers
+#include "VVT-V2/helper.h"
+
 using namespace cv;
 
 // Класс позволяет создать объект, который может выводить видео в окне

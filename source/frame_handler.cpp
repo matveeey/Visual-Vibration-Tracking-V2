@@ -123,31 +123,6 @@ Mat FrameHandler::AddTips(Mat frame, int mode)
 	return frame;
 }
 
-Scalar RatioToRgb(double ratio)
-{
-	// we want to normalize ratio so that it fits in to 6 regions
-	// where each region is 256 units long
-	int normalized = int(ratio * 256 * 4);
-
-	// find the region for this position
-	int region = normalized / 256;
-
-	// find the distance to the start of the closest region
-	int x = normalized % 256;
-
-	int r = 0, g = 0, b = 0;
-	switch (region)
-	{
-	case 0: r = 255; g = 0;   b = 0;   g += x; break; // красный
-	case 1: r = 255; g = 255; b = 0;   r -= x; break; // желтый
-	case 2: r = 0;   g = 255; b = 0;   b += x; break; // зеленый
-	case 3: r = 0;   g = 255; b = 255; g -= x; break; // сине-зеленый
-	case 4: r = 0;   g = 0;   b = 255; r += x; break; // синий
-		//case 5: r = 255; g = 0;   b = 255; b -= x; break;
-	}
-	return Scalar(b, g, r);
-}
-
 Mat FrameHandler::GenerateGradScale(int left_limit, int right_limit, int colored_point_mode)
 {
 	// Параметры шрифта
@@ -205,8 +180,10 @@ Mat FrameHandler::GenerateGradScale(int left_limit, int right_limit, int colored
 
 	// TEMPORARY!!!
 	// Отдельно выводим два варианта режима при активном ROI - подсвечивание точек по амплитуде/частоте
-	std::string coloring_points_mode_tips[3] = { "Default", "Coloring by Amplitude", "Coloring by Frequency" };
+	std::string coloring_points_mode_tips[3] = { "Default", "Coloring by Frequency", "Coloring by Amplitude" };
 	Size current_text_size = getTextSize(coloring_points_mode_tips[colored_point_mode], font, font_scale, thickness, &baseline);
+
+	std::cout << "current mode: " << coloring_points_mode_tips[colored_point_mode] << std::endl;
 
 	putText(
 		frame,

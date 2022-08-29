@@ -11,6 +11,7 @@
 #include "VVT-V2/vibrating_point.h"
 #include "VVT-V2/histogram.h"
 #include "VVT-V2/output_to_csv.h"
+#include "VVT-V2/helper.h"
 
 using namespace cv;
 
@@ -22,10 +23,10 @@ enum mode
 };
 
 // Класс описывает объект-маленькую точку с возможностью подсветки цветом в зависимости от амплитуды или частоты вибрации
-class ColoredPointHandler : public Histogram, public VibratingPoint
+class ColoredPointHandler : public Histogram, public VibratingPoint, public OutputToCsv
 {
 public:
-	ColoredPointHandler(Point2f init_coordinates, int update_rate, double sampling_rate, int point_id, float resizing_coefficient);
+	ColoredPointHandler(Point2f init_coordinates, int update_rate, double sampling_rate, int point_id, float resizing_coefficient, std::string output_csv_filename);
 	~ColoredPointHandler();
 	// Отрисовывает точку и данные, связанные с ней
 	void Draw(Mat& frame) override;
@@ -43,9 +44,6 @@ private:
 private:
 	// Обновляем текущий цвет точки
 	void UpdatePointColor() override;
-public:
-	// Получает на вход отношение (максимум - 1.0), возвращает цвет в диапазоне градиента от красного к синему
-	Scalar RatioToRgb(double ratio);
 
 private:
 	// Текущий режим работы (цвета на основе амплитуд/частот)

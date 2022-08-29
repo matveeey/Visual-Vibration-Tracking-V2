@@ -1,7 +1,8 @@
 #include "VVT-V2/lonely_point_handler.h"
 
-LonelyPointHandler::LonelyPointHandler(Point2f init_coordinates, int update_rate, double sampling_rate, int point_id, float resizing_coefficient) :
+LonelyPointHandler::LonelyPointHandler(Point2f init_coordinates, int update_rate, double sampling_rate, int point_id, float resizing_coefficient, std::string output_csv_filename) :
 	Histogram{ 600, 300, sampling_rate / 2, point_id },
+	OutputToCsv{ output_csv_filename, point_coordinates_, point_time_coordinates_, point_id },
 	update_rate_{ update_rate },
 	point_id_{ point_id },
 	resizing_coefficient_{ 1.25f / resizing_coefficient }
@@ -23,8 +24,7 @@ LonelyPointHandler::LonelyPointHandler(Point2f init_coordinates, int update_rate
 
 LonelyPointHandler::~LonelyPointHandler()
 {
-	OutputToCsv output_to_scv("C:/Users/seeyo/source/repos/Visual-Vibration-Tracking-V2/docs/output.csv", point_coordinates_, point_time_coordinates_, point_id_);
-	output_to_scv.Write();
+	Write();
 }
 
 void LonelyPointHandler::Filter(std::vector<float>& magnitudes)
