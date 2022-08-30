@@ -15,9 +15,21 @@
 
 using namespace cv;
 
+/*!
+* @brief Класс для нахождения коэффициентов для конкретной линзы (с помощью которой было снято видео)
+*
+* Объект класса осуществляет чтение кадров/фотографий с шахматной доской в различных местах на кадре и вычисляет коэффициенты матрицы [] линзы
+* TODO: добавить вид этой матрицы (3 х 3)
+*/
 class CameraCalibrator
 {
 public:
+	/*!
+	* @brief Конструктор этого класса
+	* @param input_file_name: имя (путь) входного видео
+	* @param chessboards_path: имя (путь) к папке с изображениями шахматных досок
+	* @note VideoUndistorter
+	*/
 	CameraCalibrator(std::string input_file_name, std::string chessboards_path);
 	~CameraCalibrator();
 

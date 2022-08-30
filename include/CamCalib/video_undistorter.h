@@ -16,9 +16,21 @@
 
 using namespace cv;
 
+/*!
+* @brief Класс для удаления дисторсии на видео
+*
+* Объект класса осуществляет чтение и сохранение кадров с удаленной дисторсией в выходную последовательность (видео)
+*/
 class VideoUndistorter
 {
 public:
+	/*!
+	* @brief Конструктор этого класса
+	* @param input_file_name: имя (путь) входного видео для обработки
+	* @param output_file_name: имя (путь) выходдного видео после обработки
+	* @param txt_file_name: имя (путь) файла с "коэффициентами дисторсии" линзы
+	* @note CameraCalibrator
+	*/
 	VideoUndistorter(std::string input_file_name_, std::string output_file_name, std::string txt_file_name);
 	~VideoUndistorter();
 

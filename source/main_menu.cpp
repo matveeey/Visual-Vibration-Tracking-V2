@@ -83,8 +83,7 @@ void MainMenu::ExecuteVibrationMonitoring(std::string input_file_name, std::stri
 void MainMenu::ExecuteMotionMagnification(std::string input_file_name, std::string output_file_name)
 {
 	MovementEnlarger movement_enlarger(input_file_name, output_file_name);
-	//movement_enlarger.ExecuteLaplaceEnlargement();
-	movement_enlarger.ExecuteRieszEnlargement();
+	movement_enlarger.ExecuteLaplaceEnlargement();
 }
 
 void MainMenu::CreateMenu()

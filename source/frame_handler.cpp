@@ -84,7 +84,7 @@ Mat FrameHandler::ConcatenateFramesVertically(Mat top_frame, Mat bottom_frame)
 	return dst;
 }
 
-Mat FrameHandler::GetGrayFrame(Mat frame_to_be_grayed)
+Mat FrameHandler::MakeGrayFrame(Mat frame_to_be_grayed)
 {
 	Mat grayed_frame;
 	
@@ -108,7 +108,7 @@ Mat FrameHandler::GetCurrentFrame()
 	return current_frame_;
 }
 
-String FrameHandler::GetWindowName()
+String FrameHandler::GetMainWindowName()
 {
 	return main_window_name_;
 }
@@ -236,7 +236,7 @@ Mat FrameHandler::GenerateGradScale(int left_limit, int right_limit, int colored
 		rectangle(
 			frame,
 			scale_unit,
-			RatioToRgb(static_cast<double>(x) / static_cast<double>(right_limit)),
+			HelperFunctions::RatioToRgb(static_cast<double>(x) / static_cast<double>(right_limit)),
 			FILLED
 		);
 

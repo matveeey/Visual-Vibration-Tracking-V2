@@ -115,9 +115,3 @@ void MovementEnlarger::ExecuteLaplaceEnlargement()
 	}
 
 }
-
-void MovementEnlarger::ExecuteRieszEnlargement()
-{
-	RieszEnlarge();
-}
-

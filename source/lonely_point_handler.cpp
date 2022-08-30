@@ -1,11 +1,10 @@
 #include "VVT-V2/lonely_point_handler.h"
 
-LonelyPointHandler::LonelyPointHandler(Point2f init_coordinates, int update_rate, double sampling_rate, int point_id, float resizing_coefficient, std::string output_csv_filename) :
+LonelyPointHandler::LonelyPointHandler(Point2f init_coordinates, double sampling_rate, int point_id, float text_resize_factor, std::string output_csv_filename) :
 	Histogram{ 600, 300, sampling_rate / 2, point_id },
 	OutputToCsv{ output_csv_filename, point_coordinates_, point_time_coordinates_, point_id },
-	update_rate_{ update_rate },
 	point_id_{ point_id },
-	text_resize_factor_{ resizing_coefficient }
+	text_resize_factor_{ text_resize_factor }
 {
 	interaction_offset_ = 50;
 	sampling_rate_ = sampling_rate;

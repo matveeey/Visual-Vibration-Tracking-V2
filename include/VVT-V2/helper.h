@@ -1,5 +1,7 @@
 #ifndef HELPER_H
 #define HELPER_H
+
+// Отключаю варнинги на безопасность, чтобы localtime(&time) не ругалась. Пока тут Си-шная реализация, попозже переделаю
 #define _CRT_SECURE_NO_WARNINGS
 
 // standart headers
@@ -9,9 +11,28 @@
 // OpenCV headers
 #include <opencv2/opencv.hpp>
 
-// Генерирует имя CSV файла для сохранения метаданных
-std::string GenerateCsvFilename();
-// Конвертирует отношение в диапазоне [0; 1] в цвет
-cv::Scalar RatioToRgb(double ratio);
+/*!
+* @brief Функции в этом пространстве имен используются для генерирования имени csv-файла для записи и конвертирования отношения в диапазоне [0; 1] в RGB цвет
+*/
+
+namespace HelperFunctions {
+    /*!
+    * \addtogroup HelperFunctions
+    * @{
+    */
+
+    /*!
+    * Генерирует имя CSV файла для сохранения метаданных
+    * @return имя файла
+    */
+	std::string GenerateCsvFilename();
+    /*!
+    * Конвертирует отношение в диапазоне [0; 1] в RGB цвет
+    * @param ratio: отношение
+    * @return: RGB цвет
+    */
+	cv::Scalar RatioToRgb(double ratio);
+    /*! @} End of HelperFunctions Groups */
+}
 
 #endif

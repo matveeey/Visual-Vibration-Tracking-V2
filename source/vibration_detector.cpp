@@ -5,7 +5,6 @@ VibrationDetector::VibrationDetector(std::string input_file_name, std::string ou
 	output_file_name_{ output_file_name },
 	window_name_{ window_name },
 	number_of_points_{ 0 },
-	update_rate_{ 20 },
 	warping_figure_selecting_{ false },
 	max_amplitude_scalar_{ 0.0 },
 	colored_point_mode_{ COLORING_BASED_ON_FREQUENCY },
@@ -23,7 +22,7 @@ VibrationDetector::VibrationDetector(std::string input_file_name, std::string ou
 
 	res_mp_ = frame_handler->GetTextResizeFactor();
 
-	output_csv_file_name_ = GenerateCsvFilename();
+	output_csv_file_name_ = HelperFunctions::GenerateCsvFilename();
 }
 
 VibrationDetector::~VibrationDetector()
@@ -59,7 +58,7 @@ void VibrationDetector::ServeTheQueues()
 
 void VibrationDetector::CreateNewPoint(Point2f mouse_coordinates)
 {
-	LonelyPointHandler* point_handler_ = new LonelyPointHandler(mouse_coordinates, update_rate_, fps_, point_id_++, res_mp_, output_csv_file_name_);
+	LonelyPointHandler* point_handler_ = new LonelyPointHandler(mouse_coordinates, fps_, point_id_++, res_mp_, output_csv_file_name_);
 	vec_lonely_point_handlers_.push_back(point_handler_);
 }
 
@@ -110,7 +109,7 @@ void VibrationDetector::LeftClickHandler(Point2f mouse_coordinates)
 
 void VibrationDetector::CreateNewColoredPoint(Point2f mouse_coordinates)
 {
-	ColoredPointHandler* point_handler_ = new ColoredPointHandler(mouse_coordinates, update_rate_, fps_, point_id_++, res_mp_, output_csv_file_name_);
+	ColoredPointHandler* point_handler_ = new ColoredPointHandler(mouse_coordinates, fps_, point_id_++, res_mp_, output_csv_file_name_);
 	vec_colored_point_handlers_.push_back(point_handler_);
 }
 
@@ -418,7 +417,7 @@ void VibrationDetector::ExecuteVibrationDetection()
 	frame_handler->ReadNextFrame();
 	current_tracking_frame_ = frame_handler->GetCurrentFrame();
 
-	prev_img_gray_ = frame_handler->GetGrayFrame(current_tracking_frame_);
+	prev_img_gray_ = frame_handler->MakeGrayFrame(current_tracking_frame_);
 	fps_ = frame_handler->GetInputFps();
 
 	// Генерируем шкалу
@@ -430,7 +429,7 @@ void VibrationDetector::ExecuteVibrationDetection()
 	int amount_of_frames = frame_handler->GetAmountOfFrames();
 
 	// устанавливаем callback handler на основное окно
-	setMouseCallback(frame_handler->GetWindowName(), OnMouse, (void*)this);
+	setMouseCallback(frame_handler->GetMainWindowName(), OnMouse, (void*)this);
 
 	while ((current_num_of_frame < amount_of_frames - 1) && running_ == true)
 	{
@@ -445,7 +444,7 @@ void VibrationDetector::ExecuteVibrationDetection()
 			current_tracking_frame_ = MakeWarpedFrame(current_tracking_frame_, warping_figure_);
 		}
 
-		next_img_gray_ = frame_handler->GetGrayFrame(current_tracking_frame_);
+		next_img_gray_ = frame_handler->MakeGrayFrame(current_tracking_frame_);
 
 		// Трекинг и вычисление частоты вибрации
 		frame_time_ = frame_handler->GetCurrentTimeOfFrame();
@@ -462,7 +461,7 @@ void VibrationDetector::ExecuteVibrationDetection()
 			// Обновляем максимальную амплитуду
 			vec_colored_point_handlers_[i]->SetMaxAmplitude(max_amplitude_scalar_);
 			vec_colored_point_handlers_[i]->VibratingPoint::IsInteracted(last_mouse_position_);
-			vec_colored_point_handlers_[i]->SetMode(colored_point_mode_);
+			vec_colored_point_handlers_[i]->SetColoringMode(colored_point_mode_);
 			vec_colored_point_handlers_[i]->Draw(current_tracking_frame_);
 		}
 
@@ -537,7 +536,6 @@ void VibrationDetector::ExecuteVibrationDetection()
 		case 77:
 		case 109:
 		{
-			std::cout << "colored point mode is " << colored_point_mode_ << std::endl;
 			// Перебираем режимы по порядку
 			if (colored_point_mode_ == 2)
 				colored_point_mode_ = 0;

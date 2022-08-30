@@ -22,8 +22,6 @@ Histogram::Histogram(int width, int height, int x_limit, int id) :
 
 Histogram::~Histogram()
 {
-	std::cout << "Histogram destructor" << std::endl;
-
 	if (is_histogram_plotted_)
 		destroyWindow(winname_);
 }

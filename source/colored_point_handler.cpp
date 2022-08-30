@@ -1,12 +1,11 @@
 #include "VVT-V2/colored_point_handler.h"
 
-ColoredPointHandler::ColoredPointHandler(Point2f init_coordinates, int update_rate, double sampling_rate, int point_id, float resizing_coefficient, std::string output_csv_filename) :
+ColoredPointHandler::ColoredPointHandler(Point2f init_coordinates, double sampling_rate, int point_id, float radius_resize_factor, std::string output_csv_filename) :
 	Histogram{ 600, 300, sampling_rate / 2, point_id },
 	OutputToCsv{ output_csv_filename, point_coordinates_, point_time_coordinates_, point_id },
-	update_rate_{ update_rate },
 	point_id_{ point_id },
-	resizing_coefficient_{ 1.25f / resizing_coefficient },
-	mode_{ COLORING_BASED_ON_FREQUENCY }
+	radius_resize_factor_{ 1.25f / radius_resize_factor },
+	coloring_mode_{ COLORING_BASED_ON_FREQUENCY }
 {
 	interaction_offset_ = 3;
 	sampling_rate_ = sampling_rate;
@@ -19,7 +18,7 @@ ColoredPointHandler::ColoredPointHandler(Point2f init_coordinates, int update_ra
 	);
 	interacted_ = false;
 
-	point_radius_ = 10 * resizing_coefficient_;
+	point_radius_ = 10 * radius_resize_factor_;
 	frequencies_.push_back(0.0);
 	amplitude_ = Point3f(0.0, 0.0, 0.0);
 
@@ -40,10 +39,9 @@ void ColoredPointHandler::Draw(Mat& frame)
 	DrawHistogram();
 }
 
-void ColoredPointHandler::SetMode(int mode)
+void ColoredPointHandler::SetColoringMode(int coloring_mode)
 {
-	std::cout << "current mode is " << mode << std::endl;
-	mode_ = mode;
+	coloring_mode_ = coloring_mode;
 }
 
 void ColoredPointHandler::DrawHistogram()
@@ -70,7 +68,7 @@ void ColoredPointHandler::DrawInteractionRectangle(Mat& frame)
 
 void ColoredPointHandler::UpdatePointColor()
 {
-	switch (mode_)
+	switch (coloring_mode_)
 	{
 	case DEFAULT:
 	{
@@ -86,7 +84,7 @@ void ColoredPointHandler::UpdatePointColor()
 		{
 			for (int i = 0; i < frequencies_.size(); i++)
 			{
-				point_color_= RatioToRgb(frequencies_[i] / (sampling_rate_ / 2));
+				point_color_= HelperFunctions::RatioToRgb(frequencies_[i] / (sampling_rate_ / 2));
 			}
 		}
 		break;
@@ -96,7 +94,7 @@ void ColoredPointHandler::UpdatePointColor()
 		point_radius_ = 1;
 		// переведём диапазон амплитуд [0; max_amplitude_] в [0; 255] int color value;
 		double amplitude = sqrt(amplitude_.x * amplitude_.x + amplitude_.y * amplitude_.y);
-		point_color_ = RatioToRgb(amplitude / max_amplitude_);
+		point_color_ = HelperFunctions::RatioToRgb(amplitude / max_amplitude_);
 		break;
 	}
 	}

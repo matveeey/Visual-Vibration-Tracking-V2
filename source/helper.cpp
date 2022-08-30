@@ -1,6 +1,6 @@
 #include "VVT-V2/helper.h"
 
-std::string GenerateCsvFilename()
+std::string HelperFunctions::GenerateCsvFilename()
 {
 	// Имя файла, в который будет производиться запись
 	std::string csv_file_name;
@@ -23,7 +23,7 @@ std::string GenerateCsvFilename()
 	return csv_file_name;
 }
 
-cv::Scalar RatioToRgb(double ratio)
+cv::Scalar HelperFunctions::RatioToRgb(double ratio)
 {
 	//
 	int normalized = static_cast<int>(ratio * 256 * 4);
