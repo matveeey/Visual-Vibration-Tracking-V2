@@ -4,6 +4,7 @@ docs/input.txt
 docs/*.csv
 product/
 build/
+archive/
 _msvs2022/
 
 ## Ignore Visual Studio temporary files, build results, and

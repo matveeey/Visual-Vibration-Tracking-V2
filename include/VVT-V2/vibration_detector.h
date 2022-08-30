@@ -112,7 +112,7 @@ private:
 	// Не ресайзнутый фрейм
 	Mat current_tracking_frame_;
 	// Ресайзнутый фрейм
-	Mat current_tracking_frame_resized_;
+	Mat frame_to_be_shown_;
 	// Шкала с градиентом
 	Mat grad_scale_;
 	// Режим подсветки цветных точек

@@ -50,7 +50,7 @@ private:
 	void UpdatePointColor() override;
 private:
 	// Коэффициент рескейла для отрисовки данных
-	float resizing_coefficient_;
+	float text_resize_factor_;
 	// ID точки (нет блин почки)
 	int point_id_;
 	// Частота обновления частоты, цвета и тп

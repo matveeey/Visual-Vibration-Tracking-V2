@@ -9,7 +9,7 @@
 #include <opencv2/opencv.hpp>
 
 // other headers
-#include "VVT-V2/PeakFinder.h"
+#include "VVT-V2/peak_finder.h"
 
 using namespace cv;
 

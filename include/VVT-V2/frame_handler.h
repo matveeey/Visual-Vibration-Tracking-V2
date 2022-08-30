@@ -16,15 +16,27 @@
 
 using namespace cv;
 
-// Класс позволяет создать объект, который может выводить видео в окне
+/*!
+@brief Класс для чтения и сохранения кадров видео, а также различной их обработки
+*
+* Основной текст
+@note Объяснение
+*/
 class FrameHandler
 {
 public:
-	FrameHandler(const std::string input_file_name, const std::string output_file_name, const std::string window_name);
+	/*!
+	* Конструктор класса принимает в качестве аргументов следующее:
+	* @param input_file_name - имя (путь) входного видео для обработки
+	* @param output_file_name - имя (путь) выходдного видео после обработки
+	* @param main_window_name - название главного окна
+	*/
+	FrameHandler(const std::string input_file_name, const std::string output_file_name, const std::string main_window_name);
 	~FrameHandler();
 	// Считывает следующий кадр видео
 	void ReadNextFrame();
-	// Выводит в окно принимаемый кадр
+	// Выводит в главное окно принимаемое изображение
+	// fullscreen - флаг полноэкранного режима
 	void ShowFrame(Mat frame, bool fullscreen);
 	// Записывает кадр с помощью output_Cap
 	void WriteFrame(Mat frame);
@@ -35,14 +47,8 @@ public:
 
 // Геттеры
 public:
-	// Добавляет подсказки для пользователя на кадр
-	Mat AddTips(Mat frame, int mode);
-	// Генерирует шкалу с градиентом и подписями. Ширина шкалы - ширина исходного видео. Высота регулируется внутри
-	Mat GenerateGradScale(int left_limit, int right_limit, int colored_point_mode);
 	// Возвращает серый кадр с блюром
 	Mat GetGrayFrame(Mat frame_to_be_grayed);
-	// Масштабирует и возвращает кадр в зависимости от разрешения видео
-	Mat ResizeFrame(Mat frame);
 	// Возвращает текущий статус input_cap
 	bool GetInputCapStatus();
 	// Возвращает последний прочитанный на данный момент кадр
@@ -63,38 +69,48 @@ public:
 	int GetFrameHeight();
 	// Возвращает коэффициент масштабирования
 	float GetTextResizeFactor();
+	// Добавляет подсказки для пользователя на кадр
+	Mat AddTips(Mat frame, int mode);
+	// Генерирует шкалу с градиентом и подписями. Ширина шкалы - ширина исходного видео. Высота регулируется внутри
+	Mat GenerateGradScale(int left_limit, int right_limit, int colored_point_mode);
+
+private:
+	// Инициализирует коэффициент масштабирования текста в зависимости от разрешения видео
+	void InitTextResizeFactors();
 
 protected:
-	Mat input_frame_;
+	// Последнний прочитанный кадр
 	Mat current_frame_;
-
+	// Указатель на объект-захватчик входных кадров видео
 	VideoCapture* input_cap_;
+	// Флаг, принимающий true при удачном чтении кадра и false, если следующий кадр не был считан
 	bool input_cap_status_;
+	// Указатель на объект, сохраняющий кадры в последовательность (видео) в зависимости от выбранного кодека (cv::fourcc)
 	VideoWriter* output_cap_;
-	std::string input_path_;
-	std::string output_path_;
+	// Имя главного окна
+	std::string main_window_name_;
 
 	// Флаг полноэкранного режима
 	bool fullscreen_;
 
 	// Параметры видео
+	// Ширина кадра исходного видео
 	double input_frame_width_;
+	// Высота кадра исходного видео
 	double input_frame_height_;
+	// Соотношение сторон исходного видео
 	double input_frame_size_ratio_;
+	// ФПС исходного видео
 	double input_fps_;
-	// Имя главного окна
-	std::string window_name_;
-	// Текущая информация о кадре
+	// Текущее время кадра из последовательности
 	double current_time_of_frame_;
+	// Текущий номер кадра из последовательности
 	int current_pos_of_frame_;
-	// Для масштабирования изображения
-	Size resized_resolution_;
+	// Коэффициент масштабирования текста (зависит от разрешения исходного видео)
 	float text_resize_factor_;
 	// Тексты подсказок для пользователя
 	std::vector<std::string> tip_text_;
 
-private:
-	void CalculateTextResizeFactors();
 };
 
 #endif

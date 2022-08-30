@@ -123,6 +123,7 @@ void VibratingPoint::ExecuteFFT()
 	if (!absolute_peak)
 	{
 		// searching peaks in output vector of magnitudes
+		
 		PeakFinder::findPeaks(magnitudes, indexes_of_peak_frequencies, false, 1);
 
 		// this function works strange, it doesn't always returns the indexes

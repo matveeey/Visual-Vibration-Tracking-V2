@@ -1,6 +1,5 @@
-// PeakFinder.h
-#ifndef PEAKFINDER_H
-#define PEAKFINDER_H
+#ifndef PEAK_FINDER_H
+#define PEAK_FINDER_H
 
 #include <vector>
 

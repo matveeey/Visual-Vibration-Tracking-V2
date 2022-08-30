@@ -5,7 +5,7 @@ LonelyPointHandler::LonelyPointHandler(Point2f init_coordinates, int update_rate
 	OutputToCsv{ output_csv_filename, point_coordinates_, point_time_coordinates_, point_id },
 	update_rate_{ update_rate },
 	point_id_{ point_id },
-	resizing_coefficient_{ 1.25f / resizing_coefficient }
+	text_resize_factor_{ resizing_coefficient }
 {
 	interaction_offset_ = 50;
 	sampling_rate_ = sampling_rate;
@@ -103,6 +103,10 @@ void LonelyPointHandler::DrawInteractionRectangle(Mat& frame)
 
 void LonelyPointHandler::DrawTextData(Mat& frame)
 {
+	int font = FONT_HERSHEY_PLAIN;
+	double font_scale = 1.5 * text_resize_factor_;
+	int thickness = 2;
+	int line_spacing = 20;
 	//  оличество строк частот, выводимых на экран
 	int lines_amount = 3;
 	// отрисовываем частоту вибрации
@@ -111,11 +115,11 @@ void LonelyPointHandler::DrawTextData(Mat& frame)
 		putText(
 			frame,
 			"hz: " + std::to_string(frequencies_[j]),
-			Point(point_coordinates_.front().x + 15, point_coordinates_.front().y + resizing_coefficient_ * j * 20),
-			FONT_HERSHEY_PLAIN,
-			resizing_coefficient_ * 1,
+			Point(point_coordinates_.front().x + 15, point_coordinates_.front().y + text_resize_factor_ * j * line_spacing),
+			font,
+			font_scale,
 			Scalar(0, 69, 255),
-			2
+			thickness
 		);
 	}
 
@@ -123,38 +127,38 @@ void LonelyPointHandler::DrawTextData(Mat& frame)
 	putText(
 		frame,
 		"ID: " + std::to_string(point_id_),
-		Point(point_coordinates_.front().x, point_coordinates_.front().y - resizing_coefficient_ * 20),
-		FONT_HERSHEY_PLAIN,
-		resizing_coefficient_ * 1,
+		Point(point_coordinates_.front().x, point_coordinates_.front().y - text_resize_factor_ * line_spacing),
+		font,
+		font_scale,
 		Scalar(100, 255, 100),
-		2
+		thickness
 	);
 	putText(
 		frame,
 		"x: " + std::to_string(amplitude_.x),
-		Point(point_coordinates_.front().x, point_coordinates_.front().y - resizing_coefficient_ * 2 * 20),
-		FONT_HERSHEY_PLAIN,
-		resizing_coefficient_ * 1,
+		Point(point_coordinates_.front().x, point_coordinates_.front().y - text_resize_factor_ * 2 * line_spacing),
+		font,
+		font_scale,
 		Scalar(0, 255, 255),
-		2
+		thickness
 	);
 	putText(
 		frame,
 		"y: " + std::to_string(amplitude_.y),
-		Point(point_coordinates_.front().x, point_coordinates_.front().y - resizing_coefficient_ * 3 * 20),
-		FONT_HERSHEY_PLAIN,
-		resizing_coefficient_ * 1,
+		Point(point_coordinates_.front().x, point_coordinates_.front().y - text_resize_factor_ * 3 * line_spacing),
+		font,
+		font_scale,
 		Scalar(0, 255, 255),
-		2
+		thickness
 	);
 	// uncomment когда по€витс€ 3-€ координата дл€ амплитуды :)
 	/*putText(
 		frame,
 		"z: " + std::to_string(amplitude_.z),
-		Point(point_coordinates_.front().x, point_coordinates_.front().y - res_mp_ * 4 * 20),
+		Point(point_coordinates_.front().x, point_coordinates_.front().y - res_mp_ * 4 * line_spacing),
 		FONT_HERSHEY_PLAIN,
-		res_mp_ * 1,
+		font_scale,
 		Scalar(0, 255, 255),
-		2
+		thickness
 	);*/
 }

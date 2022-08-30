@@ -1,12 +1,10 @@
 #include "VVT-V2\frame_handler.h"
 
-FrameHandler::FrameHandler(const std::string input_file_name, const std::string output_file_name, const std::string window_name) :
-	input_path_{ input_file_name },
+FrameHandler::FrameHandler(const std::string input_file_name, const std::string output_file_name, const std::string main_window_name) :
 	input_cap_{ new VideoCapture(input_file_name) },
 	input_cap_status_{ false },
-	output_path_{ output_file_name },
 	output_cap_{ new VideoWriter(output_file_name, VideoWriter::fourcc('D', 'I', 'V', 'X'), input_cap_->get(CAP_PROP_FPS), Size(input_cap_->get(CAP_PROP_FRAME_WIDTH), input_cap_->get(CAP_PROP_FRAME_HEIGHT))) },
-	window_name_{ window_name },
+	main_window_name_{ main_window_name },
 	current_time_of_frame_{ 0 },
 	current_pos_of_frame_{ 0 },
 	fullscreen_{ false },
@@ -18,10 +16,10 @@ FrameHandler::FrameHandler(const std::string input_file_name, const std::string 
 {
 	std::cout << "Input fps is: " << input_fps_ << std::endl;
 	// создаём окно
-	namedWindow(window_name_, WINDOW_NORMAL);
+	namedWindow(main_window_name_, WINDOW_NORMAL);
 
 	// Находим коэффициент масштабирования для текста
-	CalculateTextResizeFactors();
+	InitTextResizeFactors();
 	
 	// Инициализируем текст подсказок
 	tip_text_.push_back("Default Mode");
@@ -32,7 +30,7 @@ FrameHandler::FrameHandler(const std::string input_file_name, const std::string 
 
 FrameHandler::~FrameHandler()
 {
-	destroyWindow(window_name_);
+	destroyWindow(main_window_name_);
 	this->input_cap_->release();
 	delete this->input_cap_;
 	this->output_cap_->release();
@@ -40,10 +38,9 @@ FrameHandler::~FrameHandler()
 }
 void FrameHandler::ReadNextFrame()
 {
-	input_cap_status_ = input_cap_->read(input_frame_);
+	input_cap_status_ = input_cap_->read(current_frame_);
 	current_time_of_frame_ = input_cap_->get(CAP_PROP_POS_MSEC);
 	current_pos_of_frame_ = input_cap_->get(CAP_PROP_POS_FRAMES);
-	input_frame_.copyTo(current_frame_);
 }
 
 void FrameHandler::ShowFrame(Mat frame, bool fullscreen)
@@ -52,26 +49,110 @@ void FrameHandler::ShowFrame(Mat frame, bool fullscreen)
 
 	if (fullscreen_)
 	{
-		setWindowProperty(window_name_, WND_PROP_FULLSCREEN, WINDOW_FULLSCREEN);
+		setWindowProperty(main_window_name_, WND_PROP_FULLSCREEN, WINDOW_FULLSCREEN);
 	}
 	else
 	{
-		setWindowProperty(window_name_, WND_PROP_FULLSCREEN, WINDOW_NORMAL);
+		setWindowProperty(main_window_name_, WND_PROP_FULLSCREEN, WINDOW_NORMAL);
 	}
 
-	imshow(window_name_, frame);
+	imshow(main_window_name_, frame);
 }
 
-void FrameHandler::WriteFrame(Mat frame)
+void FrameHandler::WriteFrame(Mat frame_to_be_written)
 {
-	output_cap_->write(frame);
+	output_cap_->write(frame_to_be_written);
+}
+
+Mat FrameHandler::ConcatenateFramesHorizontally(Mat left_frame, Mat right_frame)
+{
+	Mat dst;
+	std::vector<Mat> vec_of_frames;
+	vec_of_frames.push_back(left_frame);
+	vec_of_frames.push_back(right_frame);
+	hconcat(vec_of_frames, dst);
+	return dst;
+}
+
+Mat FrameHandler::ConcatenateFramesVertically(Mat top_frame, Mat bottom_frame)
+{
+	Mat dst;
+	std::vector<Mat> vec_of_frames;
+	vec_of_frames.push_back(top_frame);
+	vec_of_frames.push_back(bottom_frame);
+	vconcat(vec_of_frames, dst);
+	return dst;
+}
+
+Mat FrameHandler::GetGrayFrame(Mat frame_to_be_grayed)
+{
+	Mat grayed_frame;
+	
+	if (!frame_to_be_grayed.empty())
+	{
+		// Конвертируем входной Mat из РГБ(БГР) в грейскейл
+		cvtColor(frame_to_be_grayed, grayed_frame, COLOR_BGR2GRAY);
+		GaussianBlur(grayed_frame, grayed_frame, Size(3, 3), 0);
+	}
+	
+	return grayed_frame;
+}
+
+bool FrameHandler::GetInputCapStatus()
+{
+	return input_cap_status_;
+}
+
+Mat FrameHandler::GetCurrentFrame()
+{
+	return current_frame_;
+}
+
+String FrameHandler::GetWindowName()
+{
+	return main_window_name_;
+}
+
+double FrameHandler::GetCurrentTimeOfFrame()
+{
+	return current_time_of_frame_;
+}
+
+int FrameHandler::GetCurrentPosOfFrame()
+{
+	return current_pos_of_frame_;
+}
+
+int FrameHandler::GetAmountOfFrames()
+{
+	return input_cap_->get(CAP_PROP_FRAME_COUNT);
+}
+
+int FrameHandler::GetInputFps()
+{
+	return input_fps_;
+}
+
+int FrameHandler::GetFrameWidth()
+{
+	return input_frame_width_;
+}
+
+int FrameHandler::GetFrameHeight()
+{
+	return input_frame_height_;
+}
+
+float FrameHandler::GetTextResizeFactor()
+{
+	return text_resize_factor_;
 }
 
 Mat FrameHandler::AddTips(Mat frame, int mode)
 {
 	// Параметры шрифта
 	int font = FONT_HERSHEY_PLAIN;
-	double font_scale = 1 * text_resize_factor_;
+	double font_scale = 1.5 * text_resize_factor_;
 	int thickness = 2;
 	int baseline = 0;
 	int line_spacing = 5;
@@ -140,7 +221,7 @@ Mat FrameHandler::GenerateGradScale(int left_limit, int right_limit, int colored
 	int scale_left_offset = input_frame_width_ * 0.1;
 	int scale_width = input_frame_width_ - scale_left_offset;
 
-	Mat frame = Mat(Size(mat_width, mat_height), input_frame_.type(), Scalar(0, 0, 0));
+	Mat frame = Mat(Size(mat_width, mat_height), current_frame_.type(), Scalar(0, 0, 0));
 	float interval = static_cast<float>(scale_width) / static_cast<float>(right_limit - left_limit + 1);
 	// Флаг текущей итерации
 	int iteration = 0;
@@ -203,98 +284,7 @@ Mat FrameHandler::GenerateGradScale(int left_limit, int right_limit, int colored
 	return frame;
 }
 
-Mat FrameHandler::GetGrayFrame(Mat frame_to_be_grayed)
-{
-	Mat grayed_frame;
-	
-	if (!frame_to_be_grayed.empty())
-	{
-		// Конвертируем входной Mat из РГБ(БГР) в грейскейл
-		cvtColor(frame_to_be_grayed, grayed_frame, COLOR_BGR2GRAY);
-		GaussianBlur(grayed_frame, grayed_frame, Size(3, 3), 0);
-	}
-	
-	return grayed_frame;
-}
-
-Mat FrameHandler::ResizeFrame(Mat frame)
-{
-	if (!resized_resolution_.empty())
-		resize(frame, frame, resized_resolution_);
-	return frame;
-}
-
-Mat FrameHandler::ConcatenateFramesHorizontally(Mat left_frame, Mat right_frame)
-{
-	Mat dst;
-	std::vector<Mat> vec_of_frames;
-	vec_of_frames.push_back(left_frame);
-	vec_of_frames.push_back(right_frame);
-	hconcat(vec_of_frames, dst);
-	return dst;
-}
-
-Mat FrameHandler::ConcatenateFramesVertically(Mat top_frame, Mat bottom_frame)
-{
-	Mat dst;
-	std::vector<Mat> vec_of_frames;
-	vec_of_frames.push_back(top_frame);
-	vec_of_frames.push_back(bottom_frame);
-	vconcat(vec_of_frames, dst);
-	return dst;
-}
-
-bool FrameHandler::GetInputCapStatus()
-{
-	return input_cap_status_;
-}
-
-Mat FrameHandler::GetCurrentFrame()
-{
-	return current_frame_;
-}
-
-String FrameHandler::GetWindowName()
-{
-	return window_name_;
-}
-
-double FrameHandler::GetCurrentTimeOfFrame()
-{
-	return current_time_of_frame_;
-}
-
-int FrameHandler::GetCurrentPosOfFrame()
-{
-	return current_pos_of_frame_;
-}
-
-int FrameHandler::GetAmountOfFrames()
-{
-	return input_cap_->get(CAP_PROP_FRAME_COUNT);
-}
-
-int FrameHandler::GetInputFps()
-{
-	return input_fps_;
-}
-
-int FrameHandler::GetFrameWidth()
-{
-	return input_frame_width_;
-}
-
-int FrameHandler::GetFrameHeight()
-{
-	return input_frame_height_;
-}
-
-float FrameHandler::GetTextResizeFactor()
-{
-	return text_resize_factor_;
-}
-
-void FrameHandler::CalculateTextResizeFactors()
+void FrameHandler::InitTextResizeFactors()
 {
 	std::cout << "frame width: " << input_frame_width_ << std::endl;
 	std::cout << "frame height: " << input_frame_height_ << std::endl;
@@ -306,31 +296,26 @@ void FrameHandler::CalculateTextResizeFactors()
 		case (480):
 		{
 			text_resize_factor_ = 0.44f;
-			resized_resolution_ = Size(input_frame_width_ * text_resize_factor_, input_frame_height_ * text_resize_factor_);
 			break;
 		}
 		case (720):
 		{
 			text_resize_factor_ = 0.67f;
-			resized_resolution_ = Size(input_frame_width_, input_frame_height_);
 			break;
 		}
 		case (1080):
 		{
 			text_resize_factor_ = 1.0f;
-			resized_resolution_ = Size(input_frame_width_ * text_resize_factor_, input_frame_height_ * text_resize_factor_);
 			break;
 		}
 		case (1520):
 		{
 			text_resize_factor_ = 1.40f;
-			resized_resolution_ = Size(input_frame_width_ * text_resize_factor_, input_frame_height_ * text_resize_factor_);
 			break;
 		}
 		case (2160):
 		{
 			text_resize_factor_ = 2.0f;
-			resized_resolution_ = Size(input_frame_width_ * text_resize_factor_, input_frame_height_ * text_resize_factor_);
 			break;
 		}
 		}
@@ -342,31 +327,26 @@ void FrameHandler::CalculateTextResizeFactors()
 		case (480):
 		{
 			text_resize_factor_ = 0.44f;
-			resized_resolution_ = Size(static_cast<int>(input_frame_width_ * text_resize_factor_), static_cast<int>(input_frame_height_ * text_resize_factor_));
 			break;
 		}
 		case (720):
 		{
 			text_resize_factor_ = 0.67f;
-			resized_resolution_ = Size(static_cast<int>(input_frame_width_), static_cast<int>(input_frame_height_));
 			break;
 		}
 		case (1080):
 		{
 			text_resize_factor_ = 1.0f;
-			resized_resolution_ = Size(input_frame_width_ * text_resize_factor_, input_frame_height_ * text_resize_factor_);
 			break;
 		}
 		case (1520):
 		{
 			text_resize_factor_ = 1.4f;
-			resized_resolution_ = Size(input_frame_width_ * text_resize_factor_, input_frame_height_ * text_resize_factor_);
 			break;
 		}
 		case (2160):
 		{
 			text_resize_factor_ = 2.0f;
-			resized_resolution_ = Size(input_frame_width_ * text_resize_factor_, input_frame_height_ * text_resize_factor_);
 			break;
 		}
 		}

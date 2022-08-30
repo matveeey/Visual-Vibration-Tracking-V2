@@ -1,5 +1,4 @@
-// PeakFinder.cpp
-#include "VVT-V2\PeakFinder.h"
+#include "VVT-V2\peak_finder.h"
 
 #include <iostream>
 #include <vector>

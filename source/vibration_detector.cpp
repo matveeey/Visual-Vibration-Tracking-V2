@@ -21,7 +21,7 @@ VibrationDetector::VibrationDetector(std::string input_file_name, std::string ou
 
 	frame_handler = new FrameHandler(input_file_name_, output_file_name_, MAIN_WINDOW_NAME);
 
-	res_mp_ = 1.0;//= frame_handler->GetResizingCoefficient();
+	res_mp_ = frame_handler->GetTextResizeFactor();
 
 	output_csv_file_name_ = GenerateCsvFilename();
 }
@@ -169,9 +169,9 @@ void VibrationDetector::OnMouse(int event, int x, int y, int flags, void* userda
 // "helper" function for implementing callback function as a method of C++ class
 void VibrationDetector::DetectEvent(int event, int x, int y, int flags)
 {
-	Point tmp_container = TranslateCoordinates(Point2f(x, y));
+	/*Point tmp_container = TranslateCoordinates(Point2f(x, y));
 	x = tmp_container.x;
-	y = tmp_container.y;
+	y = tmp_container.y;*/
 
 	switch (current_mode_)
 	{
@@ -391,11 +391,10 @@ void VibrationDetector::DrawAndOutput(Mat& frame)
 		frame = frame_handler->ConcatenateFramesVertically(frame, grad_scale_);
 	}
 	// Масштабируем кадр для вывода на экран и добавляем на него подсказки для пользователя
-	frame.copyTo(current_tracking_frame_resized_);
-	//current_tracking_frame_resized_ = frame_handler->ResizeFrame(current_tracking_frame_resized_);
-	current_tracking_frame_resized_ = frame_handler->AddTips(current_tracking_frame_resized_, current_mode_);
+	frame.copyTo(frame_to_be_shown_);
+	frame_to_be_shown_ = frame_handler->AddTips(frame_to_be_shown_, current_mode_);
 	// Выводим кадр на экран
-	frame_handler->ShowFrame(current_tracking_frame_resized_, fullscreen_);
+	frame_handler->ShowFrame(frame_to_be_shown_, fullscreen_);
 }
 
 // DEBUG
@@ -423,7 +422,6 @@ void VibrationDetector::ExecuteVibrationDetection()
 	fps_ = frame_handler->GetInputFps();
 
 	// Генерируем шкалу
-	std::cout << "col mode " << colored_point_mode_ << std::endl;
 	grad_scale_ = frame_handler->GenerateGradScale(0, fps_ / 2, colored_point_mode_);
 
 	// conditions of exit
@@ -431,7 +429,7 @@ void VibrationDetector::ExecuteVibrationDetection()
 	int current_num_of_frame = 0;
 	int amount_of_frames = frame_handler->GetAmountOfFrames();
 
-	// устанавливаем callback handler на наше окно
+	// устанавливаем callback handler на основное окно
 	setMouseCallback(frame_handler->GetWindowName(), OnMouse, (void*)this);
 
 	while ((current_num_of_frame < amount_of_frames - 1) && running_ == true)
