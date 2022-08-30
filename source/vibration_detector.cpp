@@ -349,9 +349,14 @@ void VibrationDetector::TrackAndCalc()
 		vec_lonely_point_handlers_[i]->ExecuteFFT();
 	}
 	// После colored
-	for (int i = vec_lonely_point_handlers_.size(); i < vec_colored_point_handlers_.size(); i++)
+	// 
+	// Небольшое пояснение:
+	// В контейнере NextPts содержатся одновременно lonely и colored точки (причём именно в таком порядке). По сути они делят NextPts на две части - левую (lonely) и правую (colored)
+	// Поэтому, добавляя в хэндлер цветных точек новые координаты, надо идти по NextPts, учитывая возможное (если таковые были добавлены) наличие lonely точек в левой части
+	// Для этого индекс у NextPts = индекс вектора с хэндлерами colored точек + размер вектора с хэндлерами lonely точек (i + vec_lonely_point_handlers_.size())
+	for (int i = 0; i < vec_colored_point_handlers_.size(); i++)
 	{
-		vec_colored_point_handlers_[i]->AddNewPointPosition(NextPts[i]);
+		vec_colored_point_handlers_[i]->AddNewPointPosition(NextPts[i + vec_lonely_point_handlers_.size()]);
 		vec_colored_point_handlers_[i]->AddNewPointTime(frame_time_);
 		// Вызов БПФ (FFT)
 		vec_colored_point_handlers_[i]->ExecuteFFT();
