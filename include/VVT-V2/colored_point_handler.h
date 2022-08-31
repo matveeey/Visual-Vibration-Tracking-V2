@@ -32,8 +32,8 @@ class ColoredPointHandler : public Histogram, public VibratingPoint, public Outp
 	enum coloring_mode
 	{
 		DEFAULT,
+		COLORING_BASED_ON_FREQUENCY,
 		COLORING_BASED_ON_AMPLITUDE,
-		COLORING_BASED_ON_FREQUENCY
 	};
 
 public:

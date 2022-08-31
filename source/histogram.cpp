@@ -1,12 +1,14 @@
 #include "VVT-V2/histogram.h"
 
-Histogram::Histogram(int width, int height, int x_limit, int id) :
+Histogram::Histogram(int width, int height, int x_limit, int id, std::vector<double>& x_values, std::vector<float>& y_values) :
 	histogram_frame_width_{ width },
 	histogram_frame_height_{ height },
 	x_limit_{ x_limit },
 	is_histogram_plotted_{ false },
 	signature_amount_{ 8 },
-	dead_zone_coeff_{ 0.1f }
+	dead_zone_coeff_{ 0.0f },
+	x_values_{ &x_values },
+	y_values_{ &y_values }
 {
 	// Инициализация гистограммы пустым кадром черного цвета
 	histogram_offset_ = static_cast<float>(histogram_frame_width_) * 0.05;
@@ -16,8 +18,6 @@ Histogram::Histogram(int width, int height, int x_limit, int id) :
 	winname_ = "histogram " + std::to_string(id);
 	// Посчитаем интервал между подписями оси
 	signature_interval_ = (histogram_.cols - histogram_offset_ * 2.0) / static_cast<float>(signature_amount_ - 1);
-	// Подгатавливаем фон гистограммы
-	InitHistogramBackground();
 }
 
 Histogram::~Histogram()
@@ -63,16 +63,17 @@ void Histogram::ShowHistogram()
 
 void Histogram::SetXValues(std::vector<double> x_values)
 {
-	x_values_ = x_values;
+	//x_values_ = x_values;
 }
 
 void Histogram::SetYValues(std::vector<float> y_values)
 {
-	y_values_ = y_values;
+	//y_values_ = y_values;
 }
 
 void Histogram::SetHistogramFlag(bool flag)
 {
+	// Устанавливаем флаг
 	is_histogram_plotted_ = flag;
 }
 
@@ -96,7 +97,7 @@ void Histogram::InitHistogramBackground()
 	// Отрисовываем подписи
 	for (int i = 0; i < signature_amount_; i++)
 	{
-		float signature_start = static_cast<int>(dead_zone_coeff_ * x_limit_);
+		float signature_start = static_cast<float>(x_values_->front());
 		float signature_interval = static_cast<float>(x_limit_ - signature_start) / static_cast<float>(signature_amount_ - 1);
 		float value = signature_start + signature_interval * i;
 		putText(
@@ -114,34 +115,28 @@ void Histogram::InitHistogramBackground()
 
 Mat Histogram::CalcHistogram()
 {
-	// Создаем мертвую зону
-	for (int i = 0; i < static_cast<int>(x_values_.size() * dead_zone_coeff_); i++)
-	{
-		x_values_.erase(x_values_.begin());
-		y_values_.erase(y_values_.begin());
-	}
-
-	float interval = ((histogram_.cols) - histogram_offset_ * 2.0) / y_values_.size();
+	InitHistogramBackground();
+	float interval = ((histogram_.cols) - histogram_offset_ * 2.0) / y_values_->size();
 	
 	Mat frame = histogram_background_.clone();
 
 	// Инициализируем максимальные и минимальные значения магнитуд
 	float max_value = 0.0;
 
-	for (int i = 0; i < y_values_.size(); i++)
+	for (int i = 0; i < y_values_->size(); i++)
 	{
-		if (y_values_[i] > max_value)
-			max_value = y_values_[i];
+		if (y_values_->at(i) > max_value)
+			max_value = y_values_->at(i);
 	}
 
 
 	// Отрисовка столбцов
-	for (int i = 0; i < y_values_.size(); i++)
+	for (int i = 0; i < y_values_->size(); i++)
 	{
 		float x_0 = histogram_offset_ + i * interval + interval;
 		float y_0 = histogram_frame_height_ - histogram_offset_ - axis_signature_offset_;
 		float x_1 = x_0;
-		float y_1 = y_0 - y_values_[i] / max_value * (histogram_frame_height_ - 2 * histogram_offset_ - axis_signature_offset_);
+		float y_1 = y_0 - y_values_->at(i) / max_value * (histogram_frame_height_ - 2 * histogram_offset_ - axis_signature_offset_);
 
 		// Если мышь указывает на текущее значение, отрисовываем это значение рядом с курсором
 		if (IsInteracted(static_cast<int>(x_0), interval))
@@ -168,7 +163,7 @@ void Histogram::PlotMouseValue(Mat& frame, int value_idx)
 {
 	putText(
 		frame,
-		to_string_with_precision(x_values_[value_idx], 1),
+		to_string_with_precision(x_values_->at(value_idx), 1),
 		Point2f(last_mouse_coordinates_.x + histogram_offset_ * 0.5, last_mouse_coordinates_.y + histogram_offset_ * 0.2),
 		FONT_HERSHEY_PLAIN,
 		1,

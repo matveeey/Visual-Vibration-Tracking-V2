@@ -43,11 +43,6 @@ public:
 	*/
 	~LonelyPointHandler();
 	/*!
-	* @brief Частотный фильтр для нижней части диапазона
-	* @param magnitudes: массив, в котором будет проведена фильтрация
-	*/
-	void Filter(std::vector<float>& magnitudes);
-	/*!
 	* @brief Отрисовывает точку и данные, связанные с ней
 	* @param frame: изображение, на котором будет происходить отрисовка
 	*/
@@ -107,10 +102,6 @@ private:
 	* @brief ID точки (нет блин почки)
 	*/
 	int point_id_;
-	/*!
-	* @brief Частота обновления частоты, цвета и тп
-	*/
-	int update_rate_;
 	/*!
 	* @brief Цвет точки
 	*/

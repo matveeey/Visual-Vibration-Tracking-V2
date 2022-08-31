@@ -29,6 +29,12 @@ public:
 	*/
 	void ExecuteFFT();
 	/*!
+	* @brief „астотный фильтр дл€ нижней части диапазона
+	* @param magnitudes: массив, в котором будет проведена фильтраци€
+	*/
+	template<class T>
+	void DeadzoneFilter(std::vector<T>& input_vector);
+	/*!
 	* @brief ƒобавл€ет новую пространственную координату в конец контейнера VibratingPoint::point_coordinates_;
 	* @param position: координаты точки
 	*/

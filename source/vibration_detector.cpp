@@ -340,7 +340,7 @@ void VibrationDetector::TrackAndCalc()
 	}
 
 	// Закидываем найденные значения обратно в point handler'ы
-	// Сначала идёт lonely
+	// Сначала проходимся по lonely хэндлерам
 	for (int i = 0; i < vec_lonely_point_handlers_.size(); i++)
 	{
 		vec_lonely_point_handlers_[i]->AddNewPointPosition(NextPts[i]);
@@ -348,7 +348,7 @@ void VibrationDetector::TrackAndCalc()
 		// Вызов БПФ (FFT)
 		vec_lonely_point_handlers_[i]->ExecuteFFT();
 	}
-	// После colored
+	// После проходимся по colored хэндлерам
 	// 
 	// Небольшое пояснение:
 	// В контейнере NextPts содержатся одновременно lonely и colored точки (причём именно в таком порядке). По сути они делят NextPts на две части - левую (lonely) и правую (colored)
@@ -393,6 +393,7 @@ void VibrationDetector::DrawAndOutput(Mat& frame)
 	if (roi_selected_)
 	{
 		frame = frame_handler->ConcatenateFramesVertically(frame, grad_scale_);
+		//addWeighted(frame, 0.5, grad_scale_, 0.5, 0.0, frame_to_be_shown_);
 	}
 	// Масштабируем кадр для вывода на экран и добавляем на него подсказки для пользователя
 	frame.copyTo(frame_to_be_shown_);
@@ -473,10 +474,10 @@ void VibrationDetector::ExecuteVibrationDetection()
 		// обслуживаем и очищаем очереди на создание и удаление точек
 		ServeTheQueues();
 
-		// Записываем изначальный (не ресайзнутый)
-		frame_handler->WriteFrame(current_tracking_frame_);
-		
 		DrawAndOutput(current_tracking_frame_);
+
+		// Записываем изначальный кадр
+		frame_handler->WriteFrame(current_tracking_frame_);
 
 		// Обновляем предыдущий кадр
 		prev_img_gray_ = next_img_gray_;

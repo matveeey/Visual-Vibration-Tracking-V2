@@ -22,8 +22,10 @@ public:
 	* @param height: высота окна гистограммы (включая оффсет)
 	* @param x_limit: максимальное (предельное) значение по оси X
 	* @param id: ID точки
+	* @param x_values: адрес контейнера со значениями для оси X
+	* @param y_values: адрес контейнера со значеними для оси Y
 	*/
-	Histogram(int width, int height, int x_limit, int id);
+	Histogram(int width, int height, int x_limit, int id, std::vector<double>& x_values, std::vector<float>& y_values);
 	/*!
 	* @brief Деструктор этого класса
 	* 
@@ -118,11 +120,11 @@ private:
 	/*!
 	* @brief Значения гистограммы по оси X
 	*/
-	std::vector<double> x_values_;
+	std::vector<double>* x_values_;
 	/*!
 	* @brief Значения гистограммы по оси Y
 	*/
-	std::vector<float> y_values_;
+	std::vector<float>* y_values_;
 	/*!
 	* @brief Отступ для подписей оси
 	*/

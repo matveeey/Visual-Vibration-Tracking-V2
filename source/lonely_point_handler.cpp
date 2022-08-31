@@ -1,7 +1,7 @@
 #include "VVT-V2/lonely_point_handler.h"
 
 LonelyPointHandler::LonelyPointHandler(Point2f init_coordinates, double sampling_rate, int point_id, float text_resize_factor, std::string output_csv_filename) :
-	Histogram{ 600, 300, sampling_rate / 2, point_id },
+	Histogram{ 600, 300, sampling_rate / 2, point_id, x_, y_ },
 	OutputToCsv{ output_csv_filename, point_coordinates_, point_time_coordinates_, point_id },
 	point_id_{ point_id },
 	text_resize_factor_{ text_resize_factor }
@@ -24,16 +24,6 @@ LonelyPointHandler::LonelyPointHandler(Point2f init_coordinates, double sampling
 LonelyPointHandler::~LonelyPointHandler()
 {
 	Write();
-}
-
-void LonelyPointHandler::Filter(std::vector<float>& magnitudes)
-{
-	float cutoff_freq_limit = 0.1f;
-	for (int i = 0; i < static_cast<int>(magnitudes.size() * cutoff_freq_limit); i++)
-	{
-		float coeff = 0.1f / (1.0f / magnitudes[i]);
-		magnitudes[i] = magnitudes[i] * coeff;
-	}
 }
 
 Point2f LonelyPointHandler::GetTextCoordinates()
@@ -109,7 +99,7 @@ void LonelyPointHandler::DrawTextData(Mat& frame)
 	//  оличество строк частот, выводимых на экран
 	int lines_amount = 3;
 	// отрисовываем частоту вибрации
-	for (int j = 0; j < ((frequencies_.size()) && (lines_amount)); j++)
+	for (int j = 0; j < ((frequencies_.size()) & (lines_amount)); j++)
 	{
 		putText(
 			frame,

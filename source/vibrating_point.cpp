@@ -114,11 +114,17 @@ void VibratingPoint::ExecuteFFT()
 
 	/////////////////////////////////////
 
+	DeadzoneFilter(frequencies);
+	DeadzoneFilter(magnitudes);
+
 	x_ = frequencies;
 	y_ = magnitudes;
 
 	// Вызов отрисовщика гистограммы
 	DrawHistogram();
+
+	bool candidate_for_being_full_zero = false;
+	int zero_flag = 0;
 
 	if (!absolute_peak)
 	{
@@ -147,17 +153,28 @@ void VibratingPoint::ExecuteFFT()
 			peak_frequencies.push_back(frequencies[maxIdx]);
 		}
 
+		zero_flag = indexes_of_peak_frequencies.size();
 
 		// filling in vector of peak_frequencies with the just found peak frequencies 
 		for (int i = 0; i < indexes_of_peak_frequencies.size(); i++)
 		{
 			peak_frequencies.push_back(frequencies[indexes_of_peak_frequencies[i]]);
 
-			//std::cout << "Max is " << frequencies[indexes_of_peak_frequencies[i]] << std::endl;
+			if ((magnitudes[indexes_of_peak_frequencies[i]]) < 0.01f)
+				zero_flag--;
+		}
+
+		if (zero_flag == 0 && indexes_of_peak_frequencies.size() != 0)
+		{
+			frequencies_.clear();
+			frequencies_.push_back(0.0);
+		}
+		else
+		{
+			frequencies_ = peak_frequencies;
 		}
 	}
-	// DEBUG
-	/*std::cout << "frequencies amount: " << indexes_of_peak_frequencies.size() << std::endl;*/
+
 	if (absolute_peak)
 	{
 		int maxIdx = 0;
@@ -174,9 +191,20 @@ void VibratingPoint::ExecuteFFT()
 
 		}
 		peak_frequencies.push_back(frequencies[maxIdx]);
+
+		frequencies_ = peak_frequencies;
 	}
 
-	frequencies_ = peak_frequencies;
+}
+
+template<class T>
+void VibratingPoint::DeadzoneFilter(std::vector<T>& input_vector)
+{
+	float dead_zone_factor = 0.1f;
+	for (int i = 0; i < static_cast<int>(input_vector.size() * dead_zone_factor); i++)
+	{
+		input_vector.erase(std::begin(input_vector));
+	}
 }
 
 void VibratingPoint::AddNewPointPosition(Point2f position)

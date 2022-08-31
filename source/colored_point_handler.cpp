@@ -1,7 +1,7 @@
 #include "VVT-V2/colored_point_handler.h"
 
 ColoredPointHandler::ColoredPointHandler(Point2f init_coordinates, double sampling_rate, int point_id, float radius_resize_factor, std::string output_csv_filename) :
-	Histogram{ 600, 300, sampling_rate / 2, point_id },
+	Histogram{ 600, 300, sampling_rate / 2, point_id, x_, y_ },
 	OutputToCsv{ output_csv_filename, point_coordinates_, point_time_coordinates_, point_id },
 	point_id_{ point_id },
 	radius_resize_factor_{ 1.25f / radius_resize_factor },
@@ -87,6 +87,7 @@ void ColoredPointHandler::UpdatePointColor()
 				point_color_= HelperFunctions::RatioToRgb(frequencies_[i] / (sampling_rate_ / 2));
 			}
 		}
+		std::cout << point_color_ << std::endl;
 		break;
 	}
 	case COLORING_BASED_ON_AMPLITUDE:
@@ -103,4 +104,11 @@ void ColoredPointHandler::UpdatePointColor()
 		point_color_ = Scalar(255, 255, 255);
 		point_radius_ *= 10;
 	}
+
+	/*double amplitude = sqrt(amplitude_.x * amplitude_.x + amplitude_.y * amplitude_.y);
+	std::cout << "Color by amplitude: " << HelperFunctions::RatioToRgb(amplitude / max_amplitude_) << std::endl;
+	std::cout << "Color by frequency: " << HelperFunctions::RatioToRgb(frequencies_.back() / (sampling_rate_ / 2)) << std::endl;
+	std::cout << "Ratio of color by amplitude: " << amplitude / max_amplitude_ << std::endl;
+	std::cout << "Frequency: " << frequencies_.back() << std::endl;
+	std::cout << "Sampling rate: " << sampling_rate_ / 2 << std::endl;*/
 }
