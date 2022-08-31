@@ -22,16 +22,20 @@ namespace HelperFunctions {
     */
 
     /*!
-    * Генерирует имя CSV файла для сохранения метаданных
+    * @brief Генерирует имя CSV файла для сохранения метаданных
     * @return имя файла
     */
 	std::string GenerateCsvFilename();
     /*!
-    * Конвертирует отношение в диапазоне [0; 1] в RGB цвет
+    * @brief Конвертирует отношение в диапазоне [0; 1] в RGB цвет
     * @param ratio: отношение
     * @return: RGB цвет
     */
 	cv::Scalar RatioToRgb(double ratio);
+    /*!
+    * @brief Эта функция пригодится. Разберусь с ней чуть позже
+    */
+    void FindLocalMaxima(cv::Mat& input_array, cv::Mat& local_maxima, double threshold_value);
     /*! @} End of HelperFunctions Groups */
 }
 

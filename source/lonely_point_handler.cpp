@@ -19,6 +19,9 @@ LonelyPointHandler::LonelyPointHandler(Point2f init_coordinates, double sampling
 
 	frequencies_.push_back(0.0);
 	amplitude_ = Point3f(0.0, 0.0, 0.0);
+
+	sensivity_ = 0.0;
+	confidence_ = 0.0;
 }
 
 LonelyPointHandler::~LonelyPointHandler()
@@ -95,9 +98,11 @@ void LonelyPointHandler::DrawTextData(Mat& frame)
 	int font = FONT_HERSHEY_PLAIN;
 	double font_scale = 1.5 * text_resize_factor_;
 	int thickness = 2;
-	int line_spacing = 20;
+	int line_spacing = 40 * text_resize_factor_;
+	int row_spacing = 10 * text_resize_factor_;
 	//  оличество строк частот, выводимых на экран
 	int lines_amount = 3;
+	int baseline;
 	// отрисовываем частоту вибрации
 	for (int j = 0; j < ((frequencies_.size()) & (lines_amount)); j++)
 	{
@@ -113,6 +118,7 @@ void LonelyPointHandler::DrawTextData(Mat& frame)
 	}
 
 	// отрисовываем амплитуды вибрации и ID точки
+	// ID точки
 	putText(
 		frame,
 		"ID: " + std::to_string(point_id_),
@@ -122,6 +128,16 @@ void LonelyPointHandler::DrawTextData(Mat& frame)
 		Scalar(100, 255, 100),
 		thickness
 	);
+	// —татус определени€ вибрации
+	/*putText(
+		frame,
+		"Conf: " + std::to_string(confidence_),
+		Point(point_coordinates_.front().x + getTextSize("ID: num", font, font_scale, thickness, &baseline).width + row_spacing, point_coordinates_.front().y - text_resize_factor_ * line_spacing),
+		font,
+		font_scale,
+		Scalar(100, 255, 100),
+		thickness
+	);*/
 	putText(
 		frame,
 		"x: " + std::to_string(amplitude_.x),

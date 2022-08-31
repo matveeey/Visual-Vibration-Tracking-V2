@@ -70,6 +70,10 @@ protected:
 	* @brief Обновляем текущий цвет точки
 	*/
 	virtual void UpdatePointColor() = 0;
+	/*!
+	* @brief 
+	*/
+
 
 public:
 	/*!
@@ -109,6 +113,14 @@ protected:
 	*/
 	std::vector<Point2f> point_coordinates_;
 	/*!
+	* @brief Чувствительность определения вибрации
+	*/
+	double sensivity_;
+
+	// Если объявить double confidence_ в этом месте (буквально после этого комментария) (visual studio 2022, номер сборки лень смотреть), программа будет падать :/ 
+	// Почему так?
+
+	/*!
 	* @brief Контейнер для частот точки
 	*/
 	std::vector<double> frequencies_;
@@ -137,7 +149,10 @@ protected:
 	* @brief Контейнер для хранения координат гистограммы по оси Y (фактически - найденные магнитуды точки после выполнения БПФ)
 	*/
 	std::vector<float> y_;
-
+	/*!
+	* @brief Рейтинг достоверности вибрации
+	*/
+	double confidence_;
 };
 
 #endif

@@ -84,6 +84,56 @@ Mat FrameHandler::ConcatenateFramesVertically(Mat top_frame, Mat bottom_frame)
 	return dst;
 }
 
+Mat FrameHandler::PutFrameOverFrame(Mat foreground_frame, Mat background_frame, Point2i translation_vector)
+{
+	// Количество каналов переднепланового изображения
+	int channels_number = foreground_frame.channels();
+	// Количества каналов двух изображений должны совпадать
+	if (channels_number != background_frame.channels())
+		return background_frame;
+
+	// Разделяем переднее изображение по каналам
+	std::vector<Mat> foreground_planes(channels_number);
+	split(foreground_frame, foreground_planes);
+
+	// Разделяем переднее изображение по каналам
+	std::vector<Mat> background_planes(channels_number);
+	split(background_frame, background_planes);
+
+	// Проходимся сначала по рядам переднего изображения (по его высоте)
+	for (int foreground_row = 0; foreground_row < foreground_frame.rows; foreground_row++)
+	{
+		// Проходимся по колонкам переднего изображения (по его ширине)
+		for (int foreground_col = 0; foreground_col < foreground_frame.cols; foreground_col++)
+		{
+			// Инициализируем значения ширины (col) и высоты (row) отображения (трансляции)
+			int translated_col = foreground_col + translation_vector.x;
+			int translated_row = foreground_row + translation_vector.y;
+			
+			// Проверка, необходимая, чтобы случайно не обратиться к пикселю, находящемуся за границами фонового (заднего) изображения
+			if (!((translated_col) < background_frame.cols && (translated_row) < background_frame.rows))
+			{
+				continue;
+			}
+
+			// Итераторы для прохода по векторам каналов переднего и заднего изображений
+			auto backgnd_it = background_planes.begin();
+			auto foregnd_it = foreground_planes.begin();
+			while (backgnd_it != background_planes.end())
+			{
+				// Попиксельно отображаем (транслируем) пиксели переднего изображения на заднее изображение
+				backgnd_it->at<uchar>(translated_row, translated_col) = foregnd_it->at<uchar>(foreground_row, foreground_col);
+				backgnd_it++;
+				foregnd_it++;
+			}
+		}
+	}
+	
+	Mat result;
+	merge(background_planes, result);
+	return result;
+}
+
 Mat FrameHandler::MakeGrayFrame(Mat frame_to_be_grayed)
 {
 	Mat grayed_frame;

@@ -35,13 +35,25 @@ cv::Scalar HelperFunctions::RatioToRgb(double ratio)
 	int x = normalized % 256;
 
 	int r = 0, g = 0, b = 0;
+
 	switch (region)
 	{
-	case 0: r = 255; g = 0;   b = 0;   g += x; break; // красный
-	case 1: r = 255; g = 255; b = 0;   r -= x; break; // желтый
-	case 2: r = 0;   g = 255; b = 0;   b += x; break; // зеленый
-	case 3: r = 0;   g = 255; b = 255; g -= x; break; // сине-зеленый
+	case 0: r = 0;		g = 0;		b = 255;	g += x; break; // синий:сине-зеленый
+	case 1: r = 0;		g = 255;	b = 255;	b -= x; break; // сине-зеленый:зеленый
+	case 2: r = 0;		g = 255;	b = 0;		r += x; break; // зеленый:желтый
+	case 3: r = 255;	g = 255;	b = 0;		g -= x; break; // желтый:красный
 	}
+	
 	return cv::Scalar(b, g, r);
+}
+
+void HelperFunctions::FindLocalMaxima(cv::Mat& input_array, cv::Mat& local_maxima, double threshold_value)
+{
+	cv::Mat dilated_input_image, thresholded_input_image, thresholded_input_8bit;
+	dilate(input_array, dilated_input_image, cv::Mat());
+	compare(input_array, dilated_input_image, local_maxima, cv::CMP_EQ);
+	threshold(input_array, thresholded_input_image, threshold_value, 255, cv::THRESH_BINARY);
+	thresholded_input_image.convertTo(thresholded_input_8bit, CV_8U);
+	bitwise_and(local_maxima, thresholded_input_8bit, local_maxima);
 }
 

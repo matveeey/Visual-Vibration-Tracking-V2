@@ -127,9 +127,7 @@ void VibrationDetector::DeletePoints(Point2i mouse_coordinates)
 			point_ids_to_be_deleted_.push_back(i);
 		}
 	}
-	std::cout << "DEBUG: deleting "<< point_ids_to_be_deleted_.size() << " point" << std::endl;
-
-	std::vector<LonelyPointHandler*>::iterator it = vec_lonely_point_handlers_.begin();
+	std::cout << "DEBUG: deleting " << point_ids_to_be_deleted_.size() << " point" << std::endl;
 
 	// проходимся по вектору точек на удаление
 	while (!point_ids_to_be_deleted_.empty())
@@ -390,10 +388,17 @@ Point2f VibrationDetector::TranslateCoordinates(Point2f point)
 
 void VibrationDetector::DrawAndOutput(Mat& frame)
 {
+	// Рассматриваем вариант, при котором выбран ROI для цветных (colored) точек
 	if (roi_selected_)
 	{
-		frame = frame_handler->ConcatenateFramesVertically(frame, grad_scale_);
-		//addWeighted(frame, 0.5, grad_scale_, 0.5, 0.0, frame_to_be_shown_);
+		// Перемещение изображение на переднем плане на X единиц (px)
+		int x_translation = frame.cols - grad_scale_.cols;
+		// Перемещение изображение на переднем плане на Y единиц (px)
+		int y_translation = frame.rows - grad_scale_.rows;
+		// Вектор этого перемещения
+		Point2i translation_vector = Point2i(x_translation, y_translation);
+		// Вставляем градиент на кадр
+		frame = frame_handler->PutFrameOverFrame(grad_scale_, frame, translation_vector);
 	}
 	// Масштабируем кадр для вывода на экран и добавляем на него подсказки для пользователя
 	frame.copyTo(frame_to_be_shown_);

@@ -65,6 +65,14 @@ public:
 	* @return dst: объединённый кадр
 	*/
 	Mat ConcatenateFramesVertically(Mat top_frame, Mat bottom_frame);
+	/*!
+	* @brief Накладывает изображение (переднний план) на другое изображение (задний план)
+	* @param foreground_frame: изображение на переднем плане
+	* @param background_frame: изображение на заднем плане
+	* @param translation_vector: вектор (направленный отрезок) перемещения переднего изображения относительно заднего
+	* @return dst: выходное изображение с наложенным на фоновое изображение переднеплановое изображение
+	*/
+	Mat PutFrameOverFrame(Mat foreground_frame, Mat background_frame, Point2i translation_vector);
 
 // Геттеры
 public:

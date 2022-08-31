@@ -46,7 +46,6 @@ void VibratingPoint::ExecuteFFT()
 
 
 		vec_meaned_coordinates_of_point_.push_back(Point2f(point_coordinates_[i].x - meaned_x, point_coordinates_[i].y - meaned_y));
-		//std::cout << vec_meaned_coordinates_of_point_[i] << std::endl;
 	}
 
 	///
@@ -126,6 +125,23 @@ void VibratingPoint::ExecuteFFT()
 	bool candidate_for_being_full_zero = false;
 	int zero_flag = 0;
 
+	/*Mat input_array;
+
+	for (int i = 0; i < magnitudes.size(); i++)
+	{
+		input_array.push_back(magnitudes[i]);
+	}*/
+
+	//////////////////////////////
+	/*Mat local_maxima;
+	FindLocalMaxima(input_array, local_maxima, 1);
+	normalize(input_array, input_array);
+
+	for (int i = 0; i < input_array.size().width; i++)
+		magnitudes[i] = input_array.at<double>(i);
+	y_ = magnitudes;*/
+	/////////////////////////////
+
 	if (!absolute_peak)
 	{
 		// searching peaks in output vector of magnitudes
@@ -155,14 +171,21 @@ void VibratingPoint::ExecuteFFT()
 
 		zero_flag = indexes_of_peak_frequencies.size();
 
+		double mag_sum = 0;
+
 		// filling in vector of peak_frequencies with the just found peak frequencies 
 		for (int i = 0; i < indexes_of_peak_frequencies.size(); i++)
 		{
 			peak_frequencies.push_back(frequencies[indexes_of_peak_frequencies[i]]);
 
+			//std::cout << "mag: " << magnitudes[indexes_of_peak_frequencies[i]] << std::endl;
+			mag_sum += magnitudes[indexes_of_peak_frequencies[i]];
 			if ((magnitudes[indexes_of_peak_frequencies[i]]) < 0.01f)
 				zero_flag--;
 		}
+
+		//std::cout << "mag sum: " << mag_sum << std::endl;
+		//std::cout << "amount of coords: " << point_coordinates_.size() << std::endl;
 
 		if (zero_flag == 0 && indexes_of_peak_frequencies.size() != 0)
 		{
