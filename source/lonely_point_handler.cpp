@@ -50,7 +50,6 @@ void LonelyPointHandler::UpdatePointColor()
 		point_color_ = point_color_ + Scalar(0, 75, 25); // синий светлее
 
 	point_color_ *= confidence_level_ / 5.0;
-	std::cout << point_color_ << std::endl;
 }
 
 void LonelyPointHandler::Draw(Mat& frame)

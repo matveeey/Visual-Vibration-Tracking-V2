@@ -164,7 +164,11 @@ protected:
 	/*!
 	* @brief Радиус точки, который нужен для её отрисовки
 	*/
-	int point_radius_;
+	int current_point_radius_;
+	/*!
+	* @brief Дефолтный радиус точки
+	*/
+	int default_point_radius_;
 	/*!
 	* @brief Текущая максимальная амплитуда
 	*/

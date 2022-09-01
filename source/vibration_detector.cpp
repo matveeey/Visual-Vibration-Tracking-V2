@@ -15,7 +15,7 @@ VibrationDetector::VibrationDetector(std::string input_file_name, std::string ou
 	fullscreen_{ false }
 {
 	roi_selected_ = false;
-	lk_win_size_ = 60;
+	lk_win_size_ = 40;
 	level_amount_ = 1;
 	point_offset_ = 100;
 
@@ -171,7 +171,15 @@ void VibrationDetector::FindAndDeleteUncofidentPoints()
 			vec_lonely_point_handlers_.erase(std::begin(vec_lonely_point_handlers_) + i);
 		}
 	}
-		
+	for (int i = 0; i < vec_colored_point_handlers_.size(); i++)
+	{
+		if (vec_colored_point_handlers_[i]->GetCurrentConfidenceLevel() < 0.0)
+		{
+			delete(*(std::begin(vec_colored_point_handlers_) + i));
+			// удаляем первую точку (первую в векторе и по сути первую по номеру)
+			vec_colored_point_handlers_.erase(std::begin(vec_colored_point_handlers_) + i);
+		}
+	}
 }
 
 // callback function for determining the event click on mouse
@@ -184,10 +192,6 @@ void VibrationDetector::OnMouse(int event, int x, int y, int flags, void* userda
 // "helper" function for implementing callback function as a method of C++ class
 void VibrationDetector::DetectEvent(int event, int x, int y, int flags)
 {
-	/*Point tmp_container = TranslateCoordinates(Point2f(x, y));
-	x = tmp_container.x;
-	y = tmp_container.y;*/
-
 	switch (current_mode_)
 	{
 	case DEFAULT:
@@ -392,7 +396,7 @@ std::vector<Point2f> VibrationDetector::FindGoodFeatures(Mat frame, Rect roi)
 		cvtColor(frame, frame, COLOR_BGR2GRAY);
 	// Устанавливаем ROI на нашем изображении
 	Mat frame_with_roi = frame(roi);
-	goodFeaturesToTrack(frame_with_roi, good_features, 1000, 0.01, 3, noArray());
+	goodFeaturesToTrack(frame_with_roi, good_features, 500, 0.01, 3, noArray(), 3, true);
 
 	// Перевод в координаты изначального изображения
 	for (int i = 0; i < good_features.size(); i++)
@@ -568,12 +572,13 @@ void VibrationDetector::ExecuteVibrationDetection()
 
 			for (int i = 0; i < vec_lonely_point_handlers_.size(); i++)
 			{
-				std::cout << sensivity_in_percents_ << std::endl;
-				vec_lonely_point_handlers_[i]->SetSensivity(1.0 / static_cast<double>(4 * sensivity_in_percents_));
+				//std::cout << sensivity_in_percents_ << std::endl;
+				vec_lonely_point_handlers_[i]->SetSensivity(2.0 / static_cast<double>(10 * sensivity_in_percents_));
+				//std::cout << 2.0 / static_cast<double>(10 * sensivity_in_percents_) << std::endl;
 			}
 			for (int i = 0; i < vec_colored_point_handlers_.size(); i++)
 			{
-				vec_colored_point_handlers_[i]->SetSensivity(1.0 / static_cast<double>(sensivity_in_percents_));
+				vec_colored_point_handlers_[i]->SetSensivity(2.0 / static_cast<double>(10 * sensivity_in_percents_));
 			}
 
 			current_mode_ = DEFAULT;

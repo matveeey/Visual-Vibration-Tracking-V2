@@ -146,19 +146,6 @@ void VibratingPoint::ExecuteFFT()
 				zero_flag--;
 		}
 
-		//std::cout << "mag sum: " << mag_sum << std::endl;
-		//std::cout << "amount of coords: " << point_coordinates_.size() << std::endl;
-
-		if (!peak_frequencies.empty())
-		{
-			/*std::cout << "freqs size: " << peak_frequencies.size() << std::endl;
-			CalculateMainFrequency(peak_frequencies);
-			std::cout << "max freq mine: " << main_frequency_ << std::endl;
-			std::cout << "max freq std's: " << *std::max_element(peak_frequencies.begin(), peak_frequencies.end()) << " idx: " << std::distance(peak_frequencies.begin(), std::max_element(peak_frequencies.begin(), peak_frequencies.end())) << std::endl;
-			std::cout << "max mag: " << *std::max_element(magnitudes.begin(), magnitudes.end()) << " idx: " << std::distance(magnitudes.begin(), std::max_element(magnitudes.begin(), magnitudes.end())) << std::endl;*/
-
-		}
-
 		main_frequency_ = frequencies[FindGlobalMaxIdx(magnitudes)];
 		float max_diff = CalculateMaxDifferenceInVector(magnitudes);
 		max_differences_.push_back(max_diff);
