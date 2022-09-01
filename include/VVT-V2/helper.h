@@ -14,7 +14,6 @@
 /*!
 * @brief Функции в этом пространстве имен используются для генерирования имени csv-файла для записи и конвертирования отношения в диапазоне [0; 1] в RGB цвет
 */
-
 namespace HelperFunctions {
     /*!
     * \addtogroup HelperFunctions
@@ -32,6 +31,20 @@ namespace HelperFunctions {
     * @return: RGB цвет
     */
 	cv::Scalar RatioToRgb(double ratio);
+    /*!
+    * @brief Выполняет округление числа с определенной точностью
+    * @param value: число, требующее округления
+    * @param n: номер знака (до которого будет округлено число)
+    * @return: округленное число
+    */
+    template <typename T>
+    std::string ToStringWithPrecision(const T value, const int n)
+    {
+        std::ostringstream out;
+        out.precision(n);
+        out << std::fixed << value;
+        return out.str();
+    }
     /*!
     * @brief Эта функция пригодится. Разберусь с ней чуть позже
     */

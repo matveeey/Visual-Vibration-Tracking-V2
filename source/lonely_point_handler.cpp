@@ -21,7 +21,7 @@ LonelyPointHandler::LonelyPointHandler(Point2f init_coordinates, double sampling
 	amplitude_ = Point3f(0.0, 0.0, 0.0);
 
 	sensivity_ = 0.0;
-	confidence_ = 0.0;
+	confidence_ = 1.0;
 }
 
 LonelyPointHandler::~LonelyPointHandler()
@@ -98,46 +98,44 @@ void LonelyPointHandler::DrawTextData(Mat& frame)
 	int font = FONT_HERSHEY_PLAIN;
 	double font_scale = 1.5 * text_resize_factor_;
 	int thickness = 2;
-	int line_spacing = 40 * text_resize_factor_;
-	int row_spacing = 10 * text_resize_factor_;
+	int line_spacing = 20;
+	int row_spacing = 5;
 	//  оличество строк частот, выводимых на экран
 	int lines_amount = 3;
 	int baseline;
 	// отрисовываем частоту вибрации
-	for (int j = 0; j < ((frequencies_.size()) & (lines_amount)); j++)
-	{
-		putText(
-			frame,
-			"hz: " + std::to_string(frequencies_[j]),
-			Point(point_coordinates_.front().x + 15, point_coordinates_.front().y + text_resize_factor_ * j * line_spacing),
-			font,
-			font_scale,
-			Scalar(0, 69, 255),
-			thickness
-		);
-	}
+	putText(
+		frame,
+		"hz: " + std::to_string(main_frequency_),
+		Point(point_coordinates_.front().x + 15, point_coordinates_.front().y + text_resize_factor_ * line_spacing),
+		font,
+		font_scale,
+		Scalar(0, 69, 255),
+		thickness
+	);
 
 	// отрисовываем амплитуды вибрации и ID точки
 	// ID точки
 	putText(
 		frame,
 		"ID: " + std::to_string(point_id_),
-		Point(point_coordinates_.front().x, point_coordinates_.front().y - text_resize_factor_ * line_spacing),
+		Point(point_coordinates_.front().x + 15, point_coordinates_.front().y - text_resize_factor_ * line_spacing),
 		font,
 		font_scale,
 		Scalar(100, 255, 100),
 		thickness
 	);
 	// —татус определени€ вибрации
-	/*putText(
+	std::string text = HelperFunctions::ToStringWithPrecision(confidence_, 1);
+	putText(
 		frame,
-		"Conf: " + std::to_string(confidence_),
-		Point(point_coordinates_.front().x + getTextSize("ID: num", font, font_scale, thickness, &baseline).width + row_spacing, point_coordinates_.front().y - text_resize_factor_ * line_spacing),
+		"Conf: " + text,
+		Point(point_coordinates_.front().x + 15, point_coordinates_.front().y),
 		font,
 		font_scale,
 		Scalar(100, 255, 100),
 		thickness
-	);*/
+	);
 	putText(
 		frame,
 		"x: " + std::to_string(amplitude_.x),

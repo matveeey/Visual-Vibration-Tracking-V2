@@ -17,6 +17,7 @@ using namespace cv;
 * @brief Абстрактный класс для описания вибрирующей точки
 * 
 * Объект класса-наследника будет иметь возможность добавления новых пространственных и временных позиций, нахождения частоты вибрации точки на кадре на основе этих данных (ExecuteFFT())
+* 
 * А также проверить пересечение курсором области взаимодействия с точкой (метод IsInteracted())
 */
 class VibratingPoint
@@ -70,10 +71,29 @@ protected:
 	* @brief Обновляем текущий цвет точки
 	*/
 	virtual void UpdatePointColor() = 0;
-	/*!
-	* @brief 
-	*/
 
+private:
+	/*!
+	* @brief Вычисляет среднее значение разности элементов массива
+	* @param src - входной вектор для анализа
+	*/
+	template<typename T>
+	T CalculateMeanDifferenceInVector(std::vector<T> src);
+	/*!
+	* @brief Вычисляет максимальное значение разности элементов массива
+	* @param src - входной вектор для анализа
+	*/
+	template<typename T>
+	T CalculateMaxDifferenceInVector(std::vector<T> src);
+	/*!
+	* @brief Вычисляет основную частоту
+	* @param src - входной вектор для анализа
+	*/
+	template<typename T>
+	int FindGlobalMaxIdx(std::vector<T> src);
+
+private:
+	std::vector<float> max_differences_;
 
 public:
 	/*!
@@ -112,10 +132,6 @@ protected:
 	* @brief Контейнер для координат точки
 	*/
 	std::vector<Point2f> point_coordinates_;
-	/*!
-	* @brief Чувствительность определения вибрации
-	*/
-	double sensivity_;
 
 	// Если объявить double confidence_ в этом месте (буквально после этого комментария) (visual studio 2022, номер сборки лень смотреть), программа будет падать :/ 
 	// Почему так?
@@ -124,6 +140,10 @@ protected:
 	* @brief Контейнер для частот точки
 	*/
 	std::vector<double> frequencies_;
+	/*!
+	* @brief Главная частота (основная)
+	*/
+	double main_frequency_;
 	/*!
 	* @brief Контейнер для временных координат точки
 	*/
@@ -149,6 +169,10 @@ protected:
 	* @brief Контейнер для хранения координат гистограммы по оси Y (фактически - найденные магнитуды точки после выполнения БПФ)
 	*/
 	std::vector<float> y_;
+	/*!
+	* @brief Чувствительность определения вибрации
+	*/
+	double sensivity_;
 	/*!
 	* @brief Рейтинг достоверности вибрации
 	*/

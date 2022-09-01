@@ -87,8 +87,6 @@ void VibratingPoint::ExecuteFFT()
 		magnitudes.push_back(current_magnitude);
 	}
 
-	//Filter(magnitudes);
-
 	/////////////////////////////////////
 
 	if (point_coordinates_.size() > 5)
@@ -125,49 +123,13 @@ void VibratingPoint::ExecuteFFT()
 	bool candidate_for_being_full_zero = false;
 	int zero_flag = 0;
 
-	/*Mat input_array;
-
-	for (int i = 0; i < magnitudes.size(); i++)
-	{
-		input_array.push_back(magnitudes[i]);
-	}*/
-
-	//////////////////////////////
-	/*Mat local_maxima;
-	FindLocalMaxima(input_array, local_maxima, 1);
-	normalize(input_array, input_array);
-
-	for (int i = 0; i < input_array.size().width; i++)
-		magnitudes[i] = input_array.at<double>(i);
-	y_ = magnitudes;*/
-	/////////////////////////////
-
 	if (!absolute_peak)
 	{
 		// searching peaks in output vector of magnitudes
 		
 		PeakFinder::findPeaks(magnitudes, indexes_of_peak_frequencies, false, 1);
 
-		// this function works strange, it doesn't always returns the indexes
-		// so i decided to do the following
 		int maxIdx = 0;
-		if (indexes_of_peak_frequencies.empty())
-		{
-			//std::cout << "alternative way" << std::endl;
-			double tmp_max_value = 0.0;
-			// here we start from 1 and not 0
-			// it's called "lyutiy kostyl"
-			for (int i = 1; i < magnitudes.size(); i++)
-			{
-				if (magnitudes[i] > tmp_max_value)
-				{
-					tmp_max_value = magnitudes[i];
-					maxIdx = i;
-				}
-
-			}
-			peak_frequencies.push_back(frequencies[maxIdx]);
-		}
 
 		zero_flag = indexes_of_peak_frequencies.size();
 
@@ -187,6 +149,29 @@ void VibratingPoint::ExecuteFFT()
 		//std::cout << "mag sum: " << mag_sum << std::endl;
 		//std::cout << "amount of coords: " << point_coordinates_.size() << std::endl;
 
+		if (!peak_frequencies.empty())
+		{
+			/*std::cout << "freqs size: " << peak_frequencies.size() << std::endl;
+			CalculateMainFrequency(peak_frequencies);
+			std::cout << "max freq mine: " << main_frequency_ << std::endl;
+			std::cout << "max freq std's: " << *std::max_element(peak_frequencies.begin(), peak_frequencies.end()) << " idx: " << std::distance(peak_frequencies.begin(), std::max_element(peak_frequencies.begin(), peak_frequencies.end())) << std::endl;
+			std::cout << "max mag: " << *std::max_element(magnitudes.begin(), magnitudes.end()) << " idx: " << std::distance(magnitudes.begin(), std::max_element(magnitudes.begin(), magnitudes.end())) << std::endl;*/
+
+		}
+
+		main_frequency_ = frequencies[FindGlobalMaxIdx(magnitudes)];
+		float max_diff = CalculateMaxDifferenceInVector(magnitudes);
+		max_differences_.push_back(max_diff);
+		float mean_diff_of_max_diffs = 0;
+		if (max_differences_.size() > 1)
+			mean_diff_of_max_diffs = CalculateMeanDifferenceInVector(max_differences_);
+		std::cout << "mean_diff_of_max_diffs " << mean_diff_of_max_diffs << std::endl;
+
+		if (mean_diff_of_max_diffs < 0.01 || std::isnan(mean_diff_of_max_diffs))
+			confidence_ -= 0.01;
+		else
+			confidence_ += 0.01;
+		
 		if (zero_flag == 0 && indexes_of_peak_frequencies.size() != 0)
 		{
 			frequencies_.clear();
@@ -196,26 +181,6 @@ void VibratingPoint::ExecuteFFT()
 		{
 			frequencies_ = peak_frequencies;
 		}
-	}
-
-	if (absolute_peak)
-	{
-		int maxIdx = 0;
-		double tmp_max_value = 0.0;
-		// here we start from 1 and not 0
-		// it's called "lyutiy kostyl"
-		for (int i = 1; i < magnitudes.size(); i++)
-		{
-			if (magnitudes[i] > tmp_max_value)
-			{
-				tmp_max_value = magnitudes[i];
-				maxIdx = i;
-			}
-
-		}
-		peak_frequencies.push_back(frequencies[maxIdx]);
-
-		frequencies_ = peak_frequencies;
 	}
 
 }
@@ -255,6 +220,71 @@ bool VibratingPoint::IsInteracted(Point2i coordinates)
 void VibratingPoint::SetMaxAmplitude(double max_amplitude)
 {
 	max_amplitude_ = max_amplitude;
+}
+
+template<typename T>
+T VibratingPoint::CalculateMeanDifferenceInVector(std::vector<T> src)
+{
+	std::vector<T> difference_vector;
+	
+	auto it = src.begin();
+	while (it != (src.end() - 1))
+	{
+		difference_vector.push_back(*(it + 1) - *it);
+		it++;
+	}
+
+	T mean_difference;
+
+	it = difference_vector.begin();
+	mean_difference = *it;
+	it++;
+
+	while (it != difference_vector.end())
+	{
+		mean_difference += *it;
+		it++;
+	}
+	mean_difference /= difference_vector.size();
+
+	return mean_difference;
+}
+
+template<typename T>
+T VibratingPoint::CalculateMaxDifferenceInVector(std::vector<T> src)
+{
+	std::vector<T> difference_vector;
+
+	auto it = src.begin();
+	while (it != (src.end() - 1))
+	{
+		difference_vector.push_back(*(it + 1) - *it);
+		it++;
+	}
+
+	Scalar cv_scalar_mean_val = mean(src);
+	T mean_val = cv_scalar_mean_val[0];
+
+	return difference_vector[FindGlobalMaxIdx(difference_vector)] / mean_val;
+}
+
+template<typename T>
+int VibratingPoint::FindGlobalMaxIdx(std::vector<T> src)
+{
+	auto it = src.begin();
+	int idx = 0;
+	T last_max = 0;
+	while (it != src.end())
+	{
+		if (*it > last_max)
+		{
+			idx = std::distance(src.begin(), it);
+			last_max = *it;
+		}
+		it++;
+	}
+
+	return idx;
 }
 
 Point2f VibratingPoint::GetLastFoundCoordinates()
