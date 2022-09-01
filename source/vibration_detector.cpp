@@ -173,7 +173,7 @@ void VibrationDetector::FindAndDeleteUncofidentPoints()
 	}
 	for (int i = 0; i < vec_colored_point_handlers_.size(); i++)
 	{
-		if (vec_colored_point_handlers_[i]->GetCurrentConfidenceLevel() < 0.0)
+		if ((vec_colored_point_handlers_[i]->GetCurrentConfidenceLevel() < 0.0))
 		{
 			delete(*(std::begin(vec_colored_point_handlers_) + i));
 			// удаляем первую точку (первую в векторе и по сути первую по номеру)
@@ -396,7 +396,7 @@ std::vector<Point2f> VibrationDetector::FindGoodFeatures(Mat frame, Rect roi)
 		cvtColor(frame, frame, COLOR_BGR2GRAY);
 	// Устанавливаем ROI на нашем изображении
 	Mat frame_with_roi = frame(roi);
-	goodFeaturesToTrack(frame_with_roi, good_features, 500, 0.01, 3, noArray(), 3, true);
+	goodFeaturesToTrack(frame_with_roi, good_features, 500, 0.01, 5, noArray(), 3);
 
 	// Перевод в координаты изначального изображения
 	for (int i = 0; i < good_features.size(); i++)
@@ -404,6 +404,21 @@ std::vector<Point2f> VibrationDetector::FindGoodFeatures(Mat frame, Rect roi)
 		good_features[i].x = good_features[i].x + roi.tl().x;
 		good_features[i].y = good_features[i].y + roi.tl().y;
 	}
+
+	ContourHandler contour_handler(frame, roi);
+	std::vector<Point2f> features_to_be_append = contour_handler.GetContinousContours();
+
+	auto itt = features_to_be_append.begin();
+	int count = 0;
+	while (itt != features_to_be_append.end())
+	{
+		good_features.push_back(*itt);
+		itt++;
+		count++;
+	}
+
+	//ContourHandler contour_handler(frame, roi);
+	//good_features = contour_handler.GetContinousContours();
 
 	return good_features;
 }
@@ -572,9 +587,7 @@ void VibrationDetector::ExecuteVibrationDetection()
 
 			for (int i = 0; i < vec_lonely_point_handlers_.size(); i++)
 			{
-				//std::cout << sensivity_in_percents_ << std::endl;
-				vec_lonely_point_handlers_[i]->SetSensivity(2.0 / static_cast<double>(10 * sensivity_in_percents_));
-				//std::cout << 2.0 / static_cast<double>(10 * sensivity_in_percents_) << std::endl;
+				vec_lonely_point_handlers_[i]->SetSensivity(2.0 / static_cast<double>(10 * sensivity_in_percents_));\
 			}
 			for (int i = 0; i < vec_colored_point_handlers_.size(); i++)
 			{

@@ -18,7 +18,7 @@ ColoredPointHandler::ColoredPointHandler(Point2f init_coordinates, double sampli
 	);
 	interacted_ = false;
 
-	default_point_radius_ = 5 * radius_resize_factor;
+	default_point_radius_ = 4 * radius_resize_factor;
 	current_point_radius_ = default_point_radius_;
 
 	frequencies_.push_back(0.0);
@@ -86,10 +86,6 @@ void ColoredPointHandler::UpdatePointColor()
 		// переведём диапазон частоты [0; range_limit] в [0; 255] int color value;
 		if (!frequencies_.empty())
 		{
-			/*for (int i = 0; i < frequencies_.size(); i++)
-			{
-				point_color_= HelperFunctions::RatioToRgb(frequencies_[i] / (sampling_rate_ / 2));
-			}*/
 			point_color_ = HelperFunctions::RatioToRgb(main_frequency_ / (sampling_rate_ / 2));
 		}
 		break;
@@ -108,7 +104,4 @@ void ColoredPointHandler::UpdatePointColor()
 		point_color_ = Scalar(255, 255, 255);
 		current_point_radius_ *= 3;
 	}
-
-	std::cout << "color: " << point_color_ << std::endl;
-	std::cout << "freq: " << main_frequency_ << std::endl;
 }

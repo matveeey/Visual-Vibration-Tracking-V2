@@ -87,6 +87,9 @@ void VibratingPoint::ExecuteFFT()
 		magnitudes.push_back(current_magnitude);
 	}
 
+	DeadzoneFilter(frequencies);
+	DeadzoneFilter(magnitudes);
+
 	/////////////////////////////////////
 
 	if (point_coordinates_.size() > 5)
@@ -110,9 +113,6 @@ void VibratingPoint::ExecuteFFT()
 	}
 
 	/////////////////////////////////////
-
-	DeadzoneFilter(frequencies);
-	DeadzoneFilter(magnitudes);
 
 	x_ = frequencies;
 	y_ = magnitudes;
@@ -287,6 +287,11 @@ Point2f VibratingPoint::GetLastFoundCoordinates()
 std::vector<double> VibratingPoint::GetCurrentVibrationFrequency()
 {
 	return frequencies_;
+}
+
+double VibratingPoint::GetCurrentMainFrequency()
+{
+	return main_frequency_;
 }
 
 Point3f VibratingPoint::GetCurrentAmplitude()

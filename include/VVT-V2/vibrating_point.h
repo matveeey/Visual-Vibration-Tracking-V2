@@ -110,6 +110,10 @@ public:
 	*/
 	std::vector<double> GetCurrentVibrationFrequency();
 	/*!
+	* @brief Возвращает текущую "основную" частоту
+	*/
+	double GetCurrentMainFrequency();
+	/*!
 	* @brief Возвращает последнюю найденную амплитуду
 	*/
 	Point3f GetCurrentAmplitude();

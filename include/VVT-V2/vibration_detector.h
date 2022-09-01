@@ -17,6 +17,7 @@
 #include "VVT-V2/colored_point_handler.h"
 #include "VVT-V2/frame_handler.h"
 #include "VVT-V2/helper.h"
+#include "VVT-V2/contour_handler.h"
 
 class VibrationDetector 
 {
