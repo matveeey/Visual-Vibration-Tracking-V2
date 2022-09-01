@@ -6,8 +6,9 @@ VibrationDetector::VibrationDetector(std::string input_file_name, std::string ou
 	window_name_{ window_name },
 	number_of_points_{ 0 },
 	warping_figure_selecting_{ false },
-	max_amplitude_scalar_{ 0.0 },
+	max_amplitude_colored_points_value_{ 0.0 },
 	colored_point_mode_{ COLORING_BASED_ON_FREQUENCY },
+	sensivity_in_percents_{ 1 },
 	roi_selecting_{ false },
 	point_id_{ 0 },
 	current_mode_{ DEFAULT },
@@ -121,7 +122,7 @@ void VibrationDetector::DeletePoints(Point2i mouse_coordinates)
 	// проходим по всему вектору точек
 	for (int i = 0; i < vec_lonely_point_handlers_.size(); i++)
 	{
-		// если произошло пересечение с мышкой, вносим ID (номер) точки в "вектор точек на удаление"
+		// если произошло пересечение с мышкой, вносим ID (номер) точки в "вектор точек на удаление" или уровень довери€" точки стал слишком маленький, так же удал€ем точку
 		if (vec_lonely_point_handlers_[i]->VibratingPoint::IsInteracted(mouse_coordinates))
 		{
 			point_ids_to_be_deleted_.push_back(i);
@@ -148,12 +149,29 @@ void VibrationDetector::DeletePoints(Point2i mouse_coordinates)
 
 void VibrationDetector::DeleteColoredPoints()
 {
+	// –есетим максимальную найденную амплитуду
+	max_amplitude_colored_points_value_ = 0.0;
+	// ѕроходимс€ по вектору хэндлеров
 	while (!vec_colored_point_handlers_.empty())
 	{
 		delete(*(std::begin(vec_colored_point_handlers_)));
 		// удал€ем первую точку (первую в векторе и по сути первую по номеру)
 		vec_colored_point_handlers_.erase(std::begin(vec_colored_point_handlers_));
 	}
+}
+
+void VibrationDetector::FindAndDeleteUncofidentPoints()
+{
+	for (int i = 0; i < vec_lonely_point_handlers_.size(); i++)
+	{
+		if (vec_lonely_point_handlers_[i]->GetCurrentConfidenceLevel() < 0.0)
+		{
+			delete(*(std::begin(vec_lonely_point_handlers_) + i));
+			// удал€ем первую точку (первую в векторе и по сути первую по номеру)
+			vec_lonely_point_handlers_.erase(std::begin(vec_lonely_point_handlers_) + i);
+		}
+	}
+		
 }
 
 // callback function for determining the event click on mouse
@@ -288,11 +306,13 @@ Mat VibrationDetector::MakeWarpedFrame(Mat frame, std::vector<Point2i> warping_f
 
 void VibrationDetector::TrackAndCalc()
 {
+	FindAndDeleteUncofidentPoints();
+
 	std::vector<Point2f> PrevPts;
 	std::vector<Point2f> NextPts;
 	std::vector<uchar> status;
 	std::vector<float> error;
-	double amplitude_scalar = 0;
+	double previous_amplitude = 0;
 
 	// "ƒостаем" из lonely point handler'ов последние найденные точки, чтобы использовать их в качестве "начальных" значений дл€ calcOpticalFlowPyrLK()
 	for (int i = 0; i < vec_lonely_point_handlers_.size(); i++)
@@ -303,10 +323,13 @@ void VibrationDetector::TrackAndCalc()
 	for (int i = 0; i < vec_colored_point_handlers_.size(); i++)
 	{
 		// ќпредел€ем самую большую амплитуду на экране в данный момент
-		amplitude_scalar = sqrt(current_amplitude_.x * current_amplitude_.x + current_amplitude_.y * current_amplitude_.y);
+		// «аписываем амплитуду с предыдущей итерации (предыдущей точки)
+		previous_amplitude = sqrt(current_amplitude_.x * current_amplitude_.x + current_amplitude_.y * current_amplitude_.y);
+		// ѕолучаем новую
 		current_amplitude_ = vec_colored_point_handlers_[i]->GetCurrentAmplitude();
-		if (amplitude_scalar < sqrt(current_amplitude_.x * current_amplitude_.x + current_amplitude_.y * current_amplitude_.y))
-			max_amplitude_scalar_ = sqrt(current_amplitude_.x * current_amplitude_.x + current_amplitude_.y * current_amplitude_.y);
+		// ѕроверка новой амплитуды на "максимальность"
+		if (max_amplitude_colored_points_value_ < sqrt(current_amplitude_.x * current_amplitude_.x + current_amplitude_.y * current_amplitude_.y))
+			max_amplitude_colored_points_value_ = sqrt(current_amplitude_.x * current_amplitude_.x + current_amplitude_.y * current_amplitude_.y);
 
 		PrevPts.push_back(vec_colored_point_handlers_[i]->GetLastFoundCoordinates());
 	}
@@ -470,7 +493,7 @@ void VibrationDetector::ExecuteVibrationDetection()
 		for (int i = 0; i < vec_colored_point_handlers_.size(); i++)
 		{
 			// ќбновл€ем максимальную амплитуду
-			vec_colored_point_handlers_[i]->SetMaxAmplitude(max_amplitude_scalar_);
+			vec_colored_point_handlers_[i]->UpdateMaxAmplitudeOverall(max_amplitude_colored_points_value_);
 			vec_colored_point_handlers_[i]->VibratingPoint::IsInteracted(last_mouse_position_);
 			vec_colored_point_handlers_[i]->SetColoringMode(colored_point_mode_);
 			vec_colored_point_handlers_[i]->Draw(current_tracking_frame_);
@@ -524,6 +547,36 @@ void VibrationDetector::ExecuteVibrationDetection()
 				frame_handler->ShowFrame(unchanged_frame, fullscreen_);
 				waitKey(20);
 			}
+			break;
+		}
+		// »зменение чувствительности (VibratingPoint::sensivity_ -> вли€ет на VibratingPoint::confidence_level_)
+		//  лавиши - "A" или "a" (ASCII code)
+		// A - for adjust
+		case 65:
+		case 97:
+		{
+			current_mode_ = PAUSE;
+
+			DrawAndOutput(current_tracking_frame_);
+
+			namedWindow("Sensivity Window", WINDOW_FULLSCREEN);
+			createTrackbar("Sensivity", "Sensivity Window", &sensivity_in_percents_, 100, NULL);
+
+			waitKey(0);
+
+			destroyWindow("Sensivity Window");
+
+			for (int i = 0; i < vec_lonely_point_handlers_.size(); i++)
+			{
+				std::cout << sensivity_in_percents_ << std::endl;
+				vec_lonely_point_handlers_[i]->SetSensivity(1.0 / static_cast<double>(4 * sensivity_in_percents_));
+			}
+			for (int i = 0; i < vec_colored_point_handlers_.size(); i++)
+			{
+				vec_colored_point_handlers_[i]->SetSensivity(1.0 / static_cast<double>(sensivity_in_percents_));
+			}
+
+			current_mode_ = DEFAULT;
 			break;
 		}
 		// ‘уллскрин. 

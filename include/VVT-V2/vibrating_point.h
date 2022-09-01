@@ -55,7 +55,7 @@ public:
 	* @note Необходимо для вычисления цвета "цветной" точки, а также для вычисления относительной амплитуды движения "одинокой" (lonely) точки
 	* @param amplitude: найденная максимальная амплитуда, которая будет установлена
 	*/
-	void SetMaxAmplitude(double amplitude);
+	void UpdateMaxAmplitudeOverall(double amplitude);
 	/*!
 	* @brief Отрисовывает точку на кадре
 	* @param frame: изображение, на котором будет происходить отрисовка
@@ -95,6 +95,11 @@ private:
 private:
 	std::vector<float> max_differences_;
 
+// Сеттеры
+public:
+	void SetSensivity(double sensivity);
+
+// Геттеры
 public:
 	/*!
 	* @brief Возвращает последний элемент вектора координат
@@ -108,6 +113,10 @@ public:
 	* @brief Возвращает последнюю найденную амплитуду
 	*/
 	Point3f GetCurrentAmplitude();
+	/*!
+	* @brief Возвращает последний найденный уровень достоверности
+	*/
+	double GetCurrentConfidenceLevel();
 
 protected:
 	/*!
@@ -133,7 +142,7 @@ protected:
 	*/
 	std::vector<Point2f> point_coordinates_;
 
-	// Если объявить double confidence_ в этом месте (буквально после этого комментария) (visual studio 2022, номер сборки лень смотреть), программа будет падать :/ 
+	// Если объявить double confidence_level_ в этом месте (буквально после этого комментария) (visual studio 2022, номер сборки лень смотреть), программа будет падать :/ 
 	// Почему так?
 
 	/*!
@@ -176,7 +185,7 @@ protected:
 	/*!
 	* @brief Рейтинг достоверности вибрации
 	*/
-	double confidence_;
+	double confidence_level_;
 };
 
 #endif

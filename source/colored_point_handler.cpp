@@ -22,7 +22,9 @@ ColoredPointHandler::ColoredPointHandler(Point2f init_coordinates, double sampli
 	frequencies_.push_back(0.0);
 	amplitude_ = Point3f(0.0, 0.0, 0.0);
 
-	// TEMPORARY
+	sensivity_ = 0.01;
+	confidence_level_ = 1.0;
+
 	point_color_ = Scalar(0, 0, 255);
 }
 

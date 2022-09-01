@@ -165,12 +165,11 @@ void VibratingPoint::ExecuteFFT()
 		float mean_diff_of_max_diffs = 0;
 		if (max_differences_.size() > 1)
 			mean_diff_of_max_diffs = CalculateMeanDifferenceInVector(max_differences_);
-		std::cout << "mean_diff_of_max_diffs " << mean_diff_of_max_diffs << std::endl;
 
-		if (mean_diff_of_max_diffs < 0.01 || std::isnan(mean_diff_of_max_diffs))
-			confidence_ -= 0.01;
+		if (mean_diff_of_max_diffs < sensivity_ || std::isnan(mean_diff_of_max_diffs))
+			confidence_level_ -= 0.01;
 		else
-			confidence_ += 0.01;
+			confidence_level_ += 0.01;
 		
 		if (zero_flag == 0 && indexes_of_peak_frequencies.size() != 0)
 		{
@@ -217,7 +216,7 @@ bool VibratingPoint::IsInteracted(Point2i coordinates)
 	return interacted_;
 }
 
-void VibratingPoint::SetMaxAmplitude(double max_amplitude)
+void VibratingPoint::UpdateMaxAmplitudeOverall(double max_amplitude)
 {
 	max_amplitude_ = max_amplitude;
 }
@@ -287,6 +286,12 @@ int VibratingPoint::FindGlobalMaxIdx(std::vector<T> src)
 	return idx;
 }
 
+void VibratingPoint::SetSensivity(double sensivity)
+{
+	std::cout << "sens: " << sensivity << std::endl;
+	sensivity_ = sensivity;
+}
+
 Point2f VibratingPoint::GetLastFoundCoordinates()
 {
 	return point_coordinates_.back();
@@ -300,4 +305,9 @@ std::vector<double> VibratingPoint::GetCurrentVibrationFrequency()
 Point3f VibratingPoint::GetCurrentAmplitude()
 {
 	return amplitude_;
+}
+
+double VibratingPoint::GetCurrentConfidenceLevel()
+{
+	return confidence_level_;
 }

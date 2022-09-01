@@ -53,6 +53,8 @@ private:
 	void DeletePoints(Point2i mouse_coordinates);
 	// Удаляем объекты "цветная" точка
 	void DeleteColoredPoints();
+	// Удаляет "цветные" и "обычные" точки, если уровень доверия к нми слишком низкий
+	void FindAndDeleteUncofidentPoints();
 	// callback functions for detecting the click
 	static void OnMouse(int event, int x, int y, int flags, void* userdata);
 	void DetectEvent(int event, int x, int y, int flags);
@@ -107,7 +109,10 @@ private:
 	std::vector<ColoredPointHandler*> vec_colored_point_handlers_;
 	// Максимальная амплитуда точки на экране
 	Point3f current_amplitude_;
-	double max_amplitude_scalar_;
+	double max_amplitude_colored_points_value_;
+
+	// ADJUST SENSIVITY MODE
+	int sensivity_in_percents_;
 
 	// Не ресайзнутый фрейм
 	Mat current_tracking_frame_;

@@ -47,8 +47,6 @@ cv::Scalar HelperFunctions::RatioToRgb(double ratio)
 	return cv::Scalar(b, g, r);
 }
 
-
-
 void HelperFunctions::FindLocalMaxima(cv::Mat& input_array, cv::Mat& local_maxima, double threshold_value)
 {
 	cv::Mat dilated_input_image, thresholded_input_image, thresholded_input_8bit;

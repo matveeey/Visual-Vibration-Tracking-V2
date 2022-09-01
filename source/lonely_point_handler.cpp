@@ -20,8 +20,8 @@ LonelyPointHandler::LonelyPointHandler(Point2f init_coordinates, double sampling
 	frequencies_.push_back(0.0);
 	amplitude_ = Point3f(0.0, 0.0, 0.0);
 
-	sensivity_ = 0.0;
-	confidence_ = 1.0;
+	sensivity_ = 0.01;
+	confidence_level_ = 1.0;
 }
 
 LonelyPointHandler::~LonelyPointHandler()
@@ -43,10 +43,14 @@ Rect LonelyPointHandler::GetInteractionRect()
 
 void LonelyPointHandler::UpdatePointColor()
 {
+	// default
+	point_color_ = Scalar(255, 75, 25);
+
 	if (interacted_)
-		point_color_ = Scalar(255, 150, 50); // синий светлее
-	else
-		point_color_ = Scalar(255, 75, 25); // синий темнее
+		point_color_ = point_color_ + Scalar(0, 75, 25); // синий светлее
+
+	point_color_ *= confidence_level_ / 5.0;
+	std::cout << point_color_ << std::endl;
 }
 
 void LonelyPointHandler::Draw(Mat& frame)
@@ -125,11 +129,21 @@ void LonelyPointHandler::DrawTextData(Mat& frame)
 		Scalar(100, 255, 100),
 		thickness
 	);
+
 	// Статус определения вибрации
-	std::string text = HelperFunctions::ToStringWithPrecision(confidence_, 1);
+
+	std::string confidence_string;
+
+	{
+		if (confidence_level_ > 5.0)
+			confidence_string = "enough";
+		else
+			confidence_string = HelperFunctions::ToStringWithPrecision(confidence_level_, 1);
+	}
+
 	putText(
 		frame,
-		"Conf: " + text,
+		"Conf: " + confidence_string,
 		Point(point_coordinates_.front().x + 15, point_coordinates_.front().y),
 		font,
 		font_scale,
