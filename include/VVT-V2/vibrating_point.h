@@ -56,7 +56,7 @@ public:
 	*/
 	virtual void Draw(Mat& frame) = 0;
 
-	static void ResetMaxAmplitudeOverall();
+	static void ResetMaxMinAmplitude();
 
 protected:
 	/*!
@@ -71,7 +71,7 @@ protected:
 	* @brief Обновляет максимальное найденное значение амплитуды точки в кадре
 	* @note Необходимо для вычисления цвета "цветной" точки, а также для вычисления относительной амплитуды движения "одинокой" (lonely) точки
 	*/
-	static void UpdateMaxAmplitudeOverall(double current_absolute_amplitude);
+	static void UpdateMaxMinAmplitude(double max_min_amplitude);
 
 private:
 	/*!
@@ -123,10 +123,6 @@ public:
 	* @brief Возвращает последний найденный уровень достоверности
 	*/
 	double GetCurrentConfidenceLevel();
-	/*!
-	* @brief Возвращает максимальную амплитуду
-	*/
-	static double GetMaxAmplitudeOverall();
 	
 protected:
 	/*!
@@ -181,13 +177,9 @@ protected:
 	*/
 	int default_point_radius_;
 	/*!
-	* @brief Текущая максимальная амплитуда
+	* @brief Текущая максимальная и минимальная амплитуды
 	*/
-	static inline double max_amplitude_;
-	/*!
-	* @brief Текущая минимальная амплитуда
-	*/
-	static inline double min_amplitude_;
+	static inline std::pair<double, double> max_min_amplitude_;
 
 	/*!
 	* @brief Контейнер для хранения координат гистограммы по оси X (фактически - найденный спектр частот вибрации точки после выполнения БПФ)

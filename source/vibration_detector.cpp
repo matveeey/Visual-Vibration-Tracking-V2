@@ -148,8 +148,7 @@ void VibrationDetector::DeletePoints(Point2i mouse_coordinates)
 
 void VibrationDetector::DeleteColoredPoints()
 {
-	ColoredPointHandler::ResetMaxAmplitudeOverall();
-	std::cout << ColoredPointHandler::GetMaxAmplitudeOverall() << std::endl;
+	ColoredPointHandler::ResetMaxMinAmplitude();
 	// Проходимся по вектору хэндлеров
 	while (!vec_colored_point_handlers_.empty())
 	{
@@ -398,7 +397,7 @@ std::vector<Point2f> VibrationDetector::FindGoodFeatures(Mat frame, Rect roi)
 		cvtColor(frame, frame, COLOR_BGR2GRAY);
 	// Устанавливаем ROI на нашем изображении
 	Mat frame_with_roi = frame(roi);
-	goodFeaturesToTrack(frame_with_roi, good_features, 500, 0.01, 5, noArray(), 3);
+	goodFeaturesToTrack(frame_with_roi, good_features, 20, 0.01, 5, noArray(), 3);
 	std::cout << "gf size after GFTT: " << good_features.size() << std::endl;
 	// Перевод в координаты изначального изображения
 	for (int i = 0; i < good_features.size(); i++)
@@ -489,7 +488,6 @@ void VibrationDetector::ExecuteVibrationDetection()
 
 	while ((current_num_of_frame < amount_of_frames - 1) && running_ == true)
 	{
-		max_amplitude_colored_points_value_ = ColoredPointHandler::GetMaxAmplitudeOverall();
 		current_num_of_frame = frame_handler->GetCurrentPosOfFrame();
 
 		// reading next frame and converting it to gray color space
@@ -533,7 +531,7 @@ void VibrationDetector::ExecuteVibrationDetection()
 		prev_img_gray_ = next_img_gray_;
 
 		if (current_num_of_frame < 10)
-			ColoredPointHandler::ResetMaxAmplitudeOverall();
+			ColoredPointHandler::ResetMaxMinAmplitude();
 
 		// 20 - задержка в мс
 		int code = waitKey(20);

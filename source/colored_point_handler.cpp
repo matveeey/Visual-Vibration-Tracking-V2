@@ -73,7 +73,7 @@ void ColoredPointHandler::DrawInteractionRectangle(Mat& frame)
 void ColoredPointHandler::UpdatePointColor()
 {
 	// Кидаем модуль амплитуды и апдейтим
-	UpdateMaxAmplitudeOverall(sqrt(sqrt(amplitude_.x * amplitude_.x + amplitude_.y * amplitude_.y)));
+	UpdateMaxMinAmplitude(sqrt(amplitude_.x * amplitude_.x + amplitude_.y * amplitude_.y));
 
 	switch (coloring_mode_)
 	{
@@ -97,24 +97,28 @@ void ColoredPointHandler::UpdatePointColor()
 	{
 		current_point_radius_ = default_point_radius_;
 		// переведём диапазон амплитуд [0; max_amplitude_] в [0; 255] int color value;
-		double amplitude = sqrt(amplitude_.x * amplitude_.x + amplitude_.y * amplitude_.y);
-		double nominator = amplitude;
-		double denominator = -1 * (amplitude - max_amplitude_);
+		double current_amplitude = sqrt(amplitude_.x * amplitude_.x + amplitude_.y * amplitude_.y);
+		double nominator = current_amplitude;
+		double denominator = -1 * (current_amplitude - max_min_amplitude_.first);
 		/*std::cout << "nom: " << abs(amplitude - max_amplitude_) << std::endl;
 		std::cout << "cur ampl: " << amplitude << std::endl;
 		std::cout << "max ampl: " << max_amplitude_ << std::endl;
 		std::cout << "denom: " << amplitude << std::endl;
 		std::cout << "col rat: " << abs(amplitude - max_amplitude_) / amplitude << std::endl;*/
-		point_color_ = HelperFunctions::RatioToRgb(abs((amplitude - max_amplitude_) / amplitude));
+		point_color_ = HelperFunctions::RatioToRgb((current_amplitude - max_min_amplitude_.second) / (max_min_amplitude_.first - max_min_amplitude_.second));
 
-		std::cout << "Ratio: " << amplitude / max_amplitude_ << std::endl;
+		std::cout << "max ampl: " << max_min_amplitude_.first << std::endl;
+		std::cout << "cur ampl: " << current_amplitude << std::endl;
+		std::cout << "min ampl: " << max_min_amplitude_.second << std::endl;
+		std::cout << "Ratio: " << (current_amplitude - max_min_amplitude_.second) / (max_min_amplitude_.first - max_min_amplitude_.second) << std::endl;
 
 		//std::cout << "Ratio: " << abs(amplitude - max_amplitude_) / max_amplitude_ << std::endl;
 		if (point_color_ == Scalar(0, 0, 0, 0))
 		{
 			std::cout << "color" << point_color_ << std::endl;
-			std::cout << "cur ampl: " << amplitude << std::endl;
-			std::cout << "max ampl: " << max_amplitude_ << std::endl;
+			std::cout << "cur ampl: " << current_amplitude << std::endl;
+			std::cout << "max ampl: " << max_min_amplitude_.first << std::endl;
+			std::cout << "min ampl: " << max_min_amplitude_.second << std::endl;
 		}
 		break;
 	}

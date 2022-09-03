@@ -225,18 +225,30 @@ bool VibratingPoint::IsInteracted(Point2i coordinates)
 	return interacted_;
 }
 
-void VibratingPoint::ResetMaxAmplitudeOverall()
+void VibratingPoint::ResetMaxMinAmplitude()
 {
-	max_amplitude_ = 0.0;
+	max_min_amplitude_.first = 0.0;
+	max_min_amplitude_.second = 1000;
 }
 
-void VibratingPoint::UpdateMaxAmplitudeOverall(double current_absolute_amplitude)
+void VibratingPoint::UpdateMaxMinAmplitude(double max_min_amplitude)
 {
-	if ((current_absolute_amplitude > max_amplitude_))
-		if ((!(abs(current_absolute_amplitude) == std::numeric_limits<double>::infinity())) && (current_absolute_amplitude < 1.1 * max_amplitude_) || (max_amplitude_ == 0))
+	// ÑÄÅËÀÉ ÒÀÊ, ×ÒÎÁÛ ÍÅ ÁÛËÎ ÁÅÑÊÎÍÅ×ÍÎÑÒÅÉ È Î× ÍÈÇÊÈÕ ÇÍÀ×ÅÍÈÉ
+	// 
+	// Îáíîâëÿåì ìàêñèìóì
+	if ((max_min_amplitude > max_min_amplitude_.second))
+		if (((!(abs(max_min_amplitude) == std::numeric_limits<double>::infinity())) && (max_min_amplitude > max_min_amplitude_.first) && (max_min_amplitude < 10 * max_min_amplitude_.first)) || (max_min_amplitude_.first == 0))
 		{
-			max_amplitude_ = current_absolute_amplitude;
+			max_min_amplitude_.first = max_min_amplitude;
 		}
+	// Îáíîâëÿåì ìèíèìóì
+	if ((max_min_amplitude < max_min_amplitude_.second))
+	{
+		if (((!(abs(max_min_amplitude) == std::numeric_limits<double>::infinity())) && (max_min_amplitude < max_min_amplitude_.second) && (max_min_amplitude > 0.1 *max_min_amplitude_.second)) || (max_min_amplitude_.second == 1000))
+		{
+			max_min_amplitude_.second = max_min_amplitude;
+		}
+	}
 	/*std::cout << "curr ampl: " << current_absolute_amplitude << std::endl;
 	std::cout << "max ampl: " << max_amplitude_ << std::endl;*/
 }
@@ -335,9 +347,4 @@ Point3f VibratingPoint::GetCurrentAmplitude()
 double VibratingPoint::GetCurrentConfidenceLevel()
 {
 	return confidence_level_;
-}
-
-double VibratingPoint::GetMaxAmplitudeOverall()
-{
-	return max_amplitude_;
 }
