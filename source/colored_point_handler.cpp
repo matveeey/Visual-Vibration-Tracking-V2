@@ -72,6 +72,9 @@ void ColoredPointHandler::DrawInteractionRectangle(Mat& frame)
 
 void ColoredPointHandler::UpdatePointColor()
 {
+	// Кидаем модуль амплитуды и апдейтим
+	UpdateMaxAmplitudeOverall(sqrt(sqrt(amplitude_.x * amplitude_.x + amplitude_.y * amplitude_.y)));
+
 	switch (coloring_mode_)
 	{
 	case DEFAULT:
@@ -95,7 +98,24 @@ void ColoredPointHandler::UpdatePointColor()
 		current_point_radius_ = default_point_radius_;
 		// переведём диапазон амплитуд [0; max_amplitude_] в [0; 255] int color value;
 		double amplitude = sqrt(amplitude_.x * amplitude_.x + amplitude_.y * amplitude_.y);
-		point_color_ = HelperFunctions::RatioToRgb(amplitude / max_amplitude_);
+		double nominator = amplitude;
+		double denominator = -1 * (amplitude - max_amplitude_);
+		/*std::cout << "nom: " << abs(amplitude - max_amplitude_) << std::endl;
+		std::cout << "cur ampl: " << amplitude << std::endl;
+		std::cout << "max ampl: " << max_amplitude_ << std::endl;
+		std::cout << "denom: " << amplitude << std::endl;
+		std::cout << "col rat: " << abs(amplitude - max_amplitude_) / amplitude << std::endl;*/
+		point_color_ = HelperFunctions::RatioToRgb(abs((amplitude - max_amplitude_) / amplitude));
+
+		std::cout << "Ratio: " << amplitude / max_amplitude_ << std::endl;
+
+		//std::cout << "Ratio: " << abs(amplitude - max_amplitude_) / max_amplitude_ << std::endl;
+		if (point_color_ == Scalar(0, 0, 0, 0))
+		{
+			std::cout << "color" << point_color_ << std::endl;
+			std::cout << "cur ampl: " << amplitude << std::endl;
+			std::cout << "max ampl: " << max_amplitude_ << std::endl;
+		}
 		break;
 	}
 	}

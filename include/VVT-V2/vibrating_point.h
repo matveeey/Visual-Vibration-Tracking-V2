@@ -51,16 +51,12 @@ public:
 	*/
 	bool IsInteracted(Point2i coordinates);
 	/*!
-	* @brief Устанавливает максимальное найденное значение амплитуды точки в кадре
-	* @note Необходимо для вычисления цвета "цветной" точки, а также для вычисления относительной амплитуды движения "одинокой" (lonely) точки
-	* @param amplitude: найденная максимальная амплитуда, которая будет установлена
-	*/
-	void UpdateMaxAmplitudeOverall(double amplitude);
-	/*!
 	* @brief Отрисовывает точку на кадре
 	* @param frame: изображение, на котором будет происходить отрисовка
 	*/
 	virtual void Draw(Mat& frame) = 0;
+
+	static void ResetMaxAmplitudeOverall();
 
 protected:
 	/*!
@@ -71,6 +67,11 @@ protected:
 	* @brief Обновляем текущий цвет точки
 	*/
 	virtual void UpdatePointColor() = 0;
+	/*!
+	* @brief Обновляет максимальное найденное значение амплитуды точки в кадре
+	* @note Необходимо для вычисления цвета "цветной" точки, а также для вычисления относительной амплитуды движения "одинокой" (lonely) точки
+	*/
+	static void UpdateMaxAmplitudeOverall(double current_absolute_amplitude);
 
 private:
 	/*!
@@ -93,12 +94,13 @@ private:
 	int FindGlobalMaxIdx(std::vector<T> src);
 
 private:
-	std::vector<float> max_differences_;
+	std::vector<float> mag_max_differences_;
 
-// Сеттеры
 public:
+	/*!
+	* @brief Устанавливает чувствительность, влияющую на confidence
+	*/
 	void SetSensivity(double sensivity);
-
 // Геттеры
 public:
 	/*!
@@ -121,7 +123,11 @@ public:
 	* @brief Возвращает последний найденный уровень достоверности
 	*/
 	double GetCurrentConfidenceLevel();
-
+	/*!
+	* @brief Возвращает максимальную амплитуду
+	*/
+	static double GetMaxAmplitudeOverall();
+	
 protected:
 	/*!
 	* @brief Прямоугольник (область) взаимодействия с точкой
@@ -137,6 +143,7 @@ protected:
 	* True - в случае взаимодействия, false - в противном
 	*/
 	bool interacted_;
+
 	/*!
 	* @brief Амплитуды вибрации по x, y (дополнительно и по z, но пока z не активно)
 	*/
@@ -146,7 +153,7 @@ protected:
 	*/
 	std::vector<Point2f> point_coordinates_;
 
-	// Если объявить double confidence_level_ в этом месте (буквально после этого комментария) (visual studio 2022, номер сборки лень смотреть), программа будет падать :/ 
+	// Если объявить double confidence_level_ в этом месте (буквально после этого комментария) (visual studio 2022, номер сборки лень смотреть, c++14), программа будет падать :/ 
 	// Почему так?
 
 	/*!
@@ -176,7 +183,11 @@ protected:
 	/*!
 	* @brief Текущая максимальная амплитуда
 	*/
-	double max_amplitude_;
+	static inline double max_amplitude_;
+	/*!
+	* @brief Текущая минимальная амплитуда
+	*/
+	static inline double min_amplitude_;
 
 	/*!
 	* @brief Контейнер для хранения координат гистограммы по оси X (фактически - найденный спектр частот вибрации точки после выполнения БПФ)

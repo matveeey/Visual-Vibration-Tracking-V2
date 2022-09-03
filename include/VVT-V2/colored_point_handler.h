@@ -64,7 +64,6 @@ public:
 	* @note ColoredPointHandler::coloring_mode
 	*/
 	void SetColoringMode(int coloring_mode);
-
 private:
 	/*!
 	* @brief Отрисовывает гистограмму

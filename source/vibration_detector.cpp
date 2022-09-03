@@ -6,7 +6,6 @@ VibrationDetector::VibrationDetector(std::string input_file_name, std::string ou
 	window_name_{ window_name },
 	number_of_points_{ 0 },
 	warping_figure_selecting_{ false },
-	max_amplitude_colored_points_value_{ 0.0 },
 	colored_point_mode_{ COLORING_BASED_ON_FREQUENCY },
 	sensivity_in_percents_{ 1 },
 	roi_selecting_{ false },
@@ -149,8 +148,8 @@ void VibrationDetector::DeletePoints(Point2i mouse_coordinates)
 
 void VibrationDetector::DeleteColoredPoints()
 {
-	// Ресетим максимальную найденную амплитуду
-	max_amplitude_colored_points_value_ = 0.0;
+	ColoredPointHandler::ResetMaxAmplitudeOverall();
+	std::cout << ColoredPointHandler::GetMaxAmplitudeOverall() << std::endl;
 	// Проходимся по вектору хэндлеров
 	while (!vec_colored_point_handlers_.empty())
 	{
@@ -316,7 +315,7 @@ void VibrationDetector::TrackAndCalc()
 	std::vector<Point2f> NextPts;
 	std::vector<uchar> status;
 	std::vector<float> error;
-	double previous_amplitude = 0;
+	double last_max_amplitude = 0;
 
 	// "Достаем" из lonely point handler'ов последние найденные точки, чтобы использовать их в качестве "начальных" значений для calcOpticalFlowPyrLK()
 	for (int i = 0; i < vec_lonely_point_handlers_.size(); i++)
@@ -326,14 +325,17 @@ void VibrationDetector::TrackAndCalc()
 	// "Достаем" из colored point handler'ов последние найденные точки, чтобы использовать их в качестве "начальных" значений для calcOpticalFlowPyrLK()
 	for (int i = 0; i < vec_colored_point_handlers_.size(); i++)
 	{
-		// Определяем самую большую амплитуду на экране в данный момент
-		// Записываем амплитуду с предыдущей итерации (предыдущей точки)
-		previous_amplitude = sqrt(current_amplitude_.x * current_amplitude_.x + current_amplitude_.y * current_amplitude_.y);
-		// Получаем новую
-		current_amplitude_ = vec_colored_point_handlers_[i]->GetCurrentAmplitude();
-		// Проверка новой амплитуды на "максимальность"
-		if (max_amplitude_colored_points_value_ < sqrt(current_amplitude_.x * current_amplitude_.x + current_amplitude_.y * current_amplitude_.y))
-			max_amplitude_colored_points_value_ = sqrt(current_amplitude_.x * current_amplitude_.x + current_amplitude_.y * current_amplitude_.y);
+		//// Определяем самую большую амплитуду на экране в данный момент
+		//// Записываем амплитуду с предыдущей итерации (предыдущей точки)
+		//last_max_amplitude = sqrt(current_amplitude_.x * current_amplitude_.x + current_amplitude_.y * current_amplitude_.y);
+		//// Получаем новую
+		//current_amplitude_ = vec_colored_point_handlers_[i]->GetCurrentAmplitude();
+		////std::cout << "pizda) " << current_amplitude_.x << " " << current_amplitude_.y << std::endl;
+		////std::cout << "max ampl) " << max_amplitude_colored_points_value_ << std::endl;
+
+		//// Проверка новой амплитуды на "максимальность"
+		//if (max_amplitude_colored_points_value_ < sqrt(current_amplitude_.x * current_amplitude_.x + current_amplitude_.y * current_amplitude_.y))
+		//	max_amplitude_colored_points_value_ = sqrt(current_amplitude_.x * current_amplitude_.x + current_amplitude_.y * current_amplitude_.y);
 
 		PrevPts.push_back(vec_colored_point_handlers_[i]->GetLastFoundCoordinates());
 	}
@@ -397,7 +399,7 @@ std::vector<Point2f> VibrationDetector::FindGoodFeatures(Mat frame, Rect roi)
 	// Устанавливаем ROI на нашем изображении
 	Mat frame_with_roi = frame(roi);
 	goodFeaturesToTrack(frame_with_roi, good_features, 500, 0.01, 5, noArray(), 3);
-
+	std::cout << "gf size after GFTT: " << good_features.size() << std::endl;
 	// Перевод в координаты изначального изображения
 	for (int i = 0; i < good_features.size(); i++)
 	{
@@ -417,6 +419,7 @@ std::vector<Point2f> VibrationDetector::FindGoodFeatures(Mat frame, Rect roi)
 		count++;
 	}
 
+	std::cout << "gf size after contours: " << good_features.size() << std::endl;
 	//ContourHandler contour_handler(frame, roi);
 	//good_features = contour_handler.GetContinousContours();
 
@@ -486,6 +489,7 @@ void VibrationDetector::ExecuteVibrationDetection()
 
 	while ((current_num_of_frame < amount_of_frames - 1) && running_ == true)
 	{
+		max_amplitude_colored_points_value_ = ColoredPointHandler::GetMaxAmplitudeOverall();
 		current_num_of_frame = frame_handler->GetCurrentPosOfFrame();
 
 		// reading next frame and converting it to gray color space
@@ -512,7 +516,6 @@ void VibrationDetector::ExecuteVibrationDetection()
 		for (int i = 0; i < vec_colored_point_handlers_.size(); i++)
 		{
 			// Обновляем максимальную амплитуду
-			vec_colored_point_handlers_[i]->UpdateMaxAmplitudeOverall(max_amplitude_colored_points_value_);
 			vec_colored_point_handlers_[i]->VibratingPoint::IsInteracted(last_mouse_position_);
 			vec_colored_point_handlers_[i]->SetColoringMode(colored_point_mode_);
 			vec_colored_point_handlers_[i]->Draw(current_tracking_frame_);
@@ -528,6 +531,9 @@ void VibrationDetector::ExecuteVibrationDetection()
 
 		// Обновляем предыдущий кадр
 		prev_img_gray_ = next_img_gray_;
+
+		if (current_num_of_frame < 10)
+			ColoredPointHandler::ResetMaxAmplitudeOverall();
 
 		// 20 - задержка в мс
 		int code = waitKey(20);
