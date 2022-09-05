@@ -18,7 +18,7 @@ LonelyPointHandler::LonelyPointHandler(Point2f init_coordinates, double sampling
 	interacted_ = false;
 
 	frequencies_.push_back(0.0);
-	amplitude_ = Point3f(0.0, 0.0, 0.0);
+	relative_amplitude_ = Point3f(0.0, 0.0, 0.0);
 
 	sensivity_ = 0.01;
 	confidence_level_ = 1.0;
@@ -151,7 +151,7 @@ void LonelyPointHandler::DrawTextData(Mat& frame)
 	);
 	putText(
 		frame,
-		"x: " + std::to_string(amplitude_.x),
+		"x: " + std::to_string(relative_amplitude_.x),
 		Point(point_coordinates_.front().x, point_coordinates_.front().y - text_resize_factor_ * 2 * line_spacing),
 		font,
 		font_scale,
@@ -160,7 +160,7 @@ void LonelyPointHandler::DrawTextData(Mat& frame)
 	);
 	putText(
 		frame,
-		"y: " + std::to_string(amplitude_.y),
+		"y: " + std::to_string(relative_amplitude_.y),
 		Point(point_coordinates_.front().x, point_coordinates_.front().y - text_resize_factor_ * 3 * line_spacing),
 		font,
 		font_scale,
@@ -170,7 +170,7 @@ void LonelyPointHandler::DrawTextData(Mat& frame)
 	// uncomment когда появится 3-я координата для амплитуды :)
 	/*putText(
 		frame,
-		"z: " + std::to_string(amplitude_.z),
+		"z: " + std::to_string(relative_amplitude_.z),
 		Point(point_coordinates_.front().x, point_coordinates_.front().y - res_mp_ * 4 * line_spacing),
 		FONT_HERSHEY_PLAIN,
 		font_scale,

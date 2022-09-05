@@ -22,7 +22,7 @@ ColoredPointHandler::ColoredPointHandler(Point2f init_coordinates, double sampli
 	current_point_radius_ = default_point_radius_;
 
 	frequencies_.push_back(0.0);
-	amplitude_ = Point3f(0.0, 0.0, 0.0);
+	relative_amplitude_ = Point3f(0.0, 0.0, 0.0);
 
 	sensivity_ = 0.01;
 	confidence_level_ = 1.0;
@@ -72,9 +72,6 @@ void ColoredPointHandler::DrawInteractionRectangle(Mat& frame)
 
 void ColoredPointHandler::UpdatePointColor()
 {
-	// Кидаем модуль амплитуды и апдейтим
-	UpdateMaxMinAmplitude(sqrt(amplitude_.x * amplitude_.x + amplitude_.y * amplitude_.y));
-
 	switch (coloring_mode_)
 	{
 	case DEFAULT:
@@ -97,28 +94,14 @@ void ColoredPointHandler::UpdatePointColor()
 	{
 		current_point_radius_ = default_point_radius_;
 		// переведём диапазон амплитуд [0; max_amplitude_] в [0; 255] int color value;
-		double current_amplitude = sqrt(amplitude_.x * amplitude_.x + amplitude_.y * amplitude_.y);
-		double nominator = current_amplitude;
-		double denominator = -1 * (current_amplitude - max_min_amplitude_.first);
-		/*std::cout << "nom: " << abs(amplitude - max_amplitude_) << std::endl;
-		std::cout << "cur ampl: " << amplitude << std::endl;
-		std::cout << "max ampl: " << max_amplitude_ << std::endl;
-		std::cout << "denom: " << amplitude << std::endl;
-		std::cout << "col rat: " << abs(amplitude - max_amplitude_) / amplitude << std::endl;*/
-		point_color_ = HelperFunctions::RatioToRgb((current_amplitude - max_min_amplitude_.second) / (max_min_amplitude_.first - max_min_amplitude_.second));
-
-		std::cout << "max ampl: " << max_min_amplitude_.first << std::endl;
-		std::cout << "cur ampl: " << current_amplitude << std::endl;
-		std::cout << "min ampl: " << max_min_amplitude_.second << std::endl;
-		std::cout << "Ratio: " << (current_amplitude - max_min_amplitude_.second) / (max_min_amplitude_.first - max_min_amplitude_.second) << std::endl;
-
-		//std::cout << "Ratio: " << abs(amplitude - max_amplitude_) / max_amplitude_ << std::endl;
-		if (point_color_ == Scalar(0, 0, 0, 0))
+		double ratio = (current_amplitude_.x - extremum_amplitude_.second) / (extremum_amplitude_.first - extremum_amplitude_.second);
+		point_color_ = HelperFunctions::RatioToRgb(ratio);
+		if (point_color_ == Scalar(0, 0, 0))
 		{
-			std::cout << "color" << point_color_ << std::endl;
-			std::cout << "cur ampl: " << current_amplitude << std::endl;
-			std::cout << "max ampl: " << max_min_amplitude_.first << std::endl;
-			std::cout << "min ampl: " << max_min_amplitude_.second << std::endl;
+			std::cout << "ratio: " << ratio << std::endl;
+			std::cout << "current_amplitude_.x: " << current_amplitude_.x << std::endl;
+			std::cout << "max ampl: " << extremum_amplitude_.first << std::endl;
+			std::cout << "min ampl: " << extremum_amplitude_.second << std::endl;
 		}
 		break;
 	}

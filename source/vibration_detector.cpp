@@ -144,17 +144,28 @@ void VibrationDetector::DeletePoints(Point2i mouse_coordinates)
 			point_ids_to_be_deleted_[i] = point_ids_to_be_deleted_[i] - 1;
 		}
 	}
+
+	if (vec_lonely_point_handlers_.empty())
+	{
+		VibratingPoint::extremum_amplitude_.first = 0.0;
+		VibratingPoint::extremum_amplitude_.second = 500.0;
+	}
 }
 
 void VibrationDetector::DeleteColoredPoints()
 {
-	ColoredPointHandler::ResetMaxMinAmplitude();
 	// Проходимся по вектору хэндлеров
 	while (!vec_colored_point_handlers_.empty())
 	{
 		delete(*(std::begin(vec_colored_point_handlers_)));
 		// удаляем первую точку (первую в векторе и по сути первую по номеру)
 		vec_colored_point_handlers_.erase(std::begin(vec_colored_point_handlers_));
+	}
+
+	if (vec_lonely_point_handlers_.empty())
+	{
+		VibratingPoint::extremum_amplitude_.first = 0.0;
+		VibratingPoint::extremum_amplitude_.second = 500.0;
 	}
 }
 
@@ -365,6 +376,8 @@ void VibrationDetector::TrackAndCalc()
 		return;
 	}
 
+	std::vector<double> point_amplitudes;
+
 	// Закидываем найденные значения обратно в point handler'ы
 	// Сначала проходимся по lonely хэндлерам
 	for (int i = 0; i < vec_lonely_point_handlers_.size(); i++)
@@ -373,6 +386,9 @@ void VibrationDetector::TrackAndCalc()
 		vec_lonely_point_handlers_[i]->AddNewPointTime(frame_time_);
 		// Вызов БПФ (FFT)
 		vec_lonely_point_handlers_[i]->ExecuteFFT();
+		// Вычисляем амплитуду
+		vec_lonely_point_handlers_[i]->CalculateAmplitude();
+		point_amplitudes.push_back(vec_lonely_point_handlers_[i]->GetCurrentAmplitude().x);
 	}
 	// После проходимся по colored хэндлерам
 	// 
@@ -386,7 +402,29 @@ void VibrationDetector::TrackAndCalc()
 		vec_colored_point_handlers_[i]->AddNewPointTime(frame_time_);
 		// Вызов БПФ (FFT)
 		vec_colored_point_handlers_[i]->ExecuteFFT();
+		// Вычисляем амплитуду
+		vec_colored_point_handlers_[i]->CalculateAmplitude();
+		point_amplitudes.push_back(vec_colored_point_handlers_[i]->GetCurrentAmplitude().x);
 	}
+
+	/*for (int i = 0; i < vec_colored_point_handlers_.size(); i++)
+	{
+		vec_colored_point_handlers_[i]->CalculateAmplitude();
+	}*/
+	/*for (int i = 0; i < vec_colored_point_handlers_.size(); i++)
+	{
+		point_amplitudes.push_back(vec_colored_point_handlers_[i]->GetCurrentAmplitude().x);
+	}*/
+	if (!vec_colored_point_handlers_.empty() || !vec_lonely_point_handlers_.empty())
+	{
+		int max_idx = HelperFunctions::FindGlobalMaxIdx(point_amplitudes);
+		int min_idx = HelperFunctions::FindGlobalMinIdx(point_amplitudes);
+
+		VibratingPoint::extremum_amplitude_.first = point_amplitudes[max_idx];
+		VibratingPoint::extremum_amplitude_.second = *(std::min_element(point_amplitudes.begin(), point_amplitudes.end()));
+	}
+
+	
 }
 
 std::vector<Point2f> VibrationDetector::FindGoodFeatures(Mat frame, Rect roi)
@@ -397,7 +435,7 @@ std::vector<Point2f> VibrationDetector::FindGoodFeatures(Mat frame, Rect roi)
 		cvtColor(frame, frame, COLOR_BGR2GRAY);
 	// Устанавливаем ROI на нашем изображении
 	Mat frame_with_roi = frame(roi);
-	goodFeaturesToTrack(frame_with_roi, good_features, 20, 0.01, 5, noArray(), 3);
+	goodFeaturesToTrack(frame_with_roi, good_features, 50, 0.01, 5, noArray(), 3);
 	std::cout << "gf size after GFTT: " << good_features.size() << std::endl;
 	// Перевод в координаты изначального изображения
 	for (int i = 0; i < good_features.size(); i++)
@@ -468,6 +506,11 @@ void VibrationDetector::DrawDebugLkWinRectangle(Mat& frame)
 
 void VibrationDetector::ExecuteVibrationDetection()
 {
+	///
+	VibratingPoint::extremum_amplitude_.first = 0.0;
+	VibratingPoint::extremum_amplitude_.second = 500.0;
+	///
+
 	// reading the first frame of sequence so we can convert it to gray color space
 	frame_handler->ReadNextFrame();
 	current_tracking_frame_ = frame_handler->GetCurrentFrame();
@@ -503,6 +546,7 @@ void VibrationDetector::ExecuteVibrationDetection()
 
 		// Трекинг и вычисление частоты вибрации
 		frame_time_ = frame_handler->GetCurrentTimeOfFrame();
+
 		TrackAndCalc();
 
 		// Рисование точек, треков и данных (вибрации, амплитуды и т.п.)
@@ -529,9 +573,6 @@ void VibrationDetector::ExecuteVibrationDetection()
 
 		// Обновляем предыдущий кадр
 		prev_img_gray_ = next_img_gray_;
-
-		if (current_num_of_frame < 10)
-			ColoredPointHandler::ResetMaxMinAmplitude();
 
 		// 20 - задержка в мс
 		int code = waitKey(20);

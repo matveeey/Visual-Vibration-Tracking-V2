@@ -11,7 +11,6 @@
 #include "VVT-V2/vibrating_point.h"
 #include "VVT-V2/histogram.h"
 #include "VVT-V2/output_to_csv.h"
-#include "VVT-V2/helper.h"
 
 using namespace cv;
 

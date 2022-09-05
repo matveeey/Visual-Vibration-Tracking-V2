@@ -10,6 +10,9 @@
 
 // other headers
 #include "VVT-V2/peak_finder.h"
+#include "VVT-V2/helper.h"
+
+#define AMPLITUDE_BUFFER_SIZE (int)30
 
 using namespace cv;
 
@@ -23,18 +26,16 @@ using namespace cv;
 class VibratingPoint
 {
 public:
+	static inline std::pair<double, double> extremum_amplitude_;
+
+public:
+	void UpdateExtremumAmplitude(double extremum_amplitude);
 	/*!
 	* @brief Выполняет БПФ для нахождения частоты вибрации.
 	* 
 	После выполнения записывает в контейнер frequencies_ найденные пики, а также добавляет в контейнер x_ найденный спектр частот вибрации (для отображения гистограммы)
 	*/
 	void ExecuteFFT();
-	/*!
-	* @brief Частотный фильтр для нижней части диапазона
-	* @param magnitudes: массив, в котором будет проведена фильтрация
-	*/
-	template<class T>
-	void DeadzoneFilter(std::vector<T>& input_vector);
 	/*!
 	* @brief Добавляет новую пространственную координату в конец контейнера VibratingPoint::point_coordinates_;
 	* @param position: координаты точки
@@ -51,12 +52,18 @@ public:
 	*/
 	bool IsInteracted(Point2i coordinates);
 	/*!
+	* @brief Устанавливает чувствительность, влияющую на confidence
+	*/
+	void SetSensivity(double sensivity);
+	/*!
+	* @brief Проводит необходимые для вычисления амплитуды вычисления
+	*/
+	void CalculateAmplitude();
+	/*!
 	* @brief Отрисовывает точку на кадре
 	* @param frame: изображение, на котором будет происходить отрисовка
 	*/
 	virtual void Draw(Mat& frame) = 0;
-
-	static void ResetMaxMinAmplitude();
 
 protected:
 	/*!
@@ -67,40 +74,10 @@ protected:
 	* @brief Обновляем текущий цвет точки
 	*/
 	virtual void UpdatePointColor() = 0;
-	/*!
-	* @brief Обновляет максимальное найденное значение амплитуды точки в кадре
-	* @note Необходимо для вычисления цвета "цветной" точки, а также для вычисления относительной амплитуды движения "одинокой" (lonely) точки
-	*/
-	static void UpdateMaxMinAmplitude(double max_min_amplitude);
-
-private:
-	/*!
-	* @brief Вычисляет среднее значение разности элементов массива
-	* @param src - входной вектор для анализа
-	*/
-	template<typename T>
-	T CalculateMeanDifferenceInVector(std::vector<T> src);
-	/*!
-	* @brief Вычисляет максимальное значение разности элементов массива
-	* @param src - входной вектор для анализа
-	*/
-	template<typename T>
-	T CalculateMaxDifferenceInVector(std::vector<T> src);
-	/*!
-	* @brief Вычисляет основную частоту
-	* @param src - входной вектор для анализа
-	*/
-	template<typename T>
-	int FindGlobalMaxIdx(std::vector<T> src);
 
 private:
 	std::vector<float> mag_max_differences_;
 
-public:
-	/*!
-	* @brief Устанавливает чувствительность, влияющую на confidence
-	*/
-	void SetSensivity(double sensivity);
 // Геттеры
 public:
 	/*!
@@ -116,7 +93,11 @@ public:
 	*/
 	double GetCurrentMainFrequency();
 	/*!
-	* @brief Возвращает последнюю найденную амплитуду
+	* @brief Возвращает последнюю найденную относительную амплитуду
+	*/
+	Point3f GetRelativeAmplitude();
+	/*!
+	* @brief Возвращает последнюю найденную относительную амплитуду
 	*/
 	Point3f GetCurrentAmplitude();
 	/*!
@@ -141,13 +122,23 @@ protected:
 	bool interacted_;
 
 	/*!
-	* @brief Амплитуды вибрации по x, y (дополнительно и по z, но пока z не активно)
+	* @brief Относительные амплитуды вибрации по x, y. Выражается отношением амплитуды 
 	*/
-	Point3f amplitude_;
+	Point3f relative_amplitude_;
+	/*!
+	* @brief Фактические амплитуды вибрации по x, y. Выражаюытся в пикселях
+	*/
+	Point3f current_amplitude_;
 	/*!
 	* @brief Контейнер для координат точки
 	*/
 	std::vector<Point2f> point_coordinates_;
+	std::vector<double> x_coordinates_;
+	std::vector<double> y_coordinates_;
+	/*!
+	* @brief Контейнер для координат точки относительно нулевого уровня
+	*/
+	std::vector<cv::Point2f> vec_meaned_coordinates_of_point_;
 
 	// Если объявить double confidence_level_ в этом месте (буквально после этого комментария) (visual studio 2022, номер сборки лень смотреть, c++14), программа будет падать :/ 
 	// Почему так?
@@ -176,10 +167,6 @@ protected:
 	* @brief Дефолтный радиус точки
 	*/
 	int default_point_radius_;
-	/*!
-	* @brief Текущая максимальная и минимальная амплитуды
-	*/
-	static inline std::pair<double, double> max_min_amplitude_;
 
 	/*!
 	* @brief Контейнер для хранения координат гистограммы по оси X (фактически - найденный спектр частот вибрации точки после выполнения БПФ)

@@ -1,7 +1,7 @@
 #include <VVT-V2/contour_handler.h>
 
 ContourHandler::ContourHandler(Mat frame, Rect ROI) :
-	minimal_distance_{ 15.0f }
+	minimal_distance_{ 5.0f }
 {
 	std::vector<Vec4i> hierarchy = { 0 };
 	Mat prep_frame(frame, ROI);

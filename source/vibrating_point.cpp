@@ -1,5 +1,10 @@
 #include "VVT-V2/vibrating_point.h"
 
+void VibratingPoint::UpdateExtremumAmplitude(double extremum_amplitude)
+{
+
+}
+
 void VibratingPoint::ExecuteFFT()
 {
 	bool absolute_peak = false;
@@ -15,67 +20,20 @@ void VibratingPoint::ExecuteFFT()
 
 	int samples_amount = point_coordinates_.size();
 
-	// subtracting mean value so the samples would be fluctuating around zero
-	std::vector<cv::Point2f> vec_meaned_coordinates_of_point_;
-
 	Scalar mean_coordinates_of_point_ = mean(point_coordinates_);
 	//std::cout << mean_coordinates_of_point_ << std::endl;
 	double meaned_x = mean_coordinates_of_point_.val[0];
 	double meaned_y = mean_coordinates_of_point_.val[1];
 
-	///
-	/// for amplitude calculation
-	///
-	float max_x = 0;
-	float min_x = 5000;
-	float max_y = 0;
-	float min_y = 5000;
-
+	vec_meaned_coordinates_of_point_.clear();
+	x_coordinates_.clear();
+	y_coordinates_.clear();
 	for (int i = 0; i < point_coordinates_.size(); i++)
 	{
-		///
-		if (point_coordinates_[i].x > max_x)
-			max_x = point_coordinates_[i].x;
-		if (point_coordinates_[i].x < min_x)
-			min_x = point_coordinates_[i].x;
-		if (point_coordinates_[i].y > max_y)
-			max_y = point_coordinates_[i].y;
-		if (point_coordinates_[i].y < min_x)
-			min_y = point_coordinates_[i].y;
-		///
-
-
 		vec_meaned_coordinates_of_point_.push_back(Point2f(point_coordinates_[i].x - meaned_x, point_coordinates_[i].y - meaned_y));
+		x_coordinates_.push_back(point_coordinates_[i].x - meaned_x);
+		y_coordinates_.push_back(point_coordinates_[i].y - meaned_y);
 	}
-	float amplitude_in_percents_x = 0.0f;
-	float amplitude_in_percents_y = 0.0f;
-	///
-	if (point_coordinates_.size() > 1)
-	{
-		amplitude_in_percents_x = (max_x - meaned_x) / (max_x + max_y - meaned_x - meaned_y);//sqrt((max_x / mean_value.val[0]) * (max_x / mean_value.val[0]) + (1 - min_x / mean_value.val[0]) * (1 - min_x / mean_value.val[0]));
-		amplitude_in_percents_y = (max_y - meaned_y) / (max_x + max_y - meaned_x - meaned_y);//sqrt((max_y / mean_value.val[1]) * (max_y / mean_value.val[1]) + (1 - min_y / mean_value.val[1]) * (1 - min_y / mean_value.val[1]));
-		//std::cout << "ampl in percs_x: " << amplitude_in_percents_x << std::endl;
-		//std::cout << "ampl in percs_y: " << amplitude_in_percents_y << std::endl;
-	}
-	
-	
-
-	if (!(std::isnan(amplitude_in_percents_x) || std::isnan(amplitude_in_percents_y)))
-	{
-		amplitude_.x = amplitude_in_percents_x;
-		amplitude_.y = amplitude_in_percents_y;
-		//std::cout << amplitude_ << std::endl;
-	}
-	else
-	{
-		//std::cout << "ti debil" << std::endl;
-		/*std::cout << "max_x " << max_x << std::endl;
-		std::cout << "meaned_x " << meaned_x << std::endl;
-		std::cout << "max_y " << max_y << std::endl;
-		std::cout << "meaned_y " << meaned_y << std::endl;*/
-	}
-	
-	///
 
 	dft(vec_meaned_coordinates_of_point_, fft_result);
 
@@ -109,8 +67,8 @@ void VibratingPoint::ExecuteFFT()
 		magnitudes.push_back(current_magnitude);
 	}
 
-	DeadzoneFilter(frequencies);
-	DeadzoneFilter(magnitudes);
+	HelperFunctions::DeadzoneFilter(frequencies);
+	HelperFunctions::DeadzoneFilter(magnitudes);
 
 	/////////////////////////////////////
 
@@ -168,12 +126,12 @@ void VibratingPoint::ExecuteFFT()
 				zero_flag--;
 		}
 
-		main_frequency_ = frequencies[FindGlobalMaxIdx(magnitudes)];
-		float max_diff = CalculateMaxDifferenceInVector(magnitudes);
+		main_frequency_ = frequencies[HelperFunctions::FindGlobalMaxIdx(magnitudes)];
+		float max_diff = HelperFunctions::CalculateMaxDifferenceInVector(magnitudes);
 		mag_max_differences_.push_back(max_diff);
 		float mean_diff_of_max_diffs = 0;
 		if (mag_max_differences_.size() > 1)
-			mean_diff_of_max_diffs = CalculateMeanDifferenceInVector(mag_max_differences_);
+			mean_diff_of_max_diffs = HelperFunctions::CalculateMeanDifferenceInVector(mag_max_differences_);
 
 		if (mean_diff_of_max_diffs < sensivity_ || std::isnan(mean_diff_of_max_diffs))
 			confidence_level_ -= 0.01;
@@ -191,16 +149,6 @@ void VibratingPoint::ExecuteFFT()
 		}
 	}
 
-}
-
-template<class T>
-void VibratingPoint::DeadzoneFilter(std::vector<T>& input_vector)
-{
-	float dead_zone_factor = 0.1f;
-	for (int i = 0; i < static_cast<int>(input_vector.size() * dead_zone_factor); i++)
-	{
-		input_vector.erase(std::begin(input_vector));
-	}
 }
 
 void VibratingPoint::AddNewPointPosition(Point2f position)
@@ -225,103 +173,69 @@ bool VibratingPoint::IsInteracted(Point2i coordinates)
 	return interacted_;
 }
 
-void VibratingPoint::ResetMaxMinAmplitude()
-{
-	max_min_amplitude_.first = 0.0;
-	max_min_amplitude_.second = 1000;
-}
-
-void VibratingPoint::UpdateMaxMinAmplitude(double max_min_amplitude)
-{
-	// ÑÄÅËÀÉ ÒÀÊ, ×ÒÎÁÛ ÍÅ ÁÛËÎ ÁÅÑÊÎÍÅ×ÍÎÑÒÅÉ È Î× ÍÈÇÊÈÕ ÇÍÀ×ÅÍÈÉ
-	// 
-	// Îáíîâëÿåì ìàêñèìóì
-	if ((max_min_amplitude > max_min_amplitude_.second))
-		if (((!(abs(max_min_amplitude) == std::numeric_limits<double>::infinity())) && (max_min_amplitude > max_min_amplitude_.first) && (max_min_amplitude < 10 * max_min_amplitude_.first)) || (max_min_amplitude_.first == 0))
-		{
-			max_min_amplitude_.first = max_min_amplitude;
-		}
-	// Îáíîâëÿåì ìèíèìóì
-	if ((max_min_amplitude < max_min_amplitude_.second))
-	{
-		if (((!(abs(max_min_amplitude) == std::numeric_limits<double>::infinity())) && (max_min_amplitude < max_min_amplitude_.second) && (max_min_amplitude > 0.1 *max_min_amplitude_.second)) || (max_min_amplitude_.second == 1000))
-		{
-			max_min_amplitude_.second = max_min_amplitude;
-		}
-	}
-	/*std::cout << "curr ampl: " << current_absolute_amplitude << std::endl;
-	std::cout << "max ampl: " << max_amplitude_ << std::endl;*/
-}
-
-template<typename T>
-T VibratingPoint::CalculateMeanDifferenceInVector(std::vector<T> src)
-{
-	std::vector<T> difference_vector;
-	
-	auto it = src.begin();
-	while (it != (src.end() - 1))
-	{
-		difference_vector.push_back(*(it + 1) - *it);
-		it++;
-	}
-
-	T mean_difference;
-
-	it = difference_vector.begin();
-	mean_difference = *it;
-	it++;
-
-	while (it != difference_vector.end())
-	{
-		mean_difference += *it;
-		it++;
-	}
-	mean_difference /= difference_vector.size();
-
-	return mean_difference;
-}
-
-template<typename T>
-T VibratingPoint::CalculateMaxDifferenceInVector(std::vector<T> src)
-{
-	std::vector<T> difference_vector;
-
-	auto it = src.begin();
-	while (it != (src.end() - 1))
-	{
-		difference_vector.push_back(*(it + 1) - *it);
-		it++;
-	}
-
-	Scalar cv_scalar_mean_val = mean(src);
-	T mean_val = cv_scalar_mean_val[0];
-
-	return difference_vector[FindGlobalMaxIdx(difference_vector)] / mean_val;
-}
-
-template<typename T>
-int VibratingPoint::FindGlobalMaxIdx(std::vector<T> src)
-{
-	auto it = src.begin();
-	int idx = 0;
-	T last_max = 0;
-	while (it != src.end())
-	{
-		if (*it > last_max)
-		{
-			idx = std::distance(src.begin(), it);
-			last_max = *it;
-		}
-		it++;
-	}
-
-	return idx;
-}
-
 void VibratingPoint::SetSensivity(double sensivity)
 {
-	std::cout << "sens: " << sensivity << std::endl;
 	sensivity_ = sensivity;
+}
+
+void VibratingPoint::CalculateAmplitude()
+{
+	///
+	/// for amplitude calculation
+	///
+	float max_meaned_x = 0;
+	float max_meaned_y = 0;
+
+	// Ñîçäàåì êîíòåé
+
+	max_meaned_x = vec_meaned_coordinates_of_point_[HelperFunctions::FindGlobalMaxIdx(x_coordinates_)].x;
+	max_meaned_y = vec_meaned_coordinates_of_point_[HelperFunctions::FindGlobalMaxIdx(y_coordinates_)].y;
+
+	float relative_amplitude_x = 0.0f;
+	float relative_amplitude_y = 0.0f;
+
+	Scalar mean_of_mean_coordinates_of_point = mean(vec_meaned_coordinates_of_point_);
+	double meaned_mean_x = mean_of_mean_coordinates_of_point.val[0];
+	double meaned_mean_y = mean_of_mean_coordinates_of_point.val[1];
+
+	///
+	if (point_coordinates_.size() > 2)
+	{
+		relative_amplitude_x = (max_meaned_x) / (max_meaned_x + max_meaned_y);
+		relative_amplitude_y = (max_meaned_y) / (max_meaned_x + max_meaned_y);
+	}
+
+	/*
+	// FOR DEBUG PURPOSES
+	if (std::isnan(relative_amplitude_x) || std::isnan(relative_amplitude_y))
+	{
+		std::cout << "!DEBUG first inf (x): " << relative_amplitude_x << " second inf (y): " << relative_amplitude_y << std::endl;
+		std::cout << "!DEBUG max_meaned_x: " << vec_meaned_coordinates_of_point_[HelperFunctions::FindGlobalMaxIdx(x_coordinates)].x << " max_meaned_y: " << vec_meaned_coordinates_of_point_[HelperFunctions::FindGlobalMaxIdx(y_coordinates)].y << std::endl;
+		std::cout << "vec size: " << point_coordinates_.size() << std::endl;
+		for (int i = 0; i < point_coordinates_.size(); i++)
+		{
+			std::cout << i << "-th coords: " << point_coordinates_[i] << std::endl;
+		}
+	}
+
+	if ((relative_amplitude_x > 1) || (relative_amplitude_y > 1))
+	{
+		std::cout << "!DEBUG first big (x): " << relative_amplitude_x << " second big (y): " << relative_amplitude_y << std::endl;
+		std::cout << "!DEBUG max_meaned_x: " << max_meaned_x << " max_meaned_y: " << max_meaned_y << std::endl;
+	}
+	*/
+
+	if (!(std::isnan(relative_amplitude_x) || std::isnan(relative_amplitude_y))/* && point_coordinates_.size() > AMPLITUDE_BUFFER_SIZE*/)
+	{
+		relative_amplitude_.x = relative_amplitude_x;
+		relative_amplitude_.y = relative_amplitude_y;
+		current_amplitude_.x = max_meaned_x - meaned_mean_x;
+		current_amplitude_.y = max_meaned_y - meaned_mean_y;
+	}
+
+	//std::cout << "maximum amplitude: " << extremum_amplitude_.first << std::endl;
+	//std::cout << "minimum amplitude: " << extremum_amplitude_.second << std::endl;
+	///
 }
 
 Point2f VibratingPoint::GetLastFoundCoordinates()
@@ -339,9 +253,14 @@ double VibratingPoint::GetCurrentMainFrequency()
 	return main_frequency_;
 }
 
+Point3f VibratingPoint::GetRelativeAmplitude()
+{
+	return relative_amplitude_;
+}
+
 Point3f VibratingPoint::GetCurrentAmplitude()
 {
-	return amplitude_;
+	return current_amplitude_;
 }
 
 double VibratingPoint::GetCurrentConfidenceLevel()
