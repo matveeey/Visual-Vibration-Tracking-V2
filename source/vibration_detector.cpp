@@ -116,7 +116,8 @@ void VibrationDetector::CreateNewColoredPoint(Point2f mouse_coordinates)
 void VibrationDetector::DeletePoints(Point2i mouse_coordinates)
 {
 	// создаем вектор ID (номеров) для точек, которые удалим
-	std::vector<int> point_ids_to_be_deleted_;
+	std::vector<int> lon_point_ids_to_be_deleted_;
+	std::vector<int> col_point_ids_to_be_deleted_;
 
 	// проходим по всему вектору точек
 	for (int i = 0; i < vec_lonely_point_handlers_.size(); i++)
@@ -124,24 +125,47 @@ void VibrationDetector::DeletePoints(Point2i mouse_coordinates)
 		// если произошло пересечение с мышкой, вносим ID (номер) точки в "вектор точек на удаление" или уровень доверия" точки стал слишком маленький, так же удаляем точку
 		if (vec_lonely_point_handlers_[i]->VibratingPoint::IsInteracted(mouse_coordinates))
 		{
-			point_ids_to_be_deleted_.push_back(i);
+			lon_point_ids_to_be_deleted_.push_back(i);
 		}
 	}
-	std::cout << "DEBUG: deleting " << point_ids_to_be_deleted_.size() << " point" << std::endl;
+	for (int i = 0; i < vec_colored_point_handlers_.size(); i++)
+	{
+		// если произошло пересечение с мышкой, вносим ID (номер) точки в "вектор точек на удаление" или уровень доверия" точки стал слишком маленький, так же удаляем точку
+		if (vec_colored_point_handlers_[i]->VibratingPoint::IsInteracted(mouse_coordinates))
+		{
+			col_point_ids_to_be_deleted_.push_back(i);
+		}
+	}
+	std::cout << "DEBUG: deleting " << lon_point_ids_to_be_deleted_.size() + col_point_ids_to_be_deleted_.size() << " point" << std::endl;
 
 	// проходимся по вектору точек на удаление
-	while (!point_ids_to_be_deleted_.empty())
+	while (!lon_point_ids_to_be_deleted_.empty())
 	{
-		delete(*(std::begin(vec_lonely_point_handlers_) + point_ids_to_be_deleted_[0]));
+		delete(*(std::begin(vec_lonely_point_handlers_) + lon_point_ids_to_be_deleted_[0]));
 		// удаляем первую точку (первую в векторе и по сути первую по номеру)
-		vec_lonely_point_handlers_.erase(std::begin(vec_lonely_point_handlers_) + point_ids_to_be_deleted_[0]);
+		vec_lonely_point_handlers_.erase(std::begin(vec_lonely_point_handlers_) + lon_point_ids_to_be_deleted_[0]);
 		// удаляем номер только что удалённой точки из вектора
-		point_ids_to_be_deleted_.erase(std::begin(point_ids_to_be_deleted_));
+		lon_point_ids_to_be_deleted_.erase(std::begin(lon_point_ids_to_be_deleted_));
 		// меняем номера других точек в списке, если там ещё что-то есть
-		for (int i = 0; i < point_ids_to_be_deleted_.size(); i++)
+		for (int i = 0; i < lon_point_ids_to_be_deleted_.size(); i++)
 		{
 			// уменьшаем номер оставшихся в очереди на удаление точек на один, тк номера в vec_point_handlers сместились на один вниз (влево и тп, как удобнее для понимания :))
-			point_ids_to_be_deleted_[i] = point_ids_to_be_deleted_[i] - 1;
+			lon_point_ids_to_be_deleted_[i] = lon_point_ids_to_be_deleted_[i] - 1;
+		}
+	}
+
+	while (!col_point_ids_to_be_deleted_.empty())
+	{
+		delete(*(std::begin(vec_colored_point_handlers_) + col_point_ids_to_be_deleted_[0]));
+		// удаляем первую точку (первую в векторе и по сути первую по номеру)
+		vec_colored_point_handlers_.erase(std::begin(vec_colored_point_handlers_) + col_point_ids_to_be_deleted_[0]);
+		// удаляем номер только что удалённой точки из вектора
+		col_point_ids_to_be_deleted_.erase(std::begin(col_point_ids_to_be_deleted_));
+		// меняем номера других точек в списке, если там ещё что-то есть
+		for (int i = 0; i < col_point_ids_to_be_deleted_.size(); i++)
+		{
+			// уменьшаем номер оставшихся в очереди на удаление точек на один, тк номера в vec_point_handlers сместились на один вниз (влево и тп, как удобнее для понимания :))
+			col_point_ids_to_be_deleted_[i] = col_point_ids_to_be_deleted_[i] - 1;
 		}
 	}
 
@@ -335,17 +359,6 @@ void VibrationDetector::TrackAndCalc()
 	// "Достаем" из colored point handler'ов последние найденные точки, чтобы использовать их в качестве "начальных" значений для calcOpticalFlowPyrLK()
 	for (int i = 0; i < vec_colored_point_handlers_.size(); i++)
 	{
-		//// Определяем самую большую амплитуду на экране в данный момент
-		//// Записываем амплитуду с предыдущей итерации (предыдущей точки)
-		//last_max_amplitude = sqrt(current_amplitude_.x * current_amplitude_.x + current_amplitude_.y * current_amplitude_.y);
-		//// Получаем новую
-		//current_amplitude_ = vec_colored_point_handlers_[i]->GetCurrentAmplitude();
-		////std::cout << "pizda) " << current_amplitude_.x << " " << current_amplitude_.y << std::endl;
-		////std::cout << "max ampl) " << max_amplitude_colored_points_value_ << std::endl;
-
-		//// Проверка новой амплитуды на "максимальность"
-		//if (max_amplitude_colored_points_value_ < sqrt(current_amplitude_.x * current_amplitude_.x + current_amplitude_.y * current_amplitude_.y))
-		//	max_amplitude_colored_points_value_ = sqrt(current_amplitude_.x * current_amplitude_.x + current_amplitude_.y * current_amplitude_.y);
 
 		PrevPts.push_back(vec_colored_point_handlers_[i]->GetLastFoundCoordinates());
 	}
@@ -409,14 +422,6 @@ void VibrationDetector::TrackAndCalc()
 		point_amplitudes.push_back(sqrt(ampl_x * ampl_x + ampl_y * ampl_y));
 	}
 
-	/*for (int i = 0; i < vec_colored_point_handlers_.size(); i++)
-	{
-		vec_colored_point_handlers_[i]->CalculateAmplitude();
-	}*/
-	/*for (int i = 0; i < vec_colored_point_handlers_.size(); i++)
-	{
-		point_amplitudes.push_back(vec_colored_point_handlers_[i]->GetCurrentAmplitude().x);
-	}*/
 	if (!vec_colored_point_handlers_.empty() || !vec_lonely_point_handlers_.empty())
 	{
 		int max_idx = HelperFunctions::FindGlobalMaxIdx(point_amplitudes);
