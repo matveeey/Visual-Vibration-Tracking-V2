@@ -388,7 +388,8 @@ void VibrationDetector::TrackAndCalc()
 		vec_lonely_point_handlers_[i]->ExecuteFFT();
 		// Вычисляем амплитуду
 		vec_lonely_point_handlers_[i]->CalculateAmplitude();
-		point_amplitudes.push_back(vec_lonely_point_handlers_[i]->GetCurrentAmplitude().x);
+		double ampl_x = vec_lonely_point_handlers_[i]->GetCurrentAmplitude().x, ampl_y = vec_lonely_point_handlers_[i]->GetCurrentAmplitude().y;
+		point_amplitudes.push_back(sqrt(ampl_x * ampl_x + ampl_y * ampl_y));
 	}
 	// После проходимся по colored хэндлерам
 	// 
@@ -404,7 +405,8 @@ void VibrationDetector::TrackAndCalc()
 		vec_colored_point_handlers_[i]->ExecuteFFT();
 		// Вычисляем амплитуду
 		vec_colored_point_handlers_[i]->CalculateAmplitude();
-		point_amplitudes.push_back(vec_colored_point_handlers_[i]->GetCurrentAmplitude().x);
+		double ampl_x = vec_colored_point_handlers_[i]->GetCurrentAmplitude().x, ampl_y = vec_colored_point_handlers_[i]->GetCurrentAmplitude().y;
+		point_amplitudes.push_back(sqrt(ampl_x * ampl_x + ampl_y * ampl_y));
 	}
 
 	/*for (int i = 0; i < vec_colored_point_handlers_.size(); i++)

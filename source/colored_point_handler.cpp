@@ -94,7 +94,8 @@ void ColoredPointHandler::UpdatePointColor()
 	{
 		current_point_radius_ = default_point_radius_;
 		// переведём диапазон амплитуд [0; max_amplitude_] в [0; 255] int color value;
-		double ratio = (current_amplitude_.x - extremum_amplitude_.second) / (extremum_amplitude_.first - extremum_amplitude_.second);
+		double current_amplitude_absolute = sqrt(current_amplitude_.x * current_amplitude_.x + current_amplitude_.y * current_amplitude_.y);
+		double ratio = (current_amplitude_absolute - extremum_amplitude_.second) / (extremum_amplitude_.first - extremum_amplitude_.second);
 		point_color_ = HelperFunctions::RatioToRgb(ratio);
 		if (point_color_ == Scalar(0, 0, 0))
 		{
