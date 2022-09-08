@@ -4,7 +4,6 @@ VibrationDetector::VibrationDetector(std::string input_file_name, std::string ou
 	input_file_name_{ input_file_name },
 	output_file_name_{ output_file_name },
 	window_name_{ window_name },
-	number_of_points_{ 0 },
 	warping_figure_selecting_{ false },
 	colored_point_mode_{ COLORING_BASED_ON_FREQUENCY },
 	sensivity_in_percents_{ 1 },
@@ -16,7 +15,6 @@ VibrationDetector::VibrationDetector(std::string input_file_name, std::string ou
 	roi_selected_ = false;
 	lk_win_size_ = 40;
 	level_amount_ = 1;
-	point_offset_ = 100;
 
 	frame_handler = new FrameHandler(input_file_name_, output_file_name_, MAIN_WINDOW_NAME);
 
@@ -440,10 +438,11 @@ std::vector<Point2f> VibrationDetector::FindGoodFeatures(Mat frame, Rect roi)
 	// ≈сли изображение не черно-белое
 	if (frame.channels() > 2)
 		cvtColor(frame, frame, COLOR_BGR2GRAY);
+
 	// ”станавливаем ROI на нашем изображении
 	Mat frame_with_roi = frame(roi);
-	goodFeaturesToTrack(frame_with_roi, good_features, 50, 0.01, 5, noArray(), 3);
-	std::cout << "gf size after GFTT: " << good_features.size() << std::endl;
+	goodFeaturesToTrack(frame_with_roi, good_features, 1000, 0.1, 20, noArray(), 3);
+
 	// ѕеревод в координаты изначального изображени€
 	for (int i = 0; i < good_features.size(); i++)
 	{
@@ -451,7 +450,7 @@ std::vector<Point2f> VibrationDetector::FindGoodFeatures(Mat frame, Rect roi)
 		good_features[i].y = good_features[i].y + roi.tl().y;
 	}
 
-	ContourHandler contour_handler(frame, roi);
+	ContourHandler contour_handler(frame, &roi);
 	std::vector<Point2f> features_to_be_append = contour_handler.GetContinousContours();
 
 	auto itt = features_to_be_append.begin();
@@ -463,16 +462,7 @@ std::vector<Point2f> VibrationDetector::FindGoodFeatures(Mat frame, Rect roi)
 		count++;
 	}
 
-	std::cout << "gf size after contours: " << good_features.size() << std::endl;
-	//ContourHandler contour_handler(frame, roi);
-	//good_features = contour_handler.GetContinousContours();
-
 	return good_features;
-}
-
-Point2f VibrationDetector::TranslateCoordinates(Point2f point)
-{
-	return Point2f(point.x / res_mp_, point.y / res_mp_);
 }
 
 void VibrationDetector::DrawAndOutput(Mat& frame)

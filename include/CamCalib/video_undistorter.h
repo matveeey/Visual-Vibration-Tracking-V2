@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <iomanip>
 
 // my headers
 
@@ -42,6 +43,8 @@ private:
 	std::vector<std::string> SplitString(std::string line, std::string delimiter);
 
 private:
+	std::string winname_;
+
 	VideoCapture* input_cap_;
 	VideoWriter* output_cap_;
 
@@ -58,8 +61,6 @@ private:
 
 	Mat current_frame_;
 	Mat undistorted_frame_;
-
-	std::ifstream input_file_;
 
 	double fx_;
 	double fy_;

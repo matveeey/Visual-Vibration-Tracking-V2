@@ -49,10 +49,9 @@ private:
 	void LoadPaths();
 	/*!
 	* @brief Запускает калибровку камеры по картинкам шахматных досок
-	* @param input_file_name: имя (путь) входного видео
 	* @param chessboards_path: имя (путь) к папке с изображениями шахматных досок
 	*/
-	void ExecuteCameraCalibration(std::string input_file_name, std::string chessboards_path);
+	void ExecuteCameraCalibration(std::string chessboards_path);
 	/*!
 	* @brief Запускает удаление дисторсии
 	* @param input_file_name: имя (путь) входного видео

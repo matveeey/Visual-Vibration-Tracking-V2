@@ -12,8 +12,10 @@ void OutputToCsv::Write()
 {
 	std::ofstream file;
 	file.open(output_file_name_, std::fstream::app);
+
 	// Запишем ID точки
 	file << "Point " + std::to_string(point_id_) + "\n";
+
 	// Запишем временные позиции точки
 	file << "Time pos;";
 	for (int i = 0; i < time_coordinates_->size(); i++)
@@ -21,6 +23,7 @@ void OutputToCsv::Write()
 		file << std::to_string(time_coordinates_->at(i)) + ";";
 	}
 	file << "\n";
+
 	// Запишем координаты 
 	// Сначала по X
 	file << "X pos; ";
@@ -29,8 +32,9 @@ void OutputToCsv::Write()
 		file << std::to_string(coordinates_->at(i).x) + ";";
 	}
 	file << "\n";
-	file << "Y pos; ";
+
 	// Затем по Y
+	file << "Y pos; ";
 	for (int i = 0; i < coordinates_->size(); i++)
 	{
 		file << std::to_string(coordinates_->at(i).y) + ";";

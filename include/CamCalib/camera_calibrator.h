@@ -4,14 +4,19 @@
 // OpenCV headers
 #include <fstream>
 #include <iostream>
-#include <opencv2/core.hpp>
+#include <opencv2/opencv.hpp>
 #include <string>
 #include <vector>
 #include <sstream>
 #include <memory>
+#include <thread>
+#include <chrono>
 
 // my headers
 #include "CamCalib\video_undistorter.h"
+#include "VVT-V2/helper.h"
+
+constexpr auto EXTENTION = ".JPG";
 
 using namespace cv;
 
@@ -26,38 +31,42 @@ class CameraCalibrator
 public:
 	/*!
 	* @brief Конструктор этого класса
-	* @param input_file_name: имя (путь) входного видео
 	* @param chessboards_path: имя (путь) к папке с изображениями шахматных досок
 	* @note VideoUndistorter
 	*/
-	CameraCalibrator(std::string input_file_name, std::string chessboards_path);
+	CameraCalibrator(std::string chessboards_path);
 	~CameraCalibrator();
 
 	void ExecuteCameraCalibration();
 
 private:
+	/*!
+	* @brief Загружает фотографии (изображения) шахматных досок в память из пути к папке.
+	* @note По умолчанию название изображений в пути должно быть по типа: "<номер изображения>.png"
+	*/
 	void LoadImages(std::string chessboards_path);
+	/*!
+	* @brief Считывает новое изображение и увеличивает переменную chessboard_amount_ на один
+	* @param path: путь к папке с изображениями
+	* @return cv::Mat прочитанное изображение
+	*/
+	Mat ReadNextImage(std::string path);
+	void AddTips(Mat& frame, std::string tip);
 
-	bool FindCorners(Mat& input_frame, Size pattern_size);
-	void SaveFoundParamsToFile(Mat camera_matrix, Mat dist_coeffs_2be_written, std::string file);
-
-	template <typename T>
-	std::string ToStringWithPrecision(const T a_value, const int n = 9);
+	bool FindCorners(Mat input_frame, Size pattern_size, std::vector<Point2f>& corners);
+	void SaveFoundParamsToFile(Mat camera_matrix, Mat dist_coeffs_2be_written);
 	
 private:
-	std::string chessboards_path_;
+	std::string chessboards_folder_path_;
 	int chessboards_amount_;
-	std::vector<Mat> chessboards_;
+	std::vector<Mat> images_with_chessboard_;
 
 	VideoCapture* input_cap_;
 
 	double frame_width_;
 	double frame_height_;
-	double bitrate_;
-	double frame_count_;
-	double fps_;
 
-	std::string input_file_name_;
+	std::string winname_;
 	std::string txt_file_name_;
 	Mat camera_matrix_;
 	Mat distortion_coefficients_;
@@ -69,14 +78,11 @@ private:
 	std::vector<Point2f> corners_;
 	std::vector<std::vector<Point2f>> vec_of_corners_;
 	Size pattern_size_;
-	bool pattern_found_;
 
 	double fx_;
 	double fy_;
 	double px_;
 	double py_;
-
-	std::ofstream outfile_;
 
 };
 

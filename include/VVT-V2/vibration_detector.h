@@ -19,6 +19,11 @@
 #include "VVT-V2/helper.h"
 #include "VVT-V2/contour_handler.h"
 
+/*!
+* @brief Класс для создания объектов-детекторов вибрации
+*
+* Объект класса является основной единицей в программе. Внутри себя создает объекты различных классов, описанных в заголовочных файлах проекта. См.
+*/
 class VibrationDetector 
 {
 	enum main_mode
@@ -71,126 +76,169 @@ private:
 	std::vector<Point2f> FindGoodFeatures(Mat frame, Rect roi);
 	// Рисует точки и выводит данные
 	void DrawDebugLkWinRectangle(Mat& frame);
-	// Транслирует координаты ресайзнутого окна в пространство координат нересайзнутого окна
-	Point2f TranslateCoordinates(Point2f point);
 	// Масштабирует, рисует и выводит на экран обработанный кадр с точками
 	void DrawAndOutput(Mat& frame);
 
 private:
-	// Фреймпроцессор
+	/*!
+	* @brief Фреймпроцессор
+	*/
 	FrameHandler* frame_handler;
-	// Флаг работающей программы
+	/*!
+	* @brief Флаг запущенного основного алгоритма
+	* @see ExecuteVibrationDetection()
+	*/
 	bool running_;
-	// Коэффициент автоскейла размеров окна в зависимости от разрешения исходного видео
+	/*!
+	* @brief Коэффициент автоскейла размеров окна в зависимости от разрешения исходного видео
+	*/
 	float res_mp_;
-	// Псевдо-id (порядковывй номер точки)
+	/*!
+	* @brief Псевдо-id (порядковывй номер точки)
+	*/
 	int point_id_;
-	// Последняя позиция курсора в главном окне
+	/*!
+	* @brief Последняя позиция курсора в главном окне
+	*/
 	Point last_mouse_position_;
-	// Основной режим работы (enum main_mode)
+	/*!
+	* @brief Основной режим работы (enum main_mode)
+	*/
 	int current_mode_;
-	// Флаг для полноэкранного режима
+	/*!
+	* @brief Флаг для полноэкранного режима
+	*/
 	bool fullscreen_;
 
+	///
 	// NORMAL MODE
-	// 
-	// Очередь на создание "обычных" точек
+	///
+	/*!
+	* @brief Очередь на создание "обычных" точек
+	*/
 	std::vector<Point2i> l_click_queue_;
-	// Очередь на создание "цветных" точек
+	/*!
+	* @brief Очередь на создание "цветных" точек
+	*/
 	std::vector<Point2f> c_point_queue_;
-	// Очередь на удаление точек
+	/*!
+	* @brief Очередь на удаление точек
+	*/
 	std::vector<Point2i> delete_queue_;
-	// Очередь на отрисовку гистограм
+	/*!
+	* @brief Очередь на отрисовку гистограм
+	*/
 	std::vector<Point2i> histograms_queue_;
-	// Предыдущие позиции точек
-	std::vector<Point2f> previous_points_coordinates_;
-	// Single points handling
+	/*!
+	* @brief Вектор обработчиков "одиноких" точек
+	*/
 	std::vector<LonelyPointHandler*> vec_lonely_point_handlers_;
-	// Colored points handling
+	/*!
+	* @brief Вектор обработчиков "цветных" точек
+	*/
 	std::vector<ColoredPointHandler*> vec_colored_point_handlers_;
-	// Максимальная амплитуда точки на экране
-	Point3f current_amplitude_;
-	double max_amplitude_colored_points_value_;
 
+	///
 	// ADJUST SENSIVITY MODE
+	///
+	/*!
+	* @brief Чувствительность при трекинге вибрации 
+	* 
+	* Окно для изменения чувствительности вызывается кнопкой "A" при работающей проге
+	* 
+	* Чем выше значение - тем больше шумов будет поймано, но и тем меньше по амплитуде вибрации можно будет задетектить
+	*/
 	int sensivity_in_percents_;
 
-	// Не ресайзнутый фрейм
+	/*!
+	* @brief Текущий Mat-instance только что найденного кадра из видео
+	*/
 	Mat current_tracking_frame_;
-	// Ресайзнутый фрейм
+	/*!
+	* @brief Mat-instance, который будет показан в окне
+	* @see DrawAndOutput()
+	*/
 	Mat frame_to_be_shown_;
-	// Шкала с градиентом
+	/*!
+	* @brief Изображение цветной шкалы внизу экрана
+	* @see FrameHandler::GenerateGradScale() и DrawAndOutput()
+	*/
 	Mat grad_scale_;
-	// Режим подсветки цветных точек
+	/*!
+	* @brief Текущий режим подсветки точек при выбранном регионе интереса (по амплитуде/по частоте)
+	*/
 	int colored_point_mode_;
 
-	// R MODE
+	///
+	// ROI SELECTING MODE
+	///
 	// 
-	// Флаг происходящего выделения ROI
+	/*!
+	* @brief Флаг, показывающий происходит ли в данный момент выделение ROI
+	*/
 	bool roi_selecting_;
-	// Флаг произведенного выделения ROI
+	/*!
+	* @brief Флаг, показывающий был ли выделен ROI или нет
+	*/
 	bool roi_selected_;
-	// 
-	// Координаты первой противоположной точки на краю диагонали прямоугольника (top left, bottom left, top right, bottom right - смотря в какую сторону проводить ROI)
+	/*!
+	* @brief Координаты первой точки прямоугольник (top left, bottom left, top right, bottom right - смотря "в какую сторону" выделять ROI с помощью мыши (курсора))
+	*/
 	Point2i tl_click_coords_;
 	
-
-	int point_offset_;
-	Point point_to_be_deleted_;
-	bool intersection_;
-	std::vector<bool> vec_of_intersections_;
-	/*int point_id_;*/
-	bool interaction_;
-	std::vector<bool> vec_of_interacts_;
-	std::vector<Point> text_coords_;
-
+	/*!
+	* @brief Имя (путь) входного видео
+	*/
 	std::string input_file_name_;
+	/*!
+	* @brief Имя (путь) видео, в котором будет результат детектинга
+	*/
 	std::string output_file_name_;
+	/*!
+	* @brief Имя (путь) файла для хранения метаданных
+	* @see OutputToCsv
+	*/
 	std::string output_csv_file_name_;
+	/*!
+	* @brief Имя главного окна
+	*/
 	std::string window_name_;
 
-	String main_window_name_;
-	String v_monitor_window_name_;
-	
-	// for detecting the click
-	bool point_selected_;
-	Point2i click_coords_;
-
-	// for rectangle
-	Mat unchanged_frame_;
-	Point2i br_click_coords_;
-	Point2i mouse_move_coords_;
-	bool right_button_down_;
-	bool colors_inited_;
-	std::vector<Point2f> prev_vibrating_pts_;
-	std::vector<Point2f> next_vibrating_pts_;
-
-	// for warping rectangle
+	/*!
+	* @brief Флаг, показывающий, происходит ли в данный момент выделение фигуры (эта возможность отключена временно)
+	*/
 	bool warping_figure_selecting_;
+	/*!
+	* @brief Координаты фигуры для исправления перспективы
+	*/
 	std::vector<Point> warping_figure_;
 
-	// for Lucas-Kanade tracking
+	/*!
+	* @brief Предыдущий кадр видео в грейскейл и с небольшим блюром (FrameHandler::MakeGrayFrame())
+	*/
 	Mat prev_img_gray_;
+	/*!
+	* @brief Следующий (или текущий после "предыдущего" - смотря как удобнее для понимания) кадр видео в грейскейл и с небольшим блюром (FrameHandler::MakeGrayFrame())
+	*/
 	Mat next_img_gray_;
-	std::vector<Point2f> prev_pts_;
-	std::vector<Point2f> next_pts_;
-	std::vector<Point2f> contour_prev_pts_;
-	std::vector<Point2f> contour_next_pts_;
-	std::vector<uchar> status_; // 1 if features found, 0 if not
-	std::vector<uchar> rect_status_;
-	// Размер окна для алгоритма Лукаса-Канаде
+	/*!
+	* @brief Размер окна для алгоритма Лукаса-Канаде
+	*/
 	int lk_win_size_;
-	// Количество слоев пирамиды изображений в алгоритме Л-К
+	/*!
+	* @brief Количество слоев пирамиды изображений в алгоритме Л-К
+	*/
 	int level_amount_;
 
-	// useful parameters
-	int number_of_points_;
-	int number_of_vibrating_pts_;
-	bool vibration_inited_;
 
-	// Fast Fourier Transform
+	// Для быстрого преобразования Фурье
+	/*!
+	* @brief ФПС входного видео (две ширины полосы частот вибрации, которые можно отследить)
+	*/
 	int fps_;
-	int update_rate_;
+	/*!
+	* @brief Текущее время кадра в мс (таймкод)
+	*/
 	double frame_time_;
 };
 

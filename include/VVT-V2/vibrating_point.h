@@ -12,8 +12,6 @@
 #include "VVT-V2/peak_finder.h"
 #include "VVT-V2/helper.h"
 
-#define AMPLITUDE_BUFFER_SIZE (int)30
-
 using namespace cv;
 
 /*!
@@ -25,9 +23,6 @@ using namespace cv;
 */
 class VibratingPoint
 {
-public:
-	static inline std::pair<double, double> extremum_amplitude_;
-
 public:
 	void UpdateExtremumAmplitude(double extremum_amplitude);
 	/*!
@@ -75,8 +70,6 @@ protected:
 	*/
 	virtual void UpdatePointColor() = 0;
 
-private:
-	std::vector<float> mag_max_differences_;
 
 // Геттеры
 public:
@@ -105,6 +98,14 @@ public:
 	*/
 	double GetCurrentConfidenceLevel();
 	
+public:
+	/*!
+	* @brief Максимум и минимум амплитуды среди всех VibratingPoint объектов-наследников
+	* 
+	* inline - для совмещенного объявления с определением переменной внутри класса
+	*/
+	static inline std::pair<double, double> extremum_amplitude_;
+
 protected:
 	/*!
 	* @brief Прямоугольник (область) взаимодействия с точкой
@@ -116,13 +117,13 @@ protected:
 	int interaction_offset_;
 	/*!
 	* @brief Флаг взаимодействия с точкой
-	* 
+	*
 	* True - в случае взаимодействия, false - в противном
 	*/
 	bool interacted_;
 
 	/*!
-	* @brief Относительные амплитуды вибрации по x, y. Выражается отношением амплитуды 
+	* @brief Относительные амплитуды вибрации по x, y. Выражается отношением амплитуды
 	*/
 	Point3f relative_amplitude_;
 	/*!
@@ -133,16 +134,18 @@ protected:
 	* @brief Контейнер для координат точки
 	*/
 	std::vector<Point2f> point_coordinates_;
+	/*!
+	* @brief Контейнер для координат точки по оси X
+	*/
 	std::vector<double> x_coordinates_;
+	/*!
+	* @brief Контейнер для координат точки по оси Y
+	*/
 	std::vector<double> y_coordinates_;
 	/*!
 	* @brief Контейнер для координат точки относительно нулевого уровня
 	*/
 	std::vector<cv::Point2f> vec_meaned_coordinates_of_point_;
-
-	// Если объявить double confidence_level_ в этом месте (буквально после этого комментария) (visual studio 2022, номер сборки лень смотреть, c++14), программа будет падать :/ 
-	// Почему так?
-
 	/*!
 	* @brief Контейнер для частот точки
 	*/
@@ -184,6 +187,13 @@ protected:
 	* @brief Рейтинг достоверности вибрации
 	*/
 	double confidence_level_;
+
+private:
+	/*!
+	* @brief Максимальная разнциа в магнитудах в найденном спектре после БПФ
+	* @see ExecuteFFT() и confidence_level_ - используется для определения "уровня достоверности" результатов у конкретной точки
+	*/
+	std::vector<float> mag_max_differences_;
 };
 
 #endif

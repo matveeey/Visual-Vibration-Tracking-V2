@@ -56,9 +56,9 @@ void MainMenu::LoadPaths()
 	std::getline(params_file, output_movement_enlargement_);
 }
 
-void MainMenu::ExecuteCameraCalibration(std::string input_file_name, std::string chessboards_path)
+void MainMenu::ExecuteCameraCalibration(std::string chessboards_path)
 {
-	CameraCalibrator camera_calibrator(input_file_name, chessboards_path);
+	CameraCalibrator camera_calibrator(chessboards_path);
 	camera_calibrator.ExecuteCameraCalibration();
 }
 
@@ -178,7 +178,7 @@ void MainMenu::DetectEvent(int event, int x, int y, int flags)
 				case CALIBRATION:
 				{
 					std::cout << "u've chosen camera calibration" << std::endl;
-					ExecuteCameraCalibration(input_calibration_video_, chessboards_path_);
+					ExecuteCameraCalibration(chessboards_path_);
 					break;
 				}
 				case UNDISTORTION:

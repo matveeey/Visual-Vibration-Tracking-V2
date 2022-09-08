@@ -225,17 +225,13 @@ void VibratingPoint::CalculateAmplitude()
 	}
 	*/
 
-	if (!(std::isnan(relative_amplitude_x) || std::isnan(relative_amplitude_y))/* && point_coordinates_.size() > AMPLITUDE_BUFFER_SIZE*/)
+	if (!(std::isnan(relative_amplitude_x) || std::isnan(relative_amplitude_y)))
 	{
 		relative_amplitude_.x = relative_amplitude_x;
 		relative_amplitude_.y = relative_amplitude_y;
 		current_amplitude_.x = max_meaned_x - meaned_mean_x;
 		current_amplitude_.y = max_meaned_y - meaned_mean_y;
 	}
-
-	//std::cout << "maximum amplitude: " << extremum_amplitude_.first << std::endl;
-	//std::cout << "minimum amplitude: " << extremum_amplitude_.second << std::endl;
-	///
 }
 
 Point2f VibratingPoint::GetLastFoundCoordinates()

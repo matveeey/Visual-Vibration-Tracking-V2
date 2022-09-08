@@ -109,7 +109,7 @@ void LonelyPointHandler::DrawTextData(Mat& frame)
 	// отрисовываем частоту вибрации
 	putText(
 		frame,
-		"hz: " + std::to_string(main_frequency_),
+		"hz: " + HelperFunctions::ToStringWithPrecision(main_frequency_, 2),
 		Point(point_coordinates_.front().x + 15, point_coordinates_.front().y + text_resize_factor_ * line_spacing),
 		font,
 		font_scale,
@@ -151,8 +151,8 @@ void LonelyPointHandler::DrawTextData(Mat& frame)
 	);
 	putText(
 		frame,
-		"x: " + std::to_string(relative_amplitude_.x),
-		Point(point_coordinates_.front().x, point_coordinates_.front().y - text_resize_factor_ * 2 * line_spacing),
+		"y: " + HelperFunctions::ToStringWithPrecision(relative_amplitude_.y * 100, 2),
+		Point(point_coordinates_.front().x + 15, point_coordinates_.front().y - text_resize_factor_ * 2 * line_spacing),
 		font,
 		font_scale,
 		Scalar(0, 255, 255),
@@ -160,8 +160,17 @@ void LonelyPointHandler::DrawTextData(Mat& frame)
 	);
 	putText(
 		frame,
-		"y: " + std::to_string(relative_amplitude_.y),
-		Point(point_coordinates_.front().x, point_coordinates_.front().y - text_resize_factor_ * 3 * line_spacing),
+		"x: " + HelperFunctions::ToStringWithPrecision(relative_amplitude_.x * 100, 2),
+		Point(point_coordinates_.front().x + 15, point_coordinates_.front().y - text_resize_factor_ * 3 * line_spacing),
+		font,
+		font_scale,
+		Scalar(0, 255, 255),
+		thickness
+	);
+	putText(
+		frame,
+		"abs: " + HelperFunctions::ToStringWithPrecision(sqrt(current_amplitude_.x * current_amplitude_.x + current_amplitude_.y * current_amplitude_.y), 3),
+		Point(point_coordinates_.front().x + 15, point_coordinates_.front().y - text_resize_factor_ * 4 * line_spacing),
 		font,
 		font_scale,
 		Scalar(0, 255, 255),

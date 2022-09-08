@@ -23,8 +23,12 @@ namespace HelperFunctions {
     /*!
     * @brief Генерирует имя CSV файла для сохранения метаданных
     * @return имя файла
+	* @see OutputToCsv
     */
-	std::string GenerateCsvFilename();
+	std::string GenerateCsvFilename(std::string additional_text = "");
+	/*!
+	* @brief Генерирует имя TXT файла для сохранени
+	*/
     /*!
     * @brief Конвертирует отношение в диапазоне [0; 1] в RGB цвет
     * @param ratio: отношение
@@ -42,7 +46,7 @@ namespace HelperFunctions {
     * @return: округленное число
     */
     template <typename T>
-    std::string ToStringWithPrecision(const T value, const int n)
+    std::string ToStringWithPrecision(const T value, const int n = 9)
     {
         std::ostringstream out;
         out.precision(n);
