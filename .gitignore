@@ -2,6 +2,8 @@ docs/data.txt
 docs/magnitudes.txt
 docs/input.txt
 docs/*.csv
+output/
+resources/
 product/
 build/
 archive/
