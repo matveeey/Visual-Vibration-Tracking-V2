@@ -34,7 +34,7 @@ VideoUndistorter::~VideoUndistorter()
 	destroyWindow(winname_);
 }
 
-void VideoUndistorter::ExecuteVideoUndistortion()
+int VideoUndistorter::ExecuteVideoUndistortion()
 {
 	// read distortion parameters from txt file
 	LoadFoundParamsFromFile(txt_file_name_);
@@ -55,13 +55,48 @@ void VideoUndistorter::ExecuteVideoUndistortion()
 			
 			//undistort(current_frame_, undistorted_frame_, camera_matrix_, distortion_coefficients_);
 			remap(current_frame_, undistorted_frame_, mapX, mapY, INTER_LINEAR);
-			imshow(winname_, undistorted_frame_);
 			SaveFrame(undistorted_frame_);
-			waitKey(20);
+			AddTips(undistorted_frame_, "Current frame: " + HelperFunctions::ToStringWithPrecision(input_cap_->get(CAP_PROP_POS_FRAMES), 0) + "/" + HelperFunctions::ToStringWithPrecision(frame_count_, 0));
+			imshow(winname_, undistorted_frame_);
+
+			int code = waitKey(20);
+			switch (code)
+			{
+				// Пауза
+				// Клавиши - пробел (ASCII code)
+			case 32:
+			{
+				waitKey(0);
+				break;
+			}
+			case 'q':
+			{
+				return 0;
+				break;
+			}
+			}
 		}
 	}
 
 	std::cout << "Undistortion completed" << std::endl;
+	return 1;
+}
+
+void VideoUndistorter::AddTips(Mat& frame, std::string tip)
+{
+	int font = FONT_HERSHEY_PLAIN;
+	double font_scale = 1.5;
+	int thickness = 2;
+
+	putText(
+		frame,
+		tip,
+		Point(frame.cols * 0.05, frame.rows * 0.05),
+		font,
+		font_scale,
+		Scalar(0, 255, 0),
+		thickness
+	);
 }
 
 void VideoUndistorter::SaveFrame(Mat frame)

@@ -16,7 +16,7 @@ CameraCalibrator::~CameraCalibrator()
 	destroyWindow(winname_);
 }
 
-void CameraCalibrator::ExecuteCameraCalibration()
+int CameraCalibrator::ExecuteCameraCalibration()
 {
 	std::cout << "Starting camera calibration..." << std::endl;
 
@@ -37,7 +37,24 @@ void CameraCalibrator::ExecuteCameraCalibration()
 		it++;
 		AddTips(current_image, "Current frame: " + std::to_string(std::distance(images_with_chessboard_.begin(), it)) + "/" + std::to_string(images_with_chessboard_.size()));
 		imshow(winname_, current_image);
-		waitKey(0);
+
+		int code = waitKey(20);
+		switch (code)
+		{
+			// Пауза
+			// Клавиши - пробел (ASCII code)
+		case 32:
+		{
+			waitKey(0);
+			break;
+		}
+		case 'q':
+		{
+			it = images_with_chessboard_.end();
+			return 0;
+			break;
+		}
+		}
 	}
 
 	// Создаем координатную плоскость
@@ -82,9 +99,10 @@ void CameraCalibrator::ExecuteCameraCalibration()
 
 	// saving found parameters to a txt file
 	SaveFoundParamsToFile(camera_matrix_, distortion_coefficients_);
+	return 1;
 }
 
-void CameraCalibrator::LoadImages(std::string chessboards_path)
+int CameraCalibrator::LoadImages(std::string chessboards_path)
 {
 	Mat image_with_chessboard;
 	std::string image_name = chessboards_path;
@@ -101,7 +119,25 @@ void CameraCalibrator::LoadImages(std::string chessboards_path)
 		images_with_chessboard_.push_back(image_with_chessboard);
 		imshow(winname_, image_with_chessboard);
 		image_with_chessboard = ReadNextImage(image_name);
+
+		int code = waitKey(20);
+		switch (code)
+		{
+			// Пауза
+			// Клавиши - пробел (ASCII code)
+		case 32:
+		{
+			waitKey(0);
+			break;
+		}
+		case 'q':
+		{
+			return 0;
+			break;
+		}
+		}
 	}
+	return 1;
 }
 
 Mat CameraCalibrator::ReadNextImage(std::string path)

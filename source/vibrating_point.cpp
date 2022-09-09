@@ -1,10 +1,5 @@
 #include "VVT-V2/vibrating_point.h"
 
-void VibratingPoint::UpdateExtremumAmplitude(double extremum_amplitude)
-{
-
-}
-
 void VibratingPoint::ExecuteFFT()
 {
 	bool absolute_peak = false;
@@ -70,18 +65,19 @@ void VibratingPoint::ExecuteFFT()
 	HelperFunctions::DeadzoneFilter(frequencies);
 	HelperFunctions::DeadzoneFilter(magnitudes);
 
-	/////////////////////////////////////
-
+	/*
+	* FOR DEBUG
+	* 
 	if (point_coordinates_.size() > 5)
 	{
 		std::fstream file;
 		file.open("C:/Users/seeyo/source/repos/Visual-Vibration-Tracking-V2/docs/magnitudes.txt", 'w');
 
-		/*for (int i = 0; i < magnitudes.size(); i++)
-		{
-			std::string tmp = std::to_string(frequencies[i]) + " " + std::to_string(magnitudes[i]) + " " + std::to_string(p1[i].x) + " " + std::to_string(p1[i].y);
-			file << tmp << std::endl;
-		}*/
+		//for (int i = 0; i < magnitudes.size(); i++)
+		//{
+		//	std::string tmp = std::to_string(frequencies[i]) + " " + std::to_string(magnitudes[i]) + " " + std::to_string(p1[i].x) + " " + std::to_string(p1[i].y);
+		//	file << tmp << std::endl;
+		//}
 
 		for (int i = 0; i < point_coordinates_.size(); i++)
 		{
@@ -91,8 +87,7 @@ void VibratingPoint::ExecuteFFT()
 
 		file.close();
 	}
-
-	/////////////////////////////////////
+	*/
 
 	x_ = frequencies;
 	y_ = magnitudes;

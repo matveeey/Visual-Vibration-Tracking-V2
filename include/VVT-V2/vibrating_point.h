@@ -24,7 +24,6 @@ using namespace cv;
 class VibratingPoint
 {
 public:
-	void UpdateExtremumAmplitude(double extremum_amplitude);
 	/*!
 	* @brief Выполняет БПФ для нахождения частоты вибрации.
 	* 

@@ -37,14 +37,14 @@ public:
 	CameraCalibrator(std::string chessboards_path);
 	~CameraCalibrator();
 
-	void ExecuteCameraCalibration();
+	int ExecuteCameraCalibration();
 
 private:
 	/*!
 	* @brief «агружает фотографии (изображени€) шахматных досок в пам€ть из пути к папке.
 	* @note ѕо умолчанию название изображений в пути должно быть по типа: "<номер изображени€>.png"
 	*/
-	void LoadImages(std::string chessboards_path);
+	int LoadImages(std::string chessboards_path);
 	/*!
 	* @brief —читывает новое изображение и увеличивает переменную chessboard_amount_ на один
 	* @param path: путь к папке с изображени€ми

@@ -14,6 +14,7 @@
 #include <iomanip>
 
 // my headers
+#include "VVT-V2/helper.h"
 
 using namespace cv;
 
@@ -35,9 +36,10 @@ public:
 	VideoUndistorter(std::string input_file_name_, std::string output_file_name, std::string txt_file_name);
 	~VideoUndistorter();
 
-	void ExecuteVideoUndistortion();
+	int ExecuteVideoUndistortion();
 
 private:
+	void AddTips(Mat& frame, std::string tip);
 	void SaveFrame(Mat frame);
 	void LoadFoundParamsFromFile(std::string txt_file_name);
 	std::vector<std::string> SplitString(std::string line, std::string delimiter);

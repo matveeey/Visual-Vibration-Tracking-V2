@@ -5,7 +5,7 @@ std::string HelperFunctions::GenerateCsvFilename(std::string additional_text)
 	// Имя файла, в который будет производиться запись
 	std::string csv_file_name;
 	// Начало названия выходного файла
-	csv_file_name = "C:/Users/seeyo/source/repos/Visual-Vibration-Tracking-V2/docs/output_";
+	csv_file_name = "C:/Users/seeyo/source/repos/Visual-Vibration-Tracking-V2/output/metadata/output_";
 	// Добавляем дополнительный текст при желании
 	csv_file_name += additional_text;
 	// Время
