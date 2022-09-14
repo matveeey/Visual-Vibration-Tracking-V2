@@ -29,7 +29,7 @@ protected:
 	/*!
 	* @brief Создает пирамиду изображений
 	*/
-	void BuildLaplacePyramid(Mat& input_frame, std::vector<Mat>& input_pyramid, int levels);
+	void BuildLaplacePyramid(const Mat& input_frame, std::vector<Mat>& input_pyramid, const int levels);
 	/*!
 	* @brief Фильтр для отсекания низких и высоких "пространственных" частот ("фильтр с бесконечной импульсной характеристикой" - infinite impulse response)
 	* 
@@ -72,7 +72,7 @@ protected:
 	*/
 	double delta_;
 
-	float alpha_;
+	double alpha_;
 };
 
 #endif

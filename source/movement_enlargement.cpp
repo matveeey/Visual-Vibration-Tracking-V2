@@ -31,7 +31,7 @@ void MovementEnlarger::ExecuteLaplaceEnlargement()
 
 		// Конвертим цвет
 		frame_to_be_enlarged_.convertTo(frame_to_be_enlarged_, CV_32FC3, 1.0 / 255.0f);
-		cvtColor(frame_to_be_enlarged_, frame_to_be_enlarged_, cv::COLOR_BGR2YCrCb);
+		cvtColor(frame_to_be_enlarged_, frame_to_be_enlarged_, cv::COLOR_BGR2Lab);
 
 		// Строим пирамиду
 		BuildLaplacePyramid(frame_to_be_enlarged_, input_pyramid, levels_amount_);
@@ -42,8 +42,6 @@ void MovementEnlarger::ExecuteLaplaceEnlargement()
 			low_pass_high_pyramid_ = input_pyramid;
 			low_pass_low_pyramid_ = input_pyramid;
 			motion_pyramid = input_pyramid;
-			std::cout << "Current num of frame is 1" << std::endl;
-			std::cout << frame_to_be_enlarged_.size() << std::endl;
 		}
 		else
 		{
@@ -57,11 +55,12 @@ void MovementEnlarger::ExecuteLaplaceEnlargement()
 
 			delta_ = lambda_cutoff_ / (8.0 * (1.0 + alpha_));
 
-			// 
-			lambda_ = sqrt(width * width + height * height) / 3.0;
+			// Посчитаем показательную длину волны lambda_ для
+			// самых низких частот пространств пирамиды Лапласиан
+			lambda_ = sqrt((width * width + height * height)) / 3.0;
 
 			// Увеличиваем движение на каждом уровне пирамиды
-			for (int current_level = 0; current_level >= 0; --current_level)
+			for (int current_level = levels_amount_; current_level >= 0; --current_level)
 			{
 				LaplaceEnlarge(motion_pyramid[current_level], current_level);
 				lambda_ /= 2.0;
@@ -70,29 +69,24 @@ void MovementEnlarger::ExecuteLaplaceEnlargement()
 		}
 
 		// Теперь соберем изображения обратно из пирамиды
-		std::cout << "is gonna to be build" << std::endl;
 		BuildFromLaplacePyramid(motion_pyramid, frame_with_motion_info_, levels_amount_);
-		std::cout << "built" << std::endl;
 
 		// Приглушаем побежавшие цвета
-		Attenuate(frame_with_motion_info_);
-		std::cout << "attenuated" << std::endl;
+		//Attenuate(frame_with_motion_info_);
 
 		// Добавляем движение на изначальное изображение, исключая первый кадр
 		if (current_num_of_frame > 1)
 			frame_enlarged_ = frame_to_be_enlarged_ + frame_with_motion_info_;
 		else
-			frame_enlarged_ = frame_to_be_enlarged_;
+			frame_enlarged_ = frame_to_be_enlarged_.clone();
 
-		std::cout << "frame constructed" << std::endl;
 		// Конвертим обратно
-		cvtColor(frame_enlarged_, frame_enlarged_, COLOR_YCrCb2BGR);
+		cvtColor(frame_enlarged_, frame_enlarged_, cv::COLOR_Lab2BGR);
 		frame_enlarged_.convertTo(frame_enlarged_, CV_8UC3, 255.0, 1.0 / 255.0);
 
 		// DEBUG
 		std::cout << "frame " << current_num_of_frame << " is processed. The are also " << amount_of_frames - current_num_of_frame << " frames left. " << std::endl;
 
-		std::cout << "CUM" << std::endl;
 		frame_handler.ShowFrame(frame_enlarged_, false);
 		frame_handler.WriteFrame(frame_enlarged_);
 

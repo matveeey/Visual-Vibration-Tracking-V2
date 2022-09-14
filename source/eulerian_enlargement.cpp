@@ -1,14 +1,14 @@
 #include "MovEn/eulerian_enlargement.h"
 
 EulerEnlarger::EulerEnlarger() :
-	cutoff_low_{ 0.05 },
-	cutoff_high_{ 0.95 },
-	exaggeraiton_coefficient_{ 0.5 },
+	cutoff_low_{ 0.1 },
+	cutoff_high_{ 1.0 },
+	exaggeraiton_coefficient_{ 2.0 },
 	lambda_{ 0.0 }, // будем изменено в цикле
-	lambda_cutoff_{ 0.0 },
+	lambda_cutoff_{ 16.0 },
 	color_attenuation_coefficient_{ 0.0 },
 	delta_{ 0.0 },
-	alpha_{ 0.8 },
+	alpha_{ 10.0 },
 	levels_amount_{ 3 }
 {
 	std::cout << "Euler Enlarger constructor" << std::endl;
@@ -21,7 +21,7 @@ EulerEnlarger::~EulerEnlarger()
 
 void EulerEnlarger::LaplaceEnlarge(Mat& motion_pyramid_level, int current_level)
 {
-	float current_alpha = (lambda_ / (delta_ / 8.0) - 1.0) * exaggeraiton_coefficient_;
+	double current_alpha = (lambda_ / delta_ / 8.0 - 1.0) * exaggeraiton_coefficient_;
 
 	if (current_level == levels_amount_ || current_level == 0)
 	{
@@ -50,12 +50,13 @@ void EulerEnlarger::Attenuate(Mat& motion_frame)
 	}
 }
 
-void EulerEnlarger::BuildLaplacePyramid(Mat& input_frame, std::vector<Mat>& input_pyramid, int levels)
+void EulerEnlarger::BuildLaplacePyramid(const Mat& input_frame, std::vector<Mat>& input_pyramid, const int levels)
 {
+	input_pyramid.clear();
 	std::vector<Mat> pyramid;
 	Mat current_level = input_frame.clone();
 
-	for (int level = 0; level < levels; ++level)
+	for (int level = 0; level < levels; level++)
 	{
 		Mat down, up;
 		// Блюрим кадр и уменьшаем его размер по ширине и высоте в два раза
@@ -67,7 +68,6 @@ void EulerEnlarger::BuildLaplacePyramid(Mat& input_frame, std::vector<Mat>& inpu
 		current_level = down;
 	}
 	pyramid.push_back(current_level);
-	std::cout << "BuildLaplacePyramid::pyramid.size() is " << pyramid.size() << std::endl;
 	input_pyramid = pyramid;
 }
 
@@ -82,19 +82,14 @@ void EulerEnlarger::IirFilter(Mat& input_pyramid_level, Mat& motion_pyramid_leve
 void EulerEnlarger::BuildFromLaplacePyramid(std::vector<Mat>& motion_pyramid, Mat& motion_frame, const int levels)
 {
 	// Сначала рассматриваем последний элемент вектора - он же первый уровень пирамиды
-	std::cout << "motion_pyramid size " << motion_pyramid.size() << " and levels is " << levels << std::endl;
 	Mat current_level = motion_pyramid[levels];
 
 	for (int level = levels - 1; level >= 0; --level)
 	{
-		std::cout << "current level is " << level << std::endl;
 		Mat up;
-		std::cout << "PyrUP IS GOING" << std::endl;
 		pyrUp(current_level, up, motion_pyramid[level].size());
-		std::cout << "PyrUP IS DONE" << std::endl;
 		// Добавляем только что заапсемпленный уровень к "текущему" (по сути предыдущему) уровню пирамиды
 		current_level = up + motion_pyramid[level];
 	}
-	std::cout << "Built" << std::endl;
 	motion_frame = current_level.clone();
 }

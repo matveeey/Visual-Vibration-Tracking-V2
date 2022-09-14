@@ -8,7 +8,7 @@ CameraCalibrator::CameraCalibrator(std::string chessboards_path) :
 	pattern_size_ = Size(10, 7);
 
 	txt_file_name_ = "parameters.txt";
-	namedWindow(winname_);
+	namedWindow(winname_, WINDOW_NORMAL);
 }
 
 CameraCalibrator::~CameraCalibrator()

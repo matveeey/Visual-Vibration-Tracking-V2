@@ -3,7 +3,8 @@
 VideoUndistorter::VideoUndistorter(std::string input_file_name, std::string output_file_name, std::string txt_file_name) :
 	input_file_name_{ input_file_name },
 	output_file_name_{ output_file_name },
-	txt_file_name_{ txt_file_name }
+	txt_file_name_{ txt_file_name },
+	winname_{ "Undistortion" }
 {
 	input_cap_ = new VideoCapture(input_file_name);
 
@@ -21,6 +22,7 @@ VideoUndistorter::VideoUndistorter(std::string input_file_name, std::string outp
 		Size(frame_width_, frame_height_)
 	);
 
+	namedWindow(winname_, WINDOW_NORMAL);
 }
 
 VideoUndistorter::~VideoUndistorter()
