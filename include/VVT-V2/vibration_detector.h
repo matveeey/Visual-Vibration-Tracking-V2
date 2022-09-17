@@ -26,13 +26,18 @@
 */
 class VibrationDetector 
 {
+	/*!
+	* перечисление, описывающее глобальные режимы (дефолтный, режим выбирания региона интереса и пауза)
+	*/
 	enum main_mode
 	{
 		DEFAULT,
 		SELECTINGROI,
 		PAUSE
 	};
-
+	/*!
+	* енум, описывающий режимы подсветки цветных точек
+	*/
 	enum colored_point_mode
 	{
 		COLORING_DEFAULT,
@@ -41,42 +46,80 @@ class VibrationDetector
 	};
 
 public:
+	/*!
+	* @brief Конструктор класса
+	*/
 	VibrationDetector(std::string input_file_name, std::string output_file_name, std::string window_name);
 	~VibrationDetector();
-	// Выполняет детекцию вибрации
+	/*!
+	* @brief Выполняет детекцию вибрации
+	*/
 	void ExecuteVibrationDetection();
 
 private:
-	// Обслуживает очереди на удаление и создание. Необходимо для того, чтобы не нарушить нумерацию точек во время выполнения основного цикла
+	/*!
+	* @brief Обслуживает очереди на удаление и создание. Необходимо для того, чтобы не нарушить нумерацию точек во время выполнения основного цикла
+	*/
 	void ServeTheQueues();
-	// Создаем "обычную" точку
+	/*!
+	* @brief Создаем "обычную" точку
+	*/
 	void CreateNewPoint(Point2f mouse_coordinates);
-	// Обработчик левых кликов
+	/*!
+	* @brief Обработчик левых кликов
+	*/
 	void LeftClickHandler(Point2f mouse_coordinates);
-	// Обработчик "цветных" точек
+	/*!
+	* @brief Обработчик "цветных" точек
+	*/
 	void CreateNewColoredPoint(Point2f mouse_coordinates);
-	// Удаляем объект "обычную" точку
+	/*!
+	* @brief Удаляем объект "обычную" точку
+	*/
 	void DeletePoints(Point2i mouse_coordinates);
-	// Удаляем объекты "цветная" точка
+	/*!
+	* @brief Удаляем объекты "цветная" точка
+	*/
 	void DeleteColoredPoints();
-	// Удаляет "цветные" и "обычные" точки, если уровень доверия к нми слишком низкий
+	/*!
+	* @brief Удаляет "цветные" и "обычные" точки, если уровень доверия к нми слишком низкий
+	*/
 	void FindAndDeleteUncofidentPoints();
-	// callback functions for detecting the click
+	/*!
+	* @brief callback functions for detecting the click
+	*/
 	static void OnMouse(int event, int x, int y, int flags, void* userdata);
+	/*!
+	* @brief callback functions for detecting the click
+	*/
 	void DetectEvent(int event, int x, int y, int flags);
-	// Обычный режим
+	/*!
+	* @brief Обычный режим
+	*/
 	void DefaultModeHandler(int event, int x, int y);
-	// Режим выделения региона интереса
+	/*!
+	* @brief Режим выделения региона интереса
+	*/
 	void RoiSelectionModeHandler(int event, int x, int y);
-	// Удаляет перспективные искажения
+	/*!
+	* @brief Удаляет перспективные искажения
+	*/
 	Mat MakeWarpedFrame(Mat frame, std::vector<Point2i> warping_figure);
-	// Трекает точки алгоритмом Лукаса-Канаде и вызывает БПФ
+	/*!
+	* @brief Трекает точки алгоритмом Лукаса-Канаде и вызывает БПФ
+	*/
 	void TrackAndCalc();
-	// Находит подходящие для трекинга точки на изображении
+	/*!
+	* @brief Находит подходящие для трекинга точки на изображении
+	*/
 	std::vector<Point2f> FindGoodFeatures(Mat frame, Rect roi);
-	// Рисует точки и выводит данные
+	/*!
+	* @brief Рисует точки и выводит данные
+	*/
 	void DrawDebugLkWinRectangle(Mat& frame);
-	// Масштабирует, рисует и выводит на экран обработанный кадр с точками
+	/*!
+	* @brief Масштабирует, рисует и выводит на экран обработанный кадр с точками
+	*/
 	void DrawAndOutput(Mat& frame);
 
 private:

@@ -10,7 +10,6 @@ VideoUndistorter::VideoUndistorter(std::string input_file_name, std::string outp
 
 	frame_width_ = input_cap_->get(CAP_PROP_FRAME_WIDTH);
 	frame_height_ = input_cap_->get(CAP_PROP_FRAME_HEIGHT);
-	bitrate_ = input_cap_->get(CAP_PROP_BITRATE);
 	frame_count_ = input_cap_->get(CAP_PROP_FRAME_COUNT);
 	fps_ = input_cap_->get(CAP_PROP_FPS);
 
@@ -127,7 +126,7 @@ void VideoUndistorter::LoadFoundParamsFromFile(std::string txt_file_name)
 			delimited_line.erase(delimited_line.begin());
 
 			std::vector<double> data;
-			double hui;
+
 			for (int i = 0; i < delimited_line.size(); i++)
 			{
 				data.push_back(std::stod(delimited_line[i]));

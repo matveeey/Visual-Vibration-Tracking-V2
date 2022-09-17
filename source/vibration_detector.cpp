@@ -341,13 +341,13 @@ Mat VibrationDetector::MakeWarpedFrame(Mat frame, std::vector<Point2i> warping_f
 
 void VibrationDetector::TrackAndCalc()
 {
+	// Находим и удаляем точки с низким параметром confidence
 	FindAndDeleteUncofidentPoints();
 
 	std::vector<Point2f> PrevPts;
 	std::vector<Point2f> NextPts;
 	std::vector<uchar> status;
 	std::vector<float> error;
-	double last_max_amplitude = 0;
 
 	// "Достаем" из lonely point handler'ов последние найденные точки, чтобы использовать их в качестве "начальных" значений для calcOpticalFlowPyrLK()
 	for (int i = 0; i < vec_lonely_point_handlers_.size(); i++)
@@ -384,7 +384,6 @@ void VibrationDetector::TrackAndCalc()
 	if (NextPts.size() != (vec_lonely_point_handlers_.size() + vec_colored_point_handlers_.size()))
 	{
 		std::cout << "DEBUG: ERROR - NextPts size doesnt match vec_point_handlers_ size" << std::endl;
-		return;
 	}
 
 	std::vector<double> point_amplitudes;
@@ -428,8 +427,6 @@ void VibrationDetector::TrackAndCalc()
 		VibratingPoint::extremum_amplitude_.first = point_amplitudes[max_idx];
 		VibratingPoint::extremum_amplitude_.second = *(std::min_element(point_amplitudes.begin(), point_amplitudes.end()));
 	}
-
-	
 }
 
 std::vector<Point2f> VibrationDetector::FindGoodFeatures(Mat frame, Rect roi)
