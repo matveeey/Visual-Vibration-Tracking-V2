@@ -1,0 +1,937 @@
+\hypertarget{class_vibrating_point}{}\doxysection{Класс Vibrating\+Point}
+\label{class_vibrating_point}\index{VibratingPoint@{VibratingPoint}}
+
+
+Абстрактный класс для описания вибрирующей точки  
+
+
+
+
+{\ttfamily \#include $<$vibrating\+\_\+point.\+h$>$}
+
+
+
+Граф наследования\+:Vibrating\+Point\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=304pt]{class_vibrating_point__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_vibrating_point_a005868411bd6b296d992f3dcd79451d7}{Execute\+FFT}} ()
+\begin{DoxyCompactList}\small\item\em Выполняет БПФ для нахождения частоты вибрации. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_vibrating_point_a1b2402724fd5d9aba2785ba771042c91}{Add\+New\+Point\+Position}} (Point2f position)
+\begin{DoxyCompactList}\small\item\em Добавляет новую пространственную координату в конец контейнера \mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{Vibrating\+Point\+::point\+\_\+coordinates\+\_\+}};. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_vibrating_point_a4ba7478f71991439ad31ee5555bb93c6}{Add\+New\+Point\+Time}} (double time)
+\begin{DoxyCompactList}\small\item\em Добавляет новую временную координату (время кадра, на котором новая позиция точки была трекнута) в конец контейнера \mbox{\hyperlink{class_vibrating_point_ad2aa8fe4bc94a957f75aa00fb9ce9f26}{Vibrating\+Point\+::point\+\_\+time\+\_\+coordinates\+\_\+}};. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_vibrating_point_a342c75a6ac0f9ab85de1a0dd663eab03}{Is\+Interacted}} (Point2i coordinates)
+\begin{DoxyCompactList}\small\item\em Проверяет точку на наличие взаимодействия с ней (если курсор попал в область взаимодействия точки \mbox{\hyperlink{class_vibrating_point_a5b35f5a2109df2be2d2832b25dfa2285}{Vibrating\+Point\+::interaction\+\_\+box\+\_\+}}) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_vibrating_point_ad9e5f2e543097cc7010baadec3c7e0df}{Set\+Sensivity}} (double sensivity)
+\begin{DoxyCompactList}\small\item\em Устанавливает чувствительность, влияющую на confidence. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_vibrating_point_afeb56c53e4ee3e3dc2049e4553bff402}{Calculate\+Amplitude}} ()
+\begin{DoxyCompactList}\small\item\em Проводит необходимые для вычисления амплитуды вычисления \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_vibrating_point_a84210a3247277ca0137d4754c5ec5b03}{Draw}} (Mat \&frame)=0
+\begin{DoxyCompactList}\small\item\em Отрисовывает точку на кадре \end{DoxyCompactList}\item 
+Point2f \mbox{\hyperlink{class_vibrating_point_afa134e84fe3e2ffc492b34823f60d14d}{Get\+Last\+Found\+Coordinates}} ()
+\begin{DoxyCompactList}\small\item\em Возвращает последний элемент вектора координат \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{class_vibrating_point_a2e3b78289d75d6fa3f7888b36a8b5a42}{Get\+Current\+Vibration\+Frequency}} ()
+\begin{DoxyCompactList}\small\item\em Возвращает вектор текущих частот точки \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_vibrating_point_a5c943d1b1916ac33a214f46cbe2cb8fa}{Get\+Current\+Main\+Frequency}} ()
+\begin{DoxyCompactList}\small\item\em Возвращает текущую \char`\"{}основную\char`\"{} частоту \end{DoxyCompactList}\item 
+Point3f \mbox{\hyperlink{class_vibrating_point_af1651e3d022f841aa1442b20b5f40b42}{Get\+Relative\+Amplitude}} ()
+\begin{DoxyCompactList}\small\item\em Возвращает последнюю найденную относительную амплитуду \end{DoxyCompactList}\item 
+Point3f \mbox{\hyperlink{class_vibrating_point_abf5fd60d3d7f900d597040c0dcb69586}{Get\+Current\+Amplitude}} ()
+\begin{DoxyCompactList}\small\item\em Возвращает последнюю найденную относительную амплитуду \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_vibrating_point_a056d67ffd99e21b98ebaa97150641fe3}{Get\+Current\+Confidence\+Level}} ()
+\begin{DoxyCompactList}\small\item\em Возвращает последний найденный уровень достоверности \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Статические открытые данные}
+\begin{DoxyCompactItemize}
+\item 
+static std\+::pair$<$ double, double $>$ \mbox{\hyperlink{class_vibrating_point_afdefa096df21cf891ae6835a6df4ffc9}{extremum\+\_\+amplitude\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Максимум и минимум амплитуды среди всех \mbox{\hyperlink{class_vibrating_point}{Vibrating\+Point}} объектов-\/наследников \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Защищенные члены}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{class_vibrating_point_a2bd28bb86f01ccae6fa193914863045a}{Draw\+Histogram}} ()=0
+\begin{DoxyCompactList}\small\item\em Отрисовывает гистограмму спектра частот колебаний точки (полученную после БПФ в методе \mbox{\hyperlink{class_vibrating_point_a005868411bd6b296d992f3dcd79451d7}{Execute\+FFT()}}) \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_vibrating_point_aadc5ff6408bb2e4a474dd25cd5bb6fdf}{Update\+Point\+Color}} ()=0
+\begin{DoxyCompactList}\small\item\em Обновляем текущий цвет точки \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Защищенные данные}
+\begin{DoxyCompactItemize}
+\item 
+Rect \mbox{\hyperlink{class_vibrating_point_a5b35f5a2109df2be2d2832b25dfa2285}{interaction\+\_\+box\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Прямоугольник (область) взаимодействия с точкой \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_vibrating_point_a8c035e084006469922a45f023b1bcce0}{interaction\+\_\+offset\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Половина длины прямоугольника взаимодействия \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_vibrating_point_a0298c80261ea234f82e1afff59d2d1fa}{interacted\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Флаг взаимодействия с точкой \end{DoxyCompactList}\item 
+Point3f \mbox{\hyperlink{class_vibrating_point_a9989c50fa30cecf13079ae0c595ef87c}{relative\+\_\+amplitude\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Относительные амплитуды вибрации по x, y. Выражается отношением амплитуды \end{DoxyCompactList}\item 
+Point3f \mbox{\hyperlink{class_vibrating_point_a5ae50ac111f6681489eded6da7ef66ea}{current\+\_\+amplitude\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Фактические амплитуды вибрации по x, y. Выражаюытся в пикселях \end{DoxyCompactList}\item 
+std\+::vector$<$ Point2f $>$ \mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\+\_\+coordinates\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Контейнер для координат точки \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{class_vibrating_point_a6653e27fe96e5fe6e7aa410fb3138c92}{x\+\_\+coordinates\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Контейнер для координат точки по оси X. \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{class_vibrating_point_a5df5aa7a4d955de091640290f849961c}{y\+\_\+coordinates\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Контейнер для координат точки по оси Y. \end{DoxyCompactList}\item 
+std\+::vector$<$ cv\+::\+Point2f $>$ \mbox{\hyperlink{class_vibrating_point_aa65df19b908306e2f4c725480594b2bb}{vec\+\_\+meaned\+\_\+coordinates\+\_\+of\+\_\+point\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Контейнер для координат точки относительно нулевого уровня \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{class_vibrating_point_adfd1433886cf1fb2b3b07062b69614b1}{frequencies\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Контейнер для частот точки \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_vibrating_point_aa0b94560fbac6ae1c5dbae9f4931d28c}{main\+\_\+frequency\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Главная частота (основная) \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{class_vibrating_point_ad2aa8fe4bc94a957f75aa00fb9ce9f26}{point\+\_\+time\+\_\+coordinates\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Контейнер для временных координат точки \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_vibrating_point_a67ffaaa1b714226a78d6d5cc31c195c9}{sampling\+\_\+rate\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Частота сэмплирования (фактически -\/ FPS исходного видео) \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_vibrating_point_ac0a7383346b67916a29c9dc892addfae}{current\+\_\+point\+\_\+radius\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Радиус точки, который нужен для её отрисовки \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_vibrating_point_af4a9903a86d6d1a98b1acf89684492ae}{default\+\_\+point\+\_\+radius\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Дефолтный радиус точки \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{class_vibrating_point_a5ea36bdad5aeac784ecfa21f3ca98517}{x\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Контейнер для хранения координат гистограммы по оси X (фактически -\/ найденный спектр частот вибрации точки после выполнения БПФ) \end{DoxyCompactList}\item 
+std\+::vector$<$ float $>$ \mbox{\hyperlink{class_vibrating_point_aa22ce2e3bdd0b4614b1c0ad0adf256e5}{y\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Контейнер для хранения координат гистограммы по оси Y (фактически -\/ найденные магнитуды точки после выполнения БПФ) \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_vibrating_point_ab2539b861e02f361eb772c71e06c9af3}{sensivity\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Чувствительность определения вибрации \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_vibrating_point_a6ed26ed40b33b1486cb4c304981d4444}{confidence\+\_\+level\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Рейтинг достоверности вибрации \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Закрытые данные}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ float $>$ \mbox{\hyperlink{class_vibrating_point_a69824b3fe81e876f3018844d236b72c5}{mag\+\_\+max\+\_\+differences\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Максимальная разнциа в магнитудах в найденном спектре после БПФ \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Абстрактный класс для описания вибрирующей точки 
+
+Объект класса-\/наследника будет иметь возможность добавления новых пространственных и временных позиций, нахождения частоты вибрации точки на кадре на основе этих данных (\mbox{\hyperlink{class_vibrating_point_a005868411bd6b296d992f3dcd79451d7}{Execute\+FFT()}})
+
+А также проверить пересечение курсором области взаимодействия с точкой (метод \mbox{\hyperlink{class_vibrating_point_a342c75a6ac0f9ab85de1a0dd663eab03}{Is\+Interacted()}}) 
+
+См. определение в файле \mbox{\hyperlink{vibrating__point_8h_source}{vibrating\+\_\+point.\+h}} строка \mbox{\hyperlink{vibrating__point_8h_source_l00024}{24}}
+
+
+
+\doxysubsection{Методы}
+\mbox{\Hypertarget{class_vibrating_point_a1b2402724fd5d9aba2785ba771042c91}\label{class_vibrating_point_a1b2402724fd5d9aba2785ba771042c91}} 
+\index{VibratingPoint@{VibratingPoint}!AddNewPointPosition@{AddNewPointPosition}}
+\index{AddNewPointPosition@{AddNewPointPosition}!VibratingPoint@{VibratingPoint}}
+\doxysubsubsection{\texorpdfstring{AddNewPointPosition()}{AddNewPointPosition()}}
+{\footnotesize\ttfamily void Vibrating\+Point\+::\+Add\+New\+Point\+Position (\begin{DoxyParamCaption}\item[{Point2f}]{position }\end{DoxyParamCaption})}
+
+
+
+Добавляет новую пространственную координату в конец контейнера \mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{Vibrating\+Point\+::point\+\_\+coordinates\+\_\+}};. 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em position} & координаты точки \\
+\hline
+\end{DoxyParams}
+
+
+См. определение в файле \mbox{\hyperlink{vibrating__point_8cpp_source}{vibrating\+\_\+point.\+cpp}} строка \mbox{\hyperlink{vibrating__point_8cpp_source_l00149}{149}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00150 \{}
+\DoxyCodeLine{00151     \textcolor{comment}{// Обновляем прямоугольник взаимодействия}}
+\DoxyCodeLine{00152     \mbox{\hyperlink{class_vibrating_point_a5b35f5a2109df2be2d2832b25dfa2285}{interaction\_box\_}} = Rect(}
+\DoxyCodeLine{00153         Point2i(position.x -\/ \mbox{\hyperlink{class_vibrating_point_a8c035e084006469922a45f023b1bcce0}{interaction\_offset\_}}, position.y -\/ \mbox{\hyperlink{class_vibrating_point_a8c035e084006469922a45f023b1bcce0}{interaction\_offset\_}}),}
+\DoxyCodeLine{00154         Point2i(position.x + \mbox{\hyperlink{class_vibrating_point_a8c035e084006469922a45f023b1bcce0}{interaction\_offset\_}}, position.y + \mbox{\hyperlink{class_vibrating_point_a8c035e084006469922a45f023b1bcce0}{interaction\_offset\_}})}
+\DoxyCodeLine{00155     );}
+\DoxyCodeLine{00156 }
+\DoxyCodeLine{00157     \mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}.push\_back(position);}
+\DoxyCodeLine{00158 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_vibrating_point_a4ba7478f71991439ad31ee5555bb93c6}\label{class_vibrating_point_a4ba7478f71991439ad31ee5555bb93c6}} 
+\index{VibratingPoint@{VibratingPoint}!AddNewPointTime@{AddNewPointTime}}
+\index{AddNewPointTime@{AddNewPointTime}!VibratingPoint@{VibratingPoint}}
+\doxysubsubsection{\texorpdfstring{AddNewPointTime()}{AddNewPointTime()}}
+{\footnotesize\ttfamily void Vibrating\+Point\+::\+Add\+New\+Point\+Time (\begin{DoxyParamCaption}\item[{double}]{time }\end{DoxyParamCaption})}
+
+
+
+Добавляет новую временную координату (время кадра, на котором новая позиция точки была трекнута) в конец контейнера \mbox{\hyperlink{class_vibrating_point_ad2aa8fe4bc94a957f75aa00fb9ce9f26}{Vibrating\+Point\+::point\+\_\+time\+\_\+coordinates\+\_\+}};. 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em time} & время в миллисекундах \\
+\hline
+\end{DoxyParams}
+
+
+См. определение в файле \mbox{\hyperlink{vibrating__point_8cpp_source}{vibrating\+\_\+point.\+cpp}} строка \mbox{\hyperlink{vibrating__point_8cpp_source_l00160}{160}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00161 \{}
+\DoxyCodeLine{00162     \mbox{\hyperlink{class_vibrating_point_ad2aa8fe4bc94a957f75aa00fb9ce9f26}{point\_time\_coordinates\_}}.push\_back(time);}
+\DoxyCodeLine{00163 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_vibrating_point_afeb56c53e4ee3e3dc2049e4553bff402}\label{class_vibrating_point_afeb56c53e4ee3e3dc2049e4553bff402}} 
+\index{VibratingPoint@{VibratingPoint}!CalculateAmplitude@{CalculateAmplitude}}
+\index{CalculateAmplitude@{CalculateAmplitude}!VibratingPoint@{VibratingPoint}}
+\doxysubsubsection{\texorpdfstring{CalculateAmplitude()}{CalculateAmplitude()}}
+{\footnotesize\ttfamily void Vibrating\+Point\+::\+Calculate\+Amplitude (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Проводит необходимые для вычисления амплитуды вычисления 
+
+for amplitude calculation
+
+См. определение в файле \mbox{\hyperlink{vibrating__point_8cpp_source}{vibrating\+\_\+point.\+cpp}} строка \mbox{\hyperlink{vibrating__point_8cpp_source_l00176}{176}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00177 \{}
+\DoxyCodeLine{00181     \textcolor{keywordtype}{float} max\_meaned\_x = 0;}
+\DoxyCodeLine{00182     \textcolor{keywordtype}{float} max\_meaned\_y = 0;}
+\DoxyCodeLine{00183 }
+\DoxyCodeLine{00184     \textcolor{comment}{// Создаем контей}}
+\DoxyCodeLine{00185 }
+\DoxyCodeLine{00186     max\_meaned\_x = \mbox{\hyperlink{class_vibrating_point_aa65df19b908306e2f4c725480594b2bb}{vec\_meaned\_coordinates\_of\_point\_}}[\mbox{\hyperlink{group___helper_functions_gacc82d70b750eb60ad49c7a36e5c7f0ca}{HelperFunctions::FindGlobalMaxIdx}}(\mbox{\hyperlink{class_vibrating_point_a6653e27fe96e5fe6e7aa410fb3138c92}{x\_coordinates\_}})].x;}
+\DoxyCodeLine{00187     max\_meaned\_y = \mbox{\hyperlink{class_vibrating_point_aa65df19b908306e2f4c725480594b2bb}{vec\_meaned\_coordinates\_of\_point\_}}[\mbox{\hyperlink{group___helper_functions_gacc82d70b750eb60ad49c7a36e5c7f0ca}{HelperFunctions::FindGlobalMaxIdx}}(\mbox{\hyperlink{class_vibrating_point_a5df5aa7a4d955de091640290f849961c}{y\_coordinates\_}})].y;}
+\DoxyCodeLine{00188 }
+\DoxyCodeLine{00189     \textcolor{keywordtype}{float} relative\_amplitude\_x = 0.0f;}
+\DoxyCodeLine{00190     \textcolor{keywordtype}{float} relative\_amplitude\_y = 0.0f;}
+\DoxyCodeLine{00191 }
+\DoxyCodeLine{00192     Scalar mean\_of\_mean\_coordinates\_of\_point = mean(\mbox{\hyperlink{class_vibrating_point_aa65df19b908306e2f4c725480594b2bb}{vec\_meaned\_coordinates\_of\_point\_}});}
+\DoxyCodeLine{00193     \textcolor{keywordtype}{double} meaned\_mean\_x = mean\_of\_mean\_coordinates\_of\_point.val[0];}
+\DoxyCodeLine{00194     \textcolor{keywordtype}{double} meaned\_mean\_y = mean\_of\_mean\_coordinates\_of\_point.val[1];}
+\DoxyCodeLine{00195 }
+\DoxyCodeLine{00197     \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}.size() > 2)}
+\DoxyCodeLine{00198     \{}
+\DoxyCodeLine{00199         relative\_amplitude\_x = (max\_meaned\_x) / (max\_meaned\_x + max\_meaned\_y);}
+\DoxyCodeLine{00200         relative\_amplitude\_y = (max\_meaned\_y) / (max\_meaned\_x + max\_meaned\_y);}
+\DoxyCodeLine{00201     \}}
+\DoxyCodeLine{00202 }
+\DoxyCodeLine{00203     \textcolor{comment}{/*}}
+\DoxyCodeLine{00204 \textcolor{comment}{    // FOR DEBUG PURPOSES}}
+\DoxyCodeLine{00205 \textcolor{comment}{    if (std::isnan(relative\_amplitude\_x) || std::isnan(relative\_amplitude\_y))}}
+\DoxyCodeLine{00206 \textcolor{comment}{    \{}}
+\DoxyCodeLine{00207 \textcolor{comment}{        std::cout << "{}!DEBUG first inf (x): "{} << relative\_amplitude\_x << "{} second inf (y): "{} << relative\_amplitude\_y << std::endl;}}
+\DoxyCodeLine{00208 \textcolor{comment}{        std::cout << "{}!DEBUG max\_meaned\_x: "{} << vec\_meaned\_coordinates\_of\_point\_[HelperFunctions::FindGlobalMaxIdx(x\_coordinates)].x << "{} max\_meaned\_y: "{} << vec\_meaned\_coordinates\_of\_point\_[HelperFunctions::FindGlobalMaxIdx(y\_coordinates)].y << std::endl;}}
+\DoxyCodeLine{00209 \textcolor{comment}{        std::cout << "{}vec size: "{} << point\_coordinates\_.size() << std::endl;}}
+\DoxyCodeLine{00210 \textcolor{comment}{        for (int i = 0; i < point\_coordinates\_.size(); i++)}}
+\DoxyCodeLine{00211 \textcolor{comment}{        \{}}
+\DoxyCodeLine{00212 \textcolor{comment}{            std::cout << i << "{}-\/th coords: "{} << point\_coordinates\_[i] << std::endl;}}
+\DoxyCodeLine{00213 \textcolor{comment}{        \}}}
+\DoxyCodeLine{00214 \textcolor{comment}{    \}}}
+\DoxyCodeLine{00215 \textcolor{comment}{}}
+\DoxyCodeLine{00216 \textcolor{comment}{    if ((relative\_amplitude\_x > 1) || (relative\_amplitude\_y > 1))}}
+\DoxyCodeLine{00217 \textcolor{comment}{    \{}}
+\DoxyCodeLine{00218 \textcolor{comment}{        std::cout << "{}!DEBUG first big (x): "{} << relative\_amplitude\_x << "{} second big (y): "{} << relative\_amplitude\_y << std::endl;}}
+\DoxyCodeLine{00219 \textcolor{comment}{        std::cout << "{}!DEBUG max\_meaned\_x: "{} << max\_meaned\_x << "{} max\_meaned\_y: "{} << max\_meaned\_y << std::endl;}}
+\DoxyCodeLine{00220 \textcolor{comment}{    \}}}
+\DoxyCodeLine{00221 \textcolor{comment}{    */}}
+\DoxyCodeLine{00222 }
+\DoxyCodeLine{00223     \textcolor{keywordflow}{if} (!(std::isnan(relative\_amplitude\_x) || std::isnan(relative\_amplitude\_y)))}
+\DoxyCodeLine{00224     \{}
+\DoxyCodeLine{00225         \mbox{\hyperlink{class_vibrating_point_a9989c50fa30cecf13079ae0c595ef87c}{relative\_amplitude\_}}.x = relative\_amplitude\_x;}
+\DoxyCodeLine{00226         \mbox{\hyperlink{class_vibrating_point_a9989c50fa30cecf13079ae0c595ef87c}{relative\_amplitude\_}}.y = relative\_amplitude\_y;}
+\DoxyCodeLine{00227         \mbox{\hyperlink{class_vibrating_point_a5ae50ac111f6681489eded6da7ef66ea}{current\_amplitude\_}}.x = max\_meaned\_x -\/ meaned\_mean\_x;}
+\DoxyCodeLine{00228         \mbox{\hyperlink{class_vibrating_point_a5ae50ac111f6681489eded6da7ef66ea}{current\_amplitude\_}}.y = max\_meaned\_y -\/ meaned\_mean\_y;}
+\DoxyCodeLine{00229     \}}
+\DoxyCodeLine{00230 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_vibrating_point_a84210a3247277ca0137d4754c5ec5b03}\label{class_vibrating_point_a84210a3247277ca0137d4754c5ec5b03}} 
+\index{VibratingPoint@{VibratingPoint}!Draw@{Draw}}
+\index{Draw@{Draw}!VibratingPoint@{VibratingPoint}}
+\doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
+{\footnotesize\ttfamily virtual void Vibrating\+Point\+::\+Draw (\begin{DoxyParamCaption}\item[{Mat \&}]{frame }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Отрисовывает точку на кадре 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em frame} & изображение, на котором будет происходить отрисовка \\
+\hline
+\end{DoxyParams}
+
+
+Замещается в \mbox{\hyperlink{class_colored_point_handler_ad16eb2210bc1e9f8983186088cc9a573}{Colored\+Point\+Handler}} и \mbox{\hyperlink{class_lonely_point_handler_a933b22e60e23cc74a6faef5afb7b1223}{Lonely\+Point\+Handler}}.
+
+\mbox{\Hypertarget{class_vibrating_point_a2bd28bb86f01ccae6fa193914863045a}\label{class_vibrating_point_a2bd28bb86f01ccae6fa193914863045a}} 
+\index{VibratingPoint@{VibratingPoint}!DrawHistogram@{DrawHistogram}}
+\index{DrawHistogram@{DrawHistogram}!VibratingPoint@{VibratingPoint}}
+\doxysubsubsection{\texorpdfstring{DrawHistogram()}{DrawHistogram()}}
+{\footnotesize\ttfamily virtual void Vibrating\+Point\+::\+Draw\+Histogram (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Отрисовывает гистограмму спектра частот колебаний точки (полученную после БПФ в методе \mbox{\hyperlink{class_vibrating_point_a005868411bd6b296d992f3dcd79451d7}{Execute\+FFT()}}) 
+
+
+
+Замещается в \mbox{\hyperlink{class_colored_point_handler_a3c6b8eef49c18add5c4c56d9035c06df}{Colored\+Point\+Handler}} и \mbox{\hyperlink{class_lonely_point_handler_a62bc491e5a305d494473e60c222f8c47}{Lonely\+Point\+Handler}}.
+
+\mbox{\Hypertarget{class_vibrating_point_a005868411bd6b296d992f3dcd79451d7}\label{class_vibrating_point_a005868411bd6b296d992f3dcd79451d7}} 
+\index{VibratingPoint@{VibratingPoint}!ExecuteFFT@{ExecuteFFT}}
+\index{ExecuteFFT@{ExecuteFFT}!VibratingPoint@{VibratingPoint}}
+\doxysubsubsection{\texorpdfstring{ExecuteFFT()}{ExecuteFFT()}}
+{\footnotesize\ttfamily void Vibrating\+Point\+::\+Execute\+FFT (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Выполняет БПФ для нахождения частоты вибрации. 
+
+После выполнения записывает в контейнер frequencies\+\_\+ найденные пики, а также добавляет в контейнер x\+\_\+ найденный спектр частот вибрации (для отображения гистограммы) 
+
+См. определение в файле \mbox{\hyperlink{vibrating__point_8cpp_source}{vibrating\+\_\+point.\+cpp}} строка \mbox{\hyperlink{vibrating__point_8cpp_source_l00003}{3}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00004 \{}
+\DoxyCodeLine{00005     \textcolor{keywordtype}{bool} absolute\_peak = \textcolor{keyword}{false};}
+\DoxyCodeLine{00006 }
+\DoxyCodeLine{00007     std::vector<Point2f> fft\_result;}
+\DoxyCodeLine{00008     std::vector<Point2f> p2;}
+\DoxyCodeLine{00009     std::vector<Point2f> p1;}
+\DoxyCodeLine{00010     std::vector<double> frequencies;}
+\DoxyCodeLine{00011     std::vector<int> indexes\_of\_peak\_frequencies;}
+\DoxyCodeLine{00012     std::vector<float> magnitudes;}
+\DoxyCodeLine{00013 }
+\DoxyCodeLine{00014     std::vector<double> peak\_frequencies;}
+\DoxyCodeLine{00015 }
+\DoxyCodeLine{00016     \textcolor{keywordtype}{int} samples\_amount = \mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}.size();}
+\DoxyCodeLine{00017 }
+\DoxyCodeLine{00018     Scalar mean\_coordinates\_of\_point\_ = mean(\mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}});}
+\DoxyCodeLine{00019     \textcolor{comment}{//std::cout << mean\_coordinates\_of\_point\_ << std::endl;}}
+\DoxyCodeLine{00020     \textcolor{keywordtype}{double} meaned\_x = mean\_coordinates\_of\_point\_.val[0];}
+\DoxyCodeLine{00021     \textcolor{keywordtype}{double} meaned\_y = mean\_coordinates\_of\_point\_.val[1];}
+\DoxyCodeLine{00022 }
+\DoxyCodeLine{00023     \mbox{\hyperlink{class_vibrating_point_aa65df19b908306e2f4c725480594b2bb}{vec\_meaned\_coordinates\_of\_point\_}}.clear();}
+\DoxyCodeLine{00024     \mbox{\hyperlink{class_vibrating_point_a6653e27fe96e5fe6e7aa410fb3138c92}{x\_coordinates\_}}.clear();}
+\DoxyCodeLine{00025     \mbox{\hyperlink{class_vibrating_point_a5df5aa7a4d955de091640290f849961c}{y\_coordinates\_}}.clear();}
+\DoxyCodeLine{00026     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}.size(); i++)}
+\DoxyCodeLine{00027     \{}
+\DoxyCodeLine{00028         \mbox{\hyperlink{class_vibrating_point_aa65df19b908306e2f4c725480594b2bb}{vec\_meaned\_coordinates\_of\_point\_}}.push\_back(Point2f(\mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}[i].x -\/ meaned\_x, \mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}[i].y -\/ meaned\_y));}
+\DoxyCodeLine{00029         \mbox{\hyperlink{class_vibrating_point_a6653e27fe96e5fe6e7aa410fb3138c92}{x\_coordinates\_}}.push\_back(\mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}[i].x -\/ meaned\_x);}
+\DoxyCodeLine{00030         \mbox{\hyperlink{class_vibrating_point_a5df5aa7a4d955de091640290f849961c}{y\_coordinates\_}}.push\_back(\mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}[i].y -\/ meaned\_y);}
+\DoxyCodeLine{00031     \}}
+\DoxyCodeLine{00032 }
+\DoxyCodeLine{00033     dft(\mbox{\hyperlink{class_vibrating_point_aa65df19b908306e2f4c725480594b2bb}{vec\_meaned\_coordinates\_of\_point\_}}, fft\_result);}
+\DoxyCodeLine{00034 }
+\DoxyCodeLine{00035     \textcolor{comment}{// computing two-\/sided spectrum P2}}
+\DoxyCodeLine{00036     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < fft\_result.size(); i++)}
+\DoxyCodeLine{00037     \{}
+\DoxyCodeLine{00038         Point2f tmp;}
+\DoxyCodeLine{00039         tmp.x = abs(fft\_result[i].x / samples\_amount);}
+\DoxyCodeLine{00040         tmp.y = abs(fft\_result[i].y / samples\_amount);}
+\DoxyCodeLine{00041         p2.push\_back(tmp);}
+\DoxyCodeLine{00042     \}}
+\DoxyCodeLine{00043 }
+\DoxyCodeLine{00044     \textcolor{comment}{// computing single-\/sided spectrum P1 based on P2 and the even-\/valued signal length (the same as size\_of\_vecs\_)}}
+\DoxyCodeLine{00045     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < p2.size(); i++)}
+\DoxyCodeLine{00046     \{}
+\DoxyCodeLine{00047         \textcolor{keywordtype}{size\_t} idx = 0;}
+\DoxyCodeLine{00048         idx = (int)(((\textcolor{keywordtype}{double})(i)) / 2.0 + 1.0);}
+\DoxyCodeLine{00049         p1.push\_back(p2[idx]);}
+\DoxyCodeLine{00050     \}}
+\DoxyCodeLine{00051 }
+\DoxyCodeLine{00052     \textcolor{comment}{// possible frequencies}}
+\DoxyCodeLine{00053     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < samples\_amount; i++)}
+\DoxyCodeLine{00054     \{}
+\DoxyCodeLine{00055         \textcolor{keywordtype}{float} tmp = \mbox{\hyperlink{class_vibrating_point_a67ffaaa1b714226a78d6d5cc31c195c9}{sampling\_rate\_}} * ((double)(i) / 2) / samples\_amount;}
+\DoxyCodeLine{00056         frequencies.push\_back(tmp);}
+\DoxyCodeLine{00057     \}}
+\DoxyCodeLine{00058 }
+\DoxyCodeLine{00059     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < p1.size(); i++)}
+\DoxyCodeLine{00060     \{}
+\DoxyCodeLine{00061         \textcolor{keywordtype}{float} current\_magnitude = sqrt(p1[i].x * p1[i].x + p1[i].y * p1[i].y);}
+\DoxyCodeLine{00062         magnitudes.push\_back(current\_magnitude);}
+\DoxyCodeLine{00063     \}}
+\DoxyCodeLine{00064 }
+\DoxyCodeLine{00065     \mbox{\hyperlink{group___helper_functions_ga09104c3d04cd6c0eb8bcc39bea203eb6}{HelperFunctions::DeadzoneFilter}}(frequencies);}
+\DoxyCodeLine{00066     \mbox{\hyperlink{group___helper_functions_ga09104c3d04cd6c0eb8bcc39bea203eb6}{HelperFunctions::DeadzoneFilter}}(magnitudes);}
+\DoxyCodeLine{00067 }
+\DoxyCodeLine{00068     \textcolor{comment}{/*}}
+\DoxyCodeLine{00069 \textcolor{comment}{    * FOR DEBUG}}
+\DoxyCodeLine{00070 \textcolor{comment}{    * }}
+\DoxyCodeLine{00071 \textcolor{comment}{    if (point\_coordinates\_.size() > 5)}}
+\DoxyCodeLine{00072 \textcolor{comment}{    \{}}
+\DoxyCodeLine{00073 \textcolor{comment}{        std::fstream file;}}
+\DoxyCodeLine{00074 \textcolor{comment}{        file.open("{}C:/Users/seeyo/source/repos/Visual-\/Vibration-\/Tracking-\/V2/docs/magnitudes.txt"{}, 'w');}}
+\DoxyCodeLine{00075 \textcolor{comment}{}}
+\DoxyCodeLine{00076 \textcolor{comment}{        //for (int i = 0; i < magnitudes.size(); i++)}}
+\DoxyCodeLine{00077 \textcolor{comment}{        //\{}}
+\DoxyCodeLine{00078 \textcolor{comment}{        //  std::string tmp = std::to\_string(frequencies[i]) + "{} "{} + std::to\_string(magnitudes[i]) + "{} "{} + std::to\_string(p1[i].x) + "{} "{} + std::to\_string(p1[i].y);}}
+\DoxyCodeLine{00079 \textcolor{comment}{        //  file << tmp << std::endl;}}
+\DoxyCodeLine{00080 \textcolor{comment}{        //\}}}
+\DoxyCodeLine{00081 \textcolor{comment}{}}
+\DoxyCodeLine{00082 \textcolor{comment}{        for (int i = 0; i < point\_coordinates\_.size(); i++)}}
+\DoxyCodeLine{00083 \textcolor{comment}{        \{}}
+\DoxyCodeLine{00084 \textcolor{comment}{            std::string tmp = std::to\_string(point\_coordinates\_[i].x) + "{} "{} + std::to\_string(point\_coordinates\_[i].y) + "{} "{} + std::to\_string(point\_time\_coordinates\_[i]);}}
+\DoxyCodeLine{00085 \textcolor{comment}{            file << tmp << std::endl;}}
+\DoxyCodeLine{00086 \textcolor{comment}{        \}}}
+\DoxyCodeLine{00087 \textcolor{comment}{}}
+\DoxyCodeLine{00088 \textcolor{comment}{        file.close();}}
+\DoxyCodeLine{00089 \textcolor{comment}{    \}}}
+\DoxyCodeLine{00090 \textcolor{comment}{    */}}
+\DoxyCodeLine{00091 }
+\DoxyCodeLine{00092     \mbox{\hyperlink{class_vibrating_point_a5ea36bdad5aeac784ecfa21f3ca98517}{x\_}} = frequencies;}
+\DoxyCodeLine{00093     \mbox{\hyperlink{class_vibrating_point_aa22ce2e3bdd0b4614b1c0ad0adf256e5}{y\_}} = magnitudes;}
+\DoxyCodeLine{00094 }
+\DoxyCodeLine{00095     \textcolor{comment}{// Вызов отрисовщика гистограммы}}
+\DoxyCodeLine{00096     \mbox{\hyperlink{class_vibrating_point_a2bd28bb86f01ccae6fa193914863045a}{DrawHistogram}}();}
+\DoxyCodeLine{00097 }
+\DoxyCodeLine{00098     \textcolor{keywordtype}{bool} candidate\_for\_being\_full\_zero = \textcolor{keyword}{false};}
+\DoxyCodeLine{00099     \textcolor{keywordtype}{int} zero\_flag = 0;}
+\DoxyCodeLine{00100 }
+\DoxyCodeLine{00101     \textcolor{keywordflow}{if} (!absolute\_peak)}
+\DoxyCodeLine{00102     \{}
+\DoxyCodeLine{00103         \textcolor{comment}{// searching peaks in output vector of magnitudes}}
+\DoxyCodeLine{00104         }
+\DoxyCodeLine{00105         \mbox{\hyperlink{group___peak_finder_ga3abfea54e33401437ebbee36ab9ee1f2}{PeakFinder::findPeaks}}(magnitudes, indexes\_of\_peak\_frequencies, \textcolor{keyword}{false}, 1);}
+\DoxyCodeLine{00106 }
+\DoxyCodeLine{00107         \textcolor{keywordtype}{int} maxIdx = 0;}
+\DoxyCodeLine{00108 }
+\DoxyCodeLine{00109         zero\_flag = indexes\_of\_peak\_frequencies.size();}
+\DoxyCodeLine{00110 }
+\DoxyCodeLine{00111         \textcolor{keywordtype}{double} mag\_sum = 0;}
+\DoxyCodeLine{00112 }
+\DoxyCodeLine{00113         \textcolor{comment}{// filling in vector of peak\_frequencies with the just found peak frequencies }}
+\DoxyCodeLine{00114         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < indexes\_of\_peak\_frequencies.size(); i++)}
+\DoxyCodeLine{00115         \{}
+\DoxyCodeLine{00116             peak\_frequencies.push\_back(frequencies[indexes\_of\_peak\_frequencies[i]]);}
+\DoxyCodeLine{00117 }
+\DoxyCodeLine{00118             \textcolor{comment}{//std::cout << "{}mag: "{} << magnitudes[indexes\_of\_peak\_frequencies[i]] << std::endl;}}
+\DoxyCodeLine{00119             mag\_sum += magnitudes[indexes\_of\_peak\_frequencies[i]];}
+\DoxyCodeLine{00120             \textcolor{keywordflow}{if} ((magnitudes[indexes\_of\_peak\_frequencies[i]]) < 0.01f)}
+\DoxyCodeLine{00121                 zero\_flag-\/-\/;}
+\DoxyCodeLine{00122         \}}
+\DoxyCodeLine{00123 }
+\DoxyCodeLine{00124         \mbox{\hyperlink{class_vibrating_point_aa0b94560fbac6ae1c5dbae9f4931d28c}{main\_frequency\_}} = frequencies[\mbox{\hyperlink{group___helper_functions_gacc82d70b750eb60ad49c7a36e5c7f0ca}{HelperFunctions::FindGlobalMaxIdx}}(magnitudes)];}
+\DoxyCodeLine{00125         \textcolor{keywordtype}{float} max\_diff = \mbox{\hyperlink{group___helper_functions_gae2aaeb3c9edcae730b5c4fdb6655ef71}{HelperFunctions::CalculateMaxDifferenceInVector}}(magnitudes);}
+\DoxyCodeLine{00126         \mbox{\hyperlink{class_vibrating_point_a69824b3fe81e876f3018844d236b72c5}{mag\_max\_differences\_}}.push\_back(max\_diff);}
+\DoxyCodeLine{00127         \textcolor{keywordtype}{float} mean\_diff\_of\_max\_diffs = 0;}
+\DoxyCodeLine{00128         \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_vibrating_point_a69824b3fe81e876f3018844d236b72c5}{mag\_max\_differences\_}}.size() > 1)}
+\DoxyCodeLine{00129             mean\_diff\_of\_max\_diffs = \mbox{\hyperlink{group___helper_functions_gae752077bcc98a1b2dcd5a1371d55bca5}{HelperFunctions::CalculateMeanDifferenceInVector}}(\mbox{\hyperlink{class_vibrating_point_a69824b3fe81e876f3018844d236b72c5}{mag\_max\_differences\_}});}
+\DoxyCodeLine{00130 }
+\DoxyCodeLine{00131         \textcolor{keywordflow}{if} (mean\_diff\_of\_max\_diffs < \mbox{\hyperlink{class_vibrating_point_ab2539b861e02f361eb772c71e06c9af3}{sensivity\_}} || std::isnan(mean\_diff\_of\_max\_diffs))}
+\DoxyCodeLine{00132             \mbox{\hyperlink{class_vibrating_point_a6ed26ed40b33b1486cb4c304981d4444}{confidence\_level\_}} -\/= 0.01;}
+\DoxyCodeLine{00133         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00134             \mbox{\hyperlink{class_vibrating_point_a6ed26ed40b33b1486cb4c304981d4444}{confidence\_level\_}} += 0.01;}
+\DoxyCodeLine{00135         }
+\DoxyCodeLine{00136         \textcolor{keywordflow}{if} (zero\_flag == 0 \&\& indexes\_of\_peak\_frequencies.size() != 0)}
+\DoxyCodeLine{00137         \{}
+\DoxyCodeLine{00138             \mbox{\hyperlink{class_vibrating_point_adfd1433886cf1fb2b3b07062b69614b1}{frequencies\_}}.clear();}
+\DoxyCodeLine{00139             \mbox{\hyperlink{class_vibrating_point_adfd1433886cf1fb2b3b07062b69614b1}{frequencies\_}}.push\_back(0.0);}
+\DoxyCodeLine{00140         \}}
+\DoxyCodeLine{00141         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00142         \{}
+\DoxyCodeLine{00143             \mbox{\hyperlink{class_vibrating_point_adfd1433886cf1fb2b3b07062b69614b1}{frequencies\_}} = peak\_frequencies;}
+\DoxyCodeLine{00144         \}}
+\DoxyCodeLine{00145     \}}
+\DoxyCodeLine{00146 }
+\DoxyCodeLine{00147 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_vibrating_point_abf5fd60d3d7f900d597040c0dcb69586}\label{class_vibrating_point_abf5fd60d3d7f900d597040c0dcb69586}} 
+\index{VibratingPoint@{VibratingPoint}!GetCurrentAmplitude@{GetCurrentAmplitude}}
+\index{GetCurrentAmplitude@{GetCurrentAmplitude}!VibratingPoint@{VibratingPoint}}
+\doxysubsubsection{\texorpdfstring{GetCurrentAmplitude()}{GetCurrentAmplitude()}}
+{\footnotesize\ttfamily Point3f Vibrating\+Point\+::\+Get\+Current\+Amplitude (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Возвращает последнюю найденную относительную амплитуду 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibrating__point_8cpp_source}{vibrating\+\_\+point.\+cpp}} строка \mbox{\hyperlink{vibrating__point_8cpp_source_l00252}{252}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00253 \{}
+\DoxyCodeLine{00254     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_vibrating_point_a5ae50ac111f6681489eded6da7ef66ea}{current\_amplitude\_}};}
+\DoxyCodeLine{00255 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_vibrating_point_a056d67ffd99e21b98ebaa97150641fe3}\label{class_vibrating_point_a056d67ffd99e21b98ebaa97150641fe3}} 
+\index{VibratingPoint@{VibratingPoint}!GetCurrentConfidenceLevel@{GetCurrentConfidenceLevel}}
+\index{GetCurrentConfidenceLevel@{GetCurrentConfidenceLevel}!VibratingPoint@{VibratingPoint}}
+\doxysubsubsection{\texorpdfstring{GetCurrentConfidenceLevel()}{GetCurrentConfidenceLevel()}}
+{\footnotesize\ttfamily double Vibrating\+Point\+::\+Get\+Current\+Confidence\+Level (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Возвращает последний найденный уровень достоверности 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibrating__point_8cpp_source}{vibrating\+\_\+point.\+cpp}} строка \mbox{\hyperlink{vibrating__point_8cpp_source_l00257}{257}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00258 \{}
+\DoxyCodeLine{00259     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_vibrating_point_a6ed26ed40b33b1486cb4c304981d4444}{confidence\_level\_}};}
+\DoxyCodeLine{00260 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_vibrating_point_a5c943d1b1916ac33a214f46cbe2cb8fa}\label{class_vibrating_point_a5c943d1b1916ac33a214f46cbe2cb8fa}} 
+\index{VibratingPoint@{VibratingPoint}!GetCurrentMainFrequency@{GetCurrentMainFrequency}}
+\index{GetCurrentMainFrequency@{GetCurrentMainFrequency}!VibratingPoint@{VibratingPoint}}
+\doxysubsubsection{\texorpdfstring{GetCurrentMainFrequency()}{GetCurrentMainFrequency()}}
+{\footnotesize\ttfamily double Vibrating\+Point\+::\+Get\+Current\+Main\+Frequency (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Возвращает текущую \char`\"{}основную\char`\"{} частоту 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibrating__point_8cpp_source}{vibrating\+\_\+point.\+cpp}} строка \mbox{\hyperlink{vibrating__point_8cpp_source_l00242}{242}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00243 \{}
+\DoxyCodeLine{00244     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_vibrating_point_aa0b94560fbac6ae1c5dbae9f4931d28c}{main\_frequency\_}};}
+\DoxyCodeLine{00245 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_vibrating_point_a2e3b78289d75d6fa3f7888b36a8b5a42}\label{class_vibrating_point_a2e3b78289d75d6fa3f7888b36a8b5a42}} 
+\index{VibratingPoint@{VibratingPoint}!GetCurrentVibrationFrequency@{GetCurrentVibrationFrequency}}
+\index{GetCurrentVibrationFrequency@{GetCurrentVibrationFrequency}!VibratingPoint@{VibratingPoint}}
+\doxysubsubsection{\texorpdfstring{GetCurrentVibrationFrequency()}{GetCurrentVibrationFrequency()}}
+{\footnotesize\ttfamily std\+::vector$<$ double $>$ Vibrating\+Point\+::\+Get\+Current\+Vibration\+Frequency (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Возвращает вектор текущих частот точки 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibrating__point_8cpp_source}{vibrating\+\_\+point.\+cpp}} строка \mbox{\hyperlink{vibrating__point_8cpp_source_l00237}{237}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00238 \{}
+\DoxyCodeLine{00239     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_vibrating_point_adfd1433886cf1fb2b3b07062b69614b1}{frequencies\_}};}
+\DoxyCodeLine{00240 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_vibrating_point_afa134e84fe3e2ffc492b34823f60d14d}\label{class_vibrating_point_afa134e84fe3e2ffc492b34823f60d14d}} 
+\index{VibratingPoint@{VibratingPoint}!GetLastFoundCoordinates@{GetLastFoundCoordinates}}
+\index{GetLastFoundCoordinates@{GetLastFoundCoordinates}!VibratingPoint@{VibratingPoint}}
+\doxysubsubsection{\texorpdfstring{GetLastFoundCoordinates()}{GetLastFoundCoordinates()}}
+{\footnotesize\ttfamily Point2f Vibrating\+Point\+::\+Get\+Last\+Found\+Coordinates (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Возвращает последний элемент вектора координат 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibrating__point_8cpp_source}{vibrating\+\_\+point.\+cpp}} строка \mbox{\hyperlink{vibrating__point_8cpp_source_l00232}{232}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00233 \{}
+\DoxyCodeLine{00234     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}.back();}
+\DoxyCodeLine{00235 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_vibrating_point_af1651e3d022f841aa1442b20b5f40b42}\label{class_vibrating_point_af1651e3d022f841aa1442b20b5f40b42}} 
+\index{VibratingPoint@{VibratingPoint}!GetRelativeAmplitude@{GetRelativeAmplitude}}
+\index{GetRelativeAmplitude@{GetRelativeAmplitude}!VibratingPoint@{VibratingPoint}}
+\doxysubsubsection{\texorpdfstring{GetRelativeAmplitude()}{GetRelativeAmplitude()}}
+{\footnotesize\ttfamily Point3f Vibrating\+Point\+::\+Get\+Relative\+Amplitude (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Возвращает последнюю найденную относительную амплитуду 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibrating__point_8cpp_source}{vibrating\+\_\+point.\+cpp}} строка \mbox{\hyperlink{vibrating__point_8cpp_source_l00247}{247}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00248 \{}
+\DoxyCodeLine{00249     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_vibrating_point_a9989c50fa30cecf13079ae0c595ef87c}{relative\_amplitude\_}};}
+\DoxyCodeLine{00250 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_vibrating_point_a342c75a6ac0f9ab85de1a0dd663eab03}\label{class_vibrating_point_a342c75a6ac0f9ab85de1a0dd663eab03}} 
+\index{VibratingPoint@{VibratingPoint}!IsInteracted@{IsInteracted}}
+\index{IsInteracted@{IsInteracted}!VibratingPoint@{VibratingPoint}}
+\doxysubsubsection{\texorpdfstring{IsInteracted()}{IsInteracted()}}
+{\footnotesize\ttfamily bool Vibrating\+Point\+::\+Is\+Interacted (\begin{DoxyParamCaption}\item[{Point2i}]{coordinates }\end{DoxyParamCaption})}
+
+
+
+Проверяет точку на наличие взаимодействия с ней (если курсор попал в область взаимодействия точки \mbox{\hyperlink{class_vibrating_point_a5b35f5a2109df2be2d2832b25dfa2285}{Vibrating\+Point\+::interaction\+\_\+box\+\_\+}}) 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em coordinates} & координаты курсора \\
+\hline
+\end{DoxyParams}
+
+
+См. определение в файле \mbox{\hyperlink{vibrating__point_8cpp_source}{vibrating\+\_\+point.\+cpp}} строка \mbox{\hyperlink{vibrating__point_8cpp_source_l00165}{165}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00166 \{}
+\DoxyCodeLine{00167     \mbox{\hyperlink{class_vibrating_point_a0298c80261ea234f82e1afff59d2d1fa}{interacted\_}} = \mbox{\hyperlink{class_vibrating_point_a5b35f5a2109df2be2d2832b25dfa2285}{interaction\_box\_}}.contains(coordinates);}
+\DoxyCodeLine{00168     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_vibrating_point_a0298c80261ea234f82e1afff59d2d1fa}{interacted\_}};}
+\DoxyCodeLine{00169 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_vibrating_point_ad9e5f2e543097cc7010baadec3c7e0df}\label{class_vibrating_point_ad9e5f2e543097cc7010baadec3c7e0df}} 
+\index{VibratingPoint@{VibratingPoint}!SetSensivity@{SetSensivity}}
+\index{SetSensivity@{SetSensivity}!VibratingPoint@{VibratingPoint}}
+\doxysubsubsection{\texorpdfstring{SetSensivity()}{SetSensivity()}}
+{\footnotesize\ttfamily void Vibrating\+Point\+::\+Set\+Sensivity (\begin{DoxyParamCaption}\item[{double}]{sensivity }\end{DoxyParamCaption})}
+
+
+
+Устанавливает чувствительность, влияющую на confidence. 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibrating__point_8cpp_source}{vibrating\+\_\+point.\+cpp}} строка \mbox{\hyperlink{vibrating__point_8cpp_source_l00171}{171}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00172 \{}
+\DoxyCodeLine{00173     \mbox{\hyperlink{class_vibrating_point_ab2539b861e02f361eb772c71e06c9af3}{sensivity\_}} = sensivity;}
+\DoxyCodeLine{00174 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_vibrating_point_aadc5ff6408bb2e4a474dd25cd5bb6fdf}\label{class_vibrating_point_aadc5ff6408bb2e4a474dd25cd5bb6fdf}} 
+\index{VibratingPoint@{VibratingPoint}!UpdatePointColor@{UpdatePointColor}}
+\index{UpdatePointColor@{UpdatePointColor}!VibratingPoint@{VibratingPoint}}
+\doxysubsubsection{\texorpdfstring{UpdatePointColor()}{UpdatePointColor()}}
+{\footnotesize\ttfamily virtual void Vibrating\+Point\+::\+Update\+Point\+Color (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Обновляем текущий цвет точки 
+
+
+
+Замещается в \mbox{\hyperlink{class_colored_point_handler_ad360ca58ca141acaf11d98a9bf59483b}{Colored\+Point\+Handler}} и \mbox{\hyperlink{class_lonely_point_handler_a326fcceade024132bf3a6d551b544047}{Lonely\+Point\+Handler}}.
+
+
+
+\doxysubsection{Данные класса}
+\mbox{\Hypertarget{class_vibrating_point_a6ed26ed40b33b1486cb4c304981d4444}\label{class_vibrating_point_a6ed26ed40b33b1486cb4c304981d4444}} 
+\index{VibratingPoint@{VibratingPoint}!confidence\_level\_@{confidence\_level\_}}
+\index{confidence\_level\_@{confidence\_level\_}!VibratingPoint@{VibratingPoint}}
+\doxysubsubsection{\texorpdfstring{confidence\_level\_}{confidence\_level\_}}
+{\footnotesize\ttfamily double Vibrating\+Point\+::confidence\+\_\+level\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Рейтинг достоверности вибрации 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibrating__point_8h_source}{vibrating\+\_\+point.\+h}} строка \mbox{\hyperlink{vibrating__point_8h_source_l00188}{188}}
+
+\mbox{\Hypertarget{class_vibrating_point_a5ae50ac111f6681489eded6da7ef66ea}\label{class_vibrating_point_a5ae50ac111f6681489eded6da7ef66ea}} 
+\index{VibratingPoint@{VibratingPoint}!current\_amplitude\_@{current\_amplitude\_}}
+\index{current\_amplitude\_@{current\_amplitude\_}!VibratingPoint@{VibratingPoint}}
+\doxysubsubsection{\texorpdfstring{current\_amplitude\_}{current\_amplitude\_}}
+{\footnotesize\ttfamily Point3f Vibrating\+Point\+::current\+\_\+amplitude\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Фактические амплитуды вибрации по x, y. Выражаюытся в пикселях 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibrating__point_8h_source}{vibrating\+\_\+point.\+h}} строка \mbox{\hyperlink{vibrating__point_8h_source_l00131}{131}}
+
+\mbox{\Hypertarget{class_vibrating_point_ac0a7383346b67916a29c9dc892addfae}\label{class_vibrating_point_ac0a7383346b67916a29c9dc892addfae}} 
+\index{VibratingPoint@{VibratingPoint}!current\_point\_radius\_@{current\_point\_radius\_}}
+\index{current\_point\_radius\_@{current\_point\_radius\_}!VibratingPoint@{VibratingPoint}}
+\doxysubsubsection{\texorpdfstring{current\_point\_radius\_}{current\_point\_radius\_}}
+{\footnotesize\ttfamily int Vibrating\+Point\+::current\+\_\+point\+\_\+radius\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Радиус точки, который нужен для её отрисовки 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibrating__point_8h_source}{vibrating\+\_\+point.\+h}} строка \mbox{\hyperlink{vibrating__point_8h_source_l00167}{167}}
+
+\mbox{\Hypertarget{class_vibrating_point_af4a9903a86d6d1a98b1acf89684492ae}\label{class_vibrating_point_af4a9903a86d6d1a98b1acf89684492ae}} 
+\index{VibratingPoint@{VibratingPoint}!default\_point\_radius\_@{default\_point\_radius\_}}
+\index{default\_point\_radius\_@{default\_point\_radius\_}!VibratingPoint@{VibratingPoint}}
+\doxysubsubsection{\texorpdfstring{default\_point\_radius\_}{default\_point\_radius\_}}
+{\footnotesize\ttfamily int Vibrating\+Point\+::default\+\_\+point\+\_\+radius\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Дефолтный радиус точки 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibrating__point_8h_source}{vibrating\+\_\+point.\+h}} строка \mbox{\hyperlink{vibrating__point_8h_source_l00171}{171}}
+
+\mbox{\Hypertarget{class_vibrating_point_afdefa096df21cf891ae6835a6df4ffc9}\label{class_vibrating_point_afdefa096df21cf891ae6835a6df4ffc9}} 
+\index{VibratingPoint@{VibratingPoint}!extremum\_amplitude\_@{extremum\_amplitude\_}}
+\index{extremum\_amplitude\_@{extremum\_amplitude\_}!VibratingPoint@{VibratingPoint}}
+\doxysubsubsection{\texorpdfstring{extremum\_amplitude\_}{extremum\_amplitude\_}}
+{\footnotesize\ttfamily std\+::pair$<$double, double$>$ Vibrating\+Point\+::extremum\+\_\+amplitude\+\_\+\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Максимум и минимум амплитуды среди всех \mbox{\hyperlink{class_vibrating_point}{Vibrating\+Point}} объектов-\/наследников 
+
+inline -\/ для совмещенного объявления с определением переменной внутри класса 
+
+См. определение в файле \mbox{\hyperlink{vibrating__point_8h_source}{vibrating\+\_\+point.\+h}} строка \mbox{\hyperlink{vibrating__point_8h_source_l00106}{106}}
+
+\mbox{\Hypertarget{class_vibrating_point_adfd1433886cf1fb2b3b07062b69614b1}\label{class_vibrating_point_adfd1433886cf1fb2b3b07062b69614b1}} 
+\index{VibratingPoint@{VibratingPoint}!frequencies\_@{frequencies\_}}
+\index{frequencies\_@{frequencies\_}!VibratingPoint@{VibratingPoint}}
+\doxysubsubsection{\texorpdfstring{frequencies\_}{frequencies\_}}
+{\footnotesize\ttfamily std\+::vector$<$double$>$ Vibrating\+Point\+::frequencies\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Контейнер для частот точки 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibrating__point_8h_source}{vibrating\+\_\+point.\+h}} строка \mbox{\hyperlink{vibrating__point_8h_source_l00151}{151}}
+
+\mbox{\Hypertarget{class_vibrating_point_a0298c80261ea234f82e1afff59d2d1fa}\label{class_vibrating_point_a0298c80261ea234f82e1afff59d2d1fa}} 
+\index{VibratingPoint@{VibratingPoint}!interacted\_@{interacted\_}}
+\index{interacted\_@{interacted\_}!VibratingPoint@{VibratingPoint}}
+\doxysubsubsection{\texorpdfstring{interacted\_}{interacted\_}}
+{\footnotesize\ttfamily bool Vibrating\+Point\+::interacted\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Флаг взаимодействия с точкой 
+
+True -\/ в случае взаимодействия, false -\/ в противном 
+
+См. определение в файле \mbox{\hyperlink{vibrating__point_8h_source}{vibrating\+\_\+point.\+h}} строка \mbox{\hyperlink{vibrating__point_8h_source_l00122}{122}}
+
+\mbox{\Hypertarget{class_vibrating_point_a5b35f5a2109df2be2d2832b25dfa2285}\label{class_vibrating_point_a5b35f5a2109df2be2d2832b25dfa2285}} 
+\index{VibratingPoint@{VibratingPoint}!interaction\_box\_@{interaction\_box\_}}
+\index{interaction\_box\_@{interaction\_box\_}!VibratingPoint@{VibratingPoint}}
+\doxysubsubsection{\texorpdfstring{interaction\_box\_}{interaction\_box\_}}
+{\footnotesize\ttfamily Rect Vibrating\+Point\+::interaction\+\_\+box\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Прямоугольник (область) взаимодействия с точкой 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibrating__point_8h_source}{vibrating\+\_\+point.\+h}} строка \mbox{\hyperlink{vibrating__point_8h_source_l00112}{112}}
+
+\mbox{\Hypertarget{class_vibrating_point_a8c035e084006469922a45f023b1bcce0}\label{class_vibrating_point_a8c035e084006469922a45f023b1bcce0}} 
+\index{VibratingPoint@{VibratingPoint}!interaction\_offset\_@{interaction\_offset\_}}
+\index{interaction\_offset\_@{interaction\_offset\_}!VibratingPoint@{VibratingPoint}}
+\doxysubsubsection{\texorpdfstring{interaction\_offset\_}{interaction\_offset\_}}
+{\footnotesize\ttfamily int Vibrating\+Point\+::interaction\+\_\+offset\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Половина длины прямоугольника взаимодействия 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibrating__point_8h_source}{vibrating\+\_\+point.\+h}} строка \mbox{\hyperlink{vibrating__point_8h_source_l00116}{116}}
+
+\mbox{\Hypertarget{class_vibrating_point_a69824b3fe81e876f3018844d236b72c5}\label{class_vibrating_point_a69824b3fe81e876f3018844d236b72c5}} 
+\index{VibratingPoint@{VibratingPoint}!mag\_max\_differences\_@{mag\_max\_differences\_}}
+\index{mag\_max\_differences\_@{mag\_max\_differences\_}!VibratingPoint@{VibratingPoint}}
+\doxysubsubsection{\texorpdfstring{mag\_max\_differences\_}{mag\_max\_differences\_}}
+{\footnotesize\ttfamily std\+::vector$<$float$>$ Vibrating\+Point\+::mag\+\_\+max\+\_\+differences\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Максимальная разнциа в магнитудах в найденном спектре после БПФ 
+
+\begin{DoxySeeAlso}{См. также}
+\mbox{\hyperlink{class_vibrating_point_a005868411bd6b296d992f3dcd79451d7}{Execute\+FFT()}} и \mbox{\hyperlink{class_vibrating_point_a6ed26ed40b33b1486cb4c304981d4444}{confidence\+\_\+level\+\_\+}} -\/ используется для определения \char`\"{}уровня достоверности\char`\"{} результатов у конкретной точки 
+\end{DoxySeeAlso}
+
+
+См. определение в файле \mbox{\hyperlink{vibrating__point_8h_source}{vibrating\+\_\+point.\+h}} строка \mbox{\hyperlink{vibrating__point_8h_source_l00195}{195}}
+
+\mbox{\Hypertarget{class_vibrating_point_aa0b94560fbac6ae1c5dbae9f4931d28c}\label{class_vibrating_point_aa0b94560fbac6ae1c5dbae9f4931d28c}} 
+\index{VibratingPoint@{VibratingPoint}!main\_frequency\_@{main\_frequency\_}}
+\index{main\_frequency\_@{main\_frequency\_}!VibratingPoint@{VibratingPoint}}
+\doxysubsubsection{\texorpdfstring{main\_frequency\_}{main\_frequency\_}}
+{\footnotesize\ttfamily double Vibrating\+Point\+::main\+\_\+frequency\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Главная частота (основная) 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibrating__point_8h_source}{vibrating\+\_\+point.\+h}} строка \mbox{\hyperlink{vibrating__point_8h_source_l00155}{155}}
+
+\mbox{\Hypertarget{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}\label{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}} 
+\index{VibratingPoint@{VibratingPoint}!point\_coordinates\_@{point\_coordinates\_}}
+\index{point\_coordinates\_@{point\_coordinates\_}!VibratingPoint@{VibratingPoint}}
+\doxysubsubsection{\texorpdfstring{point\_coordinates\_}{point\_coordinates\_}}
+{\footnotesize\ttfamily std\+::vector$<$Point2f$>$ Vibrating\+Point\+::point\+\_\+coordinates\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Контейнер для координат точки 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibrating__point_8h_source}{vibrating\+\_\+point.\+h}} строка \mbox{\hyperlink{vibrating__point_8h_source_l00135}{135}}
+
+\mbox{\Hypertarget{class_vibrating_point_ad2aa8fe4bc94a957f75aa00fb9ce9f26}\label{class_vibrating_point_ad2aa8fe4bc94a957f75aa00fb9ce9f26}} 
+\index{VibratingPoint@{VibratingPoint}!point\_time\_coordinates\_@{point\_time\_coordinates\_}}
+\index{point\_time\_coordinates\_@{point\_time\_coordinates\_}!VibratingPoint@{VibratingPoint}}
+\doxysubsubsection{\texorpdfstring{point\_time\_coordinates\_}{point\_time\_coordinates\_}}
+{\footnotesize\ttfamily std\+::vector$<$double$>$ Vibrating\+Point\+::point\+\_\+time\+\_\+coordinates\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Контейнер для временных координат точки 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibrating__point_8h_source}{vibrating\+\_\+point.\+h}} строка \mbox{\hyperlink{vibrating__point_8h_source_l00159}{159}}
+
+\mbox{\Hypertarget{class_vibrating_point_a9989c50fa30cecf13079ae0c595ef87c}\label{class_vibrating_point_a9989c50fa30cecf13079ae0c595ef87c}} 
+\index{VibratingPoint@{VibratingPoint}!relative\_amplitude\_@{relative\_amplitude\_}}
+\index{relative\_amplitude\_@{relative\_amplitude\_}!VibratingPoint@{VibratingPoint}}
+\doxysubsubsection{\texorpdfstring{relative\_amplitude\_}{relative\_amplitude\_}}
+{\footnotesize\ttfamily Point3f Vibrating\+Point\+::relative\+\_\+amplitude\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Относительные амплитуды вибрации по x, y. Выражается отношением амплитуды 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibrating__point_8h_source}{vibrating\+\_\+point.\+h}} строка \mbox{\hyperlink{vibrating__point_8h_source_l00127}{127}}
+
+\mbox{\Hypertarget{class_vibrating_point_a67ffaaa1b714226a78d6d5cc31c195c9}\label{class_vibrating_point_a67ffaaa1b714226a78d6d5cc31c195c9}} 
+\index{VibratingPoint@{VibratingPoint}!sampling\_rate\_@{sampling\_rate\_}}
+\index{sampling\_rate\_@{sampling\_rate\_}!VibratingPoint@{VibratingPoint}}
+\doxysubsubsection{\texorpdfstring{sampling\_rate\_}{sampling\_rate\_}}
+{\footnotesize\ttfamily double Vibrating\+Point\+::sampling\+\_\+rate\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Частота сэмплирования (фактически -\/ FPS исходного видео) 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibrating__point_8h_source}{vibrating\+\_\+point.\+h}} строка \mbox{\hyperlink{vibrating__point_8h_source_l00163}{163}}
+
+\mbox{\Hypertarget{class_vibrating_point_ab2539b861e02f361eb772c71e06c9af3}\label{class_vibrating_point_ab2539b861e02f361eb772c71e06c9af3}} 
+\index{VibratingPoint@{VibratingPoint}!sensivity\_@{sensivity\_}}
+\index{sensivity\_@{sensivity\_}!VibratingPoint@{VibratingPoint}}
+\doxysubsubsection{\texorpdfstring{sensivity\_}{sensivity\_}}
+{\footnotesize\ttfamily double Vibrating\+Point\+::sensivity\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Чувствительность определения вибрации 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibrating__point_8h_source}{vibrating\+\_\+point.\+h}} строка \mbox{\hyperlink{vibrating__point_8h_source_l00184}{184}}
+
+\mbox{\Hypertarget{class_vibrating_point_aa65df19b908306e2f4c725480594b2bb}\label{class_vibrating_point_aa65df19b908306e2f4c725480594b2bb}} 
+\index{VibratingPoint@{VibratingPoint}!vec\_meaned\_coordinates\_of\_point\_@{vec\_meaned\_coordinates\_of\_point\_}}
+\index{vec\_meaned\_coordinates\_of\_point\_@{vec\_meaned\_coordinates\_of\_point\_}!VibratingPoint@{VibratingPoint}}
+\doxysubsubsection{\texorpdfstring{vec\_meaned\_coordinates\_of\_point\_}{vec\_meaned\_coordinates\_of\_point\_}}
+{\footnotesize\ttfamily std\+::vector$<$cv\+::\+Point2f$>$ Vibrating\+Point\+::vec\+\_\+meaned\+\_\+coordinates\+\_\+of\+\_\+point\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Контейнер для координат точки относительно нулевого уровня 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibrating__point_8h_source}{vibrating\+\_\+point.\+h}} строка \mbox{\hyperlink{vibrating__point_8h_source_l00147}{147}}
+
+\mbox{\Hypertarget{class_vibrating_point_a5ea36bdad5aeac784ecfa21f3ca98517}\label{class_vibrating_point_a5ea36bdad5aeac784ecfa21f3ca98517}} 
+\index{VibratingPoint@{VibratingPoint}!x\_@{x\_}}
+\index{x\_@{x\_}!VibratingPoint@{VibratingPoint}}
+\doxysubsubsection{\texorpdfstring{x\_}{x\_}}
+{\footnotesize\ttfamily std\+::vector$<$double$>$ Vibrating\+Point\+::x\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Контейнер для хранения координат гистограммы по оси X (фактически -\/ найденный спектр частот вибрации точки после выполнения БПФ) 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibrating__point_8h_source}{vibrating\+\_\+point.\+h}} строка \mbox{\hyperlink{vibrating__point_8h_source_l00176}{176}}
+
+\mbox{\Hypertarget{class_vibrating_point_a6653e27fe96e5fe6e7aa410fb3138c92}\label{class_vibrating_point_a6653e27fe96e5fe6e7aa410fb3138c92}} 
+\index{VibratingPoint@{VibratingPoint}!x\_coordinates\_@{x\_coordinates\_}}
+\index{x\_coordinates\_@{x\_coordinates\_}!VibratingPoint@{VibratingPoint}}
+\doxysubsubsection{\texorpdfstring{x\_coordinates\_}{x\_coordinates\_}}
+{\footnotesize\ttfamily std\+::vector$<$double$>$ Vibrating\+Point\+::x\+\_\+coordinates\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Контейнер для координат точки по оси X. 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibrating__point_8h_source}{vibrating\+\_\+point.\+h}} строка \mbox{\hyperlink{vibrating__point_8h_source_l00139}{139}}
+
+\mbox{\Hypertarget{class_vibrating_point_aa22ce2e3bdd0b4614b1c0ad0adf256e5}\label{class_vibrating_point_aa22ce2e3bdd0b4614b1c0ad0adf256e5}} 
+\index{VibratingPoint@{VibratingPoint}!y\_@{y\_}}
+\index{y\_@{y\_}!VibratingPoint@{VibratingPoint}}
+\doxysubsubsection{\texorpdfstring{y\_}{y\_}}
+{\footnotesize\ttfamily std\+::vector$<$float$>$ Vibrating\+Point\+::y\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Контейнер для хранения координат гистограммы по оси Y (фактически -\/ найденные магнитуды точки после выполнения БПФ) 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibrating__point_8h_source}{vibrating\+\_\+point.\+h}} строка \mbox{\hyperlink{vibrating__point_8h_source_l00180}{180}}
+
+\mbox{\Hypertarget{class_vibrating_point_a5df5aa7a4d955de091640290f849961c}\label{class_vibrating_point_a5df5aa7a4d955de091640290f849961c}} 
+\index{VibratingPoint@{VibratingPoint}!y\_coordinates\_@{y\_coordinates\_}}
+\index{y\_coordinates\_@{y\_coordinates\_}!VibratingPoint@{VibratingPoint}}
+\doxysubsubsection{\texorpdfstring{y\_coordinates\_}{y\_coordinates\_}}
+{\footnotesize\ttfamily std\+::vector$<$double$>$ Vibrating\+Point\+::y\+\_\+coordinates\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Контейнер для координат точки по оси Y. 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibrating__point_8h_source}{vibrating\+\_\+point.\+h}} строка \mbox{\hyperlink{vibrating__point_8h_source_l00143}{143}}
+
+
+
+Объявления и описания членов классов находятся в файлах\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/seeyo/source/repos/\+Visual-\/\+Vibration-\/\+Tracking-\/\+V2/include/\+VVT-\/\+V2/vibrating\+\_\+point.\+h\item 
+C\+:/\+Users/seeyo/source/repos/\+Visual-\/\+Vibration-\/\+Tracking-\/\+V2/source/vibrating\+\_\+point.\+cpp\end{DoxyCompactItemize}

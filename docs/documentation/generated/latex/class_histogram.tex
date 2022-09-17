@@ -1,0 +1,745 @@
+\hypertarget{class_histogram}{}\doxysection{Класс Histogram}
+\label{class_histogram}\index{Histogram@{Histogram}}
+
+
+Класс для создания объектов-\/гистограмм, на которые можно выводить различную информацию  
+
+
+
+
+{\ttfamily \#include $<$histogram.\+h$>$}
+
+
+
+Граф наследования\+:Histogram\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=304pt]{class_histogram__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_histogram_a385b019acb01cf7fff1b20b23b9c9c96}{Histogram}} (int width, int height, int x\+\_\+limit, int id, std\+::vector$<$ double $>$ \&x\+\_\+values, std\+::vector$<$ float $>$ \&y\+\_\+values)
+\begin{DoxyCompactList}\small\item\em Конструктор этого класса \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_histogram_aaf22daf3b8e3f0578337109005532f51}{$\sim$\+Histogram}} ()
+\begin{DoxyCompactList}\small\item\em Деструктор этого класса \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_histogram_a939c2c567799157b2088c63e661af15e}{Detect\+Event}} (int event, int x, int y, int flags)
+\begin{DoxyCompactList}\small\item\em callback функция для определения события (используется для хэндлинга клика мышью) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_histogram_a5a5a64a00231d62a6eeacb416f704262}{Show\+Histogram}} ()
+\begin{DoxyCompactList}\small\item\em Выводит гистограмму в окно гистограммы \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_histogram_a8ed9e75be45d4c50b54b9150427a89c8}{Set\+XValues}} (std\+::vector$<$ double $>$ x\+\_\+values)
+\begin{DoxyCompactList}\small\item\em Устанавливает X-\/ы \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_histogram_a6f59d4b44f3f4866a7b709ec7e1e15c4}{Set\+YValues}} (std\+::vector$<$ float $>$ y\+\_\+values)
+\begin{DoxyCompactList}\small\item\em Устанавливает Y-\/ы \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_histogram_aad4123748f53efc8cdbc0b8f6ae5444e}{Set\+Histogram\+Flag}} (bool flag)
+\begin{DoxyCompactList}\small\item\em Устанавливает статус флага отрисовки гистограммы \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_histogram_a67ea2102e72112ddffd05f0ed8e2a73e}{Set\+Histogram\+Window\+Property}} (int prop\+\_\+id, int prop\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Обновляет статус окна гистограммы (например, для вывода на передний план) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Открытые статические члены}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_histogram_a090252d83cd4beb02a842afbf0311d3d}{On\+Mouse}} (int event, int x, int y, int flags, void $\ast$userdata)
+\begin{DoxyCompactList}\small\item\em callback функция для определения события (используется для хэндлинга клика мышью) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Защищенные данные}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_histogram_ad5f780994e3453a67ed31b9437000ce3}{is\+\_\+histogram\+\_\+plotted\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Флаг для отрисовки гистограммы \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Закрытые члены}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_histogram_af03efd072e5360e76aa938add6e64fa6}{Init\+Histogram\+Background}} ()
+\begin{DoxyCompactList}\small\item\em Подгатавливаем \mbox{\hyperlink{class_histogram_a04b862513a61fb68ab1c8fd5206d1bcb}{Histogram\+::histogram\+\_\+background\+\_\+}} для дальнейшего использования \end{DoxyCompactList}\item 
+Mat \mbox{\hyperlink{class_histogram_a6a6a966da93879eea7b967b5c12d7b8a}{Calc\+Histogram}} ()
+\begin{DoxyCompactList}\small\item\em Вычисляет значения для гистограммы \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_histogram_a2008108f7dfd9ffbfa812ca26138540d}{Is\+Interacted}} (int x, int interval)
+\begin{DoxyCompactList}\small\item\em Проверяет, соответствует ли точка координате мыши \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_histogram_a3bddf7035f3a842b2b9a3b22ab19ca29}{Plot\+Mouse\+Value}} (Mat \&frame, int value\+\_\+idx)
+\begin{DoxyCompactList}\small\item\em Выводит значение частоты рядом с курсором \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_histogram_a6f570c207d055c4034e12fca708e8a90}{to\+\_\+string\+\_\+with\+\_\+precision}} (const float value, const int n=6)
+\begin{DoxyCompactList}\small\item\em Для ограничения кол-\/ва знаков \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Закрытые данные}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{class_histogram_a292702c6d9b47cb4b017a10c410d7fea}{winname\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Название окна \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_histogram_a3d9dee7d6841b7fb9b37de8d87e4db91}{histogram\+\_\+offset\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Оффсет рамки гистограммы \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_histogram_a11742964d450404cba6521e1811daeec}{histogram\+\_\+frame\+\_\+width\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Ширина окна гистограммы (включая оффсет) \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_histogram_a19b4e5c3c82a3f26149633ce779ce447}{histogram\+\_\+frame\+\_\+height\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Высота окна гистограммы (включая оффсет) \end{DoxyCompactList}\item 
+Mat \mbox{\hyperlink{class_histogram_a62d371b7f1ca13ead2dfba8faa831a4c}{histogram\+\_\+}}
+\begin{DoxyCompactList}\small\item\em cv\+::\+Mat изображение гистограммы \end{DoxyCompactList}\item 
+Mat \mbox{\hyperlink{class_histogram_a04b862513a61fb68ab1c8fd5206d1bcb}{histogram\+\_\+background\+\_\+}}
+\begin{DoxyCompactList}\small\item\em cv\+::\+Mat фон для гистограммы \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ $\ast$ \mbox{\hyperlink{class_histogram_a1e8da20001beb108c4d523cbbf5153a5}{x\+\_\+values\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Значения гистограммы по оси X. \end{DoxyCompactList}\item 
+std\+::vector$<$ float $>$ $\ast$ \mbox{\hyperlink{class_histogram_a0042425ba721ed0c248c7bba486a66e6}{y\+\_\+values\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Значения гистограммы по оси Y. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_histogram_ae468947a2d6f255abfb2e6add20e3770}{axis\+\_\+signature\+\_\+offset\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Отступ для подписей оси \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_histogram_a7a18ce6f843690d8be8f3490d7ea5cf1}{signature\+\_\+interval\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Интервал для делений оси и количество этих делений \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_histogram_ac1d77e929aeb4b8adc12404bc0dffdc5}{signature\+\_\+amount\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Количество подписей на оси \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_histogram_ad7734ef44b2e7f0ec9cc46154f18d008}{x\+\_\+limit\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Максимальное (предельное) значение по оси X. \end{DoxyCompactList}\item 
+Point2i \mbox{\hyperlink{class_histogram_a1f5573dfce9dd07761a77916535ea9fd}{last\+\_\+mouse\+\_\+coordinates\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Координаты мыши (курсора) \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_histogram_a0ed69396a74c9570ad6c22b182055f42}{dead\+\_\+zone\+\_\+coeff\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Процент диапазона, который будет нижней мертвой зоной\+: 1.\+0 -\/ 100\%. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Класс для создания объектов-\/гистограмм, на которые можно выводить различную информацию 
+
+См. определение в файле \mbox{\hyperlink{histogram_8h_source}{histogram.\+h}} строка \mbox{\hyperlink{histogram_8h_source_l00016}{16}}
+
+
+
+\doxysubsection{Конструктор(ы)}
+\mbox{\Hypertarget{class_histogram_a385b019acb01cf7fff1b20b23b9c9c96}\label{class_histogram_a385b019acb01cf7fff1b20b23b9c9c96}} 
+\index{Histogram@{Histogram}!Histogram@{Histogram}}
+\index{Histogram@{Histogram}!Histogram@{Histogram}}
+\doxysubsubsection{\texorpdfstring{Histogram()}{Histogram()}}
+{\footnotesize\ttfamily Histogram\+::\+Histogram (\begin{DoxyParamCaption}\item[{int}]{width,  }\item[{int}]{height,  }\item[{int}]{x\+\_\+limit,  }\item[{int}]{id,  }\item[{std\+::vector$<$ double $>$ \&}]{x\+\_\+values,  }\item[{std\+::vector$<$ float $>$ \&}]{y\+\_\+values }\end{DoxyParamCaption})}
+
+
+
+Конструктор этого класса 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em width} & ширина окна гистограммы (включая оффсет) \\
+\hline
+{\em height} & высота окна гистограммы (включая оффсет) \\
+\hline
+{\em x\+\_\+limit} & максимальное (предельное) значение по оси X \\
+\hline
+{\em id} & ID точки \\
+\hline
+{\em x\+\_\+values} & адрес контейнера со значениями для оси X \\
+\hline
+{\em y\+\_\+values} & адрес контейнера со значеними для оси Y \\
+\hline
+\end{DoxyParams}
+
+
+См. определение в файле \mbox{\hyperlink{histogram_8cpp_source}{histogram.\+cpp}} строка \mbox{\hyperlink{histogram_8cpp_source_l00003}{3}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00003                                                                                                                         :}
+\DoxyCodeLine{00004     \mbox{\hyperlink{class_histogram_a11742964d450404cba6521e1811daeec}{histogram\_frame\_width\_}}\{ width \},}
+\DoxyCodeLine{00005     \mbox{\hyperlink{class_histogram_a19b4e5c3c82a3f26149633ce779ce447}{histogram\_frame\_height\_}}\{ height \},}
+\DoxyCodeLine{00006     \mbox{\hyperlink{class_histogram_ad7734ef44b2e7f0ec9cc46154f18d008}{x\_limit\_}}\{ x\_limit \},}
+\DoxyCodeLine{00007     \mbox{\hyperlink{class_histogram_ad5f780994e3453a67ed31b9437000ce3}{is\_histogram\_plotted\_}}\{ \textcolor{keyword}{false} \},}
+\DoxyCodeLine{00008     \mbox{\hyperlink{class_histogram_ac1d77e929aeb4b8adc12404bc0dffdc5}{signature\_amount\_}}\{ 8 \},}
+\DoxyCodeLine{00009     \mbox{\hyperlink{class_histogram_a0ed69396a74c9570ad6c22b182055f42}{dead\_zone\_coeff\_}}\{ 0.0f \},}
+\DoxyCodeLine{00010     \mbox{\hyperlink{class_histogram_a1e8da20001beb108c4d523cbbf5153a5}{x\_values\_}}\{ \&x\_values \},}
+\DoxyCodeLine{00011     \mbox{\hyperlink{class_histogram_a0042425ba721ed0c248c7bba486a66e6}{y\_values\_}}\{ \&y\_values \}}
+\DoxyCodeLine{00012 \{}
+\DoxyCodeLine{00013     \textcolor{comment}{// Инициализация гистограммы пустым кадром черного цвета}}
+\DoxyCodeLine{00014     \mbox{\hyperlink{class_histogram_a3d9dee7d6841b7fb9b37de8d87e4db91}{histogram\_offset\_}} = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(\mbox{\hyperlink{class_histogram_a11742964d450404cba6521e1811daeec}{histogram\_frame\_width\_}}) * 0.05;}
+\DoxyCodeLine{00015     \mbox{\hyperlink{class_histogram_ae468947a2d6f255abfb2e6add20e3770}{axis\_signature\_offset\_}} = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(\mbox{\hyperlink{class_histogram_a11742964d450404cba6521e1811daeec}{histogram\_frame\_width\_}}) * 0.03;}
+\DoxyCodeLine{00016     \mbox{\hyperlink{class_histogram_a62d371b7f1ca13ead2dfba8faa831a4c}{histogram\_}} = Mat(Size(\mbox{\hyperlink{class_histogram_a11742964d450404cba6521e1811daeec}{histogram\_frame\_width\_}}, \mbox{\hyperlink{class_histogram_a19b4e5c3c82a3f26149633ce779ce447}{histogram\_frame\_height\_}}), CV\_32F, Scalar(0, 0, 0));}
+\DoxyCodeLine{00017     \textcolor{comment}{// Инициализируем название окна}}
+\DoxyCodeLine{00018     \mbox{\hyperlink{class_histogram_a292702c6d9b47cb4b017a10c410d7fea}{winname\_}} = \textcolor{stringliteral}{"{}histogram "{}} + std::to\_string(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00019     \textcolor{comment}{// Посчитаем интервал между подписями оси}}
+\DoxyCodeLine{00020     \mbox{\hyperlink{class_histogram_a7a18ce6f843690d8be8f3490d7ea5cf1}{signature\_interval\_}} = (\mbox{\hyperlink{class_histogram_a62d371b7f1ca13ead2dfba8faa831a4c}{histogram\_}}.cols -\/ \mbox{\hyperlink{class_histogram_a3d9dee7d6841b7fb9b37de8d87e4db91}{histogram\_offset\_}} * 2.0) / \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(\mbox{\hyperlink{class_histogram_ac1d77e929aeb4b8adc12404bc0dffdc5}{signature\_amount\_}} -\/ 1);}
+\DoxyCodeLine{00021 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_histogram_aaf22daf3b8e3f0578337109005532f51}\label{class_histogram_aaf22daf3b8e3f0578337109005532f51}} 
+\index{Histogram@{Histogram}!````~Histogram@{$\sim$Histogram}}
+\index{````~Histogram@{$\sim$Histogram}!Histogram@{Histogram}}
+\doxysubsubsection{\texorpdfstring{$\sim$Histogram()}{~Histogram()}}
+{\footnotesize\ttfamily Histogram\+::$\sim$\+Histogram (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Деструктор этого класса 
+
+Окно гистограммы разрушается внутри деструктора 
+
+См. определение в файле \mbox{\hyperlink{histogram_8cpp_source}{histogram.\+cpp}} строка \mbox{\hyperlink{histogram_8cpp_source_l00023}{23}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00024 \{}
+\DoxyCodeLine{00025     \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_histogram_ad5f780994e3453a67ed31b9437000ce3}{is\_histogram\_plotted\_}})}
+\DoxyCodeLine{00026         destroyWindow(\mbox{\hyperlink{class_histogram_a292702c6d9b47cb4b017a10c410d7fea}{winname\_}});}
+\DoxyCodeLine{00027 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Методы}
+\mbox{\Hypertarget{class_histogram_a6a6a966da93879eea7b967b5c12d7b8a}\label{class_histogram_a6a6a966da93879eea7b967b5c12d7b8a}} 
+\index{Histogram@{Histogram}!CalcHistogram@{CalcHistogram}}
+\index{CalcHistogram@{CalcHistogram}!Histogram@{Histogram}}
+\doxysubsubsection{\texorpdfstring{CalcHistogram()}{CalcHistogram()}}
+{\footnotesize\ttfamily Mat Histogram\+::\+Calc\+Histogram (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Вычисляет значения для гистограммы 
+
+
+
+См. определение в файле \mbox{\hyperlink{histogram_8cpp_source}{histogram.\+cpp}} строка \mbox{\hyperlink{histogram_8cpp_source_l00116}{116}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00117 \{}
+\DoxyCodeLine{00118     \mbox{\hyperlink{class_histogram_af03efd072e5360e76aa938add6e64fa6}{InitHistogramBackground}}();}
+\DoxyCodeLine{00119     \textcolor{keywordtype}{float} interval = ((\mbox{\hyperlink{class_histogram_a62d371b7f1ca13ead2dfba8faa831a4c}{histogram\_}}.cols) -\/ \mbox{\hyperlink{class_histogram_a3d9dee7d6841b7fb9b37de8d87e4db91}{histogram\_offset\_}} * 2.0) / \mbox{\hyperlink{class_histogram_a0042425ba721ed0c248c7bba486a66e6}{y\_values\_}}-\/>size();}
+\DoxyCodeLine{00120     }
+\DoxyCodeLine{00121     Mat frame = \mbox{\hyperlink{class_histogram_a04b862513a61fb68ab1c8fd5206d1bcb}{histogram\_background\_}}.clone();}
+\DoxyCodeLine{00122 }
+\DoxyCodeLine{00123     \textcolor{comment}{// Инициализируем максимальные и минимальные значения магнитуд}}
+\DoxyCodeLine{00124     \textcolor{keywordtype}{float} max\_value = 0.0;}
+\DoxyCodeLine{00125 }
+\DoxyCodeLine{00126     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_histogram_a0042425ba721ed0c248c7bba486a66e6}{y\_values\_}}-\/>size(); i++)}
+\DoxyCodeLine{00127     \{}
+\DoxyCodeLine{00128         \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_histogram_a0042425ba721ed0c248c7bba486a66e6}{y\_values\_}}-\/>at(i) > max\_value)}
+\DoxyCodeLine{00129             max\_value = \mbox{\hyperlink{class_histogram_a0042425ba721ed0c248c7bba486a66e6}{y\_values\_}}-\/>at(i);}
+\DoxyCodeLine{00130     \}}
+\DoxyCodeLine{00131 }
+\DoxyCodeLine{00132 }
+\DoxyCodeLine{00133     \textcolor{comment}{// Отрисовка столбцов}}
+\DoxyCodeLine{00134     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_histogram_a0042425ba721ed0c248c7bba486a66e6}{y\_values\_}}-\/>size(); i++)}
+\DoxyCodeLine{00135     \{}
+\DoxyCodeLine{00136         \textcolor{keywordtype}{float} x\_0 = \mbox{\hyperlink{class_histogram_a3d9dee7d6841b7fb9b37de8d87e4db91}{histogram\_offset\_}} + i * interval + interval;}
+\DoxyCodeLine{00137         \textcolor{keywordtype}{float} y\_0 = \mbox{\hyperlink{class_histogram_a19b4e5c3c82a3f26149633ce779ce447}{histogram\_frame\_height\_}} -\/ \mbox{\hyperlink{class_histogram_a3d9dee7d6841b7fb9b37de8d87e4db91}{histogram\_offset\_}} -\/ \mbox{\hyperlink{class_histogram_ae468947a2d6f255abfb2e6add20e3770}{axis\_signature\_offset\_}};}
+\DoxyCodeLine{00138         \textcolor{keywordtype}{float} x\_1 = x\_0;}
+\DoxyCodeLine{00139         \textcolor{keywordtype}{float} y\_1 = y\_0 -\/ \mbox{\hyperlink{class_histogram_a0042425ba721ed0c248c7bba486a66e6}{y\_values\_}}-\/>at(i) / max\_value * (\mbox{\hyperlink{class_histogram_a19b4e5c3c82a3f26149633ce779ce447}{histogram\_frame\_height\_}} -\/ 2 * \mbox{\hyperlink{class_histogram_a3d9dee7d6841b7fb9b37de8d87e4db91}{histogram\_offset\_}} -\/ \mbox{\hyperlink{class_histogram_ae468947a2d6f255abfb2e6add20e3770}{axis\_signature\_offset\_}});}
+\DoxyCodeLine{00140 }
+\DoxyCodeLine{00141         \textcolor{comment}{// Если мышь указывает на текущее значение, отрисовываем это значение рядом с курсором}}
+\DoxyCodeLine{00142         \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_histogram_a2008108f7dfd9ffbfa812ca26138540d}{IsInteracted}}(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(x\_0), interval))}
+\DoxyCodeLine{00143         \{}
+\DoxyCodeLine{00144             \mbox{\hyperlink{class_histogram_a3bddf7035f3a842b2b9a3b22ab19ca29}{PlotMouseValue}}(frame, i);}
+\DoxyCodeLine{00145         \}}
+\DoxyCodeLine{00146         line(frame, Point2f(x\_0, y\_0), Point2f(x\_1, y\_1), Scalar(255, 255, 255), 1, LINE\_AA);}
+\DoxyCodeLine{00147     \}}
+\DoxyCodeLine{00148 }
+\DoxyCodeLine{00149     \textcolor{keywordflow}{return} frame;}
+\DoxyCodeLine{00150 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_histogram_a939c2c567799157b2088c63e661af15e}\label{class_histogram_a939c2c567799157b2088c63e661af15e}} 
+\index{Histogram@{Histogram}!DetectEvent@{DetectEvent}}
+\index{DetectEvent@{DetectEvent}!Histogram@{Histogram}}
+\doxysubsubsection{\texorpdfstring{DetectEvent()}{DetectEvent()}}
+{\footnotesize\ttfamily void Histogram\+::\+Detect\+Event (\begin{DoxyParamCaption}\item[{int}]{event,  }\item[{int}]{x,  }\item[{int}]{y,  }\item[{int}]{flags }\end{DoxyParamCaption})}
+
+
+
+callback функция для определения события (используется для хэндлинга клика мышью) 
+
+
+
+См. определение в файле \mbox{\hyperlink{histogram_8cpp_source}{histogram.\+cpp}} строка \mbox{\hyperlink{histogram_8cpp_source_l00035}{35}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00036 \{}
+\DoxyCodeLine{00037     \textcolor{keywordflow}{switch} (event) \{}
+\DoxyCodeLine{00038         \textcolor{comment}{// ЛКМ была прожата вниз}}
+\DoxyCodeLine{00039     \textcolor{keywordflow}{case} EVENT\_LBUTTONDOWN:}
+\DoxyCodeLine{00040     \{}
+\DoxyCodeLine{00041         \mbox{\hyperlink{class_histogram_ad5f780994e3453a67ed31b9437000ce3}{is\_histogram\_plotted\_}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{00042         destroyWindow(\mbox{\hyperlink{class_histogram_a292702c6d9b47cb4b017a10c410d7fea}{winname\_}});}
+\DoxyCodeLine{00043         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00044     \}}
+\DoxyCodeLine{00045     \textcolor{keywordflow}{case} EVENT\_MOUSEMOVE:}
+\DoxyCodeLine{00046     \{}
+\DoxyCodeLine{00047         \mbox{\hyperlink{class_histogram_a1f5573dfce9dd07761a77916535ea9fd}{last\_mouse\_coordinates\_}}.x = x;}
+\DoxyCodeLine{00048         \mbox{\hyperlink{class_histogram_a1f5573dfce9dd07761a77916535ea9fd}{last\_mouse\_coordinates\_}}.y = y;}
+\DoxyCodeLine{00049         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00050     \}}
+\DoxyCodeLine{00051     \}}
+\DoxyCodeLine{00052 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_histogram_af03efd072e5360e76aa938add6e64fa6}\label{class_histogram_af03efd072e5360e76aa938add6e64fa6}} 
+\index{Histogram@{Histogram}!InitHistogramBackground@{InitHistogramBackground}}
+\index{InitHistogramBackground@{InitHistogramBackground}!Histogram@{Histogram}}
+\doxysubsubsection{\texorpdfstring{InitHistogramBackground()}{InitHistogramBackground()}}
+{\footnotesize\ttfamily void Histogram\+::\+Init\+Histogram\+Background (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Подгатавливаем \mbox{\hyperlink{class_histogram_a04b862513a61fb68ab1c8fd5206d1bcb}{Histogram\+::histogram\+\_\+background\+\_\+}} для дальнейшего использования 
+
+
+
+См. определение в файле \mbox{\hyperlink{histogram_8cpp_source}{histogram.\+cpp}} строка \mbox{\hyperlink{histogram_8cpp_source_l00085}{85}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00086 \{}
+\DoxyCodeLine{00087     Mat frame = Mat(Size(\mbox{\hyperlink{class_histogram_a11742964d450404cba6521e1811daeec}{histogram\_frame\_width\_}}, \mbox{\hyperlink{class_histogram_a19b4e5c3c82a3f26149633ce779ce447}{histogram\_frame\_height\_}}), CV\_32F, Scalar(0, 0, 0));}
+\DoxyCodeLine{00088 }
+\DoxyCodeLine{00089     \textcolor{comment}{// Отрисовываем рамку гистограммы}}
+\DoxyCodeLine{00090     rectangle(frame, Rect(}
+\DoxyCodeLine{00091         Point2f(\mbox{\hyperlink{class_histogram_a3d9dee7d6841b7fb9b37de8d87e4db91}{histogram\_offset\_}} * 0.5, \mbox{\hyperlink{class_histogram_a3d9dee7d6841b7fb9b37de8d87e4db91}{histogram\_offset\_}} * 0.5), \textcolor{comment}{// top-\/left}}
+\DoxyCodeLine{00092         Point2f(\mbox{\hyperlink{class_histogram_a11742964d450404cba6521e1811daeec}{histogram\_frame\_width\_}} -\/ \mbox{\hyperlink{class_histogram_a3d9dee7d6841b7fb9b37de8d87e4db91}{histogram\_offset\_}} * 0.5, \mbox{\hyperlink{class_histogram_a19b4e5c3c82a3f26149633ce779ce447}{histogram\_frame\_height\_}} -\/ \mbox{\hyperlink{class_histogram_a3d9dee7d6841b7fb9b37de8d87e4db91}{histogram\_offset\_}} * 0.5 -\/ \mbox{\hyperlink{class_histogram_ae468947a2d6f255abfb2e6add20e3770}{axis\_signature\_offset\_}})), \textcolor{comment}{// bottom-\/right}}
+\DoxyCodeLine{00093         Scalar(255, 255, 255),}
+\DoxyCodeLine{00094         1}
+\DoxyCodeLine{00095     );}
+\DoxyCodeLine{00096 }
+\DoxyCodeLine{00097     \textcolor{comment}{// Отрисовываем подписи}}
+\DoxyCodeLine{00098     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_histogram_ac1d77e929aeb4b8adc12404bc0dffdc5}{signature\_amount\_}}; i++)}
+\DoxyCodeLine{00099     \{}
+\DoxyCodeLine{00100         \textcolor{keywordtype}{float} signature\_start = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(\mbox{\hyperlink{class_histogram_a1e8da20001beb108c4d523cbbf5153a5}{x\_values\_}}-\/>front());}
+\DoxyCodeLine{00101         \textcolor{keywordtype}{float} signature\_interval = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(\mbox{\hyperlink{class_histogram_ad7734ef44b2e7f0ec9cc46154f18d008}{x\_limit\_}} -\/ signature\_start) / \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(\mbox{\hyperlink{class_histogram_ac1d77e929aeb4b8adc12404bc0dffdc5}{signature\_amount\_}} -\/ 1);}
+\DoxyCodeLine{00102         \textcolor{keywordtype}{float} value = signature\_start + signature\_interval * i;}
+\DoxyCodeLine{00103         putText(}
+\DoxyCodeLine{00104             frame,}
+\DoxyCodeLine{00105             \mbox{\hyperlink{class_histogram_a6f570c207d055c4034e12fca708e8a90}{to\_string\_with\_precision}}(value, 1),}
+\DoxyCodeLine{00106             Point2f(\mbox{\hyperlink{class_histogram_a3d9dee7d6841b7fb9b37de8d87e4db91}{histogram\_offset\_}} / 2.0 + i * \mbox{\hyperlink{class_histogram_a7a18ce6f843690d8be8f3490d7ea5cf1}{signature\_interval\_}}, \mbox{\hyperlink{class_histogram_a19b4e5c3c82a3f26149633ce779ce447}{histogram\_frame\_height\_}} -\/ \mbox{\hyperlink{class_histogram_ae468947a2d6f255abfb2e6add20e3770}{axis\_signature\_offset\_}} / 2.0),}
+\DoxyCodeLine{00107             FONT\_HERSHEY\_PLAIN,}
+\DoxyCodeLine{00108             1,}
+\DoxyCodeLine{00109             Scalar(255, 255, 255)}
+\DoxyCodeLine{00110         );}
+\DoxyCodeLine{00111     \}}
+\DoxyCodeLine{00112 }
+\DoxyCodeLine{00113     frame.copyTo(\mbox{\hyperlink{class_histogram_a04b862513a61fb68ab1c8fd5206d1bcb}{histogram\_background\_}});}
+\DoxyCodeLine{00114 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_histogram_a2008108f7dfd9ffbfa812ca26138540d}\label{class_histogram_a2008108f7dfd9ffbfa812ca26138540d}} 
+\index{Histogram@{Histogram}!IsInteracted@{IsInteracted}}
+\index{IsInteracted@{IsInteracted}!Histogram@{Histogram}}
+\doxysubsubsection{\texorpdfstring{IsInteracted()}{IsInteracted()}}
+{\footnotesize\ttfamily bool Histogram\+::\+Is\+Interacted (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{interval }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Проверяет, соответствует ли точка координате мыши 
+
+
+
+См. определение в файле \mbox{\hyperlink{histogram_8cpp_source}{histogram.\+cpp}} строка \mbox{\hyperlink{histogram_8cpp_source_l00152}{152}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00153 \{}
+\DoxyCodeLine{00154     \textcolor{keywordflow}{if} (interval > 1)}
+\DoxyCodeLine{00155     \{}
+\DoxyCodeLine{00156         Rect interaction\_box = Rect(Point2f(x -\/ interval * 0.9, -\/1), Point2f(x + interval * 0.9, 1));}
+\DoxyCodeLine{00157         \textcolor{keywordflow}{return} ((interaction\_box.contains(Point2i(\mbox{\hyperlink{class_histogram_a1f5573dfce9dd07761a77916535ea9fd}{last\_mouse\_coordinates\_}}.x, 0))) ? \textcolor{keyword}{true} : \textcolor{keyword}{false});}
+\DoxyCodeLine{00158     \}}
+\DoxyCodeLine{00159     \textcolor{keywordflow}{return} ((\mbox{\hyperlink{class_histogram_a1f5573dfce9dd07761a77916535ea9fd}{last\_mouse\_coordinates\_}}.x == x) ? \textcolor{keyword}{true} : \textcolor{keyword}{false});}
+\DoxyCodeLine{00160 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_histogram_a090252d83cd4beb02a842afbf0311d3d}\label{class_histogram_a090252d83cd4beb02a842afbf0311d3d}} 
+\index{Histogram@{Histogram}!OnMouse@{OnMouse}}
+\index{OnMouse@{OnMouse}!Histogram@{Histogram}}
+\doxysubsubsection{\texorpdfstring{OnMouse()}{OnMouse()}}
+{\footnotesize\ttfamily void Histogram\+::\+On\+Mouse (\begin{DoxyParamCaption}\item[{int}]{event,  }\item[{int}]{x,  }\item[{int}]{y,  }\item[{int}]{flags,  }\item[{void $\ast$}]{userdata }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+callback функция для определения события (используется для хэндлинга клика мышью) 
+
+
+
+См. определение в файле \mbox{\hyperlink{histogram_8cpp_source}{histogram.\+cpp}} строка \mbox{\hyperlink{histogram_8cpp_source_l00029}{29}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00030 \{}
+\DoxyCodeLine{00031     \mbox{\hyperlink{class_histogram}{Histogram}}* d = \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{class_histogram}{Histogram}}*\textcolor{keyword}{>}(userdata);}
+\DoxyCodeLine{00032     d-\/>\mbox{\hyperlink{class_histogram_a939c2c567799157b2088c63e661af15e}{DetectEvent}}(event, x, y, flags);}
+\DoxyCodeLine{00033 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_histogram_a3bddf7035f3a842b2b9a3b22ab19ca29}\label{class_histogram_a3bddf7035f3a842b2b9a3b22ab19ca29}} 
+\index{Histogram@{Histogram}!PlotMouseValue@{PlotMouseValue}}
+\index{PlotMouseValue@{PlotMouseValue}!Histogram@{Histogram}}
+\doxysubsubsection{\texorpdfstring{PlotMouseValue()}{PlotMouseValue()}}
+{\footnotesize\ttfamily void Histogram\+::\+Plot\+Mouse\+Value (\begin{DoxyParamCaption}\item[{Mat \&}]{frame,  }\item[{int}]{value\+\_\+idx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Выводит значение частоты рядом с курсором 
+
+
+
+См. определение в файле \mbox{\hyperlink{histogram_8cpp_source}{histogram.\+cpp}} строка \mbox{\hyperlink{histogram_8cpp_source_l00162}{162}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00163 \{}
+\DoxyCodeLine{00164     putText(}
+\DoxyCodeLine{00165         frame,}
+\DoxyCodeLine{00166         \mbox{\hyperlink{class_histogram_a6f570c207d055c4034e12fca708e8a90}{to\_string\_with\_precision}}(\mbox{\hyperlink{class_histogram_a1e8da20001beb108c4d523cbbf5153a5}{x\_values\_}}-\/>at(value\_idx), 1),}
+\DoxyCodeLine{00167         Point2f(\mbox{\hyperlink{class_histogram_a1f5573dfce9dd07761a77916535ea9fd}{last\_mouse\_coordinates\_}}.x + \mbox{\hyperlink{class_histogram_a3d9dee7d6841b7fb9b37de8d87e4db91}{histogram\_offset\_}} * 0.5, \mbox{\hyperlink{class_histogram_a1f5573dfce9dd07761a77916535ea9fd}{last\_mouse\_coordinates\_}}.y + \mbox{\hyperlink{class_histogram_a3d9dee7d6841b7fb9b37de8d87e4db91}{histogram\_offset\_}} * 0.2),}
+\DoxyCodeLine{00168         FONT\_HERSHEY\_PLAIN,}
+\DoxyCodeLine{00169         1,}
+\DoxyCodeLine{00170         Scalar(255, 255, 255)}
+\DoxyCodeLine{00171     );}
+\DoxyCodeLine{00172 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_histogram_aad4123748f53efc8cdbc0b8f6ae5444e}\label{class_histogram_aad4123748f53efc8cdbc0b8f6ae5444e}} 
+\index{Histogram@{Histogram}!SetHistogramFlag@{SetHistogramFlag}}
+\index{SetHistogramFlag@{SetHistogramFlag}!Histogram@{Histogram}}
+\doxysubsubsection{\texorpdfstring{SetHistogramFlag()}{SetHistogramFlag()}}
+{\footnotesize\ttfamily void Histogram\+::\+Set\+Histogram\+Flag (\begin{DoxyParamCaption}\item[{bool}]{flag }\end{DoxyParamCaption})}
+
+
+
+Устанавливает статус флага отрисовки гистограммы 
+
+
+
+См. определение в файле \mbox{\hyperlink{histogram_8cpp_source}{histogram.\+cpp}} строка \mbox{\hyperlink{histogram_8cpp_source_l00074}{74}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00075 \{}
+\DoxyCodeLine{00076     \textcolor{comment}{// Устанавливаем флаг}}
+\DoxyCodeLine{00077     \mbox{\hyperlink{class_histogram_ad5f780994e3453a67ed31b9437000ce3}{is\_histogram\_plotted\_}} = flag;}
+\DoxyCodeLine{00078 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_histogram_a67ea2102e72112ddffd05f0ed8e2a73e}\label{class_histogram_a67ea2102e72112ddffd05f0ed8e2a73e}} 
+\index{Histogram@{Histogram}!SetHistogramWindowProperty@{SetHistogramWindowProperty}}
+\index{SetHistogramWindowProperty@{SetHistogramWindowProperty}!Histogram@{Histogram}}
+\doxysubsubsection{\texorpdfstring{SetHistogramWindowProperty()}{SetHistogramWindowProperty()}}
+{\footnotesize\ttfamily void Histogram\+::\+Set\+Histogram\+Window\+Property (\begin{DoxyParamCaption}\item[{int}]{prop\+\_\+id,  }\item[{int}]{prop\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+Обновляет статус окна гистограммы (например, для вывода на передний план) 
+
+На данный момент функция не используется \+:/ 
+
+См. определение в файле \mbox{\hyperlink{histogram_8cpp_source}{histogram.\+cpp}} строка \mbox{\hyperlink{histogram_8cpp_source_l00080}{80}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00081 \{}
+\DoxyCodeLine{00082     setWindowProperty(\mbox{\hyperlink{class_histogram_a292702c6d9b47cb4b017a10c410d7fea}{winname\_}}, prop\_id, prop\_value);}
+\DoxyCodeLine{00083 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_histogram_a8ed9e75be45d4c50b54b9150427a89c8}\label{class_histogram_a8ed9e75be45d4c50b54b9150427a89c8}} 
+\index{Histogram@{Histogram}!SetXValues@{SetXValues}}
+\index{SetXValues@{SetXValues}!Histogram@{Histogram}}
+\doxysubsubsection{\texorpdfstring{SetXValues()}{SetXValues()}}
+{\footnotesize\ttfamily void Histogram\+::\+Set\+XValues (\begin{DoxyParamCaption}\item[{std\+::vector$<$ double $>$}]{x\+\_\+values }\end{DoxyParamCaption})}
+
+
+
+Устанавливает X-\/ы 
+
+
+
+См. определение в файле \mbox{\hyperlink{histogram_8cpp_source}{histogram.\+cpp}} строка \mbox{\hyperlink{histogram_8cpp_source_l00064}{64}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00065 \{}
+\DoxyCodeLine{00066     \textcolor{comment}{//x\_values\_ = x\_values;}}
+\DoxyCodeLine{00067 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_histogram_a6f59d4b44f3f4866a7b709ec7e1e15c4}\label{class_histogram_a6f59d4b44f3f4866a7b709ec7e1e15c4}} 
+\index{Histogram@{Histogram}!SetYValues@{SetYValues}}
+\index{SetYValues@{SetYValues}!Histogram@{Histogram}}
+\doxysubsubsection{\texorpdfstring{SetYValues()}{SetYValues()}}
+{\footnotesize\ttfamily void Histogram\+::\+Set\+YValues (\begin{DoxyParamCaption}\item[{std\+::vector$<$ float $>$}]{y\+\_\+values }\end{DoxyParamCaption})}
+
+
+
+Устанавливает Y-\/ы 
+
+
+
+См. определение в файле \mbox{\hyperlink{histogram_8cpp_source}{histogram.\+cpp}} строка \mbox{\hyperlink{histogram_8cpp_source_l00069}{69}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00070 \{}
+\DoxyCodeLine{00071     \textcolor{comment}{//y\_values\_ = y\_values;}}
+\DoxyCodeLine{00072 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_histogram_a5a5a64a00231d62a6eeacb416f704262}\label{class_histogram_a5a5a64a00231d62a6eeacb416f704262}} 
+\index{Histogram@{Histogram}!ShowHistogram@{ShowHistogram}}
+\index{ShowHistogram@{ShowHistogram}!Histogram@{Histogram}}
+\doxysubsubsection{\texorpdfstring{ShowHistogram()}{ShowHistogram()}}
+{\footnotesize\ttfamily void Histogram\+::\+Show\+Histogram (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Выводит гистограмму в окно гистограммы 
+
+
+
+См. определение в файле \mbox{\hyperlink{histogram_8cpp_source}{histogram.\+cpp}} строка \mbox{\hyperlink{histogram_8cpp_source_l00054}{54}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00055 \{}
+\DoxyCodeLine{00056     \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_histogram_ad5f780994e3453a67ed31b9437000ce3}{is\_histogram\_plotted\_}})}
+\DoxyCodeLine{00057     \{}
+\DoxyCodeLine{00058         \mbox{\hyperlink{class_histogram_a62d371b7f1ca13ead2dfba8faa831a4c}{histogram\_}} = \mbox{\hyperlink{class_histogram_a6a6a966da93879eea7b967b5c12d7b8a}{CalcHistogram}}();}
+\DoxyCodeLine{00059         imshow(\mbox{\hyperlink{class_histogram_a292702c6d9b47cb4b017a10c410d7fea}{winname\_}}, \mbox{\hyperlink{class_histogram_a62d371b7f1ca13ead2dfba8faa831a4c}{histogram\_}});}
+\DoxyCodeLine{00060         setMouseCallback(\mbox{\hyperlink{class_histogram_a292702c6d9b47cb4b017a10c410d7fea}{winname\_}}, \mbox{\hyperlink{class_histogram_a090252d83cd4beb02a842afbf0311d3d}{OnMouse}}, (\textcolor{keywordtype}{void}*)\textcolor{keyword}{this});}
+\DoxyCodeLine{00061     \}}
+\DoxyCodeLine{00062 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_histogram_a6f570c207d055c4034e12fca708e8a90}\label{class_histogram_a6f570c207d055c4034e12fca708e8a90}} 
+\index{Histogram@{Histogram}!to\_string\_with\_precision@{to\_string\_with\_precision}}
+\index{to\_string\_with\_precision@{to\_string\_with\_precision}!Histogram@{Histogram}}
+\doxysubsubsection{\texorpdfstring{to\_string\_with\_precision()}{to\_string\_with\_precision()}}
+{\footnotesize\ttfamily std\+::string Histogram\+::to\+\_\+string\+\_\+with\+\_\+precision (\begin{DoxyParamCaption}\item[{const float}]{value,  }\item[{const int}]{n = {\ttfamily 6} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Для ограничения кол-\/ва знаков 
+
+
+
+См. определение в файле \mbox{\hyperlink{histogram_8cpp_source}{histogram.\+cpp}} строка \mbox{\hyperlink{histogram_8cpp_source_l00174}{174}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00175 \{}
+\DoxyCodeLine{00176     std::ostringstream out;}
+\DoxyCodeLine{00177     out.precision(n);}
+\DoxyCodeLine{00178     out << std::fixed << value;}
+\DoxyCodeLine{00179     \textcolor{keywordflow}{return} out.str();}
+\DoxyCodeLine{00180 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Данные класса}
+\mbox{\Hypertarget{class_histogram_ae468947a2d6f255abfb2e6add20e3770}\label{class_histogram_ae468947a2d6f255abfb2e6add20e3770}} 
+\index{Histogram@{Histogram}!axis\_signature\_offset\_@{axis\_signature\_offset\_}}
+\index{axis\_signature\_offset\_@{axis\_signature\_offset\_}!Histogram@{Histogram}}
+\doxysubsubsection{\texorpdfstring{axis\_signature\_offset\_}{axis\_signature\_offset\_}}
+{\footnotesize\ttfamily float Histogram\+::axis\+\_\+signature\+\_\+offset\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Отступ для подписей оси 
+
+
+
+См. определение в файле \mbox{\hyperlink{histogram_8h_source}{histogram.\+h}} строка \mbox{\hyperlink{histogram_8h_source_l00131}{131}}
+
+\mbox{\Hypertarget{class_histogram_a0ed69396a74c9570ad6c22b182055f42}\label{class_histogram_a0ed69396a74c9570ad6c22b182055f42}} 
+\index{Histogram@{Histogram}!dead\_zone\_coeff\_@{dead\_zone\_coeff\_}}
+\index{dead\_zone\_coeff\_@{dead\_zone\_coeff\_}!Histogram@{Histogram}}
+\doxysubsubsection{\texorpdfstring{dead\_zone\_coeff\_}{dead\_zone\_coeff\_}}
+{\footnotesize\ttfamily float Histogram\+::dead\+\_\+zone\+\_\+coeff\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Процент диапазона, который будет нижней мертвой зоной\+: 1.\+0 -\/ 100\%. 
+
+
+
+См. определение в файле \mbox{\hyperlink{histogram_8h_source}{histogram.\+h}} строка \mbox{\hyperlink{histogram_8h_source_l00151}{151}}
+
+\mbox{\Hypertarget{class_histogram_a62d371b7f1ca13ead2dfba8faa831a4c}\label{class_histogram_a62d371b7f1ca13ead2dfba8faa831a4c}} 
+\index{Histogram@{Histogram}!histogram\_@{histogram\_}}
+\index{histogram\_@{histogram\_}!Histogram@{Histogram}}
+\doxysubsubsection{\texorpdfstring{histogram\_}{histogram\_}}
+{\footnotesize\ttfamily Mat Histogram\+::histogram\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+cv\+::\+Mat изображение гистограммы 
+
+
+
+См. определение в файле \mbox{\hyperlink{histogram_8h_source}{histogram.\+h}} строка \mbox{\hyperlink{histogram_8h_source_l00115}{115}}
+
+\mbox{\Hypertarget{class_histogram_a04b862513a61fb68ab1c8fd5206d1bcb}\label{class_histogram_a04b862513a61fb68ab1c8fd5206d1bcb}} 
+\index{Histogram@{Histogram}!histogram\_background\_@{histogram\_background\_}}
+\index{histogram\_background\_@{histogram\_background\_}!Histogram@{Histogram}}
+\doxysubsubsection{\texorpdfstring{histogram\_background\_}{histogram\_background\_}}
+{\footnotesize\ttfamily Mat Histogram\+::histogram\+\_\+background\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+cv\+::\+Mat фон для гистограммы 
+
+
+
+См. определение в файле \mbox{\hyperlink{histogram_8h_source}{histogram.\+h}} строка \mbox{\hyperlink{histogram_8h_source_l00119}{119}}
+
+\mbox{\Hypertarget{class_histogram_a19b4e5c3c82a3f26149633ce779ce447}\label{class_histogram_a19b4e5c3c82a3f26149633ce779ce447}} 
+\index{Histogram@{Histogram}!histogram\_frame\_height\_@{histogram\_frame\_height\_}}
+\index{histogram\_frame\_height\_@{histogram\_frame\_height\_}!Histogram@{Histogram}}
+\doxysubsubsection{\texorpdfstring{histogram\_frame\_height\_}{histogram\_frame\_height\_}}
+{\footnotesize\ttfamily int Histogram\+::histogram\+\_\+frame\+\_\+height\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Высота окна гистограммы (включая оффсет) 
+
+
+
+См. определение в файле \mbox{\hyperlink{histogram_8h_source}{histogram.\+h}} строка \mbox{\hyperlink{histogram_8h_source_l00111}{111}}
+
+\mbox{\Hypertarget{class_histogram_a11742964d450404cba6521e1811daeec}\label{class_histogram_a11742964d450404cba6521e1811daeec}} 
+\index{Histogram@{Histogram}!histogram\_frame\_width\_@{histogram\_frame\_width\_}}
+\index{histogram\_frame\_width\_@{histogram\_frame\_width\_}!Histogram@{Histogram}}
+\doxysubsubsection{\texorpdfstring{histogram\_frame\_width\_}{histogram\_frame\_width\_}}
+{\footnotesize\ttfamily int Histogram\+::histogram\+\_\+frame\+\_\+width\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Ширина окна гистограммы (включая оффсет) 
+
+
+
+См. определение в файле \mbox{\hyperlink{histogram_8h_source}{histogram.\+h}} строка \mbox{\hyperlink{histogram_8h_source_l00107}{107}}
+
+\mbox{\Hypertarget{class_histogram_a3d9dee7d6841b7fb9b37de8d87e4db91}\label{class_histogram_a3d9dee7d6841b7fb9b37de8d87e4db91}} 
+\index{Histogram@{Histogram}!histogram\_offset\_@{histogram\_offset\_}}
+\index{histogram\_offset\_@{histogram\_offset\_}!Histogram@{Histogram}}
+\doxysubsubsection{\texorpdfstring{histogram\_offset\_}{histogram\_offset\_}}
+{\footnotesize\ttfamily float Histogram\+::histogram\+\_\+offset\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Оффсет рамки гистограммы 
+
+
+
+См. определение в файле \mbox{\hyperlink{histogram_8h_source}{histogram.\+h}} строка \mbox{\hyperlink{histogram_8h_source_l00103}{103}}
+
+\mbox{\Hypertarget{class_histogram_ad5f780994e3453a67ed31b9437000ce3}\label{class_histogram_ad5f780994e3453a67ed31b9437000ce3}} 
+\index{Histogram@{Histogram}!is\_histogram\_plotted\_@{is\_histogram\_plotted\_}}
+\index{is\_histogram\_plotted\_@{is\_histogram\_plotted\_}!Histogram@{Histogram}}
+\doxysubsubsection{\texorpdfstring{is\_histogram\_plotted\_}{is\_histogram\_plotted\_}}
+{\footnotesize\ttfamily bool Histogram\+::is\+\_\+histogram\+\_\+plotted\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Флаг для отрисовки гистограммы 
+
+
+
+См. определение в файле \mbox{\hyperlink{histogram_8h_source}{histogram.\+h}} строка \mbox{\hyperlink{histogram_8h_source_l00093}{93}}
+
+\mbox{\Hypertarget{class_histogram_a1f5573dfce9dd07761a77916535ea9fd}\label{class_histogram_a1f5573dfce9dd07761a77916535ea9fd}} 
+\index{Histogram@{Histogram}!last\_mouse\_coordinates\_@{last\_mouse\_coordinates\_}}
+\index{last\_mouse\_coordinates\_@{last\_mouse\_coordinates\_}!Histogram@{Histogram}}
+\doxysubsubsection{\texorpdfstring{last\_mouse\_coordinates\_}{last\_mouse\_coordinates\_}}
+{\footnotesize\ttfamily Point2i Histogram\+::last\+\_\+mouse\+\_\+coordinates\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Координаты мыши (курсора) 
+
+
+
+См. определение в файле \mbox{\hyperlink{histogram_8h_source}{histogram.\+h}} строка \mbox{\hyperlink{histogram_8h_source_l00147}{147}}
+
+\mbox{\Hypertarget{class_histogram_ac1d77e929aeb4b8adc12404bc0dffdc5}\label{class_histogram_ac1d77e929aeb4b8adc12404bc0dffdc5}} 
+\index{Histogram@{Histogram}!signature\_amount\_@{signature\_amount\_}}
+\index{signature\_amount\_@{signature\_amount\_}!Histogram@{Histogram}}
+\doxysubsubsection{\texorpdfstring{signature\_amount\_}{signature\_amount\_}}
+{\footnotesize\ttfamily int Histogram\+::signature\+\_\+amount\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Количество подписей на оси 
+
+
+
+См. определение в файле \mbox{\hyperlink{histogram_8h_source}{histogram.\+h}} строка \mbox{\hyperlink{histogram_8h_source_l00139}{139}}
+
+\mbox{\Hypertarget{class_histogram_a7a18ce6f843690d8be8f3490d7ea5cf1}\label{class_histogram_a7a18ce6f843690d8be8f3490d7ea5cf1}} 
+\index{Histogram@{Histogram}!signature\_interval\_@{signature\_interval\_}}
+\index{signature\_interval\_@{signature\_interval\_}!Histogram@{Histogram}}
+\doxysubsubsection{\texorpdfstring{signature\_interval\_}{signature\_interval\_}}
+{\footnotesize\ttfamily float Histogram\+::signature\+\_\+interval\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Интервал для делений оси и количество этих делений 
+
+
+
+См. определение в файле \mbox{\hyperlink{histogram_8h_source}{histogram.\+h}} строка \mbox{\hyperlink{histogram_8h_source_l00135}{135}}
+
+\mbox{\Hypertarget{class_histogram_a292702c6d9b47cb4b017a10c410d7fea}\label{class_histogram_a292702c6d9b47cb4b017a10c410d7fea}} 
+\index{Histogram@{Histogram}!winname\_@{winname\_}}
+\index{winname\_@{winname\_}!Histogram@{Histogram}}
+\doxysubsubsection{\texorpdfstring{winname\_}{winname\_}}
+{\footnotesize\ttfamily std\+::string Histogram\+::winname\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Название окна 
+
+
+
+См. определение в файле \mbox{\hyperlink{histogram_8h_source}{histogram.\+h}} строка \mbox{\hyperlink{histogram_8h_source_l00099}{99}}
+
+\mbox{\Hypertarget{class_histogram_ad7734ef44b2e7f0ec9cc46154f18d008}\label{class_histogram_ad7734ef44b2e7f0ec9cc46154f18d008}} 
+\index{Histogram@{Histogram}!x\_limit\_@{x\_limit\_}}
+\index{x\_limit\_@{x\_limit\_}!Histogram@{Histogram}}
+\doxysubsubsection{\texorpdfstring{x\_limit\_}{x\_limit\_}}
+{\footnotesize\ttfamily int Histogram\+::x\+\_\+limit\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Максимальное (предельное) значение по оси X. 
+
+
+
+См. определение в файле \mbox{\hyperlink{histogram_8h_source}{histogram.\+h}} строка \mbox{\hyperlink{histogram_8h_source_l00143}{143}}
+
+\mbox{\Hypertarget{class_histogram_a1e8da20001beb108c4d523cbbf5153a5}\label{class_histogram_a1e8da20001beb108c4d523cbbf5153a5}} 
+\index{Histogram@{Histogram}!x\_values\_@{x\_values\_}}
+\index{x\_values\_@{x\_values\_}!Histogram@{Histogram}}
+\doxysubsubsection{\texorpdfstring{x\_values\_}{x\_values\_}}
+{\footnotesize\ttfamily std\+::vector$<$double$>$$\ast$ Histogram\+::x\+\_\+values\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Значения гистограммы по оси X. 
+
+
+
+См. определение в файле \mbox{\hyperlink{histogram_8h_source}{histogram.\+h}} строка \mbox{\hyperlink{histogram_8h_source_l00123}{123}}
+
+\mbox{\Hypertarget{class_histogram_a0042425ba721ed0c248c7bba486a66e6}\label{class_histogram_a0042425ba721ed0c248c7bba486a66e6}} 
+\index{Histogram@{Histogram}!y\_values\_@{y\_values\_}}
+\index{y\_values\_@{y\_values\_}!Histogram@{Histogram}}
+\doxysubsubsection{\texorpdfstring{y\_values\_}{y\_values\_}}
+{\footnotesize\ttfamily std\+::vector$<$float$>$$\ast$ Histogram\+::y\+\_\+values\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Значения гистограммы по оси Y. 
+
+
+
+См. определение в файле \mbox{\hyperlink{histogram_8h_source}{histogram.\+h}} строка \mbox{\hyperlink{histogram_8h_source_l00127}{127}}
+
+
+
+Объявления и описания членов классов находятся в файлах\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/seeyo/source/repos/\+Visual-\/\+Vibration-\/\+Tracking-\/\+V2/include/\+VVT-\/\+V2/histogram.\+h\item 
+C\+:/\+Users/seeyo/source/repos/\+Visual-\/\+Vibration-\/\+Tracking-\/\+V2/source/histogram.\+cpp\end{DoxyCompactItemize}

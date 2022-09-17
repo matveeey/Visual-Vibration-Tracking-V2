@@ -1,0 +1,121 @@
+\hypertarget{colored__point__handler_8cpp_source}{}\doxysection{colored\+\_\+point\+\_\+handler.\+cpp}
+\label{colored__point__handler_8cpp_source}\index{C:/Users/seeyo/source/repos/Visual-\/Vibration-\/Tracking-\/V2/source/colored\_point\_handler.cpp@{C:/Users/seeyo/source/repos/Visual-\/Vibration-\/Tracking-\/V2/source/colored\_point\_handler.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}VVT-\/V2/colored\_point\_handler.h"{}}}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00003}\mbox{\hyperlink{class_colored_point_handler_a4c7292c2268cad44b6c656f4f582194a}{00003}} \mbox{\hyperlink{class_colored_point_handler_a4c7292c2268cad44b6c656f4f582194a}{ColoredPointHandler::ColoredPointHandler}}(Point2f init\_coordinates, \textcolor{keywordtype}{double} sampling\_rate, \textcolor{keywordtype}{int} point\_id, \textcolor{keywordtype}{float} radius\_resize\_factor, std::string output\_csv\_filename) :}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00004}00004     \mbox{\hyperlink{class_histogram}{Histogram}}\{ 600, 300, sampling\_rate / 2, point\_id, x\_, y\_ \},}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00005}00005     \mbox{\hyperlink{class_output_to_csv}{OutputToCsv}}\{ output\_csv\_filename, point\_coordinates\_, point\_time\_coordinates\_, point\_id \},}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00006}00006     point\_id\_\{ point\_id \},}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00007}00007     radius\_resize\_factor\_\{ radius\_resize\_factor \},}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00008}00008     coloring\_mode\_\{ COLORING\_BASED\_ON\_FREQUENCY \}}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00009}00009 \{}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00010}00010     \mbox{\hyperlink{class_vibrating_point_a8c035e084006469922a45f023b1bcce0}{interaction\_offset\_}} = 3;}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00011}00011     \mbox{\hyperlink{class_vibrating_point_a67ffaaa1b714226a78d6d5cc31c195c9}{sampling\_rate\_}} = sampling\_rate;}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00012}00012 }
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00013}00013     \textcolor{comment}{// Добавляем первые координаты клика мышью}}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00014}00014     \mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}.push\_back(init\_coordinates);}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00015}00015     \mbox{\hyperlink{class_vibrating_point_a5b35f5a2109df2be2d2832b25dfa2285}{interaction\_box\_}} = Rect(}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00016}00016         Point2i(init\_coordinates.x -\/ \mbox{\hyperlink{class_vibrating_point_a8c035e084006469922a45f023b1bcce0}{interaction\_offset\_}}, init\_coordinates.y -\/ \mbox{\hyperlink{class_vibrating_point_a8c035e084006469922a45f023b1bcce0}{interaction\_offset\_}}),}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00017}00017         Point2i(init\_coordinates.x + \mbox{\hyperlink{class_vibrating_point_a8c035e084006469922a45f023b1bcce0}{interaction\_offset\_}}, init\_coordinates.y + \mbox{\hyperlink{class_vibrating_point_a8c035e084006469922a45f023b1bcce0}{interaction\_offset\_}})}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00018}00018     );}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00019}00019     \mbox{\hyperlink{class_vibrating_point_a0298c80261ea234f82e1afff59d2d1fa}{interacted\_}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00020}00020 }
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00021}00021     \mbox{\hyperlink{class_vibrating_point_af4a9903a86d6d1a98b1acf89684492ae}{default\_point\_radius\_}} = 4 * radius\_resize\_factor;}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00022}00022     \mbox{\hyperlink{class_vibrating_point_ac0a7383346b67916a29c9dc892addfae}{current\_point\_radius\_}} = \mbox{\hyperlink{class_vibrating_point_af4a9903a86d6d1a98b1acf89684492ae}{default\_point\_radius\_}};}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00023}00023 }
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00024}00024     \mbox{\hyperlink{class_vibrating_point_adfd1433886cf1fb2b3b07062b69614b1}{frequencies\_}}.push\_back(0.0);}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00025}00025     \mbox{\hyperlink{class_vibrating_point_a9989c50fa30cecf13079ae0c595ef87c}{relative\_amplitude\_}} = Point3f(0.0, 0.0, 0.0);}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00026}00026 }
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00027}00027     \mbox{\hyperlink{class_vibrating_point_ab2539b861e02f361eb772c71e06c9af3}{sensivity\_}} = 0.01;}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00028}00028     \mbox{\hyperlink{class_vibrating_point_a6ed26ed40b33b1486cb4c304981d4444}{confidence\_level\_}} = 1.0;}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00029}00029 }
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00030}00030     \mbox{\hyperlink{class_colored_point_handler_a4b3ee0b18de6bf71cd0f5124ce73c490}{point\_color\_}} = Scalar(0, 0, 255);}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00031}00031 \}}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00033}\mbox{\hyperlink{class_colored_point_handler_a55e451f03127858deb1dda40e2124611}{00033}} \mbox{\hyperlink{class_colored_point_handler_a55e451f03127858deb1dda40e2124611}{ColoredPointHandler::\string~ColoredPointHandler}}()}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00034}00034 \{}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00035}00035     \mbox{\hyperlink{class_output_to_csv_a8f1e3239fa21906aa102c3d601183f65}{Write}}();}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00036}00036 \}}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00037}00037 }
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00038}\mbox{\hyperlink{class_colored_point_handler_ad16eb2210bc1e9f8983186088cc9a573}{00038}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_colored_point_handler_ad16eb2210bc1e9f8983186088cc9a573}{ColoredPointHandler::Draw}}(Mat\& frame)}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00039}00039 \{}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00040}00040     \textcolor{comment}{// отрисовываем круг вокруг точки}}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00041}00041     \mbox{\hyperlink{class_colored_point_handler_a19d02da549d21bce5167c041257ad808}{DrawPoint}}(frame);}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00042}00042     \textcolor{comment}{// отрисовываем гистограмму}}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00043}00043     \mbox{\hyperlink{class_colored_point_handler_a3c6b8eef49c18add5c4c56d9035c06df}{DrawHistogram}}();}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00044}00044 \}}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00045}00045 }
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00046}\mbox{\hyperlink{class_colored_point_handler_aca8be23a3787bd9f62dd0f950c1f2645}{00046}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_colored_point_handler_aca8be23a3787bd9f62dd0f950c1f2645}{ColoredPointHandler::SetColoringMode}}(\textcolor{keywordtype}{int} \mbox{\hyperlink{class_colored_point_handler_ad0550fe1aac50d476a071743e3c3802a}{coloring\_mode}})}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00047}00047 \{}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00048}00048     coloring\_mode\_ = \mbox{\hyperlink{class_colored_point_handler_ad0550fe1aac50d476a071743e3c3802a}{coloring\_mode}};}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00049}00049 \}}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00050}00050 }
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00051}\mbox{\hyperlink{class_colored_point_handler_a3c6b8eef49c18add5c4c56d9035c06df}{00051}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_colored_point_handler_a3c6b8eef49c18add5c4c56d9035c06df}{ColoredPointHandler::DrawHistogram}}()}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00052}00052 \{}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00053}00053     \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_histogram_ad5f780994e3453a67ed31b9437000ce3}{is\_histogram\_plotted\_}})}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00054}00054     \{}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00055}00055         \mbox{\hyperlink{class_histogram_a8ed9e75be45d4c50b54b9150427a89c8}{SetXValues}}(\mbox{\hyperlink{class_vibrating_point_a5ea36bdad5aeac784ecfa21f3ca98517}{x\_}});}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00056}00056         \mbox{\hyperlink{class_histogram_a6f59d4b44f3f4866a7b709ec7e1e15c4}{SetYValues}}(\mbox{\hyperlink{class_vibrating_point_aa22ce2e3bdd0b4614b1c0ad0adf256e5}{y\_}});}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00057}00057         \mbox{\hyperlink{class_histogram_a5a5a64a00231d62a6eeacb416f704262}{ShowHistogram}}();}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00058}00058     \}}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00059}00059 \}}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00060}00060 }
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00061}\mbox{\hyperlink{class_colored_point_handler_a19d02da549d21bce5167c041257ad808}{00061}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_colored_point_handler_a19d02da549d21bce5167c041257ad808}{ColoredPointHandler::DrawPoint}}(Mat\& frame)}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00062}00062 \{}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00063}00063     \mbox{\hyperlink{class_colored_point_handler_ad360ca58ca141acaf11d98a9bf59483b}{UpdatePointColor}}();}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00064}00064     \textcolor{comment}{// отрисовываем круг вокруг точки}}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00065}00065     circle(frame, \mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}.back(), \mbox{\hyperlink{class_vibrating_point_ac0a7383346b67916a29c9dc892addfae}{current\_point\_radius\_}}, \mbox{\hyperlink{class_colored_point_handler_a4b3ee0b18de6bf71cd0f5124ce73c490}{point\_color\_}}, FILLED);}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00066}00066 \}}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00067}00067 }
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00068}\mbox{\hyperlink{class_colored_point_handler_ae36ef1c44415f932993212c8aff980f6}{00068}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_colored_point_handler_ae36ef1c44415f932993212c8aff980f6}{ColoredPointHandler::DrawInteractionRectangle}}(Mat\& frame)}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00069}00069 \{}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00070}00070     rectangle(frame, \mbox{\hyperlink{class_vibrating_point_a5b35f5a2109df2be2d2832b25dfa2285}{interaction\_box\_}}, Scalar(0, 0, 255), 1);}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00071}00071 \}}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00072}00072 }
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00073}\mbox{\hyperlink{class_colored_point_handler_ad360ca58ca141acaf11d98a9bf59483b}{00073}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_colored_point_handler_ad360ca58ca141acaf11d98a9bf59483b}{ColoredPointHandler::UpdatePointColor}}()}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00074}00074 \{}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00075}00075     \textcolor{keywordflow}{switch} (coloring\_mode\_)}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00076}00076     \{}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00077}00077     \textcolor{keywordflow}{case} DEFAULT:}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00078}00078     \{}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00079}00079         \mbox{\hyperlink{class_vibrating_point_ac0a7383346b67916a29c9dc892addfae}{current\_point\_radius\_}} = \mbox{\hyperlink{class_vibrating_point_af4a9903a86d6d1a98b1acf89684492ae}{default\_point\_radius\_}};}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00080}00080         \mbox{\hyperlink{class_colored_point_handler_a4b3ee0b18de6bf71cd0f5124ce73c490}{point\_color\_}} = Scalar(0, 0, 255);}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00081}00081         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00082}00082     \}}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00083}00083     \textcolor{keywordflow}{case} COLORING\_BASED\_ON\_FREQUENCY:}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00084}00084     \{}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00085}00085         \mbox{\hyperlink{class_vibrating_point_ac0a7383346b67916a29c9dc892addfae}{current\_point\_radius\_}} = \mbox{\hyperlink{class_vibrating_point_af4a9903a86d6d1a98b1acf89684492ae}{default\_point\_radius\_}};}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00086}00086         \textcolor{comment}{// переведём диапазон частоты [0; range\_limit] в [0; 255] int color value;}}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00087}00087         \textcolor{keywordflow}{if} (!\mbox{\hyperlink{class_vibrating_point_adfd1433886cf1fb2b3b07062b69614b1}{frequencies\_}}.empty())}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00088}00088         \{}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00089}00089             \mbox{\hyperlink{class_colored_point_handler_a4b3ee0b18de6bf71cd0f5124ce73c490}{point\_color\_}} = \mbox{\hyperlink{group___helper_functions_ga79584d71167afeb72ca384eaf87c1419}{HelperFunctions::RatioToRgb}}(\mbox{\hyperlink{class_vibrating_point_aa0b94560fbac6ae1c5dbae9f4931d28c}{main\_frequency\_}} / (\mbox{\hyperlink{class_vibrating_point_a67ffaaa1b714226a78d6d5cc31c195c9}{sampling\_rate\_}} / 2));}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00090}00090         \}}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00091}00091         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00092}00092     \}}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00093}00093     \textcolor{keywordflow}{case} COLORING\_BASED\_ON\_AMPLITUDE:}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00094}00094     \{}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00095}00095         \mbox{\hyperlink{class_vibrating_point_ac0a7383346b67916a29c9dc892addfae}{current\_point\_radius\_}} = \mbox{\hyperlink{class_vibrating_point_af4a9903a86d6d1a98b1acf89684492ae}{default\_point\_radius\_}};}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00096}00096         \textcolor{comment}{// переведём диапазон амплитуд [0; max\_amplitude\_] в [0; 255] int color value;}}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00097}00097         \textcolor{keywordtype}{double} current\_amplitude\_absolute = sqrt(\mbox{\hyperlink{class_vibrating_point_a5ae50ac111f6681489eded6da7ef66ea}{current\_amplitude\_}}.x * \mbox{\hyperlink{class_vibrating_point_a5ae50ac111f6681489eded6da7ef66ea}{current\_amplitude\_}}.x + \mbox{\hyperlink{class_vibrating_point_a5ae50ac111f6681489eded6da7ef66ea}{current\_amplitude\_}}.y * \mbox{\hyperlink{class_vibrating_point_a5ae50ac111f6681489eded6da7ef66ea}{current\_amplitude\_}}.y);}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00098}00098         \textcolor{keywordtype}{double} ratio = (current\_amplitude\_absolute -\/ \mbox{\hyperlink{class_vibrating_point_afdefa096df21cf891ae6835a6df4ffc9}{extremum\_amplitude\_}}.second) / (\mbox{\hyperlink{class_vibrating_point_afdefa096df21cf891ae6835a6df4ffc9}{extremum\_amplitude\_}}.first -\/ \mbox{\hyperlink{class_vibrating_point_afdefa096df21cf891ae6835a6df4ffc9}{extremum\_amplitude\_}}.second);}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00099}00099         \mbox{\hyperlink{class_colored_point_handler_a4b3ee0b18de6bf71cd0f5124ce73c490}{point\_color\_}} = \mbox{\hyperlink{group___helper_functions_ga79584d71167afeb72ca384eaf87c1419}{HelperFunctions::RatioToRgb}}(ratio);}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00100}00100         \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_colored_point_handler_a4b3ee0b18de6bf71cd0f5124ce73c490}{point\_color\_}} == Scalar(0, 0, 0))}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00101}00101         \{}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00102}00102             std::cout << \textcolor{stringliteral}{"{}ratio: "{}} << ratio << std::endl;}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00103}00103             std::cout << \textcolor{stringliteral}{"{}current\_amplitude\_.x: "{}} << \mbox{\hyperlink{class_vibrating_point_a5ae50ac111f6681489eded6da7ef66ea}{current\_amplitude\_}}.x << std::endl;}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00104}00104             std::cout << \textcolor{stringliteral}{"{}max ampl: "{}} << \mbox{\hyperlink{class_vibrating_point_afdefa096df21cf891ae6835a6df4ffc9}{extremum\_amplitude\_}}.first << std::endl;}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00105}00105             std::cout << \textcolor{stringliteral}{"{}min ampl: "{}} << \mbox{\hyperlink{class_vibrating_point_afdefa096df21cf891ae6835a6df4ffc9}{extremum\_amplitude\_}}.second << std::endl;}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00106}00106         \}}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00107}00107         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00108}00108     \}}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00109}00109     \}}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00110}00110     \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_vibrating_point_a0298c80261ea234f82e1afff59d2d1fa}{interacted\_}})}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00111}00111     \{}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00112}00112         \mbox{\hyperlink{class_colored_point_handler_a4b3ee0b18de6bf71cd0f5124ce73c490}{point\_color\_}} = Scalar(255, 255, 255);}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00113}00113         \mbox{\hyperlink{class_vibrating_point_ac0a7383346b67916a29c9dc892addfae}{current\_point\_radius\_}} *= 3;}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00114}00114     \}}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8cpp_source_l00115}00115 \}}
+
+\end{DoxyCode}

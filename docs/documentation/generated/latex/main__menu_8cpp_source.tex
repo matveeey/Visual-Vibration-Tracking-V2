@@ -1,0 +1,250 @@
+\hypertarget{main__menu_8cpp_source}{}\doxysection{main\+\_\+menu.\+cpp}
+\label{main__menu_8cpp_source}\index{C:/Users/seeyo/source/repos/Visual-\/Vibration-\/Tracking-\/V2/source/main\_menu.cpp@{C:/Users/seeyo/source/repos/Visual-\/Vibration-\/Tracking-\/V2/source/main\_menu.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}GUI/main\_menu.h"{}}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00003}\mbox{\hyperlink{class_main_menu_abb33004f27a82400cf8359379347cd51}{00003}} \mbox{\hyperlink{class_main_menu_abb33004f27a82400cf8359379347cd51}{MainMenu::MainMenu}}(std::string params\_file\_name) :}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00004}00004     params\_file\_name\_\{ params\_file\_name \},}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00005}00005     winname\_\{ MAIN\_MENU\_WINDOW\_NAME \},}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00006}00006     menu\_width\_\{ 500 \},}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00007}00007     menu\_height\_\{ 500 \},}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00008}00008     button\_amount\_\{ 4 \},}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00009}00009     mode\_chosen\_\{ false \}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00010}00010 \{}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00011}00011     namedWindow(\mbox{\hyperlink{class_main_menu_a8b8a1a133a5ef0bfcb8203b104d9e7d8}{winname\_}}, WINDOW\_AUTOSIZE);}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00012}00012     \textcolor{comment}{// Инициализируем отступы}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00013}00013     \textcolor{keywordtype}{int} x = 20;}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00014}00014     \mbox{\hyperlink{class_main_menu_a3609956a27889cec7af6ec85195ac743}{button\_spacing\_}} = x;}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00015}00015     \mbox{\hyperlink{class_main_menu_a726804731d9b92dc1797ec69c2e48f93}{top\_offset\_}} = 3 * x;}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00016}00016     \mbox{\hyperlink{class_main_menu_ae9b1fae3596f0d598cdd590e1d799fce}{bottom\_offset\_}} = 5 * x;}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00017}00017     \mbox{\hyperlink{class_main_menu_ac8cde06a54ac62981f6ee2aaab284dbc}{width\_offset\_}} = 3 * x;}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00018}00018     \mbox{\hyperlink{class_main_menu_aafca88e812926ead49f00ec323a987cc}{button\_width\_}} = \mbox{\hyperlink{class_main_menu_a72f1383d94f8e16f245d58fc596392d0}{menu\_width\_}} -\/ 2 * \mbox{\hyperlink{class_main_menu_ac8cde06a54ac62981f6ee2aaab284dbc}{width\_offset\_}};}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00019}00019     \mbox{\hyperlink{class_main_menu_a091b2780210717c4620b8b8bec5edb8e}{button\_height\_}} = (\mbox{\hyperlink{class_main_menu_ae2c50f92a5f3c7486e7a3ad9ef866221}{menu\_height\_}} -\/ (\mbox{\hyperlink{class_main_menu_ad625d2c00b71239f30056eda2709e69d}{button\_amount\_}} -\/ 1) * \mbox{\hyperlink{class_main_menu_a3609956a27889cec7af6ec85195ac743}{button\_spacing\_}} -\/ \mbox{\hyperlink{class_main_menu_a726804731d9b92dc1797ec69c2e48f93}{top\_offset\_}} -\/ \mbox{\hyperlink{class_main_menu_ae9b1fae3596f0d598cdd590e1d799fce}{bottom\_offset\_}}) / \mbox{\hyperlink{class_main_menu_ad625d2c00b71239f30056eda2709e69d}{button\_amount\_}};}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00020}00020     \textcolor{comment}{// Надписи на кнопках}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00021}00021     \mbox{\hyperlink{class_main_menu_a678f9dbcd2216709540d4af16ed66b38}{button\_text\_}}[0] = \textcolor{stringliteral}{"{}CALIBRATION"{}};}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00022}00022     \mbox{\hyperlink{class_main_menu_a678f9dbcd2216709540d4af16ed66b38}{button\_text\_}}[1] = \textcolor{stringliteral}{"{}UNDISTORTION"{}};}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00023}00023     \mbox{\hyperlink{class_main_menu_a678f9dbcd2216709540d4af16ed66b38}{button\_text\_}}[2] = \textcolor{stringliteral}{"{}VIBRATION MONITORING"{}};}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00024}00024     \mbox{\hyperlink{class_main_menu_a678f9dbcd2216709540d4af16ed66b38}{button\_text\_}}[3] = \textcolor{stringliteral}{"{}MOVEMENT ENLARGEMENT"{}};}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00025}00025     \textcolor{comment}{// Инициализируем контейнер цветов кнопок}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00026}00026     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_main_menu_ad625d2c00b71239f30056eda2709e69d}{button\_amount\_}}; i++)}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00027}00027     \{}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00028}00028         \mbox{\hyperlink{class_main_menu_ad7381c9c612fc48c2a21d9a0e0fdb65f}{buttons\_color\_}}.push\_back(Scalar(255, 255, 255));}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00029}00029     \}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00030}00030     \textcolor{comment}{// Инициализируем атрибуты текста}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00031}00031     \mbox{\hyperlink{class_main_menu_a141c52a3decb4c9f74528cd158347a9e}{font}} = FONT\_HERSHEY\_PLAIN;}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00032}00032     \mbox{\hyperlink{class_main_menu_a2c1c1409a6638988fa33fb7e073ba13d}{font\_scale}} = 1;}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00033}00033     \mbox{\hyperlink{class_main_menu_a29d574adf0376f03c3ef3918fd87141e}{thickness}} = 2;}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00034}00034     \mbox{\hyperlink{class_main_menu_a9bcf2dfafca93c905bfea6f0a53cbe15}{baseline}} = 0;}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00035}00035     \textcolor{comment}{// Создание меню на Mat-\/объекте}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00036}00036     \mbox{\hyperlink{class_main_menu_a5ecabae61a1ba65a16966268056fa113}{CreateMenu}}();}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00037}00037 \}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00038}00038 }
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00039}\mbox{\hyperlink{class_main_menu_acf5b3599f1461c5f9431ea1f704da910}{00039}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_main_menu_acf5b3599f1461c5f9431ea1f704da910}{MainMenu::LoadPaths}}()}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00040}00040 \{}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00041}00041     std::ifstream params\_file;}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00042}00042     params\_file.open(\mbox{\hyperlink{class_main_menu_a300dd1a1e464e73087d4feabb94e8fb9}{params\_file\_name\_}});}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00044}00044     \textcolor{keywordflow}{if} (!params\_file.is\_open())}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00045}00045     \{}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00046}00046         std::cout << \textcolor{stringliteral}{"{}Wrong filename"{}} << std::endl;}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00047}00047     \}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00048}00048 }
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00049}00049     std::getline(params\_file, \mbox{\hyperlink{class_main_menu_a4ecd32d232bdc09bad417fec831efe2b}{input\_calibration\_video\_}});}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00050}00050     std::getline(params\_file, \mbox{\hyperlink{class_main_menu_a43569f3b9d5700184c9cd21e760e78b0}{input\_distorted\_video\_}});}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00051}00051     std::getline(params\_file, \mbox{\hyperlink{class_main_menu_ae1388275b984f4d7e5975c42bd20a45e}{output\_undistorted\_video\_}});}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00052}00052     std::getline(params\_file, \mbox{\hyperlink{class_main_menu_a085f0e7b8a81371f8b868f447b787ac1}{input\_vibration\_detection\_}});}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00053}00053     std::getline(params\_file, \mbox{\hyperlink{class_main_menu_a4e9d0a1af8b544e9f4b856f02864c26f}{output\_vibration\_detection\_}});}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00054}00054     std::getline(params\_file, \mbox{\hyperlink{class_main_menu_ae70524216396d958e84697846751db33}{chessboards\_path\_}});}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00055}00055     std::getline(params\_file, \mbox{\hyperlink{class_main_menu_abbc9df90951e4ef60b081c2971fbd978}{input\_movement\_enlargment\_}});}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00056}00056     std::getline(params\_file, \mbox{\hyperlink{class_main_menu_a29d7b279fb12523356ba6e084dd1a5e4}{output\_movement\_enlargement\_}});}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00057}00057 \}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00058}00058 }
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00059}\mbox{\hyperlink{class_main_menu_a01aeeb1edc954686d13747cb4c12a8e0}{00059}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_main_menu_a01aeeb1edc954686d13747cb4c12a8e0}{MainMenu::ExecuteCameraCalibration}}(std::string chessboards\_path)}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00060}00060 \{}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00061}00061     \mbox{\hyperlink{class_camera_calibrator}{CameraCalibrator}} camera\_calibrator(chessboards\_path);}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00062}00062     camera\_calibrator.ExecuteCameraCalibration();}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00063}00063 \}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00064}00064 }
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00065}\mbox{\hyperlink{class_main_menu_a30aba8993a7f8e9f39b242f10fbaf931}{00065}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_main_menu_a30aba8993a7f8e9f39b242f10fbaf931}{MainMenu::ExecuteVideoUndistortion}}(std::string input\_file\_name, std::string output\_file\_name)}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00066}00066 \{}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00067}00067     std::string params;}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00068}00068 }
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00069}00069     std::cout << \textcolor{stringliteral}{"{}Please attach the parameters.txt file: "{}};}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00070}00070     std::cin >> params;}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00071}00071     std::cout << std::endl;}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00072}00072 }
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00073}00073     \mbox{\hyperlink{class_video_undistorter}{VideoUndistorter}} video\_undistorter(input\_file\_name, output\_file\_name, params);}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00074}00074     video\_undistorter.\mbox{\hyperlink{class_video_undistorter_a05b19bb1af0c5fcfd147c48dd447d44d}{ExecuteVideoUndistortion}}();}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00075}00075 \}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00076}00076 }
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00077}\mbox{\hyperlink{class_main_menu_aa5e21268330d9703d6c8bf9f4b33d228}{00077}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_main_menu_aa5e21268330d9703d6c8bf9f4b33d228}{MainMenu::ExecuteVibrationMonitoring}}(std::string input\_file\_name, std::string output\_file\_name)}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00078}00078 \{}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00079}00079     \mbox{\hyperlink{class_vibration_detector}{VibrationDetector}} vibration\_detector(input\_file\_name, output\_file\_name, MAIN\_WINDOW\_NAME);}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00080}00080     vibration\_detector.\mbox{\hyperlink{class_vibration_detector_ae93a14aa147af694a90c012f16efc924}{ExecuteVibrationDetection}}();}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00081}00081 \}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00082}00082 }
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00083}\mbox{\hyperlink{class_main_menu_a7110d2e44a744a1556f8a2b2950b9d38}{00083}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_main_menu_a7110d2e44a744a1556f8a2b2950b9d38}{MainMenu::ExecuteMotionMagnification}}(std::string input\_file\_name, std::string output\_file\_name)}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00084}00084 \{}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00085}00085     \mbox{\hyperlink{class_movement_enlarger}{MovementEnlarger}} movement\_enlarger(input\_file\_name, output\_file\_name);}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00086}00086     movement\_enlarger.\mbox{\hyperlink{class_movement_enlarger_a1570d3e0ed67d4ec81a0f8e0c8048414}{ExecuteLaplaceEnlargement}}();}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00087}00087 \}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00088}00088 }
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00089}\mbox{\hyperlink{class_main_menu_a5ecabae61a1ba65a16966268056fa113}{00089}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_main_menu_a5ecabae61a1ba65a16966268056fa113}{MainMenu::CreateMenu}}()}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00090}00090 \{}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00091}00091     \textcolor{comment}{// Создадим кнопки в соответствии с их позициями}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00092}00092     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_main_menu_ad625d2c00b71239f30056eda2709e69d}{button\_amount\_}}; i++)}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00093}00093     \{}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00094}00094         \mbox{\hyperlink{class_main_menu_ac6afebbdaef47782d019da5034768389}{buttons\_}}.push\_back}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00095}00095         (}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00096}00096             Rect(}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00097}00097                 Point2i(}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00098}00098                     \mbox{\hyperlink{class_main_menu_ac8cde06a54ac62981f6ee2aaab284dbc}{width\_offset\_}},}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00099}00099                     \mbox{\hyperlink{class_main_menu_a726804731d9b92dc1797ec69c2e48f93}{top\_offset\_}} + i * (\mbox{\hyperlink{class_main_menu_a091b2780210717c4620b8b8bec5edb8e}{button\_height\_}} + \mbox{\hyperlink{class_main_menu_a3609956a27889cec7af6ec85195ac743}{button\_spacing\_}})}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00100}00100                 ),}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00101}00101                 Point2i(}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00102}00102                     \mbox{\hyperlink{class_main_menu_ac8cde06a54ac62981f6ee2aaab284dbc}{width\_offset\_}} + \mbox{\hyperlink{class_main_menu_aafca88e812926ead49f00ec323a987cc}{button\_width\_}},}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00103}00103                     \mbox{\hyperlink{class_main_menu_a726804731d9b92dc1797ec69c2e48f93}{top\_offset\_}} + \mbox{\hyperlink{class_main_menu_a091b2780210717c4620b8b8bec5edb8e}{button\_height\_}} + i * (\mbox{\hyperlink{class_main_menu_a091b2780210717c4620b8b8bec5edb8e}{button\_height\_}} + \mbox{\hyperlink{class_main_menu_a3609956a27889cec7af6ec85195ac743}{button\_spacing\_}})}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00104}00104                 )}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00105}00105             )}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00106}00106         );}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00107}00107     \}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00108}00108     }
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00109}00109     \mbox{\hyperlink{class_main_menu_a21f7500296ee52056ba2ff187d437558}{menu\_}} = Mat(Size(\mbox{\hyperlink{class_main_menu_a72f1383d94f8e16f245d58fc596392d0}{menu\_width\_}}, \mbox{\hyperlink{class_main_menu_ae2c50f92a5f3c7486e7a3ad9ef866221}{menu\_height\_}}), CV\_8UC3, Scalar(0, 0, 0)); }
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00110}00110 }
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00111}00111     \textcolor{comment}{// Подсказка для пользователя}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00112}00112     std::string tip = \textcolor{stringliteral}{"{}Press 'Q' to quit"{}};}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00113}00113     putText(}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00114}00114         \mbox{\hyperlink{class_main_menu_a21f7500296ee52056ba2ff187d437558}{menu\_}},}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00115}00115         tip,}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00116}00116         Point(}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00117}00117             (\mbox{\hyperlink{class_main_menu_a72f1383d94f8e16f245d58fc596392d0}{menu\_width\_}} -\/ getTextSize(tip, \mbox{\hyperlink{class_main_menu_a141c52a3decb4c9f74528cd158347a9e}{font}}, \mbox{\hyperlink{class_main_menu_a2c1c1409a6638988fa33fb7e073ba13d}{font\_scale}}, \mbox{\hyperlink{class_main_menu_a29d574adf0376f03c3ef3918fd87141e}{thickness}}, \&\mbox{\hyperlink{class_main_menu_a9bcf2dfafca93c905bfea6f0a53cbe15}{baseline}}).width) / 2,}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00118}00118             \mbox{\hyperlink{class_main_menu_ae2c50f92a5f3c7486e7a3ad9ef866221}{menu\_height\_}} -\/ (\mbox{\hyperlink{class_main_menu_ae9b1fae3596f0d598cdd590e1d799fce}{bottom\_offset\_}} -\/ getTextSize(tip, \mbox{\hyperlink{class_main_menu_a141c52a3decb4c9f74528cd158347a9e}{font}}, \mbox{\hyperlink{class_main_menu_a2c1c1409a6638988fa33fb7e073ba13d}{font\_scale}}, \mbox{\hyperlink{class_main_menu_a29d574adf0376f03c3ef3918fd87141e}{thickness}}, \&\mbox{\hyperlink{class_main_menu_a9bcf2dfafca93c905bfea6f0a53cbe15}{baseline}}).height) / 2),}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00119}00119         \mbox{\hyperlink{class_main_menu_a141c52a3decb4c9f74528cd158347a9e}{font}},}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00120}00120         \mbox{\hyperlink{class_main_menu_a2c1c1409a6638988fa33fb7e073ba13d}{font\_scale}},}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00121}00121         Scalar(75, 75, 75),}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00122}00122         \mbox{\hyperlink{class_main_menu_a29d574adf0376f03c3ef3918fd87141e}{thickness}} / 2,}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00123}00123         4}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00124}00124     );}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00125}00125 }
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00126}00126     \mbox{\hyperlink{class_main_menu_a671d24b20bcb5142a67cb28ca7598747}{Idle}}();}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00127}00127 \}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00128}00128 }
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00129}\mbox{\hyperlink{class_main_menu_af6a2070f337a611b3b24be4766bfa826}{00129}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_main_menu_af6a2070f337a611b3b24be4766bfa826}{MainMenu::UpdateBtnColorAndText}}()}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00130}00130 \{}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00131}00131     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_main_menu_ad625d2c00b71239f30056eda2709e69d}{button\_amount\_}}; i++)}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00132}00132     \{}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00133}00133         \textcolor{comment}{// Рисуем очертания кнопки}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00134}00134         rectangle(\mbox{\hyperlink{class_main_menu_a21f7500296ee52056ba2ff187d437558}{menu\_}}, \mbox{\hyperlink{class_main_menu_ac6afebbdaef47782d019da5034768389}{buttons\_}}[i], \mbox{\hyperlink{class_main_menu_ad7381c9c612fc48c2a21d9a0e0fdb65f}{buttons\_color\_}}[i], FILLED);}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00135}00135         \textcolor{comment}{// Размеры текста в пикселях}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00136}00136         Size current\_text\_size = getTextSize(\mbox{\hyperlink{class_main_menu_a678f9dbcd2216709540d4af16ed66b38}{button\_text\_}}[i], \mbox{\hyperlink{class_main_menu_a141c52a3decb4c9f74528cd158347a9e}{font}}, \mbox{\hyperlink{class_main_menu_a2c1c1409a6638988fa33fb7e073ba13d}{font\_scale}}, \mbox{\hyperlink{class_main_menu_a29d574adf0376f03c3ef3918fd87141e}{thickness}}, \&\mbox{\hyperlink{class_main_menu_a9bcf2dfafca93c905bfea6f0a53cbe15}{baseline}});}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00137}00137         \textcolor{comment}{// Координаты текущего текста}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00138}00138         Point text\_coordinates = Point(}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00139}00139             \mbox{\hyperlink{class_main_menu_ac6afebbdaef47782d019da5034768389}{buttons\_}}[i].tl().x + \mbox{\hyperlink{class_main_menu_aafca88e812926ead49f00ec323a987cc}{button\_width\_}} / 2 -\/ current\_text\_size.width / 2,}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00140}00140             \mbox{\hyperlink{class_main_menu_ac6afebbdaef47782d019da5034768389}{buttons\_}}[i].tl().y + \mbox{\hyperlink{class_main_menu_a091b2780210717c4620b8b8bec5edb8e}{button\_height\_}} / 2 + (current\_text\_size.height) / 2);}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00141}00141         \textcolor{comment}{// Рисуем текст кнопки}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00142}00142         putText(}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00143}00143             \mbox{\hyperlink{class_main_menu_a21f7500296ee52056ba2ff187d437558}{menu\_}},}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00144}00144             \mbox{\hyperlink{class_main_menu_a678f9dbcd2216709540d4af16ed66b38}{button\_text\_}}[i],}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00145}00145             text\_coordinates,}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00146}00146             \mbox{\hyperlink{class_main_menu_a141c52a3decb4c9f74528cd158347a9e}{font}},}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00147}00147             \mbox{\hyperlink{class_main_menu_a2c1c1409a6638988fa33fb7e073ba13d}{font\_scale}},}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00148}00148             Scalar(255, 255, 255),}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00149}00149             \mbox{\hyperlink{class_main_menu_a29d574adf0376f03c3ef3918fd87141e}{thickness}},}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00150}00150             4 \textcolor{comment}{// тип линии. вроде отличаются сглаживанием. выбрал 4-\/й просто так :)}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00151}00151         );}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00152}00152 }
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00153}00153     \}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00154}00154 \}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00155}00155 }
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00156}\mbox{\hyperlink{class_main_menu_af802f4a248ffeb94f29d460522850b4f}{00156}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_main_menu_af802f4a248ffeb94f29d460522850b4f}{MainMenu::OnMouse}}(\textcolor{keywordtype}{int} event, \textcolor{keywordtype}{int} x, \textcolor{keywordtype}{int} y, \textcolor{keywordtype}{int} flags, \textcolor{keywordtype}{void}* userdata)}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00157}00157 \{}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00158}00158     \mbox{\hyperlink{class_main_menu}{MainMenu}}* d = \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{class_main_menu}{MainMenu}}*\textcolor{keyword}{>}(userdata);}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00159}00159     d-\/>\mbox{\hyperlink{class_main_menu_aa378e087eb0805fd1451dcf116e2d56d}{DetectEvent}}(event, x, y, flags);}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00160}00160 \}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00161}00161 }
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00162}\mbox{\hyperlink{class_main_menu_aa378e087eb0805fd1451dcf116e2d56d}{00162}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_main_menu_aa378e087eb0805fd1451dcf116e2d56d}{MainMenu::DetectEvent}}(\textcolor{keywordtype}{int} event, \textcolor{keywordtype}{int} x, \textcolor{keywordtype}{int} y, \textcolor{keywordtype}{int} flags)}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00163}00163 \{}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00164}00164     \textcolor{comment}{// Загружаем названия директорий}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00165}00165     \mbox{\hyperlink{class_main_menu_acf5b3599f1461c5f9431ea1f704da910}{LoadPaths}}();}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00166}00166 }
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00167}00167     \textcolor{keywordflow}{switch} (event)}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00168}00168     \{}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00169}00169     \textcolor{keywordflow}{case} EVENT\_LBUTTONDOWN:}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00170}00170     \{}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00171}00171         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_main_menu_ac6afebbdaef47782d019da5034768389}{buttons\_}}.size(); i++)}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00172}00172         \{}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00173}00173             \textcolor{comment}{// Если клик пользователя был по кнопке}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00174}00174             \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_main_menu_ac6afebbdaef47782d019da5034768389}{buttons\_}}[i].contains(Point(x, y)))}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00175}00175             \{}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00176}00176                 \textcolor{keywordflow}{switch} (i)}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00177}00177                 \{}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00178}00178                 \textcolor{keywordflow}{case} CALIBRATION:}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00179}00179                 \{}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00180}00180                     std::cout << \textcolor{stringliteral}{"{}u've chosen camera calibration"{}} << std::endl;}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00181}00181                     \mbox{\hyperlink{class_main_menu_a01aeeb1edc954686d13747cb4c12a8e0}{ExecuteCameraCalibration}}(\mbox{\hyperlink{class_main_menu_ae70524216396d958e84697846751db33}{chessboards\_path\_}});}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00182}00182                     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00183}00183                 \}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00184}00184                 \textcolor{keywordflow}{case} UNDISTORTION:}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00185}00185                 \{}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00186}00186                     std::cout << \textcolor{stringliteral}{"{}u've chosen undistortion"{}} << std::endl;}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00187}00187                     \mbox{\hyperlink{class_main_menu_a30aba8993a7f8e9f39b242f10fbaf931}{ExecuteVideoUndistortion}}(\mbox{\hyperlink{class_main_menu_a43569f3b9d5700184c9cd21e760e78b0}{input\_distorted\_video\_}}, \mbox{\hyperlink{class_main_menu_ae1388275b984f4d7e5975c42bd20a45e}{output\_undistorted\_video\_}});}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00188}00188                     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00189}00189                 \}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00190}00190                 \textcolor{keywordflow}{case} VIBRATION\_MONITORING:}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00191}00191                 \{}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00192}00192                     std::cout << \textcolor{stringliteral}{"{}u've chosen vibration monitoring"{}} << std::endl;}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00193}00193                     \mbox{\hyperlink{class_main_menu_aa5e21268330d9703d6c8bf9f4b33d228}{ExecuteVibrationMonitoring}}(\mbox{\hyperlink{class_main_menu_a085f0e7b8a81371f8b868f447b787ac1}{input\_vibration\_detection\_}}, \mbox{\hyperlink{class_main_menu_a4e9d0a1af8b544e9f4b856f02864c26f}{output\_vibration\_detection\_}});}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00194}00194                     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00195}00195                 \}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00196}00196                 \textcolor{keywordflow}{case} MOVEMENT\_ENLARGEMENT:}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00197}00197                 \{}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00198}00198                     std::cout << \textcolor{stringliteral}{"{}u've chosen movement enlarging"{}} << std::endl;}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00199}00199                     \mbox{\hyperlink{class_main_menu_a7110d2e44a744a1556f8a2b2950b9d38}{ExecuteMotionMagnification}}(\mbox{\hyperlink{class_main_menu_abbc9df90951e4ef60b081c2971fbd978}{input\_movement\_enlargment\_}}, \mbox{\hyperlink{class_main_menu_a29d7b279fb12523356ba6e084dd1a5e4}{output\_movement\_enlargement\_}});}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00200}00200                     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00201}00201                 \}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00202}00202                 \}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00203}00203             \}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00204}00204         \}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00205}00205         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00206}00206     \}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00207}00207     \textcolor{keywordflow}{case} EVENT\_MOUSEMOVE:}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00208}00208     \{}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00209}00209         \mbox{\hyperlink{class_main_menu_a40e69fd0735c12fa24bc0c6ef37bf237}{last\_mouse\_position\_}}.x = x;}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00210}00210         \mbox{\hyperlink{class_main_menu_a40e69fd0735c12fa24bc0c6ef37bf237}{last\_mouse\_position\_}}.y = y;}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00211}00211         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00212}00212     \}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00213}00213     \}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00214}00214 \}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00215}00215 }
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00216}\mbox{\hyperlink{class_main_menu_a671d24b20bcb5142a67cb28ca7598747}{00216}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_main_menu_a671d24b20bcb5142a67cb28ca7598747}{MainMenu::Idle}}()}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00217}00217 \{}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00218}00218     \textcolor{comment}{// Устанавливаем хэндлер окна}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00219}00219     setMouseCallback(\mbox{\hyperlink{class_main_menu_a8b8a1a133a5ef0bfcb8203b104d9e7d8}{winname\_}}, \mbox{\hyperlink{class_main_menu_af802f4a248ffeb94f29d460522850b4f}{OnMouse}}, (\textcolor{keywordtype}{void}*)\textcolor{keyword}{this});}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00220}00220 }
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00221}00221     \textcolor{keywordflow}{while} (!\mbox{\hyperlink{class_main_menu_a7807da405b38a72055b51da2230c551b}{mode\_chosen\_}})}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00222}00222     \{}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00223}00223         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_main_menu_ac6afebbdaef47782d019da5034768389}{buttons\_}}.size(); i++)}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00224}00224         \{}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00225}00225             \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_main_menu_ac6afebbdaef47782d019da5034768389}{buttons\_}}[i].contains(\mbox{\hyperlink{class_main_menu_a40e69fd0735c12fa24bc0c6ef37bf237}{last\_mouse\_position\_}}))}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00226}00226             \{}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00227}00227                 \mbox{\hyperlink{class_main_menu_ad7381c9c612fc48c2a21d9a0e0fdb65f}{buttons\_color\_}}[i] = Scalar(0, 0, 255);}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00228}00228             \}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00229}00229             \textcolor{keywordflow}{else} \mbox{\hyperlink{class_main_menu_ad7381c9c612fc48c2a21d9a0e0fdb65f}{buttons\_color\_}}[i] = Scalar(25, 25, 25);}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00230}00230         \}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00231}00231         \textcolor{comment}{// Обновляем текущие цвета кнопок}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00232}00232         \mbox{\hyperlink{class_main_menu_af6a2070f337a611b3b24be4766bfa826}{UpdateBtnColorAndText}}();}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00233}00233 }
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00234}00234         imshow(\mbox{\hyperlink{class_main_menu_a8b8a1a133a5ef0bfcb8203b104d9e7d8}{winname\_}}, \mbox{\hyperlink{class_main_menu_a21f7500296ee52056ba2ff187d437558}{menu\_}});}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00235}00235         \textcolor{keywordflow}{switch} (waitKey(10))}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00236}00236         \{}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00237}00237         \textcolor{keywordflow}{case} \textcolor{charliteral}{'q'}:}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00238}00238         \{}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00239}00239             \mbox{\hyperlink{class_main_menu_a7807da405b38a72055b51da2230c551b}{mode\_chosen\_}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00240}00240             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00241}00241         \}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00242}00242         \}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00243}00243     \}}
+\DoxyCodeLine{\Hypertarget{main__menu_8cpp_source_l00244}00244 \}}
+
+\end{DoxyCode}

@@ -1,0 +1,90 @@
+\hypertarget{main__menu_8h_source}{}\doxysection{main\+\_\+menu.\+h}
+\label{main__menu_8h_source}\index{C:/Users/seeyo/source/repos/Visual-\/Vibration-\/Tracking-\/V2/include/GUI/main\_menu.h@{C:/Users/seeyo/source/repos/Visual-\/Vibration-\/Tracking-\/V2/include/GUI/main\_menu.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00001}00001 \textcolor{preprocessor}{\#ifndef MAIN\_MENU\_H}}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00002}00002 \textcolor{preprocessor}{\#define MAIN\_MENU\_H}}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00004}00004 \textcolor{preprocessor}{\#define MAIN\_MENU\_WINDOW\_NAME "{}Main menu"{}}}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00005}00005 }
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00006}00006 \textcolor{comment}{// standart headers}}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00007}00007 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00008}00008 \textcolor{preprocessor}{\#include <fstream>}}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00009}00009 }
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00010}00010 \textcolor{comment}{// OpenCV headers}}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00011}00011 \textcolor{preprocessor}{\#include <opencv2/opencv.hpp>}}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00012}00012 \textcolor{preprocessor}{\#include <opencv2/core.hpp>}}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00013}00013 }
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00014}00014 \textcolor{comment}{// my headers}}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00015}00015 \textcolor{preprocessor}{\#include "{}VVT-\/V2\(\backslash\)vibration\_detector.h"{}}}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00016}00016 \textcolor{preprocessor}{\#include "{}CamCalib\(\backslash\)video\_undistorter.h"{}}}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00017}00017 \textcolor{preprocessor}{\#include "{}CamCalib\(\backslash\)camera\_calibrator.h"{}}}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00018}00018 \textcolor{preprocessor}{\#include "{}MovEn/movement\_enlargement.h"{}}}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00019}00019 }
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00020}00020 \textcolor{keyword}{using namespace }cv;}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00021}00021 }
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00025}\mbox{\hyperlink{class_main_menu}{00025}} \textcolor{keyword}{class }\mbox{\hyperlink{class_main_menu}{MainMenu}}}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00026}00026 \{}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00030}\mbox{\hyperlink{class_main_menu_af5860e380c7d3b75817fbc9cd7be6dab}{00030}}     \textcolor{keyword}{enum} \mbox{\hyperlink{class_main_menu_af5860e380c7d3b75817fbc9cd7be6dab}{MODE}}}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00031}00031     \{}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00032}00032         CALIBRATION,}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00033}00033         UNDISTORTION,}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00034}00034         VIBRATION\_MONITORING,}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00035}00035         MOVEMENT\_ENLARGEMENT}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00036}00036     \};}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00037}00037 }
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00038}00038 \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00043}00043     \mbox{\hyperlink{class_main_menu}{MainMenu}}(std::string txt\_file\_name);}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00044}00044 }
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00045}00045 \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00049}00049     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_main_menu_acf5b3599f1461c5f9431ea1f704da910}{LoadPaths}}();}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00054}00054     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_main_menu_a01aeeb1edc954686d13747cb4c12a8e0}{ExecuteCameraCalibration}}(std::string chessboards\_path);}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00060}00060     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_main_menu_a30aba8993a7f8e9f39b242f10fbaf931}{ExecuteVideoUndistortion}}(std::string input\_file\_name, std::string output\_file\_name);}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00066}00066     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_main_menu_aa5e21268330d9703d6c8bf9f4b33d228}{ExecuteVibrationMonitoring}}(std::string input\_file\_name, std::string output\_file\_name);}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00072}00072     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_main_menu_a7110d2e44a744a1556f8a2b2950b9d38}{ExecuteMotionMagnification}}(std::string input\_file\_name, std::string output\_file\_name);}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00076}00076     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_main_menu_a5ecabae61a1ba65a16966268056fa113}{CreateMenu}}();}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00080}00080     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_main_menu_af6a2070f337a611b3b24be4766bfa826}{UpdateBtnColorAndText}}();}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00084}00084     \textcolor{keyword}{static} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_main_menu_af802f4a248ffeb94f29d460522850b4f}{OnMouse}}(\textcolor{keywordtype}{int} event, \textcolor{keywordtype}{int} x, \textcolor{keywordtype}{int} y, \textcolor{keywordtype}{int} flags, \textcolor{keywordtype}{void}* userdata);}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00088}00088     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_main_menu_aa378e087eb0805fd1451dcf116e2d56d}{DetectEvent}}(\textcolor{keywordtype}{int} event, \textcolor{keywordtype}{int} x, \textcolor{keywordtype}{int} y, \textcolor{keywordtype}{int} flags);}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00092}00092     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_main_menu_a671d24b20bcb5142a67cb28ca7598747}{Idle}}();}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00093}00093 }
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00094}00094 \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00098}\mbox{\hyperlink{class_main_menu_a300dd1a1e464e73087d4feabb94e8fb9}{00098}}     std::string \mbox{\hyperlink{class_main_menu_a300dd1a1e464e73087d4feabb94e8fb9}{params\_file\_name\_}};}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00102}\mbox{\hyperlink{class_main_menu_a8b8a1a133a5ef0bfcb8203b104d9e7d8}{00102}}     std::string \mbox{\hyperlink{class_main_menu_a8b8a1a133a5ef0bfcb8203b104d9e7d8}{winname\_}};}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00106}\mbox{\hyperlink{class_main_menu_a21f7500296ee52056ba2ff187d437558}{00106}}     Mat \mbox{\hyperlink{class_main_menu_a21f7500296ee52056ba2ff187d437558}{menu\_}};}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00110}\mbox{\hyperlink{class_main_menu_ac6afebbdaef47782d019da5034768389}{00110}}     std::vector<Rect> \mbox{\hyperlink{class_main_menu_ac6afebbdaef47782d019da5034768389}{buttons\_}};}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00114}\mbox{\hyperlink{class_main_menu_a678f9dbcd2216709540d4af16ed66b38}{00114}}     std::string \mbox{\hyperlink{class_main_menu_a678f9dbcd2216709540d4af16ed66b38}{button\_text\_}}[4];}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00118}\mbox{\hyperlink{class_main_menu_a72f1383d94f8e16f245d58fc596392d0}{00118}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_main_menu_a72f1383d94f8e16f245d58fc596392d0}{menu\_width\_}};}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00122}\mbox{\hyperlink{class_main_menu_ae2c50f92a5f3c7486e7a3ad9ef866221}{00122}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_main_menu_ae2c50f92a5f3c7486e7a3ad9ef866221}{menu\_height\_}};}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00126}\mbox{\hyperlink{class_main_menu_ad625d2c00b71239f30056eda2709e69d}{00126}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_main_menu_ad625d2c00b71239f30056eda2709e69d}{button\_amount\_}};}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00130}\mbox{\hyperlink{class_main_menu_aafca88e812926ead49f00ec323a987cc}{00130}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_main_menu_aafca88e812926ead49f00ec323a987cc}{button\_width\_}};}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00134}\mbox{\hyperlink{class_main_menu_a091b2780210717c4620b8b8bec5edb8e}{00134}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_main_menu_a091b2780210717c4620b8b8bec5edb8e}{button\_height\_}};}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00138}\mbox{\hyperlink{class_main_menu_a3609956a27889cec7af6ec85195ac743}{00138}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_main_menu_a3609956a27889cec7af6ec85195ac743}{button\_spacing\_}};}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00142}\mbox{\hyperlink{class_main_menu_a726804731d9b92dc1797ec69c2e48f93}{00142}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_main_menu_a726804731d9b92dc1797ec69c2e48f93}{top\_offset\_}};}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00146}\mbox{\hyperlink{class_main_menu_ae9b1fae3596f0d598cdd590e1d799fce}{00146}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_main_menu_ae9b1fae3596f0d598cdd590e1d799fce}{bottom\_offset\_}};}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00150}\mbox{\hyperlink{class_main_menu_ac8cde06a54ac62981f6ee2aaab284dbc}{00150}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_main_menu_ac8cde06a54ac62981f6ee2aaab284dbc}{width\_offset\_}};}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00154}\mbox{\hyperlink{class_main_menu_a141c52a3decb4c9f74528cd158347a9e}{00154}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_main_menu_a141c52a3decb4c9f74528cd158347a9e}{font}};}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00158}\mbox{\hyperlink{class_main_menu_a2c1c1409a6638988fa33fb7e073ba13d}{00158}}     \textcolor{keywordtype}{double} \mbox{\hyperlink{class_main_menu_a2c1c1409a6638988fa33fb7e073ba13d}{font\_scale}};}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00162}\mbox{\hyperlink{class_main_menu_a29d574adf0376f03c3ef3918fd87141e}{00162}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_main_menu_a29d574adf0376f03c3ef3918fd87141e}{thickness}};}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00166}\mbox{\hyperlink{class_main_menu_a9bcf2dfafca93c905bfea6f0a53cbe15}{00166}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_main_menu_a9bcf2dfafca93c905bfea6f0a53cbe15}{baseline}};}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00167}00167 }
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00171}\mbox{\hyperlink{class_main_menu_a40e69fd0735c12fa24bc0c6ef37bf237}{00171}}     Point2i \mbox{\hyperlink{class_main_menu_a40e69fd0735c12fa24bc0c6ef37bf237}{last\_mouse\_position\_}};}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00175}\mbox{\hyperlink{class_main_menu_ad7381c9c612fc48c2a21d9a0e0fdb65f}{00175}}     std::vector<Scalar> \mbox{\hyperlink{class_main_menu_ad7381c9c612fc48c2a21d9a0e0fdb65f}{buttons\_color\_}};}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00179}\mbox{\hyperlink{class_main_menu_a7807da405b38a72055b51da2230c551b}{00179}}     \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_main_menu_a7807da405b38a72055b51da2230c551b}{mode\_chosen\_}};}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00183}\mbox{\hyperlink{class_main_menu_a5e2264e9d3087ffdc1e64fc48777f7c2}{00183}}     \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_main_menu_a5e2264e9d3087ffdc1e64fc48777f7c2}{wanna\_quit\_}};}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00184}00184 }
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00185}00185 \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00189}\mbox{\hyperlink{class_main_menu_a4ecd32d232bdc09bad417fec831efe2b}{00189}}     std::string \mbox{\hyperlink{class_main_menu_a4ecd32d232bdc09bad417fec831efe2b}{input\_calibration\_video\_}};}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00193}\mbox{\hyperlink{class_main_menu_a43569f3b9d5700184c9cd21e760e78b0}{00193}}     std::string \mbox{\hyperlink{class_main_menu_a43569f3b9d5700184c9cd21e760e78b0}{input\_distorted\_video\_}};}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00197}\mbox{\hyperlink{class_main_menu_ae1388275b984f4d7e5975c42bd20a45e}{00197}}     std::string \mbox{\hyperlink{class_main_menu_ae1388275b984f4d7e5975c42bd20a45e}{output\_undistorted\_video\_}};}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00201}\mbox{\hyperlink{class_main_menu_a085f0e7b8a81371f8b868f447b787ac1}{00201}}     std::string \mbox{\hyperlink{class_main_menu_a085f0e7b8a81371f8b868f447b787ac1}{input\_vibration\_detection\_}};}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00205}\mbox{\hyperlink{class_main_menu_a4e9d0a1af8b544e9f4b856f02864c26f}{00205}}     std::string \mbox{\hyperlink{class_main_menu_a4e9d0a1af8b544e9f4b856f02864c26f}{output\_vibration\_detection\_}};}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00209}\mbox{\hyperlink{class_main_menu_ae70524216396d958e84697846751db33}{00209}}     std::string \mbox{\hyperlink{class_main_menu_ae70524216396d958e84697846751db33}{chessboards\_path\_}};}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00213}\mbox{\hyperlink{class_main_menu_abbc9df90951e4ef60b081c2971fbd978}{00213}}     std::string \mbox{\hyperlink{class_main_menu_abbc9df90951e4ef60b081c2971fbd978}{input\_movement\_enlargment\_}};}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00217}\mbox{\hyperlink{class_main_menu_a29d7b279fb12523356ba6e084dd1a5e4}{00217}}     std::string \mbox{\hyperlink{class_main_menu_a29d7b279fb12523356ba6e084dd1a5e4}{output\_movement\_enlargement\_}};}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00218}00218     }
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00219}00219 \};}
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00220}00220 }
+\DoxyCodeLine{\Hypertarget{main__menu_8h_source_l00221}00221 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

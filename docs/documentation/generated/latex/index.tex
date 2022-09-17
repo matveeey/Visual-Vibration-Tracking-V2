@@ -1,0 +1,35 @@
+\hypertarget{index_modules_description}{}\doxysection{Описание модулей}\label{index_modules_description}
+Программа глобально имеет 4 модуля (режима работы). Фактически они располагаются в порядке, который предполагается как наиболее логичный способ использования программы.
+
+Каждый имеет модуль имеет общий интерфейс взаимодействия\+: ~\newline
+Выход из режима на клавишу \textquotesingle{}Q\textquotesingle{}~\newline
+Пауза на \textquotesingle{}пробел\textquotesingle{}\hypertarget{index_calibration}{}\doxysubsection{1. Калибровка камеры}\label{index_calibration}
+Перед началом работы с записанными видео с конкретной камеры необходимо выполнить её калибровку. Она выполняется один раз, после чего полученные в её процессе значения будут применены при удалении дисторсии. \begin{DoxyAttention}{Внимание}
+У камеры могут быть несколько режимов съёмки (например, как у гоупро\+: широкоугольный, средний, узкий). Как правило, они реализованы программно.~\newline
+При смене режима съёмки необходимо ещё раз выполнять калибровку, так как параметры дисторсии изменяются вместе с этим режимом. ~\newline
+Даже если линза камеры осталось той же (не поменяла своих параметров), сама картинка была программно растянута/сжата, а это в свою очередь внесло новые искажения.
+\end{DoxyAttention}
+\hypertarget{index_undistortion}{}\doxysubsection{2. Удаление дисторсии}\label{index_undistortion}
+После нахождения коэффициентов в пункте 1. мы можем удалять дисторсию с видео, записанных на камеру, для которой мы нашли эти самые коэффициенты дисторсии. ~\newline
+Это нужно для снижения влияния оптических искажений на результат работы программы.\hypertarget{index_vibration_monitoring}{}\doxysubsection{3. Мониторинг вибрации}\label{index_vibration_monitoring}
+Основной режим работы приложения. Описание управления и пояснения представлены ниже.\hypertarget{index_movement_enlarging}{}\doxysubsection{4. Увеличение вибрации (визуальное)}\label{index_movement_enlarging}
+Выполняется визуальное увеличение вибрации (маленьких и незаметных движений).\hypertarget{index_control_sect}{}\doxysection{Управление в программе}\label{index_control_sect}
+\hypertarget{index_default_mode}{}\doxysubsection{Стандартный режим}\label{index_default_mode}
+В этом режиме можно добавить нажатием на ЛКМ точки, перемещение которых будет покадрово отслежено (с помощью алгоритма Лукаса-\/Канаде) и проанилизировано. С помощью быстрого преобразования Фурье (на вход которого будет поданы координаты точек, а на выходе получены гармоники, составляющие входной сигнал) будут найдены частоты вибрации, которые есть у выбранной точки. Самая большая по магнитуде частота будет выведена справа от точки. На остальные пики можно посмотреть, нажав ПКМ в области взаимодействия точки\hypertarget{index_ROI_selecting_mode}{}\doxysubsection{Режим выбора области интереса (\+ROI)}\label{index_ROI_selecting_mode}
+Этот режим предназначен для выделения (с помощью зажатой ЛКМ) области интереса -\/ прямоугольника, в котором впоследствии будут найдены наиболее подходящие для трекинга точки (см. детектор углов Харриса и cv\+::corner\+Min\+Eigen\+Val()) ~\newline
+После \char`\"{}отпускания\char`\"{} ПКМ режим будет автоматически изменён на Стандартный, после чего с найденными в области интереса точками будут производиться те же действия, что и с \char`\"{}одиночными\char`\"{} (описано выше), за исключением того, что вместо выведения максимальной магнитуды справа от точки в виде текста, эта максимальная магнитуда будет отображаться в виде цвета точки. ~\newline
+Для наглядности снизу появится градиентная шкала, чтобы можно было соотносить информацию о цвете с частотой в цифрах\hypertarget{index_default_mode}{}\doxysubsection{Стандартный режим}\label{index_default_mode}
+Этот режим ставит на паузу программу нажатием на \textquotesingle{}пробел\textquotesingle{}\hypertarget{index_block_schemes_sect}{}\doxysection{Блок-\/схемы основных алгоритмов}\label{index_block_schemes_sect}
+\hypertarget{index_camera_calibration_block_scheme}{}\doxysubsection{Блок-\/схема калибровки камеры}\label{index_camera_calibration_block_scheme}
+\hypertarget{index_camera_distortion_scheme}{}\doxysubsection{Блок-\/схема удаления дисторсии}\label{index_camera_distortion_scheme}
+\hypertarget{index_main_alg_scheme}{}\doxysubsection{Блок-\/схема основной части программы}\label{index_main_alg_scheme}
+Для лучшего понимания, мне кажется, стоит сначала ознакомиться с \mbox{\hyperlink{class_frame_handler}{Frame\+Handler}} (класс, отвечающий за работу с видео), а также \mbox{\hyperlink{class_lonely_point_handler}{Lonely\+Point\+Handler}} и \mbox{\hyperlink{class_colored_point_handler}{Colored\+Point\+Handler}} \begin{DoxySeeAlso}{См. также}
+\mbox{\hyperlink{class_vibration_detector}{Vibration\+Detector}} \mbox{\hyperlink{class_vibration_detector_ae93a14aa147af694a90c012f16efc924}{Vibration\+Detector\+::\+Execute\+Vibration\+Detection()}} -\/ то, по чему строилась блок-\/схема 
+
+\mbox{\hyperlink{class_vibration_detector_a81f38d7f3d0599b01186a122d68d09ee}{Vibration\+Detector\+::\+Track\+And\+Calc()}} -\/ то, где трекаются точки и вызывается метод БПФ 
+
+\mbox{\hyperlink{class_vibration_detector_af1da28823c948acc115fc862378b62d8}{Vibration\+Detector\+::\+Serve\+The\+Queues()}} -\/ то, где \char`\"{}обслуживаются\char`\"{} очереди на удаление/добавление точек. Не знаю, на сколько правильно реализовывать это таким путём, но мне в голову пришла такая идея.~\newline
+Вызывается она на каждом кадре после вычисления новых позиций, чтобы не нарушить работу Track\+And\+Calc(). 
+\end{DoxySeeAlso}
+\hypertarget{index_movement_enlargement_scheme}{}\doxysubsection{Блок-\/схема усиления движения}\label{index_movement_enlargement_scheme}
+ 

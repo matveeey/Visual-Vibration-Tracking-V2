@@ -1,0 +1,67 @@
+\hypertarget{camera__calibrator_8h_source}{}\doxysection{camera\+\_\+calibrator.\+h}
+\label{camera__calibrator_8h_source}\index{C:/Users/seeyo/source/repos/Visual-\/Vibration-\/Tracking-\/V2/include/CamCalib/camera\_calibrator.h@{C:/Users/seeyo/source/repos/Visual-\/Vibration-\/Tracking-\/V2/include/CamCalib/camera\_calibrator.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00001}00001 \textcolor{preprocessor}{\#ifndef CAMERA\_CALIBRATOR\_H}}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00002}00002 \textcolor{preprocessor}{\#define CAMERA\_CALIBRATOR\_H}}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00004}00004 \textcolor{comment}{// OpenCV headers}}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00005}00005 \textcolor{preprocessor}{\#include <fstream>}}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00006}00006 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00007}00007 \textcolor{preprocessor}{\#include <opencv2/opencv.hpp>}}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00008}00008 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00009}00009 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00010}00010 \textcolor{preprocessor}{\#include <sstream>}}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00011}00011 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00012}00012 \textcolor{preprocessor}{\#include <thread>}}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00013}00013 \textcolor{preprocessor}{\#include <chrono>}}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00014}00014 }
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00015}00015 \textcolor{comment}{// my headers}}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00016}00016 \textcolor{preprocessor}{\#include "{}CamCalib\(\backslash\)video\_undistorter.h"{}}}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00017}00017 \textcolor{preprocessor}{\#include "{}VVT-\/V2/helper.h"{}}}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00019}00019 \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} EXTENTION = \textcolor{stringliteral}{"{}.JPG"{}};}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00020}00020 }
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00021}00021 \textcolor{keyword}{using namespace }cv;}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00022}00022 }
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00029}\mbox{\hyperlink{class_camera_calibrator}{00029}} \textcolor{keyword}{class }\mbox{\hyperlink{class_camera_calibrator}{CameraCalibrator}}}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00030}00030 \{}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00031}00031 \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00037}00037     \mbox{\hyperlink{class_camera_calibrator}{CameraCalibrator}}(std::string chessboards\_path);}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00038}00038     \mbox{\hyperlink{class_camera_calibrator}{\string~CameraCalibrator}}();}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00039}00039 }
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00040}00040     \textcolor{keywordtype}{int} ExecuteCameraCalibration();}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00041}00041 }
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00042}00042 \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00047}00047     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_camera_calibrator_ade6a2521d6eb589d2ee76cfe090e2c4a}{LoadImages}}(std::string chessboards\_path);}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00053}00053     Mat \mbox{\hyperlink{class_camera_calibrator_a7eca0d972785653183b262314c8e1127}{ReadNextImage}}(std::string path);}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00060}00060     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_camera_calibrator_a2216558d0c8e967ad3ccfcfd0bf769d9}{AddTips}}(Mat\& frame, std::string tip);}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00068}00068     \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_camera_calibrator_adc18e9a241225fdbb90d1dbea0421282}{FindCorners}}(Mat input\_frame, Size pattern\_size, std::vector<Point2f>\& corners);}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00074}00074     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_camera_calibrator_a2d1c6667d68b7e15bfb185c4a54d65c5}{SaveFoundParamsToFile}}(Mat camera\_matrix, Mat dist\_coeffs\_2be\_written);}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00075}00075     }
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00076}00076 \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00080}\mbox{\hyperlink{class_camera_calibrator_afd839658f3fe0b8b23cf6f6f08c67e48}{00080}}     std::string \mbox{\hyperlink{class_camera_calibrator_afd839658f3fe0b8b23cf6f6f08c67e48}{chessboards\_folder\_path\_}};}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00084}\mbox{\hyperlink{class_camera_calibrator_ac220c41909d09cf784734ded65525465}{00084}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_camera_calibrator_ac220c41909d09cf784734ded65525465}{chessboards\_amount\_}};}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00088}\mbox{\hyperlink{class_camera_calibrator_a2ce37665ea06fc1a62c12da5a2d43025}{00088}}     std::vector<Mat> \mbox{\hyperlink{class_camera_calibrator_a2ce37665ea06fc1a62c12da5a2d43025}{images\_with\_chessboard\_}};}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00092}\mbox{\hyperlink{class_camera_calibrator_a04f7e4c11486226a4dc8bbf610660503}{00092}}     VideoCapture* \mbox{\hyperlink{class_camera_calibrator_a04f7e4c11486226a4dc8bbf610660503}{input\_cap\_}};}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00096}\mbox{\hyperlink{class_camera_calibrator_acc59f8fd0514b211ab7898f7d85cf961}{00096}}     \textcolor{keywordtype}{double} \mbox{\hyperlink{class_camera_calibrator_acc59f8fd0514b211ab7898f7d85cf961}{frame\_width\_}};}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00100}\mbox{\hyperlink{class_camera_calibrator_a149f830d429e3581e1668a15ffb4e5e2}{00100}}     \textcolor{keywordtype}{double} \mbox{\hyperlink{class_camera_calibrator_a149f830d429e3581e1668a15ffb4e5e2}{frame\_height\_}};}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00104}\mbox{\hyperlink{class_camera_calibrator_a2da15c9fb792eba736b182ed375b902b}{00104}}     std::string \mbox{\hyperlink{class_camera_calibrator_a2da15c9fb792eba736b182ed375b902b}{winname\_}};}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00108}\mbox{\hyperlink{class_camera_calibrator_ab6d7ca5b52ba0cdab65c1dc0230697ce}{00108}}     std::string \mbox{\hyperlink{class_camera_calibrator_ab6d7ca5b52ba0cdab65c1dc0230697ce}{txt\_file\_name\_}};}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00112}\mbox{\hyperlink{class_camera_calibrator_a1acb421aa0db1d5c4e9d4a6f5f516a66}{00112}}     Mat \mbox{\hyperlink{class_camera_calibrator_a1acb421aa0db1d5c4e9d4a6f5f516a66}{camera\_matrix\_}};}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00116}\mbox{\hyperlink{class_camera_calibrator_a574c82b6583c4a5b514e77918db61f50}{00116}}     Mat \mbox{\hyperlink{class_camera_calibrator_a574c82b6583c4a5b514e77918db61f50}{distortion\_coefficients\_}};}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00117}00117     std::vector<Mat> rotation\_vector\_;}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00118}00118     std::vector<Mat> translation\_vector\_;}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00122}\mbox{\hyperlink{class_camera_calibrator_a0ae2cd85b73f6efcb224e45c582e555f}{00122}}     std::vector<Point2f> \mbox{\hyperlink{class_camera_calibrator_a0ae2cd85b73f6efcb224e45c582e555f}{corners\_}};}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00126}\mbox{\hyperlink{class_camera_calibrator_af702d786b8787340bddbffc450811e11}{00126}}     std::vector<std::vector<Point2f>> \mbox{\hyperlink{class_camera_calibrator_af702d786b8787340bddbffc450811e11}{vec\_of\_corners\_}};}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00130}\mbox{\hyperlink{class_camera_calibrator_ae5c4b08c551880d1c1732608657b4130}{00130}}     Size \mbox{\hyperlink{class_camera_calibrator_ae5c4b08c551880d1c1732608657b4130}{pattern\_size\_}};}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00134}\mbox{\hyperlink{class_camera_calibrator_aca2c8622828a7638876c950860051bc2}{00134}}     \textcolor{keywordtype}{double} \mbox{\hyperlink{class_camera_calibrator_aca2c8622828a7638876c950860051bc2}{fx\_}};}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00138}\mbox{\hyperlink{class_camera_calibrator_ab073b0d3c3c38a203fea48138e9badb8}{00138}}     \textcolor{keywordtype}{double} \mbox{\hyperlink{class_camera_calibrator_ab073b0d3c3c38a203fea48138e9badb8}{fy\_}};}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00142}\mbox{\hyperlink{class_camera_calibrator_ab2090cf7929cd099818929c220d18806}{00142}}     \textcolor{keywordtype}{double} \mbox{\hyperlink{class_camera_calibrator_ab2090cf7929cd099818929c220d18806}{px\_}};}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00146}\mbox{\hyperlink{class_camera_calibrator_a6ab88a1e59d13dcaa481b4628abff359}{00146}}     \textcolor{keywordtype}{double} \mbox{\hyperlink{class_camera_calibrator_a6ab88a1e59d13dcaa481b4628abff359}{py\_}};}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00147}00147 }
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00148}00148 \};}
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00149}00149 }
+\DoxyCodeLine{\Hypertarget{camera__calibrator_8h_source_l00150}00150 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

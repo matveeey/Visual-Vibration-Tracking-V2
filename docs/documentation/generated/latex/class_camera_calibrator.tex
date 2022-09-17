@@ -1,0 +1,749 @@
+\hypertarget{class_camera_calibrator}{}\doxysection{Класс Camera\+Calibrator}
+\label{class_camera_calibrator}\index{CameraCalibrator@{CameraCalibrator}}
+
+
+Класс для нахождения коэффициентов для конкретной линзы (с помощью которой было снято видео)  
+
+
+
+
+{\ttfamily \#include $<$camera\+\_\+calibrator.\+h$>$}
+
+\doxysubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_camera_calibrator_a3e82880b602bc1400e306419211d466b}{Camera\+Calibrator}} (std\+::string chessboards\+\_\+path)
+\begin{DoxyCompactList}\small\item\em Конструктор этого класса \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_camera_calibrator_aa149fb2446c10bd1a25d64aaecd99942}{Execute\+Camera\+Calibration}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Закрытые члены}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{class_camera_calibrator_ade6a2521d6eb589d2ee76cfe090e2c4a}{Load\+Images}} (std\+::string chessboards\+\_\+path)
+\begin{DoxyCompactList}\small\item\em Загружает фотографии (изображения) шахматных досок в память из пути к папке. \end{DoxyCompactList}\item 
+Mat \mbox{\hyperlink{class_camera_calibrator_a7eca0d972785653183b262314c8e1127}{Read\+Next\+Image}} (std\+::string path)
+\begin{DoxyCompactList}\small\item\em Считывает новое изображение и увеличивает переменную chessboard\+\_\+amount\+\_\+ на один \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_camera_calibrator_a2216558d0c8e967ad3ccfcfd0bf769d9}{Add\+Tips}} (Mat \&frame, std\+::string tip)
+\begin{DoxyCompactList}\small\item\em По аналогии с \mbox{\hyperlink{class_frame_handler_a13af7fdd06b373db04ece2adc6e62d14}{Frame\+Handler\+::\+Add\+Tips}} добавляет подсказки пользователя. В данном случае это -\/ номер текущего обрабатываемого кадра и общее кол-\/во кадров.~\newline
+. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_camera_calibrator_adc18e9a241225fdbb90d1dbea0421282}{Find\+Corners}} (Mat input\+\_\+frame, Size pattern\+\_\+size, std\+::vector$<$ Point2f $>$ \&corners)
+\begin{DoxyCompactList}\small\item\em Находит шахматный паттерн размером, заданным в конструкторе класса (\mbox{\hyperlink{class_camera_calibrator_a3e82880b602bc1400e306419211d466b}{Camera\+Calibrator\+::\+Camera\+Calibrator}}) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_camera_calibrator_a2d1c6667d68b7e15bfb185c4a54d65c5}{Save\+Found\+Params\+To\+File}} (Mat camera\+\_\+matrix, Mat dist\+\_\+coeffs\+\_\+2be\+\_\+written)
+\begin{DoxyCompactList}\small\item\em Сохраняет найденные параметры (коэффициенты fx, fy, cx, cy), необходимые для удаления дисторсии \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Закрытые данные}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{class_camera_calibrator_afd839658f3fe0b8b23cf6f6f08c67e48}{chessboards\+\_\+folder\+\_\+path\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Путь к папке с фотографиями \char`\"{}шахматной доски\char`\"{}. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_camera_calibrator_ac220c41909d09cf784734ded65525465}{chessboards\+\_\+amount\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Количество фотографий шахматных досок (находится в \mbox{\hyperlink{class_camera_calibrator_ade6a2521d6eb589d2ee76cfe090e2c4a}{Camera\+Calibrator\+::\+Load\+Images}}) \end{DoxyCompactList}\item 
+std\+::vector$<$ Mat $>$ \mbox{\hyperlink{class_camera_calibrator_a2ce37665ea06fc1a62c12da5a2d43025}{images\+\_\+with\+\_\+chessboard\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Вектор загруженных фотографий с шахматными досками \end{DoxyCompactList}\item 
+Video\+Capture $\ast$ \mbox{\hyperlink{class_camera_calibrator_a04f7e4c11486226a4dc8bbf610660503}{input\+\_\+cap\+\_\+}}
+\begin{DoxyCompactList}\small\item\em \char`\"{}Поток\char`\"{} из кадров входного видео (последовательности) \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_camera_calibrator_acc59f8fd0514b211ab7898f7d85cf961}{frame\+\_\+width\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Ширина кадра \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_camera_calibrator_a149f830d429e3581e1668a15ffb4e5e2}{frame\+\_\+height\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Высота кадра \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_camera_calibrator_a2da15c9fb792eba736b182ed375b902b}{winname\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Название окна \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_camera_calibrator_ab6d7ca5b52ba0cdab65c1dc0230697ce}{txt\+\_\+file\+\_\+name\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Путь к текстовому файлу, в который будут сохранены найденные коэффициенты \end{DoxyCompactList}\item 
+Mat \mbox{\hyperlink{class_camera_calibrator_a1acb421aa0db1d5c4e9d4a6f5f516a66}{camera\+\_\+matrix\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Матрица, в которой находятся найденные коэффициенты px, py, cx, cy. \end{DoxyCompactList}\item 
+Mat \mbox{\hyperlink{class_camera_calibrator_a574c82b6583c4a5b514e77918db61f50}{distortion\+\_\+coefficients\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Коэффициенты дисторсии \end{DoxyCompactList}\item 
+std\+::vector$<$ Mat $>$ \mbox{\hyperlink{class_camera_calibrator_a03e037f4855519733bd060ae02534856}{rotation\+\_\+vector\+\_\+}}
+\item 
+std\+::vector$<$ Mat $>$ \mbox{\hyperlink{class_camera_calibrator_ae2971536607c20d3068080625e454bf7}{translation\+\_\+vector\+\_\+}}
+\item 
+std\+::vector$<$ Point2f $>$ \mbox{\hyperlink{class_camera_calibrator_a0ae2cd85b73f6efcb224e45c582e555f}{corners\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Найденные узлы шахматной доски, найденные на конкретном изображении \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::vector$<$ Point2f $>$ $>$ \mbox{\hyperlink{class_camera_calibrator_af702d786b8787340bddbffc450811e11}{vec\+\_\+of\+\_\+corners\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Контейнер для хранения найденных узлов шахматных досок \end{DoxyCompactList}\item 
+Size \mbox{\hyperlink{class_camera_calibrator_ae5c4b08c551880d1c1732608657b4130}{pattern\+\_\+size\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Размер паттерна, по которому будут искаться шахматные доски \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_camera_calibrator_aca2c8622828a7638876c950860051bc2}{fx\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Коэффициент матрицы \mbox{\hyperlink{class_video_undistorter_a78e9df5a43762efac01d4d37d97be8e5}{Video\+Undistorter\+::camera\+\_\+matrix\+\_\+}}. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_camera_calibrator_ab073b0d3c3c38a203fea48138e9badb8}{fy\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Коэффициент матрицы \mbox{\hyperlink{class_video_undistorter_a78e9df5a43762efac01d4d37d97be8e5}{Video\+Undistorter\+::camera\+\_\+matrix\+\_\+}}. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_camera_calibrator_ab2090cf7929cd099818929c220d18806}{px\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Коэффициент матрицы \mbox{\hyperlink{class_video_undistorter_a78e9df5a43762efac01d4d37d97be8e5}{Video\+Undistorter\+::camera\+\_\+matrix\+\_\+}}. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_camera_calibrator_a6ab88a1e59d13dcaa481b4628abff359}{py\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Коэффициент матрицы \mbox{\hyperlink{class_video_undistorter_a78e9df5a43762efac01d4d37d97be8e5}{Video\+Undistorter\+::camera\+\_\+matrix\+\_\+}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Класс для нахождения коэффициентов для конкретной линзы (с помощью которой было снято видео) 
+
+Объект класса осуществляет чтение кадров/фотографий с шахматной доской в различных местах на кадре и вычисляет коэффициенты матрицы \mbox{[}\mbox{]} линзы TODO\+: добавить вид этой матрицы (3 х 3) 
+
+См. определение в файле \mbox{\hyperlink{camera__calibrator_8h_source}{camera\+\_\+calibrator.\+h}} строка \mbox{\hyperlink{camera__calibrator_8h_source_l00029}{29}}
+
+
+
+\doxysubsection{Конструктор(ы)}
+\mbox{\Hypertarget{class_camera_calibrator_a3e82880b602bc1400e306419211d466b}\label{class_camera_calibrator_a3e82880b602bc1400e306419211d466b}} 
+\index{CameraCalibrator@{CameraCalibrator}!CameraCalibrator@{CameraCalibrator}}
+\index{CameraCalibrator@{CameraCalibrator}!CameraCalibrator@{CameraCalibrator}}
+\doxysubsubsection{\texorpdfstring{CameraCalibrator()}{CameraCalibrator()}}
+{\footnotesize\ttfamily Camera\+Calibrator\+::\+Camera\+Calibrator (\begin{DoxyParamCaption}\item[{std\+::string}]{chessboards\+\_\+path }\end{DoxyParamCaption})}
+
+
+
+Конструктор этого класса 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em chessboards\+\_\+path} & имя (путь) к папке с изображениями шахматных досок \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Заметки}
+\mbox{\hyperlink{class_video_undistorter}{Video\+Undistorter}} 
+\end{DoxyNote}
+
+
+См. определение в файле \mbox{\hyperlink{camera__calibrator_8cpp_source}{camera\+\_\+calibrator.\+cpp}} строка \mbox{\hyperlink{camera__calibrator_8cpp_source_l00003}{3}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00003                                                              :}
+\DoxyCodeLine{00004     \mbox{\hyperlink{class_camera_calibrator_afd839658f3fe0b8b23cf6f6f08c67e48}{chessboards\_folder\_path\_}}\{ chessboards\_path \},}
+\DoxyCodeLine{00005     \mbox{\hyperlink{class_camera_calibrator_a2da15c9fb792eba736b182ed375b902b}{winname\_}}\{ \textcolor{stringliteral}{"{}Camera Calibrator"{}} \}}
+\DoxyCodeLine{00006 \{}
+\DoxyCodeLine{00007     \textcolor{comment}{// наших углов должен быть 10 и 7 по горизонтали и вертикали соответственно}}
+\DoxyCodeLine{00008     \mbox{\hyperlink{class_camera_calibrator_ae5c4b08c551880d1c1732608657b4130}{pattern\_size\_}} = Size(10, 7);}
+\DoxyCodeLine{00009 }
+\DoxyCodeLine{00010     \mbox{\hyperlink{class_camera_calibrator_ab6d7ca5b52ba0cdab65c1dc0230697ce}{txt\_file\_name\_}} = \textcolor{stringliteral}{"{}parameters.txt"{}};}
+\DoxyCodeLine{00011     namedWindow(\mbox{\hyperlink{class_camera_calibrator_a2da15c9fb792eba736b182ed375b902b}{winname\_}}, WINDOW\_NORMAL);}
+\DoxyCodeLine{00012 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_camera_calibrator_a7d4a03f35cf1c985cd4dfb651dcab60f}\label{class_camera_calibrator_a7d4a03f35cf1c985cd4dfb651dcab60f}} 
+\index{CameraCalibrator@{CameraCalibrator}!````~CameraCalibrator@{$\sim$CameraCalibrator}}
+\index{````~CameraCalibrator@{$\sim$CameraCalibrator}!CameraCalibrator@{CameraCalibrator}}
+\doxysubsubsection{\texorpdfstring{$\sim$CameraCalibrator()}{~CameraCalibrator()}}
+{\footnotesize\ttfamily Camera\+Calibrator\+::$\sim$\+Camera\+Calibrator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+См. определение в файле \mbox{\hyperlink{camera__calibrator_8cpp_source}{camera\+\_\+calibrator.\+cpp}} строка \mbox{\hyperlink{camera__calibrator_8cpp_source_l00014}{14}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00015 \{}
+\DoxyCodeLine{00016     destroyWindow(\mbox{\hyperlink{class_camera_calibrator_a2da15c9fb792eba736b182ed375b902b}{winname\_}});}
+\DoxyCodeLine{00017 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Методы}
+\mbox{\Hypertarget{class_camera_calibrator_a2216558d0c8e967ad3ccfcfd0bf769d9}\label{class_camera_calibrator_a2216558d0c8e967ad3ccfcfd0bf769d9}} 
+\index{CameraCalibrator@{CameraCalibrator}!AddTips@{AddTips}}
+\index{AddTips@{AddTips}!CameraCalibrator@{CameraCalibrator}}
+\doxysubsubsection{\texorpdfstring{AddTips()}{AddTips()}}
+{\footnotesize\ttfamily void Camera\+Calibrator\+::\+Add\+Tips (\begin{DoxyParamCaption}\item[{Mat \&}]{frame,  }\item[{std\+::string}]{tip }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+По аналогии с \mbox{\hyperlink{class_frame_handler_a13af7fdd06b373db04ece2adc6e62d14}{Frame\+Handler\+::\+Add\+Tips}} добавляет подсказки пользователя. В данном случае это -\/ номер текущего обрабатываемого кадра и общее кол-\/во кадров.~\newline
+. 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em frame} & кадр, на который будут добавлены подсказки \\
+\hline
+{\em tip} & строка с подсказкой \\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Необходимо сделать}
+\item[\mbox{\hyperlink{todo__todo000001}{Необходимо сделать}}]Вынести её в какой-\/то отдельный модуль, чтобы не было дублирования кода \end{DoxyRefDesc}
+
+
+См. определение в файле \mbox{\hyperlink{camera__calibrator_8cpp_source}{camera\+\_\+calibrator.\+cpp}} строка \mbox{\hyperlink{camera__calibrator_8cpp_source_l00152}{152}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00153 \{}
+\DoxyCodeLine{00154     \textcolor{keywordtype}{int} font = FONT\_HERSHEY\_PLAIN;}
+\DoxyCodeLine{00155     \textcolor{keywordtype}{double} font\_scale = 1.5;}
+\DoxyCodeLine{00156     \textcolor{keywordtype}{int} thickness = 2;}
+\DoxyCodeLine{00157 }
+\DoxyCodeLine{00158     putText(}
+\DoxyCodeLine{00159         frame,}
+\DoxyCodeLine{00160         tip,}
+\DoxyCodeLine{00161         Point(frame.cols * 0.05, frame.rows * 0.05),}
+\DoxyCodeLine{00162         font,}
+\DoxyCodeLine{00163         font\_scale,}
+\DoxyCodeLine{00164         Scalar(0, 255, 0),}
+\DoxyCodeLine{00165         thickness}
+\DoxyCodeLine{00166     );}
+\DoxyCodeLine{00167 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_camera_calibrator_aa149fb2446c10bd1a25d64aaecd99942}\label{class_camera_calibrator_aa149fb2446c10bd1a25d64aaecd99942}} 
+\index{CameraCalibrator@{CameraCalibrator}!ExecuteCameraCalibration@{ExecuteCameraCalibration}}
+\index{ExecuteCameraCalibration@{ExecuteCameraCalibration}!CameraCalibrator@{CameraCalibrator}}
+\doxysubsubsection{\texorpdfstring{ExecuteCameraCalibration()}{ExecuteCameraCalibration()}}
+{\footnotesize\ttfamily int Camera\+Calibrator\+::\+Execute\+Camera\+Calibration (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+См. определение в файле \mbox{\hyperlink{camera__calibrator_8cpp_source}{camera\+\_\+calibrator.\+cpp}} строка \mbox{\hyperlink{camera__calibrator_8cpp_source_l00019}{19}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00020 \{}
+\DoxyCodeLine{00021     std::cout << \textcolor{stringliteral}{"{}Starting camera calibration..."{}} << std::endl;}
+\DoxyCodeLine{00022 }
+\DoxyCodeLine{00023     \textcolor{comment}{// Загружаем изображения в память}}
+\DoxyCodeLine{00024     \mbox{\hyperlink{class_camera_calibrator_ade6a2521d6eb589d2ee76cfe090e2c4a}{LoadImages}}(\mbox{\hyperlink{class_camera_calibrator_afd839658f3fe0b8b23cf6f6f08c67e48}{chessboards\_folder\_path\_}});}
+\DoxyCodeLine{00025 }
+\DoxyCodeLine{00026     \textcolor{keyword}{auto} it = \mbox{\hyperlink{class_camera_calibrator_a2ce37665ea06fc1a62c12da5a2d43025}{images\_with\_chessboard\_}}.begin();}
+\DoxyCodeLine{00027     \textcolor{keywordflow}{while} (it != \mbox{\hyperlink{class_camera_calibrator_a2ce37665ea06fc1a62c12da5a2d43025}{images\_with\_chessboard\_}}.end())}
+\DoxyCodeLine{00028     \{}
+\DoxyCodeLine{00029         Mat current\_image = *it;}
+\DoxyCodeLine{00030         \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_camera_calibrator_adc18e9a241225fdbb90d1dbea0421282}{FindCorners}}(current\_image, \mbox{\hyperlink{class_camera_calibrator_ae5c4b08c551880d1c1732608657b4130}{pattern\_size\_}}, \mbox{\hyperlink{class_camera_calibrator_a0ae2cd85b73f6efcb224e45c582e555f}{corners\_}}))}
+\DoxyCodeLine{00031         \{}
+\DoxyCodeLine{00032             std::cout << \textcolor{stringliteral}{"{}Pattern found"{}} << std::endl;}
+\DoxyCodeLine{00033             drawChessboardCorners(current\_image, \mbox{\hyperlink{class_camera_calibrator_ae5c4b08c551880d1c1732608657b4130}{pattern\_size\_}}, \mbox{\hyperlink{class_camera_calibrator_a0ae2cd85b73f6efcb224e45c582e555f}{corners\_}}, \textcolor{keyword}{true});}
+\DoxyCodeLine{00034             \mbox{\hyperlink{class_camera_calibrator_af702d786b8787340bddbffc450811e11}{vec\_of\_corners\_}}.push\_back(\mbox{\hyperlink{class_camera_calibrator_a0ae2cd85b73f6efcb224e45c582e555f}{corners\_}});}
+\DoxyCodeLine{00035         \}}
+\DoxyCodeLine{00036 }
+\DoxyCodeLine{00037         it++;}
+\DoxyCodeLine{00038         \mbox{\hyperlink{class_camera_calibrator_a2216558d0c8e967ad3ccfcfd0bf769d9}{AddTips}}(current\_image, \textcolor{stringliteral}{"{}Current frame: "{}} + std::to\_string(std::distance(\mbox{\hyperlink{class_camera_calibrator_a2ce37665ea06fc1a62c12da5a2d43025}{images\_with\_chessboard\_}}.begin(), it)) + \textcolor{stringliteral}{"{}/"{}} + std::to\_string(\mbox{\hyperlink{class_camera_calibrator_a2ce37665ea06fc1a62c12da5a2d43025}{images\_with\_chessboard\_}}.size()));}
+\DoxyCodeLine{00039         imshow(\mbox{\hyperlink{class_camera_calibrator_a2da15c9fb792eba736b182ed375b902b}{winname\_}}, current\_image);}
+\DoxyCodeLine{00040 }
+\DoxyCodeLine{00041         \textcolor{keywordtype}{int} code = waitKey(20);}
+\DoxyCodeLine{00042         \textcolor{keywordflow}{switch} (code)}
+\DoxyCodeLine{00043         \{}
+\DoxyCodeLine{00044             \textcolor{comment}{// Пауза}}
+\DoxyCodeLine{00045             \textcolor{comment}{// Клавиши -\/ пробел (ASCII code)}}
+\DoxyCodeLine{00046         \textcolor{keywordflow}{case} 32:}
+\DoxyCodeLine{00047         \{}
+\DoxyCodeLine{00048             waitKey(0);}
+\DoxyCodeLine{00049             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00050         \}}
+\DoxyCodeLine{00051         \textcolor{keywordflow}{case} \textcolor{charliteral}{'q'}:}
+\DoxyCodeLine{00052         \{}
+\DoxyCodeLine{00053             it = \mbox{\hyperlink{class_camera_calibrator_a2ce37665ea06fc1a62c12da5a2d43025}{images\_with\_chessboard\_}}.end();}
+\DoxyCodeLine{00054             \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{00055             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00056         \}}
+\DoxyCodeLine{00057         \}}
+\DoxyCodeLine{00058     \}}
+\DoxyCodeLine{00059 }
+\DoxyCodeLine{00060     \textcolor{comment}{// Создаем координатную плоскость}}
+\DoxyCodeLine{00061     std::vector<Point3f> object\_points;}
+\DoxyCodeLine{00062     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_camera_calibrator_ae5c4b08c551880d1c1732608657b4130}{pattern\_size\_}}.height; i++)}
+\DoxyCodeLine{00063     \{}
+\DoxyCodeLine{00064         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} j = 0; j < \mbox{\hyperlink{class_camera_calibrator_ae5c4b08c551880d1c1732608657b4130}{pattern\_size\_}}.width; j++)}
+\DoxyCodeLine{00065         \{}
+\DoxyCodeLine{00066             object\_points.push\_back(Point3f(i, j, 0));}
+\DoxyCodeLine{00067         \}}
+\DoxyCodeLine{00068     \}}
+\DoxyCodeLine{00069     std::vector<std::vector<Point3f>> vec\_of\_object\_points(\mbox{\hyperlink{class_camera_calibrator_af702d786b8787340bddbffc450811e11}{vec\_of\_corners\_}}.size());}
+\DoxyCodeLine{00070     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_camera_calibrator_af702d786b8787340bddbffc450811e11}{vec\_of\_corners\_}}.size(); i++)}
+\DoxyCodeLine{00071     \{}
+\DoxyCodeLine{00072         vec\_of\_object\_points[i] = object\_points;}
+\DoxyCodeLine{00073     \}}
+\DoxyCodeLine{00075 }
+\DoxyCodeLine{00076     std::cout << \textcolor{stringliteral}{"{}Camera calibration..."{}} << std::endl;}
+\DoxyCodeLine{00077     \textcolor{keywordtype}{float} error = calibrateCamera}
+\DoxyCodeLine{00078     (}
+\DoxyCodeLine{00079         vec\_of\_object\_points,}
+\DoxyCodeLine{00080         \mbox{\hyperlink{class_camera_calibrator_af702d786b8787340bddbffc450811e11}{vec\_of\_corners\_}},}
+\DoxyCodeLine{00081         Size(\mbox{\hyperlink{class_camera_calibrator_a149f830d429e3581e1668a15ffb4e5e2}{frame\_height\_}}, \mbox{\hyperlink{class_camera_calibrator_acc59f8fd0514b211ab7898f7d85cf961}{frame\_width\_}}),}
+\DoxyCodeLine{00082         \mbox{\hyperlink{class_camera_calibrator_a1acb421aa0db1d5c4e9d4a6f5f516a66}{camera\_matrix\_}},}
+\DoxyCodeLine{00083         \mbox{\hyperlink{class_camera_calibrator_a574c82b6583c4a5b514e77918db61f50}{distortion\_coefficients\_}},}
+\DoxyCodeLine{00084         rotation\_vector\_,}
+\DoxyCodeLine{00085         translation\_vector\_}
+\DoxyCodeLine{00086     );}
+\DoxyCodeLine{00087     std::cout << \textcolor{stringliteral}{"{}Error is "{}} << error << std::endl;}
+\DoxyCodeLine{00088     std::cout << \textcolor{stringliteral}{"{}camera\_matrix\_ is "{}} << \mbox{\hyperlink{class_camera_calibrator_a1acb421aa0db1d5c4e9d4a6f5f516a66}{camera\_matrix\_}} << std::endl;}
+\DoxyCodeLine{00089     std::cout << \textcolor{stringliteral}{"{}distortion\_coefficients\_ is "{}} << \mbox{\hyperlink{class_camera_calibrator_a574c82b6583c4a5b514e77918db61f50}{distortion\_coefficients\_}} << std::endl;}
+\DoxyCodeLine{00090 }
+\DoxyCodeLine{00091     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < rotation\_vector\_.size(); i++)}
+\DoxyCodeLine{00092     \{}
+\DoxyCodeLine{00093         std::cout << \textcolor{stringliteral}{"{}rotation\_vector\_ is "{}} << rotation\_vector\_[i] << std::endl;}
+\DoxyCodeLine{00094     \}}
+\DoxyCodeLine{00095     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < translation\_vector\_.size(); i++)}
+\DoxyCodeLine{00096     \{}
+\DoxyCodeLine{00097         std::cout << \textcolor{stringliteral}{"{}translation\_vector\_ is "{}} << translation\_vector\_[i] << std::endl;}
+\DoxyCodeLine{00098     \}}
+\DoxyCodeLine{00099 }
+\DoxyCodeLine{00100     \textcolor{comment}{// saving found parameters to a txt file}}
+\DoxyCodeLine{00101     \mbox{\hyperlink{class_camera_calibrator_a2d1c6667d68b7e15bfb185c4a54d65c5}{SaveFoundParamsToFile}}(\mbox{\hyperlink{class_camera_calibrator_a1acb421aa0db1d5c4e9d4a6f5f516a66}{camera\_matrix\_}}, \mbox{\hyperlink{class_camera_calibrator_a574c82b6583c4a5b514e77918db61f50}{distortion\_coefficients\_}});}
+\DoxyCodeLine{00102     \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{00103 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_camera_calibrator_adc18e9a241225fdbb90d1dbea0421282}\label{class_camera_calibrator_adc18e9a241225fdbb90d1dbea0421282}} 
+\index{CameraCalibrator@{CameraCalibrator}!FindCorners@{FindCorners}}
+\index{FindCorners@{FindCorners}!CameraCalibrator@{CameraCalibrator}}
+\doxysubsubsection{\texorpdfstring{FindCorners()}{FindCorners()}}
+{\footnotesize\ttfamily bool Camera\+Calibrator\+::\+Find\+Corners (\begin{DoxyParamCaption}\item[{Mat}]{input\+\_\+frame,  }\item[{Size}]{pattern\+\_\+size,  }\item[{std\+::vector$<$ Point2f $>$ \&}]{corners }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Находит шахматный паттерн размером, заданным в конструкторе класса (\mbox{\hyperlink{class_camera_calibrator_a3e82880b602bc1400e306419211d466b}{Camera\+Calibrator\+::\+Camera\+Calibrator}}) 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em input\+\_\+frame} & кадр, на котором будет осуществлён поиск паттерна \\
+\hline
+{\em pattern\+\_\+size} & размер паттерна (по дефолту я выбрал 6х9) \\
+\hline
+{\em corners} & адрес на вектор, в который будут записаны найденные координаты узлов паттерна \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+true -\/ в случае, если паттерн нашёлся, false -\/ в противном случае 
+\end{DoxyReturn}
+
+
+См. определение в файле \mbox{\hyperlink{camera__calibrator_8cpp_source}{camera\+\_\+calibrator.\+cpp}} строка \mbox{\hyperlink{camera__calibrator_8cpp_source_l00169}{169}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00170 \{}
+\DoxyCodeLine{00171     Mat gray\_frame;}
+\DoxyCodeLine{00172     \textcolor{keywordflow}{if} (input\_frame.channels() > 2)}
+\DoxyCodeLine{00173         cvtColor(input\_frame, input\_frame, COLOR\_BGR2GRAY);}
+\DoxyCodeLine{00174 }
+\DoxyCodeLine{00175     input\_frame.copyTo(gray\_frame);}
+\DoxyCodeLine{00176 }
+\DoxyCodeLine{00177     \textcolor{keywordtype}{bool} pattern\_found = findChessboardCorners}
+\DoxyCodeLine{00178     (}
+\DoxyCodeLine{00179         gray\_frame,}
+\DoxyCodeLine{00180         pattern\_size,}
+\DoxyCodeLine{00181         corners,}
+\DoxyCodeLine{00182         CALIB\_CB\_ADAPTIVE\_THRESH + CALIB\_CB\_NORMALIZE\_IMAGE + CALIB\_CB\_FAST\_CHECK}
+\DoxyCodeLine{00183     );}
+\DoxyCodeLine{00184 }
+\DoxyCodeLine{00185     \textcolor{keywordflow}{if} (pattern\_found)}
+\DoxyCodeLine{00186         cornerSubPix}
+\DoxyCodeLine{00187         (}
+\DoxyCodeLine{00188             gray\_frame, corners,}
+\DoxyCodeLine{00189             Size(11, 11), \textcolor{comment}{// window size}}
+\DoxyCodeLine{00190             Size(-\/1, -\/1), \textcolor{comment}{// zero zone}}
+\DoxyCodeLine{00191             TermCriteria(TermCriteria::EPS + TermCriteria::COUNT, 40, 0.001)}
+\DoxyCodeLine{00192         );}
+\DoxyCodeLine{00193 }
+\DoxyCodeLine{00194     \textcolor{keywordflow}{return} pattern\_found;}
+\DoxyCodeLine{00195 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_camera_calibrator_ade6a2521d6eb589d2ee76cfe090e2c4a}\label{class_camera_calibrator_ade6a2521d6eb589d2ee76cfe090e2c4a}} 
+\index{CameraCalibrator@{CameraCalibrator}!LoadImages@{LoadImages}}
+\index{LoadImages@{LoadImages}!CameraCalibrator@{CameraCalibrator}}
+\doxysubsubsection{\texorpdfstring{LoadImages()}{LoadImages()}}
+{\footnotesize\ttfamily int Camera\+Calibrator\+::\+Load\+Images (\begin{DoxyParamCaption}\item[{std\+::string}]{chessboards\+\_\+path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Загружает фотографии (изображения) шахматных досок в память из пути к папке. 
+
+\begin{DoxyNote}{Заметки}
+По умолчанию название изображений в пути должно быть по типа\+: \char`\"{}$<$номер изображения$>$.\+png\char`\"{} 
+\end{DoxyNote}
+
+
+См. определение в файле \mbox{\hyperlink{camera__calibrator_8cpp_source}{camera\+\_\+calibrator.\+cpp}} строка \mbox{\hyperlink{camera__calibrator_8cpp_source_l00105}{105}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00106 \{}
+\DoxyCodeLine{00107     Mat image\_with\_chessboard;}
+\DoxyCodeLine{00108     std::string image\_name = chessboards\_path;}
+\DoxyCodeLine{00109     \mbox{\hyperlink{class_camera_calibrator_ac220c41909d09cf784734ded65525465}{chessboards\_amount\_}} = 0;}
+\DoxyCodeLine{00110     }
+\DoxyCodeLine{00111     image\_with\_chessboard = \mbox{\hyperlink{class_camera_calibrator_a7eca0d972785653183b262314c8e1127}{ReadNextImage}}(image\_name);}
+\DoxyCodeLine{00112 }
+\DoxyCodeLine{00113     \textcolor{comment}{// Инициализируем ширину и высоту кадра}}
+\DoxyCodeLine{00114     \mbox{\hyperlink{class_camera_calibrator_acc59f8fd0514b211ab7898f7d85cf961}{frame\_width\_}} = image\_with\_chessboard.size().width;}
+\DoxyCodeLine{00115     \mbox{\hyperlink{class_camera_calibrator_a149f830d429e3581e1668a15ffb4e5e2}{frame\_height\_}} = image\_with\_chessboard.size().height;}
+\DoxyCodeLine{00116 }
+\DoxyCodeLine{00117     \textcolor{keywordflow}{while} (!image\_with\_chessboard.empty())}
+\DoxyCodeLine{00118     \{}
+\DoxyCodeLine{00119         \mbox{\hyperlink{class_camera_calibrator_a2ce37665ea06fc1a62c12da5a2d43025}{images\_with\_chessboard\_}}.push\_back(image\_with\_chessboard);}
+\DoxyCodeLine{00120         imshow(\mbox{\hyperlink{class_camera_calibrator_a2da15c9fb792eba736b182ed375b902b}{winname\_}}, image\_with\_chessboard);}
+\DoxyCodeLine{00121         image\_with\_chessboard = \mbox{\hyperlink{class_camera_calibrator_a7eca0d972785653183b262314c8e1127}{ReadNextImage}}(image\_name);}
+\DoxyCodeLine{00122 }
+\DoxyCodeLine{00123         \textcolor{keywordtype}{int} code = waitKey(20);}
+\DoxyCodeLine{00124         \textcolor{keywordflow}{switch} (code)}
+\DoxyCodeLine{00125         \{}
+\DoxyCodeLine{00126             \textcolor{comment}{// Пауза}}
+\DoxyCodeLine{00127             \textcolor{comment}{// Клавиши -\/ пробел (ASCII code)}}
+\DoxyCodeLine{00128         \textcolor{keywordflow}{case} 32:}
+\DoxyCodeLine{00129         \{}
+\DoxyCodeLine{00130             waitKey(0);}
+\DoxyCodeLine{00131             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00132         \}}
+\DoxyCodeLine{00133         \textcolor{keywordflow}{case} \textcolor{charliteral}{'q'}:}
+\DoxyCodeLine{00134         \{}
+\DoxyCodeLine{00135             \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{00136             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00137         \}}
+\DoxyCodeLine{00138         \}}
+\DoxyCodeLine{00139     \}}
+\DoxyCodeLine{00140     \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{00141 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_camera_calibrator_a7eca0d972785653183b262314c8e1127}\label{class_camera_calibrator_a7eca0d972785653183b262314c8e1127}} 
+\index{CameraCalibrator@{CameraCalibrator}!ReadNextImage@{ReadNextImage}}
+\index{ReadNextImage@{ReadNextImage}!CameraCalibrator@{CameraCalibrator}}
+\doxysubsubsection{\texorpdfstring{ReadNextImage()}{ReadNextImage()}}
+{\footnotesize\ttfamily Mat Camera\+Calibrator\+::\+Read\+Next\+Image (\begin{DoxyParamCaption}\item[{std\+::string}]{path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Считывает новое изображение и увеличивает переменную chessboard\+\_\+amount\+\_\+ на один 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em path} & путь к папке с изображениями \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+cv\+::\+Mat прочитанное изображение 
+\end{DoxyReturn}
+
+
+См. определение в файле \mbox{\hyperlink{camera__calibrator_8cpp_source}{camera\+\_\+calibrator.\+cpp}} строка \mbox{\hyperlink{camera__calibrator_8cpp_source_l00143}{143}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00144 \{}
+\DoxyCodeLine{00145     Mat image;}
+\DoxyCodeLine{00146     path += std::to\_string(\mbox{\hyperlink{class_camera_calibrator_ac220c41909d09cf784734ded65525465}{chessboards\_amount\_}}++);}
+\DoxyCodeLine{00147     path += EXTENTION;}
+\DoxyCodeLine{00148     image = imread(path);}
+\DoxyCodeLine{00149     \textcolor{keywordflow}{return} image;}
+\DoxyCodeLine{00150 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_camera_calibrator_a2d1c6667d68b7e15bfb185c4a54d65c5}\label{class_camera_calibrator_a2d1c6667d68b7e15bfb185c4a54d65c5}} 
+\index{CameraCalibrator@{CameraCalibrator}!SaveFoundParamsToFile@{SaveFoundParamsToFile}}
+\index{SaveFoundParamsToFile@{SaveFoundParamsToFile}!CameraCalibrator@{CameraCalibrator}}
+\doxysubsubsection{\texorpdfstring{SaveFoundParamsToFile()}{SaveFoundParamsToFile()}}
+{\footnotesize\ttfamily void Camera\+Calibrator\+::\+Save\+Found\+Params\+To\+File (\begin{DoxyParamCaption}\item[{Mat}]{camera\+\_\+matrix,  }\item[{Mat}]{dist\+\_\+coeffs\+\_\+2be\+\_\+written }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Сохраняет найденные параметры (коэффициенты fx, fy, cx, cy), необходимые для удаления дисторсии 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em camera\+\_\+matrix} & матрица, которая будет записана в файл \\
+\hline
+{\em dist\+\_\+coeffs\+\_\+2be\+\_\+written} & коэффициенты дисторсии, которые будут записаны в файл \\
+\hline
+\end{DoxyParams}
+
+
+См. определение в файле \mbox{\hyperlink{camera__calibrator_8cpp_source}{camera\+\_\+calibrator.\+cpp}} строка \mbox{\hyperlink{camera__calibrator_8cpp_source_l00197}{197}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00198 \{}
+\DoxyCodeLine{00199     std::string filename = \mbox{\hyperlink{group___helper_functions_ga757c85a4bbcc0f0aa436369ac7ed57e0}{HelperFunctions::GenerateCsvFilename}}(\textcolor{stringliteral}{"{}parameters\_"{}});}
+\DoxyCodeLine{00200 }
+\DoxyCodeLine{00201     \mbox{\hyperlink{class_camera_calibrator_aca2c8622828a7638876c950860051bc2}{fx\_}} = camera\_matrix.at<\textcolor{keywordtype}{double}>(0, 0);}
+\DoxyCodeLine{00202     \mbox{\hyperlink{class_camera_calibrator_ab073b0d3c3c38a203fea48138e9badb8}{fy\_}} = camera\_matrix.at<\textcolor{keywordtype}{double}>(1, 1);}
+\DoxyCodeLine{00203     \mbox{\hyperlink{class_camera_calibrator_ab2090cf7929cd099818929c220d18806}{px\_}} = camera\_matrix.at<\textcolor{keywordtype}{double}>(0, 2);}
+\DoxyCodeLine{00204     \mbox{\hyperlink{class_camera_calibrator_a6ab88a1e59d13dcaa481b4628abff359}{py\_}} = camera\_matrix.at<\textcolor{keywordtype}{double}>(1, 2);}
+\DoxyCodeLine{00205 }
+\DoxyCodeLine{00206     std::vector<double> distortion\_coefficients;}
+\DoxyCodeLine{00207     distortion\_coefficients =}
+\DoxyCodeLine{00208     \{}
+\DoxyCodeLine{00209         dist\_coeffs\_2be\_written.at<\textcolor{keywordtype}{double}>(0,0),}
+\DoxyCodeLine{00210         dist\_coeffs\_2be\_written.at<\textcolor{keywordtype}{double}>(0,1),}
+\DoxyCodeLine{00211         dist\_coeffs\_2be\_written.at<\textcolor{keywordtype}{double}>(0,2),}
+\DoxyCodeLine{00212         dist\_coeffs\_2be\_written.at<\textcolor{keywordtype}{double}>(0,3),}
+\DoxyCodeLine{00213         dist\_coeffs\_2be\_written.at<\textcolor{keywordtype}{double}>(0,4)}
+\DoxyCodeLine{00214     \};}
+\DoxyCodeLine{00215 }
+\DoxyCodeLine{00216     std::ofstream file;}
+\DoxyCodeLine{00217     file.open(filename, std::ios::out | std::ios::trunc);}
+\DoxyCodeLine{00218 }
+\DoxyCodeLine{00219     file << \textcolor{stringliteral}{"{}fx;"{}} + \mbox{\hyperlink{group___helper_functions_gad8a95244f86df84c8f5d35197fe0196f}{HelperFunctions::ToStringWithPrecision}}(\mbox{\hyperlink{class_camera_calibrator_aca2c8622828a7638876c950860051bc2}{fx\_}}) << std::endl;}
+\DoxyCodeLine{00220     file << \textcolor{stringliteral}{"{}fy;"{}} + \mbox{\hyperlink{group___helper_functions_gad8a95244f86df84c8f5d35197fe0196f}{HelperFunctions::ToStringWithPrecision}}(\mbox{\hyperlink{class_camera_calibrator_ab073b0d3c3c38a203fea48138e9badb8}{fy\_}}) << std::endl;}
+\DoxyCodeLine{00221     file << \textcolor{stringliteral}{"{}px;"{}} + \mbox{\hyperlink{group___helper_functions_gad8a95244f86df84c8f5d35197fe0196f}{HelperFunctions::ToStringWithPrecision}}(\mbox{\hyperlink{class_camera_calibrator_ab2090cf7929cd099818929c220d18806}{px\_}}) << std::endl;}
+\DoxyCodeLine{00222     file << \textcolor{stringliteral}{"{}py;"{}} + \mbox{\hyperlink{group___helper_functions_gad8a95244f86df84c8f5d35197fe0196f}{HelperFunctions::ToStringWithPrecision}}(\mbox{\hyperlink{class_camera_calibrator_a6ab88a1e59d13dcaa481b4628abff359}{py\_}}) << std::endl;}
+\DoxyCodeLine{00223     file << \textcolor{stringliteral}{"{}dist;"{}} + \mbox{\hyperlink{group___helper_functions_gad8a95244f86df84c8f5d35197fe0196f}{HelperFunctions::ToStringWithPrecision}}(distortion\_coefficients[0]) + \textcolor{stringliteral}{"{};"{}} + \mbox{\hyperlink{group___helper_functions_gad8a95244f86df84c8f5d35197fe0196f}{HelperFunctions::ToStringWithPrecision}}(distortion\_coefficients[1])}
+\DoxyCodeLine{00224         + \textcolor{stringliteral}{"{};"{}} + \mbox{\hyperlink{group___helper_functions_gad8a95244f86df84c8f5d35197fe0196f}{HelperFunctions::ToStringWithPrecision}}(distortion\_coefficients[2]) + \textcolor{stringliteral}{"{};"{}} + \mbox{\hyperlink{group___helper_functions_gad8a95244f86df84c8f5d35197fe0196f}{HelperFunctions::ToStringWithPrecision}}(distortion\_coefficients[3]) + \textcolor{stringliteral}{"{};"{}} + \mbox{\hyperlink{group___helper_functions_gad8a95244f86df84c8f5d35197fe0196f}{HelperFunctions::ToStringWithPrecision}}(distortion\_coefficients[4]);}
+\DoxyCodeLine{00225 }
+\DoxyCodeLine{00226     file.close();}
+\DoxyCodeLine{00227 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Данные класса}
+\mbox{\Hypertarget{class_camera_calibrator_a1acb421aa0db1d5c4e9d4a6f5f516a66}\label{class_camera_calibrator_a1acb421aa0db1d5c4e9d4a6f5f516a66}} 
+\index{CameraCalibrator@{CameraCalibrator}!camera\_matrix\_@{camera\_matrix\_}}
+\index{camera\_matrix\_@{camera\_matrix\_}!CameraCalibrator@{CameraCalibrator}}
+\doxysubsubsection{\texorpdfstring{camera\_matrix\_}{camera\_matrix\_}}
+{\footnotesize\ttfamily Mat Camera\+Calibrator\+::camera\+\_\+matrix\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Матрица, в которой находятся найденные коэффициенты px, py, cx, cy. 
+
+
+
+См. определение в файле \mbox{\hyperlink{camera__calibrator_8h_source}{camera\+\_\+calibrator.\+h}} строка \mbox{\hyperlink{camera__calibrator_8h_source_l00112}{112}}
+
+\mbox{\Hypertarget{class_camera_calibrator_ac220c41909d09cf784734ded65525465}\label{class_camera_calibrator_ac220c41909d09cf784734ded65525465}} 
+\index{CameraCalibrator@{CameraCalibrator}!chessboards\_amount\_@{chessboards\_amount\_}}
+\index{chessboards\_amount\_@{chessboards\_amount\_}!CameraCalibrator@{CameraCalibrator}}
+\doxysubsubsection{\texorpdfstring{chessboards\_amount\_}{chessboards\_amount\_}}
+{\footnotesize\ttfamily int Camera\+Calibrator\+::chessboards\+\_\+amount\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Количество фотографий шахматных досок (находится в \mbox{\hyperlink{class_camera_calibrator_ade6a2521d6eb589d2ee76cfe090e2c4a}{Camera\+Calibrator\+::\+Load\+Images}}) 
+
+
+
+См. определение в файле \mbox{\hyperlink{camera__calibrator_8h_source}{camera\+\_\+calibrator.\+h}} строка \mbox{\hyperlink{camera__calibrator_8h_source_l00084}{84}}
+
+\mbox{\Hypertarget{class_camera_calibrator_afd839658f3fe0b8b23cf6f6f08c67e48}\label{class_camera_calibrator_afd839658f3fe0b8b23cf6f6f08c67e48}} 
+\index{CameraCalibrator@{CameraCalibrator}!chessboards\_folder\_path\_@{chessboards\_folder\_path\_}}
+\index{chessboards\_folder\_path\_@{chessboards\_folder\_path\_}!CameraCalibrator@{CameraCalibrator}}
+\doxysubsubsection{\texorpdfstring{chessboards\_folder\_path\_}{chessboards\_folder\_path\_}}
+{\footnotesize\ttfamily std\+::string Camera\+Calibrator\+::chessboards\+\_\+folder\+\_\+path\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Путь к папке с фотографиями \char`\"{}шахматной доски\char`\"{}. 
+
+
+
+См. определение в файле \mbox{\hyperlink{camera__calibrator_8h_source}{camera\+\_\+calibrator.\+h}} строка \mbox{\hyperlink{camera__calibrator_8h_source_l00080}{80}}
+
+\mbox{\Hypertarget{class_camera_calibrator_a0ae2cd85b73f6efcb224e45c582e555f}\label{class_camera_calibrator_a0ae2cd85b73f6efcb224e45c582e555f}} 
+\index{CameraCalibrator@{CameraCalibrator}!corners\_@{corners\_}}
+\index{corners\_@{corners\_}!CameraCalibrator@{CameraCalibrator}}
+\doxysubsubsection{\texorpdfstring{corners\_}{corners\_}}
+{\footnotesize\ttfamily std\+::vector$<$Point2f$>$ Camera\+Calibrator\+::corners\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Найденные узлы шахматной доски, найденные на конкретном изображении 
+
+
+
+См. определение в файле \mbox{\hyperlink{camera__calibrator_8h_source}{camera\+\_\+calibrator.\+h}} строка \mbox{\hyperlink{camera__calibrator_8h_source_l00122}{122}}
+
+\mbox{\Hypertarget{class_camera_calibrator_a574c82b6583c4a5b514e77918db61f50}\label{class_camera_calibrator_a574c82b6583c4a5b514e77918db61f50}} 
+\index{CameraCalibrator@{CameraCalibrator}!distortion\_coefficients\_@{distortion\_coefficients\_}}
+\index{distortion\_coefficients\_@{distortion\_coefficients\_}!CameraCalibrator@{CameraCalibrator}}
+\doxysubsubsection{\texorpdfstring{distortion\_coefficients\_}{distortion\_coefficients\_}}
+{\footnotesize\ttfamily Mat Camera\+Calibrator\+::distortion\+\_\+coefficients\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Коэффициенты дисторсии 
+
+
+
+См. определение в файле \mbox{\hyperlink{camera__calibrator_8h_source}{camera\+\_\+calibrator.\+h}} строка \mbox{\hyperlink{camera__calibrator_8h_source_l00116}{116}}
+
+\mbox{\Hypertarget{class_camera_calibrator_a149f830d429e3581e1668a15ffb4e5e2}\label{class_camera_calibrator_a149f830d429e3581e1668a15ffb4e5e2}} 
+\index{CameraCalibrator@{CameraCalibrator}!frame\_height\_@{frame\_height\_}}
+\index{frame\_height\_@{frame\_height\_}!CameraCalibrator@{CameraCalibrator}}
+\doxysubsubsection{\texorpdfstring{frame\_height\_}{frame\_height\_}}
+{\footnotesize\ttfamily double Camera\+Calibrator\+::frame\+\_\+height\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Высота кадра 
+
+
+
+См. определение в файле \mbox{\hyperlink{camera__calibrator_8h_source}{camera\+\_\+calibrator.\+h}} строка \mbox{\hyperlink{camera__calibrator_8h_source_l00100}{100}}
+
+\mbox{\Hypertarget{class_camera_calibrator_acc59f8fd0514b211ab7898f7d85cf961}\label{class_camera_calibrator_acc59f8fd0514b211ab7898f7d85cf961}} 
+\index{CameraCalibrator@{CameraCalibrator}!frame\_width\_@{frame\_width\_}}
+\index{frame\_width\_@{frame\_width\_}!CameraCalibrator@{CameraCalibrator}}
+\doxysubsubsection{\texorpdfstring{frame\_width\_}{frame\_width\_}}
+{\footnotesize\ttfamily double Camera\+Calibrator\+::frame\+\_\+width\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Ширина кадра 
+
+
+
+См. определение в файле \mbox{\hyperlink{camera__calibrator_8h_source}{camera\+\_\+calibrator.\+h}} строка \mbox{\hyperlink{camera__calibrator_8h_source_l00096}{96}}
+
+\mbox{\Hypertarget{class_camera_calibrator_aca2c8622828a7638876c950860051bc2}\label{class_camera_calibrator_aca2c8622828a7638876c950860051bc2}} 
+\index{CameraCalibrator@{CameraCalibrator}!fx\_@{fx\_}}
+\index{fx\_@{fx\_}!CameraCalibrator@{CameraCalibrator}}
+\doxysubsubsection{\texorpdfstring{fx\_}{fx\_}}
+{\footnotesize\ttfamily double Camera\+Calibrator\+::fx\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Коэффициент матрицы \mbox{\hyperlink{class_video_undistorter_a78e9df5a43762efac01d4d37d97be8e5}{Video\+Undistorter\+::camera\+\_\+matrix\+\_\+}}. 
+
+
+
+См. определение в файле \mbox{\hyperlink{camera__calibrator_8h_source}{camera\+\_\+calibrator.\+h}} строка \mbox{\hyperlink{camera__calibrator_8h_source_l00134}{134}}
+
+\mbox{\Hypertarget{class_camera_calibrator_ab073b0d3c3c38a203fea48138e9badb8}\label{class_camera_calibrator_ab073b0d3c3c38a203fea48138e9badb8}} 
+\index{CameraCalibrator@{CameraCalibrator}!fy\_@{fy\_}}
+\index{fy\_@{fy\_}!CameraCalibrator@{CameraCalibrator}}
+\doxysubsubsection{\texorpdfstring{fy\_}{fy\_}}
+{\footnotesize\ttfamily double Camera\+Calibrator\+::fy\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Коэффициент матрицы \mbox{\hyperlink{class_video_undistorter_a78e9df5a43762efac01d4d37d97be8e5}{Video\+Undistorter\+::camera\+\_\+matrix\+\_\+}}. 
+
+
+
+См. определение в файле \mbox{\hyperlink{camera__calibrator_8h_source}{camera\+\_\+calibrator.\+h}} строка \mbox{\hyperlink{camera__calibrator_8h_source_l00138}{138}}
+
+\mbox{\Hypertarget{class_camera_calibrator_a2ce37665ea06fc1a62c12da5a2d43025}\label{class_camera_calibrator_a2ce37665ea06fc1a62c12da5a2d43025}} 
+\index{CameraCalibrator@{CameraCalibrator}!images\_with\_chessboard\_@{images\_with\_chessboard\_}}
+\index{images\_with\_chessboard\_@{images\_with\_chessboard\_}!CameraCalibrator@{CameraCalibrator}}
+\doxysubsubsection{\texorpdfstring{images\_with\_chessboard\_}{images\_with\_chessboard\_}}
+{\footnotesize\ttfamily std\+::vector$<$Mat$>$ Camera\+Calibrator\+::images\+\_\+with\+\_\+chessboard\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Вектор загруженных фотографий с шахматными досками 
+
+
+
+См. определение в файле \mbox{\hyperlink{camera__calibrator_8h_source}{camera\+\_\+calibrator.\+h}} строка \mbox{\hyperlink{camera__calibrator_8h_source_l00088}{88}}
+
+\mbox{\Hypertarget{class_camera_calibrator_a04f7e4c11486226a4dc8bbf610660503}\label{class_camera_calibrator_a04f7e4c11486226a4dc8bbf610660503}} 
+\index{CameraCalibrator@{CameraCalibrator}!input\_cap\_@{input\_cap\_}}
+\index{input\_cap\_@{input\_cap\_}!CameraCalibrator@{CameraCalibrator}}
+\doxysubsubsection{\texorpdfstring{input\_cap\_}{input\_cap\_}}
+{\footnotesize\ttfamily Video\+Capture$\ast$ Camera\+Calibrator\+::input\+\_\+cap\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+\char`\"{}Поток\char`\"{} из кадров входного видео (последовательности) 
+
+
+
+См. определение в файле \mbox{\hyperlink{camera__calibrator_8h_source}{camera\+\_\+calibrator.\+h}} строка \mbox{\hyperlink{camera__calibrator_8h_source_l00092}{92}}
+
+\mbox{\Hypertarget{class_camera_calibrator_ae5c4b08c551880d1c1732608657b4130}\label{class_camera_calibrator_ae5c4b08c551880d1c1732608657b4130}} 
+\index{CameraCalibrator@{CameraCalibrator}!pattern\_size\_@{pattern\_size\_}}
+\index{pattern\_size\_@{pattern\_size\_}!CameraCalibrator@{CameraCalibrator}}
+\doxysubsubsection{\texorpdfstring{pattern\_size\_}{pattern\_size\_}}
+{\footnotesize\ttfamily Size Camera\+Calibrator\+::pattern\+\_\+size\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Размер паттерна, по которому будут искаться шахматные доски 
+
+
+
+См. определение в файле \mbox{\hyperlink{camera__calibrator_8h_source}{camera\+\_\+calibrator.\+h}} строка \mbox{\hyperlink{camera__calibrator_8h_source_l00130}{130}}
+
+\mbox{\Hypertarget{class_camera_calibrator_ab2090cf7929cd099818929c220d18806}\label{class_camera_calibrator_ab2090cf7929cd099818929c220d18806}} 
+\index{CameraCalibrator@{CameraCalibrator}!px\_@{px\_}}
+\index{px\_@{px\_}!CameraCalibrator@{CameraCalibrator}}
+\doxysubsubsection{\texorpdfstring{px\_}{px\_}}
+{\footnotesize\ttfamily double Camera\+Calibrator\+::px\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Коэффициент матрицы \mbox{\hyperlink{class_video_undistorter_a78e9df5a43762efac01d4d37d97be8e5}{Video\+Undistorter\+::camera\+\_\+matrix\+\_\+}}. 
+
+
+
+См. определение в файле \mbox{\hyperlink{camera__calibrator_8h_source}{camera\+\_\+calibrator.\+h}} строка \mbox{\hyperlink{camera__calibrator_8h_source_l00142}{142}}
+
+\mbox{\Hypertarget{class_camera_calibrator_a6ab88a1e59d13dcaa481b4628abff359}\label{class_camera_calibrator_a6ab88a1e59d13dcaa481b4628abff359}} 
+\index{CameraCalibrator@{CameraCalibrator}!py\_@{py\_}}
+\index{py\_@{py\_}!CameraCalibrator@{CameraCalibrator}}
+\doxysubsubsection{\texorpdfstring{py\_}{py\_}}
+{\footnotesize\ttfamily double Camera\+Calibrator\+::py\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Коэффициент матрицы \mbox{\hyperlink{class_video_undistorter_a78e9df5a43762efac01d4d37d97be8e5}{Video\+Undistorter\+::camera\+\_\+matrix\+\_\+}}. 
+
+
+
+См. определение в файле \mbox{\hyperlink{camera__calibrator_8h_source}{camera\+\_\+calibrator.\+h}} строка \mbox{\hyperlink{camera__calibrator_8h_source_l00146}{146}}
+
+\mbox{\Hypertarget{class_camera_calibrator_a03e037f4855519733bd060ae02534856}\label{class_camera_calibrator_a03e037f4855519733bd060ae02534856}} 
+\index{CameraCalibrator@{CameraCalibrator}!rotation\_vector\_@{rotation\_vector\_}}
+\index{rotation\_vector\_@{rotation\_vector\_}!CameraCalibrator@{CameraCalibrator}}
+\doxysubsubsection{\texorpdfstring{rotation\_vector\_}{rotation\_vector\_}}
+{\footnotesize\ttfamily std\+::vector$<$Mat$>$ Camera\+Calibrator\+::rotation\+\_\+vector\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+См. определение в файле \mbox{\hyperlink{camera__calibrator_8h_source}{camera\+\_\+calibrator.\+h}} строка \mbox{\hyperlink{camera__calibrator_8h_source_l00117}{117}}
+
+\mbox{\Hypertarget{class_camera_calibrator_ae2971536607c20d3068080625e454bf7}\label{class_camera_calibrator_ae2971536607c20d3068080625e454bf7}} 
+\index{CameraCalibrator@{CameraCalibrator}!translation\_vector\_@{translation\_vector\_}}
+\index{translation\_vector\_@{translation\_vector\_}!CameraCalibrator@{CameraCalibrator}}
+\doxysubsubsection{\texorpdfstring{translation\_vector\_}{translation\_vector\_}}
+{\footnotesize\ttfamily std\+::vector$<$Mat$>$ Camera\+Calibrator\+::translation\+\_\+vector\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+См. определение в файле \mbox{\hyperlink{camera__calibrator_8h_source}{camera\+\_\+calibrator.\+h}} строка \mbox{\hyperlink{camera__calibrator_8h_source_l00118}{118}}
+
+\mbox{\Hypertarget{class_camera_calibrator_ab6d7ca5b52ba0cdab65c1dc0230697ce}\label{class_camera_calibrator_ab6d7ca5b52ba0cdab65c1dc0230697ce}} 
+\index{CameraCalibrator@{CameraCalibrator}!txt\_file\_name\_@{txt\_file\_name\_}}
+\index{txt\_file\_name\_@{txt\_file\_name\_}!CameraCalibrator@{CameraCalibrator}}
+\doxysubsubsection{\texorpdfstring{txt\_file\_name\_}{txt\_file\_name\_}}
+{\footnotesize\ttfamily std\+::string Camera\+Calibrator\+::txt\+\_\+file\+\_\+name\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Путь к текстовому файлу, в который будут сохранены найденные коэффициенты 
+
+
+
+См. определение в файле \mbox{\hyperlink{camera__calibrator_8h_source}{camera\+\_\+calibrator.\+h}} строка \mbox{\hyperlink{camera__calibrator_8h_source_l00108}{108}}
+
+\mbox{\Hypertarget{class_camera_calibrator_af702d786b8787340bddbffc450811e11}\label{class_camera_calibrator_af702d786b8787340bddbffc450811e11}} 
+\index{CameraCalibrator@{CameraCalibrator}!vec\_of\_corners\_@{vec\_of\_corners\_}}
+\index{vec\_of\_corners\_@{vec\_of\_corners\_}!CameraCalibrator@{CameraCalibrator}}
+\doxysubsubsection{\texorpdfstring{vec\_of\_corners\_}{vec\_of\_corners\_}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::vector$<$Point2f$>$ $>$ Camera\+Calibrator\+::vec\+\_\+of\+\_\+corners\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Контейнер для хранения найденных узлов шахматных досок 
+
+
+
+См. определение в файле \mbox{\hyperlink{camera__calibrator_8h_source}{camera\+\_\+calibrator.\+h}} строка \mbox{\hyperlink{camera__calibrator_8h_source_l00126}{126}}
+
+\mbox{\Hypertarget{class_camera_calibrator_a2da15c9fb792eba736b182ed375b902b}\label{class_camera_calibrator_a2da15c9fb792eba736b182ed375b902b}} 
+\index{CameraCalibrator@{CameraCalibrator}!winname\_@{winname\_}}
+\index{winname\_@{winname\_}!CameraCalibrator@{CameraCalibrator}}
+\doxysubsubsection{\texorpdfstring{winname\_}{winname\_}}
+{\footnotesize\ttfamily std\+::string Camera\+Calibrator\+::winname\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Название окна 
+
+
+
+См. определение в файле \mbox{\hyperlink{camera__calibrator_8h_source}{camera\+\_\+calibrator.\+h}} строка \mbox{\hyperlink{camera__calibrator_8h_source_l00104}{104}}
+
+
+
+Объявления и описания членов классов находятся в файлах\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/seeyo/source/repos/\+Visual-\/\+Vibration-\/\+Tracking-\/\+V2/include/\+Cam\+Calib/camera\+\_\+calibrator.\+h\item 
+C\+:/\+Users/seeyo/source/repos/\+Visual-\/\+Vibration-\/\+Tracking-\/\+V2/source/camera\+\_\+calibrator.\+cpp\end{DoxyCompactItemize}

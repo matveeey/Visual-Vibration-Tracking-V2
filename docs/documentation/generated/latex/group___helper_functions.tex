@@ -1,0 +1,427 @@
+\hypertarget{group___helper_functions}{}\doxysection{Helper\+Functions}
+\label{group___helper_functions}\index{HelperFunctions@{HelperFunctions}}
+\doxysubsection*{Функции}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{group___helper_functions_ga757c85a4bbcc0f0aa436369ac7ed57e0}{Helper\+Functions\+::\+Generate\+Csv\+Filename}} (std\+::string additional\+\_\+text=\char`\"{}\char`\"{})
+\begin{DoxyCompactList}\small\item\em Генерирует имя CSV файла для сохранения метаданных \end{DoxyCompactList}\item 
+cv\+::\+Scalar \mbox{\hyperlink{group___helper_functions_ga79584d71167afeb72ca384eaf87c1419}{Helper\+Functions\+::\+Ratio\+To\+Rgb}} (double ratio)
+\begin{DoxyCompactList}\small\item\em Генерирует имя TXT файла для сохранени \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___helper_functions_gae16c29c5ff2a16efc9b9e6ea00f13dbe}{Helper\+Functions\+::\+Find\+Local\+Maxima}} (cv\+::\+Mat \&input\+\_\+array, cv\+::\+Mat \&local\+\_\+maxima, double threshold\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Эта функция пригодится. Разберусь с ней чуть позже \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\std\+::string \mbox{\hyperlink{group___helper_functions_gad8a95244f86df84c8f5d35197fe0196f}{Helper\+Functions\+::\+To\+String\+With\+Precision}} (const T value, const int n=9)
+\begin{DoxyCompactList}\small\item\em Выполняет округление числа с определенной точностью \end{DoxyCompactList}\item 
+{\footnotesize template$<$class T $>$ }\\void \mbox{\hyperlink{group___helper_functions_ga09104c3d04cd6c0eb8bcc39bea203eb6}{Helper\+Functions\+::\+Deadzone\+Filter}} (std\+::vector$<$ T $>$ \&input\+\_\+vector)
+\begin{DoxyCompactList}\small\item\em Частотный фильтр для нижней части диапазона \end{DoxyCompactList}\item 
+{\footnotesize template$<$class T $>$ }\\std\+::vector$<$ T $>$ \mbox{\hyperlink{group___helper_functions_ga9d70762d106466aa0e1177544ae0c72d}{Helper\+Functions\+::\+Make\+Shorter\+From\+Start}} (std\+::vector$<$ T $>$ src, int n)
+\begin{DoxyCompactList}\small\item\em Укорачивает вектор, убирая элементы слева (спереди) \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\T \mbox{\hyperlink{group___helper_functions_gae752077bcc98a1b2dcd5a1371d55bca5}{Helper\+Functions\+::\+Calculate\+Mean\+Difference\+In\+Vector}} (std\+::vector$<$ T $>$ src)
+\begin{DoxyCompactList}\small\item\em Вычисляет среднее значение разности элементов массива в виде ((a0 -\/ a1) + (a1 -\/ a2)) / 3. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\int \mbox{\hyperlink{group___helper_functions_gacc82d70b750eb60ad49c7a36e5c7f0ca}{Helper\+Functions\+::\+Find\+Global\+Max\+Idx}} (std\+::vector$<$ T $>$ src)
+\begin{DoxyCompactList}\small\item\em Возвращает индекс самого большого элемента вектора src. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\int \mbox{\hyperlink{group___helper_functions_gabe168b250f6a7c6c89fe5b685c3898a0}{Helper\+Functions\+::\+Find\+Global\+Min\+Idx}} (std\+::vector$<$ T $>$ src)
+\begin{DoxyCompactList}\small\item\em Возвращает индекс самого маленького элемента вектора src. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\T \mbox{\hyperlink{group___helper_functions_gae2aaeb3c9edcae730b5c4fdb6655ef71}{Helper\+Functions\+::\+Calculate\+Max\+Difference\+In\+Vector}} (std\+::vector$<$ T $>$ src)
+\begin{DoxyCompactList}\small\item\em Вычисляет максимальное значение разности элементов массива \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+
+
+\doxysubsection{Функции}
+\mbox{\Hypertarget{group___helper_functions_gae2aaeb3c9edcae730b5c4fdb6655ef71}\label{group___helper_functions_gae2aaeb3c9edcae730b5c4fdb6655ef71}} 
+\index{HelperFunctions@{HelperFunctions}!CalculateMaxDifferenceInVector@{CalculateMaxDifferenceInVector}}
+\index{CalculateMaxDifferenceInVector@{CalculateMaxDifferenceInVector}!HelperFunctions@{HelperFunctions}}
+\doxysubsubsection{\texorpdfstring{CalculateMaxDifferenceInVector()}{CalculateMaxDifferenceInVector()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T Helper\+Functions\+::\+Calculate\+Max\+Difference\+In\+Vector (\begin{DoxyParamCaption}\item[{std\+::vector$<$ T $>$}]{src }\end{DoxyParamCaption})}
+
+
+
+Вычисляет максимальное значение разности элементов массива 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em src} & -\/ входной вектор для анализа \\
+\hline
+\end{DoxyParams}
+
+
+См. определение в файле \mbox{\hyperlink{helper_8h_source}{helper.\+h}} строка \mbox{\hyperlink{helper_8h_source_l00171}{171}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00172     \{}
+\DoxyCodeLine{00173         std::vector<T> difference\_vector;}
+\DoxyCodeLine{00174 }
+\DoxyCodeLine{00175         \textcolor{keyword}{auto} it = src.begin();}
+\DoxyCodeLine{00176         \textcolor{keywordflow}{while} (it != (src.end() -\/ 1))}
+\DoxyCodeLine{00177         \{}
+\DoxyCodeLine{00178             difference\_vector.push\_back(*(it + 1) -\/ *it);}
+\DoxyCodeLine{00179             it++;}
+\DoxyCodeLine{00180         \}}
+\DoxyCodeLine{00181 }
+\DoxyCodeLine{00182         cv::Scalar cv\_scalar\_mean\_val = cv::mean(src);}
+\DoxyCodeLine{00183         T mean\_val = cv\_scalar\_mean\_val[0];}
+\DoxyCodeLine{00184 }
+\DoxyCodeLine{00185         \textcolor{keywordflow}{return} difference\_vector[FindGlobalMaxIdx(difference\_vector)] / mean\_val;}
+\DoxyCodeLine{00186     \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{group___helper_functions_gae752077bcc98a1b2dcd5a1371d55bca5}\label{group___helper_functions_gae752077bcc98a1b2dcd5a1371d55bca5}} 
+\index{HelperFunctions@{HelperFunctions}!CalculateMeanDifferenceInVector@{CalculateMeanDifferenceInVector}}
+\index{CalculateMeanDifferenceInVector@{CalculateMeanDifferenceInVector}!HelperFunctions@{HelperFunctions}}
+\doxysubsubsection{\texorpdfstring{CalculateMeanDifferenceInVector()}{CalculateMeanDifferenceInVector()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T Helper\+Functions\+::\+Calculate\+Mean\+Difference\+In\+Vector (\begin{DoxyParamCaption}\item[{std\+::vector$<$ T $>$}]{src }\end{DoxyParamCaption})}
+
+
+
+Вычисляет среднее значение разности элементов массива в виде ((a0 -\/ a1) + (a1 -\/ a2)) / 3. 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em src} & -\/ входной вектор для анализа \\
+\hline
+\end{DoxyParams}
+
+
+См. определение в файле \mbox{\hyperlink{helper_8h_source}{helper.\+h}} строка \mbox{\hyperlink{helper_8h_source_l00096}{96}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00097     \{}
+\DoxyCodeLine{00098         std::vector<T> difference\_vector;}
+\DoxyCodeLine{00099 }
+\DoxyCodeLine{00100         \textcolor{keyword}{auto} it = src.begin();}
+\DoxyCodeLine{00101         \textcolor{keywordflow}{while} (it != (src.end() -\/ 1))}
+\DoxyCodeLine{00102         \{}
+\DoxyCodeLine{00103             difference\_vector.push\_back(*(it + 1) -\/ *it);}
+\DoxyCodeLine{00104             it++;}
+\DoxyCodeLine{00105         \}}
+\DoxyCodeLine{00106 }
+\DoxyCodeLine{00107         T mean\_difference;}
+\DoxyCodeLine{00108 }
+\DoxyCodeLine{00109         it = difference\_vector.begin();}
+\DoxyCodeLine{00110         mean\_difference = *it;}
+\DoxyCodeLine{00111         it++;}
+\DoxyCodeLine{00112 }
+\DoxyCodeLine{00113         \textcolor{keywordflow}{while} (it != difference\_vector.end())}
+\DoxyCodeLine{00114         \{}
+\DoxyCodeLine{00115             mean\_difference += *it;}
+\DoxyCodeLine{00116             it++;}
+\DoxyCodeLine{00117         \}}
+\DoxyCodeLine{00118         mean\_difference /= difference\_vector.size();}
+\DoxyCodeLine{00119 }
+\DoxyCodeLine{00120         \textcolor{keywordflow}{return} mean\_difference;}
+\DoxyCodeLine{00121     \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{group___helper_functions_ga09104c3d04cd6c0eb8bcc39bea203eb6}\label{group___helper_functions_ga09104c3d04cd6c0eb8bcc39bea203eb6}} 
+\index{HelperFunctions@{HelperFunctions}!DeadzoneFilter@{DeadzoneFilter}}
+\index{DeadzoneFilter@{DeadzoneFilter}!HelperFunctions@{HelperFunctions}}
+\doxysubsubsection{\texorpdfstring{DeadzoneFilter()}{DeadzoneFilter()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+void Helper\+Functions\+::\+Deadzone\+Filter (\begin{DoxyParamCaption}\item[{std\+::vector$<$ T $>$ \&}]{input\+\_\+vector }\end{DoxyParamCaption})}
+
+
+
+Частотный фильтр для нижней части диапазона 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em input\+\_\+vector} & массив, в котором будет проведена фильтрация \\
+\hline
+\end{DoxyParams}
+
+
+См. определение в файле \mbox{\hyperlink{helper_8h_source}{helper.\+h}} строка \mbox{\hyperlink{helper_8h_source_l00061}{61}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00062     \{}
+\DoxyCodeLine{00063         \textcolor{keywordtype}{float} dead\_zone\_factor = 0.1f;}
+\DoxyCodeLine{00064         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < static\_cast<int>(input\_vector.size() * dead\_zone\_factor); i++)}
+\DoxyCodeLine{00065         \{}
+\DoxyCodeLine{00066             input\_vector.erase(std::begin(input\_vector));}
+\DoxyCodeLine{00067         \}}
+\DoxyCodeLine{00068     \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{group___helper_functions_gacc82d70b750eb60ad49c7a36e5c7f0ca}\label{group___helper_functions_gacc82d70b750eb60ad49c7a36e5c7f0ca}} 
+\index{HelperFunctions@{HelperFunctions}!FindGlobalMaxIdx@{FindGlobalMaxIdx}}
+\index{FindGlobalMaxIdx@{FindGlobalMaxIdx}!HelperFunctions@{HelperFunctions}}
+\doxysubsubsection{\texorpdfstring{FindGlobalMaxIdx()}{FindGlobalMaxIdx()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+int Helper\+Functions\+::\+Find\+Global\+Max\+Idx (\begin{DoxyParamCaption}\item[{std\+::vector$<$ T $>$}]{src }\end{DoxyParamCaption})}
+
+
+
+Возвращает индекс самого большого элемента вектора src. 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em src} & -\/ входной вектор для анализа \\
+\hline
+\end{DoxyParams}
+
+
+См. определение в файле \mbox{\hyperlink{helper_8h_source}{helper.\+h}} строка \mbox{\hyperlink{helper_8h_source_l00127}{127}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00128     \{}
+\DoxyCodeLine{00129         \textcolor{keyword}{auto} it = src.begin();}
+\DoxyCodeLine{00130         \textcolor{keywordtype}{int} idx = 0;}
+\DoxyCodeLine{00131         T last\_max = 0;}
+\DoxyCodeLine{00132         \textcolor{keywordflow}{while} (it != src.end())}
+\DoxyCodeLine{00133         \{}
+\DoxyCodeLine{00134             \textcolor{keywordflow}{if} (*it > last\_max)}
+\DoxyCodeLine{00135             \{}
+\DoxyCodeLine{00136                 idx = std::distance(src.begin(), it);}
+\DoxyCodeLine{00137                 last\_max = *it;}
+\DoxyCodeLine{00138             \}}
+\DoxyCodeLine{00139             it++;}
+\DoxyCodeLine{00140         \}}
+\DoxyCodeLine{00141 }
+\DoxyCodeLine{00142         \textcolor{keywordflow}{return} idx;}
+\DoxyCodeLine{00143     \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{group___helper_functions_gabe168b250f6a7c6c89fe5b685c3898a0}\label{group___helper_functions_gabe168b250f6a7c6c89fe5b685c3898a0}} 
+\index{HelperFunctions@{HelperFunctions}!FindGlobalMinIdx@{FindGlobalMinIdx}}
+\index{FindGlobalMinIdx@{FindGlobalMinIdx}!HelperFunctions@{HelperFunctions}}
+\doxysubsubsection{\texorpdfstring{FindGlobalMinIdx()}{FindGlobalMinIdx()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+int Helper\+Functions\+::\+Find\+Global\+Min\+Idx (\begin{DoxyParamCaption}\item[{std\+::vector$<$ T $>$}]{src }\end{DoxyParamCaption})}
+
+
+
+Возвращает индекс самого маленького элемента вектора src. 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em src} & -\/ входной вектор для анализа \\
+\hline
+\end{DoxyParams}
+
+
+См. определение в файле \mbox{\hyperlink{helper_8h_source}{helper.\+h}} строка \mbox{\hyperlink{helper_8h_source_l00149}{149}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00150     \{}
+\DoxyCodeLine{00151         \textcolor{keyword}{auto} it = src.begin();}
+\DoxyCodeLine{00152         \textcolor{keywordtype}{int} idx = 0;}
+\DoxyCodeLine{00153         T last\_max = 0;}
+\DoxyCodeLine{00154         \textcolor{keywordflow}{while} (it != src.end())}
+\DoxyCodeLine{00155         \{}
+\DoxyCodeLine{00156             \textcolor{keywordflow}{if} (*it < last\_max)}
+\DoxyCodeLine{00157             \{}
+\DoxyCodeLine{00158                 idx = std::distance(src.begin(), it);}
+\DoxyCodeLine{00159                 last\_max = *it;}
+\DoxyCodeLine{00160             \}}
+\DoxyCodeLine{00161             it++;}
+\DoxyCodeLine{00162         \}}
+\DoxyCodeLine{00163 }
+\DoxyCodeLine{00164         \textcolor{keywordflow}{return} idx;}
+\DoxyCodeLine{00165     \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{group___helper_functions_gae16c29c5ff2a16efc9b9e6ea00f13dbe}\label{group___helper_functions_gae16c29c5ff2a16efc9b9e6ea00f13dbe}} 
+\index{HelperFunctions@{HelperFunctions}!FindLocalMaxima@{FindLocalMaxima}}
+\index{FindLocalMaxima@{FindLocalMaxima}!HelperFunctions@{HelperFunctions}}
+\doxysubsubsection{\texorpdfstring{FindLocalMaxima()}{FindLocalMaxima()}}
+{\footnotesize\ttfamily void Helper\+Functions\+::\+Find\+Local\+Maxima (\begin{DoxyParamCaption}\item[{cv\+::\+Mat \&}]{input\+\_\+array,  }\item[{cv\+::\+Mat \&}]{local\+\_\+maxima,  }\item[{double}]{threshold\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+Эта функция пригодится. Разберусь с ней чуть позже 
+
+
+
+См. определение в файле \mbox{\hyperlink{helper_8cpp_source}{helper.\+cpp}} строка \mbox{\hyperlink{helper_8cpp_source_l00052}{52}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00053 \{}
+\DoxyCodeLine{00054     cv::Mat dilated\_input\_image, thresholded\_input\_image, thresholded\_input\_8bit;}
+\DoxyCodeLine{00055     dilate(input\_array, dilated\_input\_image, cv::Mat());}
+\DoxyCodeLine{00056     compare(input\_array, dilated\_input\_image, local\_maxima, cv::CMP\_EQ);}
+\DoxyCodeLine{00057     threshold(input\_array, thresholded\_input\_image, threshold\_value, 255, cv::THRESH\_BINARY);}
+\DoxyCodeLine{00058     thresholded\_input\_image.convertTo(thresholded\_input\_8bit, CV\_8U);}
+\DoxyCodeLine{00059     bitwise\_and(local\_maxima, thresholded\_input\_8bit, local\_maxima);}
+\DoxyCodeLine{00060 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{group___helper_functions_ga757c85a4bbcc0f0aa436369ac7ed57e0}\label{group___helper_functions_ga757c85a4bbcc0f0aa436369ac7ed57e0}} 
+\index{HelperFunctions@{HelperFunctions}!GenerateCsvFilename@{GenerateCsvFilename}}
+\index{GenerateCsvFilename@{GenerateCsvFilename}!HelperFunctions@{HelperFunctions}}
+\doxysubsubsection{\texorpdfstring{GenerateCsvFilename()}{GenerateCsvFilename()}}
+{\footnotesize\ttfamily std\+::string Helper\+Functions\+::\+Generate\+Csv\+Filename (\begin{DoxyParamCaption}\item[{std\+::string}]{additional\+\_\+text = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})}
+
+
+
+Генерирует имя CSV файла для сохранения метаданных 
+
+\begin{DoxyReturn}{Возвращает}
+имя файла 
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{См. также}
+\mbox{\hyperlink{class_output_to_csv}{Output\+To\+Csv}} 
+\end{DoxySeeAlso}
+
+
+См. определение в файле \mbox{\hyperlink{helper_8cpp_source}{helper.\+cpp}} строка \mbox{\hyperlink{helper_8cpp_source_l00003}{3}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00004 \{}
+\DoxyCodeLine{00005     \textcolor{comment}{// Имя файла, в который будет производиться запись}}
+\DoxyCodeLine{00006     std::string csv\_file\_name;}
+\DoxyCodeLine{00007     \textcolor{comment}{// Начало названия выходного файла}}
+\DoxyCodeLine{00008     csv\_file\_name = \textcolor{stringliteral}{"{}C:/Users/seeyo/source/repos/Visual-\/Vibration-\/Tracking-\/V2/output/metadata/output\_"{}};}
+\DoxyCodeLine{00009     \textcolor{comment}{// Добавляем дополнительный текст при желании}}
+\DoxyCodeLine{00010     csv\_file\_name += additional\_text;}
+\DoxyCodeLine{00011     \textcolor{comment}{// Время}}
+\DoxyCodeLine{00012     \textcolor{keyword}{auto} time = std::time(\textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00013     \textcolor{comment}{// Записываем текущее время}}
+\DoxyCodeLine{00014     std::stringstream date\_n\_time;}
+\DoxyCodeLine{00015     date\_n\_time << std::put\_time(std::localtime(\&time), \textcolor{stringliteral}{"{}\%F\_\%T"{}});}
+\DoxyCodeLine{00016     \textcolor{comment}{// Переводим дату и время в строковый тип}}
+\DoxyCodeLine{00017     std::string date\_n\_time\_str = date\_n\_time.str();}
+\DoxyCodeLine{00018     \textcolor{comment}{// Меняем "{}:"{} на "{}-\/"{} для корректного имени файла}}
+\DoxyCodeLine{00019     std::replace(date\_n\_time\_str.begin(), date\_n\_time\_str.end(), \textcolor{charliteral}{':'}, \textcolor{charliteral}{'-\/'});}
+\DoxyCodeLine{00020     \textcolor{comment}{// Добавляем дату и время к имени файла + расширение файла}}
+\DoxyCodeLine{00021     csv\_file\_name += date\_n\_time\_str + \textcolor{stringliteral}{"{}.csv"{}};}
+\DoxyCodeLine{00022 }
+\DoxyCodeLine{00023     std::cout << csv\_file\_name << std::endl;}
+\DoxyCodeLine{00024 }
+\DoxyCodeLine{00025     \textcolor{keywordflow}{return} csv\_file\_name;}
+\DoxyCodeLine{00026 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{group___helper_functions_ga9d70762d106466aa0e1177544ae0c72d}\label{group___helper_functions_ga9d70762d106466aa0e1177544ae0c72d}} 
+\index{HelperFunctions@{HelperFunctions}!MakeShorterFromStart@{MakeShorterFromStart}}
+\index{MakeShorterFromStart@{MakeShorterFromStart}!HelperFunctions@{HelperFunctions}}
+\doxysubsubsection{\texorpdfstring{MakeShorterFromStart()}{MakeShorterFromStart()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+std\+::vector$<$ T $>$ Helper\+Functions\+::\+Make\+Shorter\+From\+Start (\begin{DoxyParamCaption}\item[{std\+::vector$<$ T $>$}]{src,  }\item[{int}]{n }\end{DoxyParamCaption})}
+
+
+
+Укорачивает вектор, убирая элементы слева (спереди) 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em input\+\_\+vector} & вектор, который будет укорочен \\
+\hline
+{\em n} & количество элементов справа (сзади), которые не будут удалены \\
+\hline
+\end{DoxyParams}
+
+
+См. определение в файле \mbox{\hyperlink{helper_8h_source}{helper.\+h}} строка \mbox{\hyperlink{helper_8h_source_l00075}{75}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00076     \{}
+\DoxyCodeLine{00077         \textcolor{keyword}{auto} it = src.end();}
+\DoxyCodeLine{00078         std::vector<T> dst;}
+\DoxyCodeLine{00079 }
+\DoxyCodeLine{00080         \textcolor{keywordflow}{if} (n < src.size())}
+\DoxyCodeLine{00081             \textcolor{keywordflow}{return} src;}
+\DoxyCodeLine{00082 }
+\DoxyCodeLine{00083         \textcolor{keywordflow}{while} (it != (src.end() -\/ n))}
+\DoxyCodeLine{00084         \{}
+\DoxyCodeLine{00085             dst.push\_back(*it);}
+\DoxyCodeLine{00086             it-\/-\/;}
+\DoxyCodeLine{00087         \}}
+\DoxyCodeLine{00088 }
+\DoxyCodeLine{00089         \textcolor{keywordflow}{return} dst;}
+\DoxyCodeLine{00090     \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{group___helper_functions_ga79584d71167afeb72ca384eaf87c1419}\label{group___helper_functions_ga79584d71167afeb72ca384eaf87c1419}} 
+\index{HelperFunctions@{HelperFunctions}!RatioToRgb@{RatioToRgb}}
+\index{RatioToRgb@{RatioToRgb}!HelperFunctions@{HelperFunctions}}
+\doxysubsubsection{\texorpdfstring{RatioToRgb()}{RatioToRgb()}}
+{\footnotesize\ttfamily cv\+::\+Scalar Helper\+Functions\+::\+Ratio\+To\+Rgb (\begin{DoxyParamCaption}\item[{double}]{ratio }\end{DoxyParamCaption})}
+
+
+
+Генерирует имя TXT файла для сохранени 
+
+Конвертирует отношение в диапазоне \mbox{[}0; 1\mbox{]} в RGB цвет 
+\begin{DoxyParams}{Аргументы}
+{\em ratio} & отношение \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+\+: RGB цвет 
+\end{DoxyReturn}
+
+
+См. определение в файле \mbox{\hyperlink{helper_8cpp_source}{helper.\+cpp}} строка \mbox{\hyperlink{helper_8cpp_source_l00028}{28}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00029 \{}
+\DoxyCodeLine{00030     \textcolor{comment}{//}}
+\DoxyCodeLine{00031     \textcolor{keywordtype}{int} normalized = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(ratio * 256 * 4);}
+\DoxyCodeLine{00032 }
+\DoxyCodeLine{00033     \textcolor{comment}{// find the region for this position}}
+\DoxyCodeLine{00034     \textcolor{keywordtype}{int} region = normalized / 256;}
+\DoxyCodeLine{00035 }
+\DoxyCodeLine{00036     \textcolor{comment}{// find the distance to the start of the closest region}}
+\DoxyCodeLine{00037     \textcolor{keywordtype}{int} x = normalized \% 256;}
+\DoxyCodeLine{00038 }
+\DoxyCodeLine{00039     \textcolor{keywordtype}{int} r = 0, g = 0, b = 0;}
+\DoxyCodeLine{00040 }
+\DoxyCodeLine{00041     \textcolor{keywordflow}{switch} (region)}
+\DoxyCodeLine{00042     \{}
+\DoxyCodeLine{00043     \textcolor{keywordflow}{case} 0: r = 0;      g = 0;      b = 255;    g += x; \textcolor{keywordflow}{break}; \textcolor{comment}{// синий:сине-\/зеленый}}
+\DoxyCodeLine{00044     \textcolor{keywordflow}{case} 1: r = 0;      g = 255;    b = 255;    b -\/= x; \textcolor{keywordflow}{break}; \textcolor{comment}{// сине-\/зеленый:зеленый}}
+\DoxyCodeLine{00045     \textcolor{keywordflow}{case} 2: r = 0;      g = 255;    b = 0;      r += x; \textcolor{keywordflow}{break}; \textcolor{comment}{// зеленый:желтый}}
+\DoxyCodeLine{00046     \textcolor{keywordflow}{case} 3: r = 255;    g = 255;    b = 0;      g -\/= x; \textcolor{keywordflow}{break}; \textcolor{comment}{// желтый:красный}}
+\DoxyCodeLine{00047     \}}
+\DoxyCodeLine{00048     }
+\DoxyCodeLine{00049     \textcolor{keywordflow}{return} cv::Scalar(b, g, r);}
+\DoxyCodeLine{00050 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{group___helper_functions_gad8a95244f86df84c8f5d35197fe0196f}\label{group___helper_functions_gad8a95244f86df84c8f5d35197fe0196f}} 
+\index{HelperFunctions@{HelperFunctions}!ToStringWithPrecision@{ToStringWithPrecision}}
+\index{ToStringWithPrecision@{ToStringWithPrecision}!HelperFunctions@{HelperFunctions}}
+\doxysubsubsection{\texorpdfstring{ToStringWithPrecision()}{ToStringWithPrecision()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+std\+::string Helper\+Functions\+::\+To\+String\+With\+Precision (\begin{DoxyParamCaption}\item[{const T}]{value,  }\item[{const int}]{n = {\ttfamily 9} }\end{DoxyParamCaption})}
+
+
+
+Выполняет округление числа с определенной точностью 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em value} & число, требующее округления \\
+\hline
+{\em n} & номер знака (до которого будет округлено число) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+\+: округленное число 
+\end{DoxyReturn}
+
+
+См. определение в файле \mbox{\hyperlink{helper_8h_source}{helper.\+h}} строка \mbox{\hyperlink{helper_8h_source_l00049}{49}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00050     \{}
+\DoxyCodeLine{00051         std::ostringstream out;}
+\DoxyCodeLine{00052         out.precision(n);}
+\DoxyCodeLine{00053         out << std::fixed << value;}
+\DoxyCodeLine{00054         \textcolor{keywordflow}{return} out.str();}
+\DoxyCodeLine{00055     \}}
+
+\end{DoxyCode}

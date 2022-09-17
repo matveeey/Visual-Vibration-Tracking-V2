@@ -1,0 +1,563 @@
+\hypertarget{class_lonely_point_handler}{}\doxysection{Класс Lonely\+Point\+Handler}
+\label{class_lonely_point_handler}\index{LonelyPointHandler@{LonelyPointHandler}}
+
+
+Дочерний (от \mbox{\hyperlink{class_vibrating_point}{Vibrating\+Point}}) класс. Предназначен для помещения точки на кадр и отслеживания её вибрации впоследствии  
+
+
+
+
+{\ttfamily \#include $<$lonely\+\_\+point\+\_\+handler.\+h$>$}
+
+
+
+Граф наследования\+:Lonely\+Point\+Handler\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=327pt]{class_lonely_point_handler__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Граф связей класса Lonely\+Point\+Handler\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=327pt]{class_lonely_point_handler__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_lonely_point_handler_a6bec6144021615318e3a82724e0ed924}{Lonely\+Point\+Handler}} (Point2f init\+\_\+coordinates, double sampling\+\_\+rate, int point\+\_\+id, float text\+\_\+resize\+\_\+factor, std\+::string output\+\_\+csv\+\_\+filename)
+\begin{DoxyCompactList}\small\item\em Конструктор этого класса \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_lonely_point_handler_af3e4cceb02420e13b290223b8c598677}{$\sim$\+Lonely\+Point\+Handler}} ()
+\begin{DoxyCompactList}\small\item\em Деструктор этого класса \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_lonely_point_handler_a933b22e60e23cc74a6faef5afb7b1223}{Draw}} (Mat \&frame) override
+\begin{DoxyCompactList}\small\item\em Отрисовывает точку и данные, связанные с ней \end{DoxyCompactList}\item 
+Point2f \mbox{\hyperlink{class_lonely_point_handler_a8f3289f60591541e65f75dee4e8780fe}{Get\+Text\+Coordinates}} ()
+\begin{DoxyCompactList}\small\item\em Возвращает точку, необходимую для отображения координат \end{DoxyCompactList}\item 
+Rect \mbox{\hyperlink{class_lonely_point_handler_a9e187c59fa263cbbdc9e31ef1b917e6b}{Get\+Interaction\+Rect}} ()
+\begin{DoxyCompactList}\small\item\em Возвращает координаты прямоугольника взаимодействия \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Закрытые члены}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_lonely_point_handler_a62bc491e5a305d494473e60c222f8c47}{Draw\+Histogram}} () override
+\begin{DoxyCompactList}\small\item\em Отрисовывает гистограмму \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_lonely_point_handler_a8efc34e0d2c78c5307fa592ac64f9e6d}{Draw\+Point}} (Mat \&frame)
+\begin{DoxyCompactList}\small\item\em Отрисовывает точку на кадре \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_lonely_point_handler_aaf51e9e75aab17e74da655912909f51e}{Draw\+Point\+Track}} (Mat \&frame)
+\begin{DoxyCompactList}\small\item\em Отрисовывает линию перемещения (трек) точки \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_lonely_point_handler_aa396ade9a2907adcf0cd6c383e79c3e9}{Draw\+Interaction\+Rectangle}} (Mat \&frame)
+\begin{DoxyCompactList}\small\item\em Отрисовывает прямоугольник взаимодействия \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_lonely_point_handler_a906212a423a8d83563ffea0a1f5278e5}{Draw\+Text\+Data}} (Mat \&frame)
+\begin{DoxyCompactList}\small\item\em Отрисовывает текстовые данные рядом с точкой \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_lonely_point_handler_a326fcceade024132bf3a6d551b544047}{Update\+Point\+Color}} () override
+\begin{DoxyCompactList}\small\item\em Обновляем текущий цвет точки \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Закрытые данные}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{class_lonely_point_handler_a376df40ba37f4da08ee7c700e5b12f6b}{text\+\_\+resize\+\_\+factor\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Коэффициент рескейла для отрисовки данных \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_lonely_point_handler_abb4999bfc4a65f003a71f6566f6dee6b}{point\+\_\+id\+\_\+}}
+\begin{DoxyCompactList}\small\item\em ID точки (нет блин почки) \end{DoxyCompactList}\item 
+Scalar \mbox{\hyperlink{class_lonely_point_handler_a84e9e142fa59b5970b9eff18adedb6f4}{point\+\_\+color\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Цвет точки \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Дополнительные унаследованные члены}
+
+
+\doxysubsection{Подробное описание}
+Дочерний (от \mbox{\hyperlink{class_vibrating_point}{Vibrating\+Point}}) класс. Предназначен для помещения точки на кадр и отслеживания её вибрации впоследствии 
+
+Объект класса -\/ \char`\"{}одинокая\char`\"{} точка на видео, положение которой отслеживается с течением времени для вычисления частоты вибрации этой точки
+
+Точку можно отрисовать методом \mbox{\hyperlink{class_lonely_point_handler_a933b22e60e23cc74a6faef5afb7b1223}{Draw()}} на кадре
+
+Также при взаимодействии с точкой (\mbox{\hyperlink{class_vibrating_point_a342c75a6ac0f9ab85de1a0dd663eab03}{Vibrating\+Point\+::\+Is\+Interacted()}}) будет выводиться гистограмма частот в отдельное окно (\mbox{\hyperlink{class_lonely_point_handler_a62bc491e5a305d494473e60c222f8c47}{Draw\+Histogram()}}) 
+
+См. определение в файле \mbox{\hyperlink{lonely__point__handler_8h_source}{lonely\+\_\+point\+\_\+handler.\+h}} строка \mbox{\hyperlink{lonely__point__handler_8h_source_l00026}{26}}
+
+
+
+\doxysubsection{Конструктор(ы)}
+\mbox{\Hypertarget{class_lonely_point_handler_a6bec6144021615318e3a82724e0ed924}\label{class_lonely_point_handler_a6bec6144021615318e3a82724e0ed924}} 
+\index{LonelyPointHandler@{LonelyPointHandler}!LonelyPointHandler@{LonelyPointHandler}}
+\index{LonelyPointHandler@{LonelyPointHandler}!LonelyPointHandler@{LonelyPointHandler}}
+\doxysubsubsection{\texorpdfstring{LonelyPointHandler()}{LonelyPointHandler()}}
+{\footnotesize\ttfamily Lonely\+Point\+Handler\+::\+Lonely\+Point\+Handler (\begin{DoxyParamCaption}\item[{Point2f}]{init\+\_\+coordinates,  }\item[{double}]{sampling\+\_\+rate,  }\item[{int}]{point\+\_\+id,  }\item[{float}]{text\+\_\+resize\+\_\+factor,  }\item[{std\+::string}]{output\+\_\+csv\+\_\+filename }\end{DoxyParamCaption})}
+
+
+
+Конструктор этого класса 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em init\+\_\+coordinates} & самые первые координаты точки (фактически -\/ координаты клика мышью на окне, куда выводилось исходное видео) \\
+\hline
+{\em sampling\+\_\+rate} & частота сэмплирования (фактически -\/ FPS исходного видео) \\
+\hline
+{\em point\+\_\+id} & ID точки \\
+\hline
+{\em text\+\_\+resize\+\_\+factor} & коэффициент масштабирования текста, выводимого на изображение при отрисовке частоты и относительной амплитуды вибрации \\
+\hline
+{\em output\+\_\+csv\+\_\+filename} & имя (путь) csv-\/файла для записи метаданных \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Заметки}
+Коэффициент масштабирования\+: \mbox{\hyperlink{class_frame_handler_ae3165c660c17d4b410c1690d13fda93c}{Frame\+Handler\+::\+Init\+Text\+Resize\+Factors()}} 
+\end{DoxyNote}
+
+
+См. определение в файле \mbox{\hyperlink{lonely__point__handler_8cpp_source}{lonely\+\_\+point\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{lonely__point__handler_8cpp_source_l00003}{3}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00003                                                                                                                                                             :}
+\DoxyCodeLine{00004     \mbox{\hyperlink{class_histogram}{Histogram}}\{ 600, 300, sampling\_rate / 2, point\_id, \mbox{\hyperlink{class_vibrating_point_a5ea36bdad5aeac784ecfa21f3ca98517}{x\_}}, \mbox{\hyperlink{class_vibrating_point_aa22ce2e3bdd0b4614b1c0ad0adf256e5}{y\_}} \},}
+\DoxyCodeLine{00005     \mbox{\hyperlink{class_output_to_csv}{OutputToCsv}}\{ output\_csv\_filename, \mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}, \mbox{\hyperlink{class_vibrating_point_ad2aa8fe4bc94a957f75aa00fb9ce9f26}{point\_time\_coordinates\_}}, point\_id \},}
+\DoxyCodeLine{00006     \mbox{\hyperlink{class_lonely_point_handler_abb4999bfc4a65f003a71f6566f6dee6b}{point\_id\_}}\{ point\_id \},}
+\DoxyCodeLine{00007     \mbox{\hyperlink{class_lonely_point_handler_a376df40ba37f4da08ee7c700e5b12f6b}{text\_resize\_factor\_}}\{ text\_resize\_factor \}}
+\DoxyCodeLine{00008 \{}
+\DoxyCodeLine{00009     \mbox{\hyperlink{class_vibrating_point_a8c035e084006469922a45f023b1bcce0}{interaction\_offset\_}} = 50;}
+\DoxyCodeLine{00010     \mbox{\hyperlink{class_vibrating_point_a67ffaaa1b714226a78d6d5cc31c195c9}{sampling\_rate\_}} = sampling\_rate;}
+\DoxyCodeLine{00011 }
+\DoxyCodeLine{00012     \textcolor{comment}{// Добавляем первые координаты клика мышью}}
+\DoxyCodeLine{00013     \mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}.push\_back(init\_coordinates);}
+\DoxyCodeLine{00014     \mbox{\hyperlink{class_vibrating_point_a5b35f5a2109df2be2d2832b25dfa2285}{interaction\_box\_}} = Rect(}
+\DoxyCodeLine{00015         Point2i(init\_coordinates.x -\/ \mbox{\hyperlink{class_vibrating_point_a8c035e084006469922a45f023b1bcce0}{interaction\_offset\_}}, init\_coordinates.y -\/ \mbox{\hyperlink{class_vibrating_point_a8c035e084006469922a45f023b1bcce0}{interaction\_offset\_}}),}
+\DoxyCodeLine{00016         Point2i(init\_coordinates.x + \mbox{\hyperlink{class_vibrating_point_a8c035e084006469922a45f023b1bcce0}{interaction\_offset\_}}, init\_coordinates.y + \mbox{\hyperlink{class_vibrating_point_a8c035e084006469922a45f023b1bcce0}{interaction\_offset\_}})}
+\DoxyCodeLine{00017     );}
+\DoxyCodeLine{00018     \mbox{\hyperlink{class_vibrating_point_a0298c80261ea234f82e1afff59d2d1fa}{interacted\_}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{00019 }
+\DoxyCodeLine{00020     \mbox{\hyperlink{class_vibrating_point_adfd1433886cf1fb2b3b07062b69614b1}{frequencies\_}}.push\_back(0.0);}
+\DoxyCodeLine{00021     \mbox{\hyperlink{class_vibrating_point_a9989c50fa30cecf13079ae0c595ef87c}{relative\_amplitude\_}} = Point3f(0.0, 0.0, 0.0);}
+\DoxyCodeLine{00022 }
+\DoxyCodeLine{00023     \mbox{\hyperlink{class_vibrating_point_ab2539b861e02f361eb772c71e06c9af3}{sensivity\_}} = 0.01;}
+\DoxyCodeLine{00024     \mbox{\hyperlink{class_vibrating_point_a6ed26ed40b33b1486cb4c304981d4444}{confidence\_level\_}} = 1.0;}
+\DoxyCodeLine{00025 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_lonely_point_handler_af3e4cceb02420e13b290223b8c598677}\label{class_lonely_point_handler_af3e4cceb02420e13b290223b8c598677}} 
+\index{LonelyPointHandler@{LonelyPointHandler}!````~LonelyPointHandler@{$\sim$LonelyPointHandler}}
+\index{````~LonelyPointHandler@{$\sim$LonelyPointHandler}!LonelyPointHandler@{LonelyPointHandler}}
+\doxysubsubsection{\texorpdfstring{$\sim$LonelyPointHandler()}{~LonelyPointHandler()}}
+{\footnotesize\ttfamily Lonely\+Point\+Handler\+::$\sim$\+Lonely\+Point\+Handler (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Деструктор этого класса 
+
+Вызывает метод родительского класса \mbox{\hyperlink{class_output_to_csv}{Output\+To\+Csv}} \mbox{\hyperlink{class_output_to_csv_a8f1e3239fa21906aa102c3d601183f65}{Write()}} для записи метаданных 
+
+См. определение в файле \mbox{\hyperlink{lonely__point__handler_8cpp_source}{lonely\+\_\+point\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{lonely__point__handler_8cpp_source_l00027}{27}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00028 \{}
+\DoxyCodeLine{00029     \mbox{\hyperlink{class_output_to_csv_a8f1e3239fa21906aa102c3d601183f65}{Write}}();}
+\DoxyCodeLine{00030 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Методы}
+\mbox{\Hypertarget{class_lonely_point_handler_a933b22e60e23cc74a6faef5afb7b1223}\label{class_lonely_point_handler_a933b22e60e23cc74a6faef5afb7b1223}} 
+\index{LonelyPointHandler@{LonelyPointHandler}!Draw@{Draw}}
+\index{Draw@{Draw}!LonelyPointHandler@{LonelyPointHandler}}
+\doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
+{\footnotesize\ttfamily void Lonely\+Point\+Handler\+::\+Draw (\begin{DoxyParamCaption}\item[{Mat \&}]{frame }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Отрисовывает точку и данные, связанные с ней 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em frame} & изображение, на котором будет происходить отрисовка \\
+\hline
+\end{DoxyParams}
+
+
+Замещает \mbox{\hyperlink{class_vibrating_point_a84210a3247277ca0137d4754c5ec5b03}{Vibrating\+Point}}.
+
+
+
+См. определение в файле \mbox{\hyperlink{lonely__point__handler_8cpp_source}{lonely\+\_\+point\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{lonely__point__handler_8cpp_source_l00055}{55}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00056 \{}
+\DoxyCodeLine{00057     \textcolor{comment}{// отрисовываем прямоугольник взаимодействия (если оно есть)}}
+\DoxyCodeLine{00058     \mbox{\hyperlink{class_lonely_point_handler_aa396ade9a2907adcf0cd6c383e79c3e9}{DrawInteractionRectangle}}(frame);}
+\DoxyCodeLine{00059     \textcolor{comment}{// отрисовываем линии точек}}
+\DoxyCodeLine{00060     \mbox{\hyperlink{class_lonely_point_handler_aaf51e9e75aab17e74da655912909f51e}{DrawPointTrack}}(frame);}
+\DoxyCodeLine{00061     \textcolor{comment}{// отрисовываем круг вокруг точки}}
+\DoxyCodeLine{00062     \mbox{\hyperlink{class_lonely_point_handler_a8efc34e0d2c78c5307fa592ac64f9e6d}{DrawPoint}}(frame);}
+\DoxyCodeLine{00063     \textcolor{comment}{// отрисовываем гистограмму}}
+\DoxyCodeLine{00064     \mbox{\hyperlink{class_lonely_point_handler_a62bc491e5a305d494473e60c222f8c47}{DrawHistogram}}();}
+\DoxyCodeLine{00065     \textcolor{comment}{// отрисовываем частоту вибрации}}
+\DoxyCodeLine{00066     \mbox{\hyperlink{class_lonely_point_handler_a906212a423a8d83563ffea0a1f5278e5}{DrawTextData}}(frame);}
+\DoxyCodeLine{00067 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_lonely_point_handler_a62bc491e5a305d494473e60c222f8c47}\label{class_lonely_point_handler_a62bc491e5a305d494473e60c222f8c47}} 
+\index{LonelyPointHandler@{LonelyPointHandler}!DrawHistogram@{DrawHistogram}}
+\index{DrawHistogram@{DrawHistogram}!LonelyPointHandler@{LonelyPointHandler}}
+\doxysubsubsection{\texorpdfstring{DrawHistogram()}{DrawHistogram()}}
+{\footnotesize\ttfamily void Lonely\+Point\+Handler\+::\+Draw\+Histogram (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [private]}, {\ttfamily [virtual]}}
+
+
+
+Отрисовывает гистограмму 
+
+
+
+Замещает \mbox{\hyperlink{class_vibrating_point_a2bd28bb86f01ccae6fa193914863045a}{Vibrating\+Point}}.
+
+
+
+См. определение в файле \mbox{\hyperlink{lonely__point__handler_8cpp_source}{lonely\+\_\+point\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{lonely__point__handler_8cpp_source_l00069}{69}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00070 \{}
+\DoxyCodeLine{00071     \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_histogram_ad5f780994e3453a67ed31b9437000ce3}{is\_histogram\_plotted\_}})}
+\DoxyCodeLine{00072     \{}
+\DoxyCodeLine{00073         \mbox{\hyperlink{class_histogram_a8ed9e75be45d4c50b54b9150427a89c8}{SetXValues}}(\mbox{\hyperlink{class_vibrating_point_a5ea36bdad5aeac784ecfa21f3ca98517}{x\_}});}
+\DoxyCodeLine{00074         \mbox{\hyperlink{class_histogram_a6f59d4b44f3f4866a7b709ec7e1e15c4}{SetYValues}}(\mbox{\hyperlink{class_vibrating_point_aa22ce2e3bdd0b4614b1c0ad0adf256e5}{y\_}});}
+\DoxyCodeLine{00075         \mbox{\hyperlink{class_histogram_a5a5a64a00231d62a6eeacb416f704262}{ShowHistogram}}();}
+\DoxyCodeLine{00076     \}}
+\DoxyCodeLine{00077 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_lonely_point_handler_aa396ade9a2907adcf0cd6c383e79c3e9}\label{class_lonely_point_handler_aa396ade9a2907adcf0cd6c383e79c3e9}} 
+\index{LonelyPointHandler@{LonelyPointHandler}!DrawInteractionRectangle@{DrawInteractionRectangle}}
+\index{DrawInteractionRectangle@{DrawInteractionRectangle}!LonelyPointHandler@{LonelyPointHandler}}
+\doxysubsubsection{\texorpdfstring{DrawInteractionRectangle()}{DrawInteractionRectangle()}}
+{\footnotesize\ttfamily void Lonely\+Point\+Handler\+::\+Draw\+Interaction\+Rectangle (\begin{DoxyParamCaption}\item[{Mat \&}]{frame }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Отрисовывает прямоугольник взаимодействия 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em frame} & изображение, на котором будет происходить отрисовка \\
+\hline
+\end{DoxyParams}
+
+
+См. определение в файле \mbox{\hyperlink{lonely__point__handler_8cpp_source}{lonely\+\_\+point\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{lonely__point__handler_8cpp_source_l00093}{93}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00094 \{}
+\DoxyCodeLine{00095     \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_vibrating_point_a0298c80261ea234f82e1afff59d2d1fa}{interacted\_}})}
+\DoxyCodeLine{00096         rectangle(frame, \mbox{\hyperlink{class_vibrating_point_a5b35f5a2109df2be2d2832b25dfa2285}{interaction\_box\_}}, Scalar(0, 255, 0), 2);}
+\DoxyCodeLine{00097 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_lonely_point_handler_a8efc34e0d2c78c5307fa592ac64f9e6d}\label{class_lonely_point_handler_a8efc34e0d2c78c5307fa592ac64f9e6d}} 
+\index{LonelyPointHandler@{LonelyPointHandler}!DrawPoint@{DrawPoint}}
+\index{DrawPoint@{DrawPoint}!LonelyPointHandler@{LonelyPointHandler}}
+\doxysubsubsection{\texorpdfstring{DrawPoint()}{DrawPoint()}}
+{\footnotesize\ttfamily void Lonely\+Point\+Handler\+::\+Draw\+Point (\begin{DoxyParamCaption}\item[{Mat \&}]{frame }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Отрисовывает точку на кадре 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em frame} & изображение, на котором будет происходить отрисовка \\
+\hline
+\end{DoxyParams}
+
+
+См. определение в файле \mbox{\hyperlink{lonely__point__handler_8cpp_source}{lonely\+\_\+point\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{lonely__point__handler_8cpp_source_l00079}{79}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00080 \{}
+\DoxyCodeLine{00081     \mbox{\hyperlink{class_lonely_point_handler_a326fcceade024132bf3a6d551b544047}{UpdatePointColor}}();}
+\DoxyCodeLine{00082     \textcolor{comment}{// отрисовываем круг вокруг точки}}
+\DoxyCodeLine{00083     circle(frame, \mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}.back(), 10, \mbox{\hyperlink{class_lonely_point_handler_a84e9e142fa59b5970b9eff18adedb6f4}{point\_color\_}}, 2);}
+\DoxyCodeLine{00084 }
+\DoxyCodeLine{00085 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_lonely_point_handler_aaf51e9e75aab17e74da655912909f51e}\label{class_lonely_point_handler_aaf51e9e75aab17e74da655912909f51e}} 
+\index{LonelyPointHandler@{LonelyPointHandler}!DrawPointTrack@{DrawPointTrack}}
+\index{DrawPointTrack@{DrawPointTrack}!LonelyPointHandler@{LonelyPointHandler}}
+\doxysubsubsection{\texorpdfstring{DrawPointTrack()}{DrawPointTrack()}}
+{\footnotesize\ttfamily void Lonely\+Point\+Handler\+::\+Draw\+Point\+Track (\begin{DoxyParamCaption}\item[{Mat \&}]{frame }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Отрисовывает линию перемещения (трек) точки 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em frame} & изображение, на котором будет происходить отрисовка \\
+\hline
+\end{DoxyParams}
+
+
+См. определение в файле \mbox{\hyperlink{lonely__point__handler_8cpp_source}{lonely\+\_\+point\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{lonely__point__handler_8cpp_source_l00087}{87}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00088 \{}
+\DoxyCodeLine{00089     \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}.size() > 2)}
+\DoxyCodeLine{00090         line(frame, \mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}[\mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}.size() -\/ 2], \mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}[\mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}.size() -\/ 1], Scalar(0, 255, 0), 1, LINE\_AA);}
+\DoxyCodeLine{00091 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_lonely_point_handler_a906212a423a8d83563ffea0a1f5278e5}\label{class_lonely_point_handler_a906212a423a8d83563ffea0a1f5278e5}} 
+\index{LonelyPointHandler@{LonelyPointHandler}!DrawTextData@{DrawTextData}}
+\index{DrawTextData@{DrawTextData}!LonelyPointHandler@{LonelyPointHandler}}
+\doxysubsubsection{\texorpdfstring{DrawTextData()}{DrawTextData()}}
+{\footnotesize\ttfamily void Lonely\+Point\+Handler\+::\+Draw\+Text\+Data (\begin{DoxyParamCaption}\item[{Mat \&}]{frame }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Отрисовывает текстовые данные рядом с точкой 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em frame} & изображение, на котором будет происходить отрисовка \\
+\hline
+\end{DoxyParams}
+
+
+См. определение в файле \mbox{\hyperlink{lonely__point__handler_8cpp_source}{lonely\+\_\+point\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{lonely__point__handler_8cpp_source_l00099}{99}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00100 \{}
+\DoxyCodeLine{00101     \textcolor{keywordtype}{int} font = FONT\_HERSHEY\_PLAIN;}
+\DoxyCodeLine{00102     \textcolor{keywordtype}{double} font\_scale = 1.5 * \mbox{\hyperlink{class_lonely_point_handler_a376df40ba37f4da08ee7c700e5b12f6b}{text\_resize\_factor\_}};}
+\DoxyCodeLine{00103     \textcolor{keywordtype}{int} thickness = 2;}
+\DoxyCodeLine{00104     \textcolor{keywordtype}{int} line\_spacing = 20;}
+\DoxyCodeLine{00105     \textcolor{keywordtype}{int} row\_spacing = 5;}
+\DoxyCodeLine{00106     \textcolor{comment}{// Количество строк частот, выводимых на экран}}
+\DoxyCodeLine{00107     \textcolor{keywordtype}{int} lines\_amount = 3;}
+\DoxyCodeLine{00108     \textcolor{keywordtype}{int} baseline;}
+\DoxyCodeLine{00109     \textcolor{comment}{// отрисовываем частоту вибрации}}
+\DoxyCodeLine{00110     putText(}
+\DoxyCodeLine{00111         frame,}
+\DoxyCodeLine{00112         \textcolor{stringliteral}{"{}hz: "{}} + \mbox{\hyperlink{group___helper_functions_gad8a95244f86df84c8f5d35197fe0196f}{HelperFunctions::ToStringWithPrecision}}(\mbox{\hyperlink{class_vibrating_point_aa0b94560fbac6ae1c5dbae9f4931d28c}{main\_frequency\_}}, 2),}
+\DoxyCodeLine{00113         Point(\mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}.front().x + 15, \mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}.front().y + \mbox{\hyperlink{class_lonely_point_handler_a376df40ba37f4da08ee7c700e5b12f6b}{text\_resize\_factor\_}} * line\_spacing),}
+\DoxyCodeLine{00114         font,}
+\DoxyCodeLine{00115         font\_scale,}
+\DoxyCodeLine{00116         Scalar(0, 69, 255),}
+\DoxyCodeLine{00117         thickness}
+\DoxyCodeLine{00118     );}
+\DoxyCodeLine{00119 }
+\DoxyCodeLine{00120     \textcolor{comment}{// отрисовываем амплитуды вибрации и ID точки}}
+\DoxyCodeLine{00121     \textcolor{comment}{// ID точки}}
+\DoxyCodeLine{00122     putText(}
+\DoxyCodeLine{00123         frame,}
+\DoxyCodeLine{00124         \textcolor{stringliteral}{"{}ID: "{}} + std::to\_string(\mbox{\hyperlink{class_lonely_point_handler_abb4999bfc4a65f003a71f6566f6dee6b}{point\_id\_}}),}
+\DoxyCodeLine{00125         Point(\mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}.front().x + 15, \mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}.front().y -\/ \mbox{\hyperlink{class_lonely_point_handler_a376df40ba37f4da08ee7c700e5b12f6b}{text\_resize\_factor\_}} * line\_spacing),}
+\DoxyCodeLine{00126         font,}
+\DoxyCodeLine{00127         font\_scale,}
+\DoxyCodeLine{00128         Scalar(100, 255, 100),}
+\DoxyCodeLine{00129         thickness}
+\DoxyCodeLine{00130     );}
+\DoxyCodeLine{00131 }
+\DoxyCodeLine{00132     \textcolor{comment}{// Статус определения вибрации}}
+\DoxyCodeLine{00133 }
+\DoxyCodeLine{00134     std::string confidence\_string;}
+\DoxyCodeLine{00135 }
+\DoxyCodeLine{00136     \{}
+\DoxyCodeLine{00137         \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_vibrating_point_a6ed26ed40b33b1486cb4c304981d4444}{confidence\_level\_}} > 5.0)}
+\DoxyCodeLine{00138             confidence\_string = \textcolor{stringliteral}{"{}enough"{}};}
+\DoxyCodeLine{00139         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00140             confidence\_string = \mbox{\hyperlink{group___helper_functions_gad8a95244f86df84c8f5d35197fe0196f}{HelperFunctions::ToStringWithPrecision}}(\mbox{\hyperlink{class_vibrating_point_a6ed26ed40b33b1486cb4c304981d4444}{confidence\_level\_}}, 1);}
+\DoxyCodeLine{00141     \}}
+\DoxyCodeLine{00142 }
+\DoxyCodeLine{00143     putText(}
+\DoxyCodeLine{00144         frame,}
+\DoxyCodeLine{00145         \textcolor{stringliteral}{"{}Conf: "{}} + confidence\_string,}
+\DoxyCodeLine{00146         Point(\mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}.front().x + 15, \mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}.front().y),}
+\DoxyCodeLine{00147         font,}
+\DoxyCodeLine{00148         font\_scale,}
+\DoxyCodeLine{00149         Scalar(100, 255, 100),}
+\DoxyCodeLine{00150         thickness}
+\DoxyCodeLine{00151     );}
+\DoxyCodeLine{00152     putText(}
+\DoxyCodeLine{00153         frame,}
+\DoxyCodeLine{00154         \textcolor{stringliteral}{"{}y: "{}} + \mbox{\hyperlink{group___helper_functions_gad8a95244f86df84c8f5d35197fe0196f}{HelperFunctions::ToStringWithPrecision}}(\mbox{\hyperlink{class_vibrating_point_a9989c50fa30cecf13079ae0c595ef87c}{relative\_amplitude\_}}.y * 100, 2),}
+\DoxyCodeLine{00155         Point(\mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}.front().x + 15, \mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}.front().y -\/ \mbox{\hyperlink{class_lonely_point_handler_a376df40ba37f4da08ee7c700e5b12f6b}{text\_resize\_factor\_}} * 2 * line\_spacing),}
+\DoxyCodeLine{00156         font,}
+\DoxyCodeLine{00157         font\_scale,}
+\DoxyCodeLine{00158         Scalar(0, 255, 255),}
+\DoxyCodeLine{00159         thickness}
+\DoxyCodeLine{00160     );}
+\DoxyCodeLine{00161     putText(}
+\DoxyCodeLine{00162         frame,}
+\DoxyCodeLine{00163         \textcolor{stringliteral}{"{}x: "{}} + \mbox{\hyperlink{group___helper_functions_gad8a95244f86df84c8f5d35197fe0196f}{HelperFunctions::ToStringWithPrecision}}(\mbox{\hyperlink{class_vibrating_point_a9989c50fa30cecf13079ae0c595ef87c}{relative\_amplitude\_}}.x * 100, 2),}
+\DoxyCodeLine{00164         Point(\mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}.front().x + 15, \mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}.front().y -\/ \mbox{\hyperlink{class_lonely_point_handler_a376df40ba37f4da08ee7c700e5b12f6b}{text\_resize\_factor\_}} * 3 * line\_spacing),}
+\DoxyCodeLine{00165         font,}
+\DoxyCodeLine{00166         font\_scale,}
+\DoxyCodeLine{00167         Scalar(0, 255, 255),}
+\DoxyCodeLine{00168         thickness}
+\DoxyCodeLine{00169     );}
+\DoxyCodeLine{00170     putText(}
+\DoxyCodeLine{00171         frame,}
+\DoxyCodeLine{00172         \textcolor{stringliteral}{"{}abs: "{}} + \mbox{\hyperlink{group___helper_functions_gad8a95244f86df84c8f5d35197fe0196f}{HelperFunctions::ToStringWithPrecision}}(sqrt(\mbox{\hyperlink{class_vibrating_point_a5ae50ac111f6681489eded6da7ef66ea}{current\_amplitude\_}}.x * \mbox{\hyperlink{class_vibrating_point_a5ae50ac111f6681489eded6da7ef66ea}{current\_amplitude\_}}.x + \mbox{\hyperlink{class_vibrating_point_a5ae50ac111f6681489eded6da7ef66ea}{current\_amplitude\_}}.y * \mbox{\hyperlink{class_vibrating_point_a5ae50ac111f6681489eded6da7ef66ea}{current\_amplitude\_}}.y), 3),}
+\DoxyCodeLine{00173         Point(\mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}.front().x + 15, \mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}.front().y -\/ \mbox{\hyperlink{class_lonely_point_handler_a376df40ba37f4da08ee7c700e5b12f6b}{text\_resize\_factor\_}} * 4 * line\_spacing),}
+\DoxyCodeLine{00174         font,}
+\DoxyCodeLine{00175         font\_scale,}
+\DoxyCodeLine{00176         Scalar(0, 255, 255),}
+\DoxyCodeLine{00177         thickness}
+\DoxyCodeLine{00178     );}
+\DoxyCodeLine{00179     \textcolor{comment}{// uncomment когда появится 3-\/я координата для амплитуды :)}}
+\DoxyCodeLine{00180     \textcolor{comment}{/*putText(}}
+\DoxyCodeLine{00181 \textcolor{comment}{        frame,}}
+\DoxyCodeLine{00182 \textcolor{comment}{        "{}z: "{} + std::to\_string(relative\_amplitude\_.z),}}
+\DoxyCodeLine{00183 \textcolor{comment}{        Point(point\_coordinates\_.front().x, point\_coordinates\_.front().y -\/ res\_mp\_ * 4 * line\_spacing),}}
+\DoxyCodeLine{00184 \textcolor{comment}{        FONT\_HERSHEY\_PLAIN,}}
+\DoxyCodeLine{00185 \textcolor{comment}{        font\_scale,}}
+\DoxyCodeLine{00186 \textcolor{comment}{        Scalar(0, 255, 255),}}
+\DoxyCodeLine{00187 \textcolor{comment}{        thickness}}
+\DoxyCodeLine{00188 \textcolor{comment}{    );*/}}
+\DoxyCodeLine{00189 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_lonely_point_handler_a9e187c59fa263cbbdc9e31ef1b917e6b}\label{class_lonely_point_handler_a9e187c59fa263cbbdc9e31ef1b917e6b}} 
+\index{LonelyPointHandler@{LonelyPointHandler}!GetInteractionRect@{GetInteractionRect}}
+\index{GetInteractionRect@{GetInteractionRect}!LonelyPointHandler@{LonelyPointHandler}}
+\doxysubsubsection{\texorpdfstring{GetInteractionRect()}{GetInteractionRect()}}
+{\footnotesize\ttfamily Rect Lonely\+Point\+Handler\+::\+Get\+Interaction\+Rect (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Возвращает координаты прямоугольника взаимодействия 
+
+\begin{DoxyReturn}{Возвращает}
+Прямоугольник (область) взаимодействия 
+\end{DoxyReturn}
+
+
+См. определение в файле \mbox{\hyperlink{lonely__point__handler_8cpp_source}{lonely\+\_\+point\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{lonely__point__handler_8cpp_source_l00039}{39}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00040 \{}
+\DoxyCodeLine{00041     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_vibrating_point_a5b35f5a2109df2be2d2832b25dfa2285}{interaction\_box\_}};}
+\DoxyCodeLine{00042 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_lonely_point_handler_a8f3289f60591541e65f75dee4e8780fe}\label{class_lonely_point_handler_a8f3289f60591541e65f75dee4e8780fe}} 
+\index{LonelyPointHandler@{LonelyPointHandler}!GetTextCoordinates@{GetTextCoordinates}}
+\index{GetTextCoordinates@{GetTextCoordinates}!LonelyPointHandler@{LonelyPointHandler}}
+\doxysubsubsection{\texorpdfstring{GetTextCoordinates()}{GetTextCoordinates()}}
+{\footnotesize\ttfamily Point2f Lonely\+Point\+Handler\+::\+Get\+Text\+Coordinates (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Возвращает точку, необходимую для отображения координат 
+
+\begin{DoxyReturn}{Возвращает}
+Координаты текста для отображения 
+\end{DoxyReturn}
+
+
+См. определение в файле \mbox{\hyperlink{lonely__point__handler_8cpp_source}{lonely\+\_\+point\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{lonely__point__handler_8cpp_source_l00032}{32}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00033 \{}
+\DoxyCodeLine{00034     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}.empty())}
+\DoxyCodeLine{00035         \textcolor{keywordflow}{return} \mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}[0];}
+\DoxyCodeLine{00036     \textcolor{keywordflow}{else} \textcolor{keywordflow}{return} Point2f(0.0, 0.0);}
+\DoxyCodeLine{00037 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_lonely_point_handler_a326fcceade024132bf3a6d551b544047}\label{class_lonely_point_handler_a326fcceade024132bf3a6d551b544047}} 
+\index{LonelyPointHandler@{LonelyPointHandler}!UpdatePointColor@{UpdatePointColor}}
+\index{UpdatePointColor@{UpdatePointColor}!LonelyPointHandler@{LonelyPointHandler}}
+\doxysubsubsection{\texorpdfstring{UpdatePointColor()}{UpdatePointColor()}}
+{\footnotesize\ttfamily void Lonely\+Point\+Handler\+::\+Update\+Point\+Color (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [private]}, {\ttfamily [virtual]}}
+
+
+
+Обновляем текущий цвет точки 
+
+
+
+Замещает \mbox{\hyperlink{class_vibrating_point_aadc5ff6408bb2e4a474dd25cd5bb6fdf}{Vibrating\+Point}}.
+
+
+
+См. определение в файле \mbox{\hyperlink{lonely__point__handler_8cpp_source}{lonely\+\_\+point\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{lonely__point__handler_8cpp_source_l00044}{44}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00045 \{}
+\DoxyCodeLine{00046     \textcolor{comment}{// default}}
+\DoxyCodeLine{00047     \mbox{\hyperlink{class_lonely_point_handler_a84e9e142fa59b5970b9eff18adedb6f4}{point\_color\_}} = Scalar(255, 75, 25);}
+\DoxyCodeLine{00048 }
+\DoxyCodeLine{00049     \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_vibrating_point_a0298c80261ea234f82e1afff59d2d1fa}{interacted\_}})}
+\DoxyCodeLine{00050         \mbox{\hyperlink{class_lonely_point_handler_a84e9e142fa59b5970b9eff18adedb6f4}{point\_color\_}} = \mbox{\hyperlink{class_lonely_point_handler_a84e9e142fa59b5970b9eff18adedb6f4}{point\_color\_}} + Scalar(0, 75, 25); \textcolor{comment}{// синий светлее}}
+\DoxyCodeLine{00051 }
+\DoxyCodeLine{00052     \mbox{\hyperlink{class_lonely_point_handler_a84e9e142fa59b5970b9eff18adedb6f4}{point\_color\_}} *= \mbox{\hyperlink{class_vibrating_point_a6ed26ed40b33b1486cb4c304981d4444}{confidence\_level\_}} / 5.0;}
+\DoxyCodeLine{00053 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Данные класса}
+\mbox{\Hypertarget{class_lonely_point_handler_a84e9e142fa59b5970b9eff18adedb6f4}\label{class_lonely_point_handler_a84e9e142fa59b5970b9eff18adedb6f4}} 
+\index{LonelyPointHandler@{LonelyPointHandler}!point\_color\_@{point\_color\_}}
+\index{point\_color\_@{point\_color\_}!LonelyPointHandler@{LonelyPointHandler}}
+\doxysubsubsection{\texorpdfstring{point\_color\_}{point\_color\_}}
+{\footnotesize\ttfamily Scalar Lonely\+Point\+Handler\+::point\+\_\+color\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Цвет точки 
+
+
+
+См. определение в файле \mbox{\hyperlink{lonely__point__handler_8h_source}{lonely\+\_\+point\+\_\+handler.\+h}} строка \mbox{\hyperlink{lonely__point__handler_8h_source_l00108}{108}}
+
+\mbox{\Hypertarget{class_lonely_point_handler_abb4999bfc4a65f003a71f6566f6dee6b}\label{class_lonely_point_handler_abb4999bfc4a65f003a71f6566f6dee6b}} 
+\index{LonelyPointHandler@{LonelyPointHandler}!point\_id\_@{point\_id\_}}
+\index{point\_id\_@{point\_id\_}!LonelyPointHandler@{LonelyPointHandler}}
+\doxysubsubsection{\texorpdfstring{point\_id\_}{point\_id\_}}
+{\footnotesize\ttfamily int Lonely\+Point\+Handler\+::point\+\_\+id\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ID точки (нет блин почки) 
+
+
+
+См. определение в файле \mbox{\hyperlink{lonely__point__handler_8h_source}{lonely\+\_\+point\+\_\+handler.\+h}} строка \mbox{\hyperlink{lonely__point__handler_8h_source_l00104}{104}}
+
+\mbox{\Hypertarget{class_lonely_point_handler_a376df40ba37f4da08ee7c700e5b12f6b}\label{class_lonely_point_handler_a376df40ba37f4da08ee7c700e5b12f6b}} 
+\index{LonelyPointHandler@{LonelyPointHandler}!text\_resize\_factor\_@{text\_resize\_factor\_}}
+\index{text\_resize\_factor\_@{text\_resize\_factor\_}!LonelyPointHandler@{LonelyPointHandler}}
+\doxysubsubsection{\texorpdfstring{text\_resize\_factor\_}{text\_resize\_factor\_}}
+{\footnotesize\ttfamily float Lonely\+Point\+Handler\+::text\+\_\+resize\+\_\+factor\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Коэффициент рескейла для отрисовки данных 
+
+
+
+См. определение в файле \mbox{\hyperlink{lonely__point__handler_8h_source}{lonely\+\_\+point\+\_\+handler.\+h}} строка \mbox{\hyperlink{lonely__point__handler_8h_source_l00100}{100}}
+
+
+
+Объявления и описания членов классов находятся в файлах\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/seeyo/source/repos/\+Visual-\/\+Vibration-\/\+Tracking-\/\+V2/include/\+VVT-\/\+V2/lonely\+\_\+point\+\_\+handler.\+h\item 
+C\+:/\+Users/seeyo/source/repos/\+Visual-\/\+Vibration-\/\+Tracking-\/\+V2/source/lonely\+\_\+point\+\_\+handler.\+cpp\end{DoxyCompactItemize}

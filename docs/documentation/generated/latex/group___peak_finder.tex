@@ -1,0 +1,228 @@
+\hypertarget{group___peak_finder}{}\doxysection{Peak\+Finder}
+\label{group___peak_finder}\index{PeakFinder@{PeakFinder}}
+\doxysubsection*{Функции}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group___peak_finder_ga3abfea54e33401437ebbee36ab9ee1f2}{Peak\+Finder\+::find\+Peaks}} (std\+::vector$<$ float $>$ x0, std\+::vector$<$ int $>$ \&peak\+Inds, bool include\+Endpoints=true, float extrema=1)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+
+
+\doxysubsection{Функции}
+\mbox{\Hypertarget{group___peak_finder_ga3abfea54e33401437ebbee36ab9ee1f2}\label{group___peak_finder_ga3abfea54e33401437ebbee36ab9ee1f2}} 
+\index{PeakFinder@{PeakFinder}!findPeaks@{findPeaks}}
+\index{findPeaks@{findPeaks}!PeakFinder@{PeakFinder}}
+\doxysubsubsection{\texorpdfstring{findPeaks()}{findPeaks()}}
+{\footnotesize\ttfamily void Peak\+Finder\+::find\+Peaks (\begin{DoxyParamCaption}\item[{std\+::vector$<$ float $>$}]{x0,  }\item[{std\+::vector$<$ int $>$ \&}]{peak\+Inds,  }\item[{bool}]{include\+Endpoints = {\ttfamily true},  }\item[{float}]{extrema = {\ttfamily 1} }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Аргументы}
+{\em x0} & входной массив \\
+\hline
+{\em extrema} & 1 -\/ если нужен максимум, -\/1 -\/ если нужен минимум \\
+\hline
+{\em include\+Endpoints} & true -\/ если границы интервала входного массива x0 должны быть включены в поиск пика, false -\/ в противном случае \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+peak\+Inds\+: индексы пиков, найденные в x0 
+\end{DoxyReturn}
+
+
+См. определение в файле \mbox{\hyperlink{peak__finder_8cpp_source}{peak\+\_\+finder.\+cpp}} строка \mbox{\hyperlink{peak__finder_8cpp_source_l00066}{66}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00067 \{}
+\DoxyCodeLine{00068     \textcolor{keywordtype}{int} minIdx = distance(x0.begin(), min\_element(x0.begin(), x0.end()));}
+\DoxyCodeLine{00069     \textcolor{keywordtype}{int} maxIdx = distance(x0.begin(), max\_element(x0.begin(), x0.end()));}
+\DoxyCodeLine{00070 }
+\DoxyCodeLine{00071     \textcolor{keywordtype}{float} sel = (x0[maxIdx]-\/x0[minIdx])/4.0;}
+\DoxyCodeLine{00072     \textcolor{keywordtype}{int} len0 = x0.size();}
+\DoxyCodeLine{00073 }
+\DoxyCodeLine{00074     scalarProduct(extrema, x0, x0);}
+\DoxyCodeLine{00075 }
+\DoxyCodeLine{00076     std::vector<float> dx;}
+\DoxyCodeLine{00077     diff(x0, dx);}
+\DoxyCodeLine{00078     replace(dx.begin(), dx.end(), 0.0f, -\/PeakFinder::EPS);}
+\DoxyCodeLine{00079     std::vector<float> dx0(dx.begin(), dx.end()-\/1);}
+\DoxyCodeLine{00080     std::vector<float> dx0\_1(dx.begin()+1, dx.end());}
+\DoxyCodeLine{00081     std::vector<float> dx0\_2;}
+\DoxyCodeLine{00082 }
+\DoxyCodeLine{00083     vectorElementsProduct(dx0, dx0\_1, dx0\_2);}
+\DoxyCodeLine{00084 }
+\DoxyCodeLine{00085     std::vector<int> ind;}
+\DoxyCodeLine{00086     findIndicesLessThan(dx0\_2, 0, ind); \textcolor{comment}{// Find where the derivative changes sign   }}
+\DoxyCodeLine{00087     std::vector<float> x;}
+\DoxyCodeLine{00088     \textcolor{keywordtype}{float} leftMin;}
+\DoxyCodeLine{00089     \textcolor{keywordtype}{int} minMagIdx;}
+\DoxyCodeLine{00090     \textcolor{keywordtype}{float} minMag;}
+\DoxyCodeLine{00091     }
+\DoxyCodeLine{00092     \textcolor{keywordflow}{if}(includeEndpoints)}
+\DoxyCodeLine{00093     \{}
+\DoxyCodeLine{00094         \textcolor{comment}{//x = [x0(1);x0(ind);x0(end)];  }}
+\DoxyCodeLine{00095         selectElementsFromIndices(x0, ind, x);      }
+\DoxyCodeLine{00096         x.insert(x.begin(), x0[0]);}
+\DoxyCodeLine{00097         x.insert(x.end(), x0[x0.size()-\/1]);}
+\DoxyCodeLine{00098         \textcolor{comment}{//ind = [1;ind;len0];}}
+\DoxyCodeLine{00099         ind.insert(ind.begin(), 1);}
+\DoxyCodeLine{00100         ind.insert(ind.end(), len0);}
+\DoxyCodeLine{00101         minMagIdx = distance(x.begin(), std::min\_element(x.begin(), x.end()));}
+\DoxyCodeLine{00102         minMag = x[minMagIdx];      }
+\DoxyCodeLine{00103         \textcolor{comment}{//std::cout<<"{}Hola"{}<<std::endl;}}
+\DoxyCodeLine{00104         leftMin = minMag;}
+\DoxyCodeLine{00105     \}}
+\DoxyCodeLine{00106     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00107     \{}
+\DoxyCodeLine{00108         selectElementsFromIndices(x0, ind, x);}
+\DoxyCodeLine{00109         \textcolor{keywordflow}{if}(x.size()>2)}
+\DoxyCodeLine{00110         \{}
+\DoxyCodeLine{00111             minMagIdx = distance(x.begin(), std::min\_element(x.begin(), x.end()));      }
+\DoxyCodeLine{00112             minMag = x[minMagIdx];              }
+\DoxyCodeLine{00113             leftMin = x[0]<x0[0]?x[0]:x0[0];}
+\DoxyCodeLine{00114         \}}
+\DoxyCodeLine{00115     \}}
+\DoxyCodeLine{00116 }
+\DoxyCodeLine{00117     \textcolor{keywordtype}{int} len = x.size();}
+\DoxyCodeLine{00118 }
+\DoxyCodeLine{00119     \textcolor{keywordflow}{if}(len>2)}
+\DoxyCodeLine{00120     \{}
+\DoxyCodeLine{00121         \textcolor{keywordtype}{float} tempMag = minMag;}
+\DoxyCodeLine{00122         \textcolor{keywordtype}{bool} foundPeak = \textcolor{keyword}{false};}
+\DoxyCodeLine{00123         \textcolor{keywordtype}{int} ii;}
+\DoxyCodeLine{00124 }
+\DoxyCodeLine{00125         \textcolor{keywordflow}{if}(includeEndpoints)}
+\DoxyCodeLine{00126         \{}
+\DoxyCodeLine{00127             \textcolor{comment}{// Deal with first point a little differently since tacked it on}}
+\DoxyCodeLine{00128             \textcolor{comment}{// Calculate the sign of the derivative since we tacked the first}}
+\DoxyCodeLine{00129             \textcolor{comment}{//  point on it does not neccessarily alternate like the rest.}}
+\DoxyCodeLine{00130             std::vector<float> xSub0(x.begin(), x.begin()+3);\textcolor{comment}{//tener cuidado subvector}}
+\DoxyCodeLine{00131             std::vector<float> xDiff;\textcolor{comment}{//tener cuidado subvector}}
+\DoxyCodeLine{00132             diff(xSub0, xDiff);}
+\DoxyCodeLine{00133 }
+\DoxyCodeLine{00134             std::vector<int> signDx;}
+\DoxyCodeLine{00135             signVector(xDiff, signDx);}
+\DoxyCodeLine{00136 }
+\DoxyCodeLine{00137             \textcolor{keywordflow}{if} (signDx[0] <= 0) \textcolor{comment}{// The first point is larger or equal to the second}}
+\DoxyCodeLine{00138             \{}
+\DoxyCodeLine{00139                 \textcolor{keywordflow}{if} (signDx[0] == signDx[1]) \textcolor{comment}{// Want alternating signs}}
+\DoxyCodeLine{00140                 \{}
+\DoxyCodeLine{00141                     x.erase(x.begin()+1);}
+\DoxyCodeLine{00142                     ind.erase(ind.begin()+1);}
+\DoxyCodeLine{00143                     len = len-\/1;}
+\DoxyCodeLine{00144                 \}}
+\DoxyCodeLine{00145             \}}
+\DoxyCodeLine{00146             \textcolor{keywordflow}{else} \textcolor{comment}{// First point is smaller than the second}}
+\DoxyCodeLine{00147             \{}
+\DoxyCodeLine{00148                 \textcolor{keywordflow}{if} (signDx[0] == signDx[1]) \textcolor{comment}{// Want alternating signs}}
+\DoxyCodeLine{00149                 \{}
+\DoxyCodeLine{00150                     x.erase(x.begin());}
+\DoxyCodeLine{00151                     ind.erase(ind.begin());}
+\DoxyCodeLine{00152                     len = len-\/1;}
+\DoxyCodeLine{00153                 \}}
+\DoxyCodeLine{00154             \}}
+\DoxyCodeLine{00155         \}}
+\DoxyCodeLine{00156 }
+\DoxyCodeLine{00157         \textcolor{comment}{//Skip the first point if it is smaller so we always start on maxima}}
+\DoxyCodeLine{00158         \textcolor{keywordflow}{if} ( x[0] >= x[1] )}
+\DoxyCodeLine{00159             ii = 0;}
+\DoxyCodeLine{00160         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00161             ii = 1;}
+\DoxyCodeLine{00162 }
+\DoxyCodeLine{00163         \textcolor{comment}{//Preallocate max number of maxima}}
+\DoxyCodeLine{00164         \textcolor{keywordtype}{float} maxPeaks = ceil((\textcolor{keywordtype}{float})len/2.0);}
+\DoxyCodeLine{00165         std::vector<int> peakLoc(maxPeaks,0);}
+\DoxyCodeLine{00166         std::vector<float> peakMag(maxPeaks,0.0);}
+\DoxyCodeLine{00167         \textcolor{keywordtype}{int} cInd = 1;}
+\DoxyCodeLine{00168         \textcolor{keywordtype}{int} tempLoc = 0;        }
+\DoxyCodeLine{00169     }
+\DoxyCodeLine{00170         \textcolor{keywordflow}{while}(ii < len)}
+\DoxyCodeLine{00171         \{}
+\DoxyCodeLine{00172             ii = ii+1;\textcolor{comment}{//This is a peak}}
+\DoxyCodeLine{00173             \textcolor{comment}{//Reset peak finding if we had a peak and the next peak is bigger}}
+\DoxyCodeLine{00174             \textcolor{comment}{//than the last or the left min was small enough to reset.}}
+\DoxyCodeLine{00175             \textcolor{keywordflow}{if}(foundPeak)}
+\DoxyCodeLine{00176             \{}
+\DoxyCodeLine{00177                 tempMag = minMag;}
+\DoxyCodeLine{00178                 foundPeak = \textcolor{keyword}{false};}
+\DoxyCodeLine{00179             \}}
+\DoxyCodeLine{00180         }
+\DoxyCodeLine{00181             \textcolor{comment}{//Found new peak that was lager than temp mag and selectivity larger}}
+\DoxyCodeLine{00182             \textcolor{comment}{//than the minimum to its left.}}
+\DoxyCodeLine{00183         }
+\DoxyCodeLine{00184             \textcolor{keywordflow}{if}( x[ii-\/1] > tempMag \&\& x[ii-\/1] > leftMin + sel )}
+\DoxyCodeLine{00185             \{}
+\DoxyCodeLine{00186                 tempLoc = ii-\/1;}
+\DoxyCodeLine{00187                 tempMag = x[ii-\/1];}
+\DoxyCodeLine{00188             \}}
+\DoxyCodeLine{00189 }
+\DoxyCodeLine{00190             \textcolor{comment}{//Make sure we don't iterate past the length of our vector}}
+\DoxyCodeLine{00191             \textcolor{keywordflow}{if}(ii == len)}
+\DoxyCodeLine{00192                 \textcolor{keywordflow}{break}; \textcolor{comment}{//We assign the last point differently out of the loop}}
+\DoxyCodeLine{00193 }
+\DoxyCodeLine{00194             ii = ii+1; \textcolor{comment}{// Move onto the valley}}
+\DoxyCodeLine{00195             }
+\DoxyCodeLine{00196             \textcolor{comment}{//Come down at least sel from peak}}
+\DoxyCodeLine{00197             \textcolor{keywordflow}{if}(!foundPeak \&\& tempMag > sel + x[ii-\/1])}
+\DoxyCodeLine{00198             \{               }
+\DoxyCodeLine{00199                 foundPeak = \textcolor{keyword}{true}; \textcolor{comment}{//We have found a peak}}
+\DoxyCodeLine{00200                 leftMin = x[ii-\/1];}
+\DoxyCodeLine{00201                 peakLoc[cInd-\/1] = tempLoc; \textcolor{comment}{// Add peak to index}}
+\DoxyCodeLine{00202                 peakMag[cInd-\/1] = tempMag;}
+\DoxyCodeLine{00203                 cInd = cInd+1;}
+\DoxyCodeLine{00204             \}}
+\DoxyCodeLine{00205             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(x[ii-\/1] < leftMin) \textcolor{comment}{// New left minima}}
+\DoxyCodeLine{00206                 leftMin = x[ii-\/1];}
+\DoxyCodeLine{00207             }
+\DoxyCodeLine{00208         \}}
+\DoxyCodeLine{00209 }
+\DoxyCodeLine{00210         \textcolor{comment}{// Check end point}}
+\DoxyCodeLine{00211         \textcolor{keywordflow}{if}(includeEndpoints)}
+\DoxyCodeLine{00212         \{        }
+\DoxyCodeLine{00213             \textcolor{keywordflow}{if} ( x[x.size()-\/1] > tempMag \&\& x[x.size()-\/1] > leftMin + sel )}
+\DoxyCodeLine{00214             \{}
+\DoxyCodeLine{00215                 peakLoc[cInd-\/1] = len-\/1;}
+\DoxyCodeLine{00216                 peakMag[cInd-\/1] = x[x.size()-\/1];}
+\DoxyCodeLine{00217                 cInd = cInd + 1;}
+\DoxyCodeLine{00218             \}}
+\DoxyCodeLine{00219             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}( !foundPeak \&\& tempMag > minMag )\textcolor{comment}{// Check if we still need to add the last point}}
+\DoxyCodeLine{00220             \{}
+\DoxyCodeLine{00221                 peakLoc[cInd-\/1] = tempLoc;}
+\DoxyCodeLine{00222                 peakMag[cInd-\/1] = tempMag;}
+\DoxyCodeLine{00223                 cInd = cInd + 1;}
+\DoxyCodeLine{00224             \}}
+\DoxyCodeLine{00225         \}}
+\DoxyCodeLine{00226         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(!foundPeak)}
+\DoxyCodeLine{00227         \{}
+\DoxyCodeLine{00228             \textcolor{keywordtype}{float} minAux = x0[x0.size()-\/1]<x[x.size()-\/1]?x0[x0.size()-\/1]:x[x.size()-\/1];}
+\DoxyCodeLine{00229             \textcolor{keywordflow}{if} ( x[x.size()-\/1] > tempMag \&\& x[x.size()-\/1] > leftMin + sel )}
+\DoxyCodeLine{00230             \{}
+\DoxyCodeLine{00231                 peakLoc[cInd-\/1] = len-\/1;}
+\DoxyCodeLine{00232                 peakMag[cInd-\/1] = x[x.size()-\/1];}
+\DoxyCodeLine{00233                 cInd = cInd + 1;}
+\DoxyCodeLine{00234             \}}
+\DoxyCodeLine{00235             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}( !tempMag >  minAux + sel)\textcolor{comment}{// Check if we still need to add the last point}}
+\DoxyCodeLine{00236             \{}
+\DoxyCodeLine{00237                 peakLoc[cInd-\/1] = tempLoc;}
+\DoxyCodeLine{00238                 peakMag[cInd-\/1] = tempMag;}
+\DoxyCodeLine{00239                 cInd = cInd + 1;}
+\DoxyCodeLine{00240             \}}
+\DoxyCodeLine{00241         \}}
+\DoxyCodeLine{00242 }
+\DoxyCodeLine{00243         \textcolor{comment}{//Create output}}
+\DoxyCodeLine{00244         \textcolor{keywordflow}{if}( cInd > 0 )}
+\DoxyCodeLine{00245         \{           }
+\DoxyCodeLine{00246             std::vector<int> peakLocTmp(peakLoc.begin(), peakLoc.begin()+cInd-\/1);}
+\DoxyCodeLine{00247             selectElementsFromIndices(ind, peakLocTmp, peakInds);           }
+\DoxyCodeLine{00248         \}       }
+\DoxyCodeLine{00249 }
+\DoxyCodeLine{00250     \}}
+\DoxyCodeLine{00251     \textcolor{comment}{//else}}
+\DoxyCodeLine{00252     \textcolor{comment}{//\{}}
+\DoxyCodeLine{00253         \textcolor{comment}{//input signal length <= 2}}
+\DoxyCodeLine{00254     \textcolor{comment}{//\}}}
+\DoxyCodeLine{00255 \}}
+
+\end{DoxyCode}

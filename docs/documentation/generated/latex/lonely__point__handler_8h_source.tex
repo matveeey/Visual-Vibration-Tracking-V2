@@ -1,0 +1,52 @@
+\hypertarget{lonely__point__handler_8h_source}{}\doxysection{lonely\+\_\+point\+\_\+handler.\+h}
+\label{lonely__point__handler_8h_source}\index{C:/Users/seeyo/source/repos/Visual-\/Vibration-\/Tracking-\/V2/include/VVT-\/V2/lonely\_point\_handler.h@{C:/Users/seeyo/source/repos/Visual-\/Vibration-\/Tracking-\/V2/include/VVT-\/V2/lonely\_point\_handler.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00001}00001 \textcolor{preprocessor}{\#ifndef LONELY\_POINT\_HANDLER\_H}}
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00002}00002 \textcolor{preprocessor}{\#define LONELY\_POINT\_HANDLER\_H}}
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00004}00004 \textcolor{comment}{// standart headers}}
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00005}00005 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00007}00007 \textcolor{comment}{// OpenCV headers}}
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00008}00008 \textcolor{preprocessor}{\#include <opencv2/opencv.hpp>}}
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00009}00009 }
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00010}00010 \textcolor{comment}{// my headers}}
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00011}00011 \textcolor{preprocessor}{\#include "{}VVT-\/V2/vibrating\_point.h"{}}}
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00012}00012 \textcolor{preprocessor}{\#include "{}VVT-\/V2/histogram.h"{}}}
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00013}00013 \textcolor{preprocessor}{\#include "{}VVT-\/V2/output\_to\_csv.h"{}}}
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00014}00014 }
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00015}00015 \textcolor{keyword}{using namespace }cv;}
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00016}00016 }
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00026}\mbox{\hyperlink{class_lonely_point_handler}{00026}} \textcolor{keyword}{class }\mbox{\hyperlink{class_lonely_point_handler}{LonelyPointHandler}} : \textcolor{keyword}{public} \mbox{\hyperlink{class_histogram}{Histogram}}, \textcolor{keyword}{public} \mbox{\hyperlink{class_vibrating_point}{VibratingPoint}}, \textcolor{keyword}{public} \mbox{\hyperlink{class_output_to_csv}{OutputToCsv}}}
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00027}00027 \{}
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00028}00028 \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00038}00038     \mbox{\hyperlink{class_lonely_point_handler}{LonelyPointHandler}}(Point2f init\_coordinates, \textcolor{keywordtype}{double} sampling\_rate, \textcolor{keywordtype}{int} point\_id, \textcolor{keywordtype}{float} text\_resize\_factor, std::string output\_csv\_filename);}
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00044}00044     \mbox{\hyperlink{class_lonely_point_handler_af3e4cceb02420e13b290223b8c598677}{\string~LonelyPointHandler}}();}
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00049}00049     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_lonely_point_handler_a933b22e60e23cc74a6faef5afb7b1223}{Draw}}(Mat\& frame) \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00050}00050 }
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00051}00051 \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00055}00055     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_lonely_point_handler_a62bc491e5a305d494473e60c222f8c47}{DrawHistogram}}() \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00060}00060     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_lonely_point_handler_a8efc34e0d2c78c5307fa592ac64f9e6d}{DrawPoint}}(Mat\& frame);}
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00065}00065     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_lonely_point_handler_aaf51e9e75aab17e74da655912909f51e}{DrawPointTrack}}(Mat\& frame);}
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00070}00070     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_lonely_point_handler_aa396ade9a2907adcf0cd6c383e79c3e9}{DrawInteractionRectangle}}(Mat\& frame);}
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00075}00075     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_lonely_point_handler_a906212a423a8d83563ffea0a1f5278e5}{DrawTextData}}(Mat\& frame);}
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00076}00076 }
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00077}00077 }
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00078}00078 \textcolor{comment}{// Геттеры}}
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00079}00079 \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00084}00084     Point2f \mbox{\hyperlink{class_lonely_point_handler_a8f3289f60591541e65f75dee4e8780fe}{GetTextCoordinates}}();}
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00089}00089     Rect \mbox{\hyperlink{class_lonely_point_handler_a9e187c59fa263cbbdc9e31ef1b917e6b}{GetInteractionRect}}();}
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00090}00090 }
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00091}00091 \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00095}00095     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_lonely_point_handler_a326fcceade024132bf3a6d551b544047}{UpdatePointColor}}() \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00096}00096 \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00100}\mbox{\hyperlink{class_lonely_point_handler_a376df40ba37f4da08ee7c700e5b12f6b}{00100}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{class_lonely_point_handler_a376df40ba37f4da08ee7c700e5b12f6b}{text\_resize\_factor\_}};}
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00104}\mbox{\hyperlink{class_lonely_point_handler_abb4999bfc4a65f003a71f6566f6dee6b}{00104}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_lonely_point_handler_abb4999bfc4a65f003a71f6566f6dee6b}{point\_id\_}};}
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00108}\mbox{\hyperlink{class_lonely_point_handler_a84e9e142fa59b5970b9eff18adedb6f4}{00108}}     Scalar \mbox{\hyperlink{class_lonely_point_handler_a84e9e142fa59b5970b9eff18adedb6f4}{point\_color\_}};}
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00109}00109 }
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00110}00110 \};}
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00111}00111 }
+\DoxyCodeLine{\Hypertarget{lonely__point__handler_8h_source_l00112}00112 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

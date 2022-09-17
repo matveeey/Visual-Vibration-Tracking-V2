@@ -1,0 +1,78 @@
+\hypertarget{vibrating__point_8h_source}{}\doxysection{vibrating\+\_\+point.\+h}
+\label{vibrating__point_8h_source}\index{C:/Users/seeyo/source/repos/Visual-\/Vibration-\/Tracking-\/V2/include/VVT-\/V2/vibrating\_point.h@{C:/Users/seeyo/source/repos/Visual-\/Vibration-\/Tracking-\/V2/include/VVT-\/V2/vibrating\_point.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00001}00001 \textcolor{preprocessor}{\#ifndef VIBRATING\_POINT\_H}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00002}00002 \textcolor{preprocessor}{\#define VIBRATING\_POINT\_H}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00004}00004 \textcolor{comment}{// standart headers}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00005}00005 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00006}00006 \textcolor{preprocessor}{\#include <fstream>}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00007}00007 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00008}00008 \textcolor{comment}{// OpenCV headers}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00009}00009 \textcolor{preprocessor}{\#include <opencv2/opencv.hpp>}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00010}00010 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00011}00011 \textcolor{comment}{// other headers}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00012}00012 \textcolor{preprocessor}{\#include "{}VVT-\/V2/peak\_finder.h"{}}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00013}00013 \textcolor{preprocessor}{\#include "{}VVT-\/V2/helper.h"{}}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00014}00014 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00015}00015 \textcolor{keyword}{using namespace }cv;}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00016}00016 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00024}\mbox{\hyperlink{class_vibrating_point}{00024}} \textcolor{keyword}{class }\mbox{\hyperlink{class_vibrating_point}{VibratingPoint}}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00025}00025 \{}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00026}00026 \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00032}00032     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_vibrating_point_a005868411bd6b296d992f3dcd79451d7}{ExecuteFFT}}();}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00037}00037     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_vibrating_point_a1b2402724fd5d9aba2785ba771042c91}{AddNewPointPosition}}(Point2f position);}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00042}00042     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_vibrating_point_a4ba7478f71991439ad31ee5555bb93c6}{AddNewPointTime}}(\textcolor{keywordtype}{double} time);}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00047}00047     \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_vibrating_point_a342c75a6ac0f9ab85de1a0dd663eab03}{IsInteracted}}(Point2i coordinates);}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00051}00051     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_vibrating_point_ad9e5f2e543097cc7010baadec3c7e0df}{SetSensivity}}(\textcolor{keywordtype}{double} sensivity);}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00055}00055     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_vibrating_point_afeb56c53e4ee3e3dc2049e4553bff402}{CalculateAmplitude}}();}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00060}\mbox{\hyperlink{class_vibrating_point_a84210a3247277ca0137d4754c5ec5b03}{00060}}     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_vibrating_point_a84210a3247277ca0137d4754c5ec5b03}{Draw}}(Mat\& frame) = 0;}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00061}00061 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00062}00062 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00066}\mbox{\hyperlink{class_vibrating_point_a2bd28bb86f01ccae6fa193914863045a}{00066}}     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_vibrating_point_a2bd28bb86f01ccae6fa193914863045a}{DrawHistogram}}() = 0;}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00070}\mbox{\hyperlink{class_vibrating_point_aadc5ff6408bb2e4a474dd25cd5bb6fdf}{00070}}     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_vibrating_point_aadc5ff6408bb2e4a474dd25cd5bb6fdf}{UpdatePointColor}}() = 0;}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00071}00071 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00072}00072 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00073}00073 \textcolor{comment}{// Геттеры}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00074}00074 \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00078}00078     Point2f \mbox{\hyperlink{class_vibrating_point_afa134e84fe3e2ffc492b34823f60d14d}{GetLastFoundCoordinates}}();}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00082}00082     std::vector<double> \mbox{\hyperlink{class_vibrating_point_a2e3b78289d75d6fa3f7888b36a8b5a42}{GetCurrentVibrationFrequency}}();}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00086}00086     \textcolor{keywordtype}{double} \mbox{\hyperlink{class_vibrating_point_a5c943d1b1916ac33a214f46cbe2cb8fa}{GetCurrentMainFrequency}}();}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00090}00090     Point3f \mbox{\hyperlink{class_vibrating_point_af1651e3d022f841aa1442b20b5f40b42}{GetRelativeAmplitude}}();}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00094}00094     Point3f \mbox{\hyperlink{class_vibrating_point_abf5fd60d3d7f900d597040c0dcb69586}{GetCurrentAmplitude}}();}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00098}00098     \textcolor{keywordtype}{double} \mbox{\hyperlink{class_vibrating_point_a056d67ffd99e21b98ebaa97150641fe3}{GetCurrentConfidenceLevel}}();}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00099}00099     }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00100}00100 \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00106}\mbox{\hyperlink{class_vibrating_point_afdefa096df21cf891ae6835a6df4ffc9}{00106}}     \textcolor{keyword}{static} \textcolor{keyword}{inline} std::pair<double, double> \mbox{\hyperlink{class_vibrating_point_afdefa096df21cf891ae6835a6df4ffc9}{extremum\_amplitude\_}};}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00107}00107 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00108}00108 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00112}\mbox{\hyperlink{class_vibrating_point_a5b35f5a2109df2be2d2832b25dfa2285}{00112}}     Rect \mbox{\hyperlink{class_vibrating_point_a5b35f5a2109df2be2d2832b25dfa2285}{interaction\_box\_}};}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00116}\mbox{\hyperlink{class_vibrating_point_a8c035e084006469922a45f023b1bcce0}{00116}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_vibrating_point_a8c035e084006469922a45f023b1bcce0}{interaction\_offset\_}};}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00122}\mbox{\hyperlink{class_vibrating_point_a0298c80261ea234f82e1afff59d2d1fa}{00122}}     \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_vibrating_point_a0298c80261ea234f82e1afff59d2d1fa}{interacted\_}};}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00123}00123 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00127}\mbox{\hyperlink{class_vibrating_point_a9989c50fa30cecf13079ae0c595ef87c}{00127}}     Point3f \mbox{\hyperlink{class_vibrating_point_a9989c50fa30cecf13079ae0c595ef87c}{relative\_amplitude\_}};}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00131}\mbox{\hyperlink{class_vibrating_point_a5ae50ac111f6681489eded6da7ef66ea}{00131}}     Point3f \mbox{\hyperlink{class_vibrating_point_a5ae50ac111f6681489eded6da7ef66ea}{current\_amplitude\_}};}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00135}\mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{00135}}     std::vector<Point2f> \mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}};}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00139}\mbox{\hyperlink{class_vibrating_point_a6653e27fe96e5fe6e7aa410fb3138c92}{00139}}     std::vector<double> \mbox{\hyperlink{class_vibrating_point_a6653e27fe96e5fe6e7aa410fb3138c92}{x\_coordinates\_}};}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00143}\mbox{\hyperlink{class_vibrating_point_a5df5aa7a4d955de091640290f849961c}{00143}}     std::vector<double> \mbox{\hyperlink{class_vibrating_point_a5df5aa7a4d955de091640290f849961c}{y\_coordinates\_}};}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00147}\mbox{\hyperlink{class_vibrating_point_aa65df19b908306e2f4c725480594b2bb}{00147}}     std::vector<cv::Point2f> \mbox{\hyperlink{class_vibrating_point_aa65df19b908306e2f4c725480594b2bb}{vec\_meaned\_coordinates\_of\_point\_}};}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00151}\mbox{\hyperlink{class_vibrating_point_adfd1433886cf1fb2b3b07062b69614b1}{00151}}     std::vector<double> \mbox{\hyperlink{class_vibrating_point_adfd1433886cf1fb2b3b07062b69614b1}{frequencies\_}};}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00155}\mbox{\hyperlink{class_vibrating_point_aa0b94560fbac6ae1c5dbae9f4931d28c}{00155}}     \textcolor{keywordtype}{double} \mbox{\hyperlink{class_vibrating_point_aa0b94560fbac6ae1c5dbae9f4931d28c}{main\_frequency\_}};}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00159}\mbox{\hyperlink{class_vibrating_point_ad2aa8fe4bc94a957f75aa00fb9ce9f26}{00159}}     std::vector<double> \mbox{\hyperlink{class_vibrating_point_ad2aa8fe4bc94a957f75aa00fb9ce9f26}{point\_time\_coordinates\_}};}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00163}\mbox{\hyperlink{class_vibrating_point_a67ffaaa1b714226a78d6d5cc31c195c9}{00163}}     \textcolor{keywordtype}{double} \mbox{\hyperlink{class_vibrating_point_a67ffaaa1b714226a78d6d5cc31c195c9}{sampling\_rate\_}};}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00167}\mbox{\hyperlink{class_vibrating_point_ac0a7383346b67916a29c9dc892addfae}{00167}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_vibrating_point_ac0a7383346b67916a29c9dc892addfae}{current\_point\_radius\_}};}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00171}\mbox{\hyperlink{class_vibrating_point_af4a9903a86d6d1a98b1acf89684492ae}{00171}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_vibrating_point_af4a9903a86d6d1a98b1acf89684492ae}{default\_point\_radius\_}};}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00172}00172 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00176}\mbox{\hyperlink{class_vibrating_point_a5ea36bdad5aeac784ecfa21f3ca98517}{00176}}     std::vector<double> \mbox{\hyperlink{class_vibrating_point_a5ea36bdad5aeac784ecfa21f3ca98517}{x\_}};}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00180}\mbox{\hyperlink{class_vibrating_point_aa22ce2e3bdd0b4614b1c0ad0adf256e5}{00180}}     std::vector<float> \mbox{\hyperlink{class_vibrating_point_aa22ce2e3bdd0b4614b1c0ad0adf256e5}{y\_}};}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00184}\mbox{\hyperlink{class_vibrating_point_ab2539b861e02f361eb772c71e06c9af3}{00184}}     \textcolor{keywordtype}{double} \mbox{\hyperlink{class_vibrating_point_ab2539b861e02f361eb772c71e06c9af3}{sensivity\_}};}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00188}\mbox{\hyperlink{class_vibrating_point_a6ed26ed40b33b1486cb4c304981d4444}{00188}}     \textcolor{keywordtype}{double} \mbox{\hyperlink{class_vibrating_point_a6ed26ed40b33b1486cb4c304981d4444}{confidence\_level\_}};}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00189}00189 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00190}00190 \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00195}\mbox{\hyperlink{class_vibrating_point_a69824b3fe81e876f3018844d236b72c5}{00195}}     std::vector<float> \mbox{\hyperlink{class_vibrating_point_a69824b3fe81e876f3018844d236b72c5}{mag\_max\_differences\_}};}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00196}00196 \};}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00197}00197 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8h_source_l00198}00198 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

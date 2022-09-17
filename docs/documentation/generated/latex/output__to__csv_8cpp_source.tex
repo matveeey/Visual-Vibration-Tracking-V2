@@ -1,0 +1,52 @@
+\hypertarget{output__to__csv_8cpp_source}{}\doxysection{output\+\_\+to\+\_\+csv.\+cpp}
+\label{output__to__csv_8cpp_source}\index{C:/Users/seeyo/source/repos/Visual-\/Vibration-\/Tracking-\/V2/source/output\_to\_csv.cpp@{C:/Users/seeyo/source/repos/Visual-\/Vibration-\/Tracking-\/V2/source/output\_to\_csv.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}VVT-\/V2/output\_to\_csv.h"{}}}
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00003}\mbox{\hyperlink{class_output_to_csv_a6c2e719cbb3ff83b249e8820029895f0}{00003}} \mbox{\hyperlink{class_output_to_csv_a6c2e719cbb3ff83b249e8820029895f0}{OutputToCsv::OutputToCsv}}(std::string output\_file\_name, std::vector<Point2f>\& point\_coordinates, std::vector<double>\& point\_time\_coordinates, \textcolor{keywordtype}{int} point\_id) :}
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00004}00004     output\_file\_name\_\{ output\_file\_name \},}
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00005}00005     coordinates\_\{ \&point\_coordinates \},}
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00006}00006     time\_coordinates\_\{ \&point\_time\_coordinates \},}
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00007}00007     point\_id\_\{ point\_id \}}
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00008}00008 \{}
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00009}00009 \}}
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00010}00010 }
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00011}\mbox{\hyperlink{class_output_to_csv_a8f1e3239fa21906aa102c3d601183f65}{00011}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_output_to_csv_a8f1e3239fa21906aa102c3d601183f65}{OutputToCsv::Write}}()}
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00012}00012 \{}
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00013}00013     std::ofstream file;}
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00014}00014     file.open(\mbox{\hyperlink{class_output_to_csv_a54c842383d98ee9896149112be64e70e}{output\_file\_name\_}}, std::fstream::app);}
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00015}00015 }
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00016}00016     \textcolor{comment}{// Запишем ID точки}}
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00017}00017     file << \textcolor{stringliteral}{"{}Point "{}} + std::to\_string(\mbox{\hyperlink{class_output_to_csv_a13ad8d8720f27eab5e5c504fc755398c}{point\_id\_}}) + \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00019}00019     \textcolor{comment}{// Запишем временные позиции точки}}
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00020}00020     file << \textcolor{stringliteral}{"{}Time pos;"{}};}
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00021}00021     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_output_to_csv_a8aaab03dcb5f23e40bc58c6d1ac1e4a1}{time\_coordinates\_}}-\/>size(); i++)}
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00022}00022     \{}
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00023}00023         file << std::to\_string(\mbox{\hyperlink{class_output_to_csv_a8aaab03dcb5f23e40bc58c6d1ac1e4a1}{time\_coordinates\_}}-\/>at(i)) + \textcolor{stringliteral}{"{};"{}};}
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00024}00024     \}}
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00025}00025     file << \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00026}00026 }
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00027}00027     \textcolor{comment}{// Запишем координаты }}
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00028}00028     \textcolor{comment}{// Сначала по X}}
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00029}00029     file << \textcolor{stringliteral}{"{}X pos; "{}};}
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00030}00030     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_output_to_csv_a88fc80ddae3f02ad0dfb04b0529f9fd3}{coordinates\_}}-\/>size(); i++)}
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00031}00031     \{}
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00032}00032         file << std::to\_string(\mbox{\hyperlink{class_output_to_csv_a88fc80ddae3f02ad0dfb04b0529f9fd3}{coordinates\_}}-\/>at(i).x) + \textcolor{stringliteral}{"{};"{}};}
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00033}00033     \}}
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00034}00034     file << \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00035}00035 }
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00036}00036     \textcolor{comment}{// Затем по Y}}
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00037}00037     file << \textcolor{stringliteral}{"{}Y pos; "{}};}
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00038}00038     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_output_to_csv_a88fc80ddae3f02ad0dfb04b0529f9fd3}{coordinates\_}}-\/>size(); i++)}
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00039}00039     \{}
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00040}00040         file << std::to\_string(\mbox{\hyperlink{class_output_to_csv_a88fc80ddae3f02ad0dfb04b0529f9fd3}{coordinates\_}}-\/>at(i).y) + \textcolor{stringliteral}{"{};"{}};}
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00041}00041     \}}
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00042}00042     file << \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00044}00044     file.close();}
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00045}00045     }
+\DoxyCodeLine{\Hypertarget{output__to__csv_8cpp_source_l00046}00046 \}}
+
+\end{DoxyCode}

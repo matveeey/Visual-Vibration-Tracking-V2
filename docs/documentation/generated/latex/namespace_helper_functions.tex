@@ -1,0 +1,34 @@
+\hypertarget{namespace_helper_functions}{}\doxysection{Пространство имен Helper\+Functions}
+\label{namespace_helper_functions}\index{HelperFunctions@{HelperFunctions}}
+
+
+Функции в этом пространстве имен используются для генерирования имени csv-\/файла для записи и конвертирования отношения в диапазоне \mbox{[}0; 1\mbox{]} в RGB цвет  
+
+
+\doxysubsection*{Функции}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{group___helper_functions_ga757c85a4bbcc0f0aa436369ac7ed57e0}{Generate\+Csv\+Filename}} (std\+::string additional\+\_\+text=\char`\"{}\char`\"{})
+\begin{DoxyCompactList}\small\item\em Генерирует имя CSV файла для сохранения метаданных \end{DoxyCompactList}\item 
+cv\+::\+Scalar \mbox{\hyperlink{group___helper_functions_ga79584d71167afeb72ca384eaf87c1419}{Ratio\+To\+Rgb}} (double ratio)
+\begin{DoxyCompactList}\small\item\em Генерирует имя TXT файла для сохранени \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___helper_functions_gae16c29c5ff2a16efc9b9e6ea00f13dbe}{Find\+Local\+Maxima}} (cv\+::\+Mat \&input\+\_\+array, cv\+::\+Mat \&local\+\_\+maxima, double threshold\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Эта функция пригодится. Разберусь с ней чуть позже \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\std\+::string \mbox{\hyperlink{group___helper_functions_gad8a95244f86df84c8f5d35197fe0196f}{To\+String\+With\+Precision}} (const T value, const int n=9)
+\begin{DoxyCompactList}\small\item\em Выполняет округление числа с определенной точностью \end{DoxyCompactList}\item 
+{\footnotesize template$<$class T $>$ }\\void \mbox{\hyperlink{group___helper_functions_ga09104c3d04cd6c0eb8bcc39bea203eb6}{Deadzone\+Filter}} (std\+::vector$<$ T $>$ \&input\+\_\+vector)
+\begin{DoxyCompactList}\small\item\em Частотный фильтр для нижней части диапазона \end{DoxyCompactList}\item 
+{\footnotesize template$<$class T $>$ }\\std\+::vector$<$ T $>$ \mbox{\hyperlink{group___helper_functions_ga9d70762d106466aa0e1177544ae0c72d}{Make\+Shorter\+From\+Start}} (std\+::vector$<$ T $>$ src, int n)
+\begin{DoxyCompactList}\small\item\em Укорачивает вектор, убирая элементы слева (спереди) \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\T \mbox{\hyperlink{group___helper_functions_gae752077bcc98a1b2dcd5a1371d55bca5}{Calculate\+Mean\+Difference\+In\+Vector}} (std\+::vector$<$ T $>$ src)
+\begin{DoxyCompactList}\small\item\em Вычисляет среднее значение разности элементов массива в виде ((a0 -\/ a1) + (a1 -\/ a2)) / 3. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\int \mbox{\hyperlink{group___helper_functions_gacc82d70b750eb60ad49c7a36e5c7f0ca}{Find\+Global\+Max\+Idx}} (std\+::vector$<$ T $>$ src)
+\begin{DoxyCompactList}\small\item\em Возвращает индекс самого большого элемента вектора src. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\int \mbox{\hyperlink{group___helper_functions_gabe168b250f6a7c6c89fe5b685c3898a0}{Find\+Global\+Min\+Idx}} (std\+::vector$<$ T $>$ src)
+\begin{DoxyCompactList}\small\item\em Возвращает индекс самого маленького элемента вектора src. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\T \mbox{\hyperlink{group___helper_functions_gae2aaeb3c9edcae730b5c4fdb6655ef71}{Calculate\+Max\+Difference\+In\+Vector}} (std\+::vector$<$ T $>$ src)
+\begin{DoxyCompactList}\small\item\em Вычисляет максимальное значение разности элементов массива \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Функции в этом пространстве имен используются для генерирования имени csv-\/файла для записи и конвертирования отношения в диапазоне \mbox{[}0; 1\mbox{]} в RGB цвет 

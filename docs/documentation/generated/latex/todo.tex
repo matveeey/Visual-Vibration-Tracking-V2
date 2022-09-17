@@ -1,0 +1,20 @@
+
+\begin{DoxyRefList}
+\item[Член \mbox{\hyperlink{class_camera_calibrator_a2216558d0c8e967ad3ccfcfd0bf769d9}{Camera\+Calibrator\+::Add\+Tips}} (Mat \&frame, std\+::string tip)]\label{todo__todo000001}%
+\Hypertarget{todo__todo000001}%
+Вынести её в какой-\/то отдельный модуль, чтобы не было дублирования кода  
+\item[Класс \mbox{\hyperlink{class_video_undistorter}{Video\+Undistorter}} ]\label{todo__todo000002}%
+\Hypertarget{todo__todo000002}%
+Работу с кадрами (чтение, грейскейл) следует выполнять с помощью \mbox{\hyperlink{class_frame_handler}{Frame\+Handler}}. На данный момент это происходит не так. Внутри этого класса своя реализация чтения видео.~\newline
+cv\+::\+Video\+Capture способно считывать любую последовательность изображений, не обязательно видео, можно и набор изображений по какому-\/то пути (из папки, например).~\newline
+Это не успел сделать  
+\item[Член \mbox{\hyperlink{class_video_undistorter_a015a3e4b982094d3ba737debd9f3590e}{Video\+Undistorter\+::Add\+Tips}} (Mat \&frame, std\+::string tip)]\label{todo__todo000004}%
+\Hypertarget{todo__todo000004}%
+Вынести её в какой-\/то отдельный модуль, чтобы не было дублирования кода  
+\item[Член \mbox{\hyperlink{class_video_undistorter_a05b19bb1af0c5fcfd147c48dd447d44d}{Video\+Undistorter\+::Execute\+Video\+Undistortion}} ()]\label{todo__todo000003}%
+\Hypertarget{todo__todo000003}%
+Лучше переделать такую логику)  
+\item[Член \mbox{\hyperlink{class_video_undistorter_ac82e158db201e5d3189cc2c2eaa0db46}{Video\+Undistorter\+::Save\+Frame}} (Mat frame)]\label{todo__todo000005}%
+\Hypertarget{todo__todo000005}%
+Предложения по улучшению описаны описании класса (\mbox{\hyperlink{class_video_undistorter}{Video\+Undistorter}}) 
+\end{DoxyRefList}

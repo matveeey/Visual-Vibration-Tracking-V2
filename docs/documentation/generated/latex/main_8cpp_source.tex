@@ -1,0 +1,28 @@
+\hypertarget{main_8cpp_source}{}\doxysection{main.\+cpp}
+\label{main_8cpp_source}\index{C:/Users/seeyo/source/repos/Visual-\/Vibration-\/Tracking-\/V2/source/main.cpp@{C:/Users/seeyo/source/repos/Visual-\/Vibration-\/Tracking-\/V2/source/main.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}GUI/main\_menu.h"{}}}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00003}00003 \textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char}** argv)}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00004}00004 \{}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00005}00005     \textcolor{keywordflow}{if} (argc == 1)}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00006}00006     \{}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00007}00007         std::cout << \textcolor{stringliteral}{"{}Not enough arguments\(\backslash\)nAttach a .txt"{}} << std::endl;}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00008}00008         \textcolor{comment}{//return 0;}}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00009}00009     \}}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00010}00010 }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00011}00011     std::string program\_name;}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00012}00012     std::string txt\_file\_name;}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00013}00013     std::string type;}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00014}00014 }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00015}00015     \textcolor{keywordflow}{if} (argc > 1)}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00016}00016     \{}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00017}00017         program\_name = argv[0];}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00018}00018         txt\_file\_name = argv[1];}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00019}00019     \}}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00020}00020 }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00021}00021     \mbox{\hyperlink{class_main_menu}{MainMenu}} main\_menu(\textcolor{comment}{/*txt\_file\_name*/}\textcolor{stringliteral}{"{}C:/Users/seeyo/source/repos/Visual-\/Vibration-\/Tracking-\/V2/docs/input.txt"{}});}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00022}00022 \}}
+
+\end{DoxyCode}

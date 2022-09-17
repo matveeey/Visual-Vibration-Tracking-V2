@@ -1,0 +1,54 @@
+\hypertarget{colored__point__handler_8h_source}{}\doxysection{colored\+\_\+point\+\_\+handler.\+h}
+\label{colored__point__handler_8h_source}\index{C:/Users/seeyo/source/repos/Visual-\/Vibration-\/Tracking-\/V2/include/VVT-\/V2/colored\_point\_handler.h@{C:/Users/seeyo/source/repos/Visual-\/Vibration-\/Tracking-\/V2/include/VVT-\/V2/colored\_point\_handler.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00001}00001 \textcolor{preprocessor}{\#ifndef COLORED\_POINT\_HANDLER\_H}}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00002}00002 \textcolor{preprocessor}{\#define COLORED\_POINT\_HANDLER\_H}}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00004}00004 \textcolor{comment}{// standart headers}}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00005}00005 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00007}00007 \textcolor{comment}{// OpenCV headers}}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00008}00008 \textcolor{preprocessor}{\#include <opencv2/opencv.hpp>}}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00009}00009 }
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00010}00010 \textcolor{comment}{// my headers}}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00011}00011 \textcolor{preprocessor}{\#include "{}VVT-\/V2/vibrating\_point.h"{}}}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00012}00012 \textcolor{preprocessor}{\#include "{}VVT-\/V2/histogram.h"{}}}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00013}00013 \textcolor{preprocessor}{\#include "{}VVT-\/V2/output\_to\_csv.h"{}}}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00014}00014 }
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00015}00015 \textcolor{keyword}{using namespace }cv;}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00016}00016 }
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00026}\mbox{\hyperlink{class_colored_point_handler}{00026}} \textcolor{keyword}{class }\mbox{\hyperlink{class_colored_point_handler}{ColoredPointHandler}} : \textcolor{keyword}{public} \mbox{\hyperlink{class_histogram}{Histogram}}, \textcolor{keyword}{public} \mbox{\hyperlink{class_vibrating_point}{VibratingPoint}}, \textcolor{keyword}{public} \mbox{\hyperlink{class_output_to_csv}{OutputToCsv}}}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00027}00027 \{}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00031}\mbox{\hyperlink{class_colored_point_handler_ad0550fe1aac50d476a071743e3c3802a}{00031}}     \textcolor{keyword}{enum} \mbox{\hyperlink{class_colored_point_handler_ad0550fe1aac50d476a071743e3c3802a}{coloring\_mode}}}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00032}00032     \{}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00033}00033         DEFAULT,}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00034}00034         COLORING\_BASED\_ON\_FREQUENCY,}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00035}00035         COLORING\_BASED\_ON\_AMPLITUDE,}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00036}00036     \};}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00037}00037 }
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00038}00038 \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00048}00048     \mbox{\hyperlink{class_colored_point_handler}{ColoredPointHandler}}(Point2f init\_coordinates, \textcolor{keywordtype}{double} sampling\_rate, \textcolor{keywordtype}{int} point\_id, \textcolor{keywordtype}{float} radius\_resize\_factor, std::string output\_csv\_filename);}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00054}00054     \mbox{\hyperlink{class_colored_point_handler_a55e451f03127858deb1dda40e2124611}{\string~ColoredPointHandler}}();}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00059}00059     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_colored_point_handler_ad16eb2210bc1e9f8983186088cc9a573}{Draw}}(Mat\& frame) \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00065}00065     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_colored_point_handler_aca8be23a3787bd9f62dd0f950c1f2645}{SetColoringMode}}(\textcolor{keywordtype}{int} \mbox{\hyperlink{class_colored_point_handler_ad0550fe1aac50d476a071743e3c3802a}{coloring\_mode}});}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00066}00066 \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00070}00070     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_colored_point_handler_a3c6b8eef49c18add5c4c56d9035c06df}{DrawHistogram}}() \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00075}00075     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_colored_point_handler_a19d02da549d21bce5167c041257ad808}{DrawPoint}}(Mat\& frame);}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00080}00080     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_colored_point_handler_ae36ef1c44415f932993212c8aff980f6}{DrawInteractionRectangle}}(Mat\& frame);}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00081}00081 }
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00082}00082 \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00086}00086     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_colored_point_handler_ad360ca58ca141acaf11d98a9bf59483b}{UpdatePointColor}}() \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00087}00087 }
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00088}00088 \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00089}00089     \textcolor{comment}{// Текущий режим работы (цвета на основе амплитуд/частот)}}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00090}00090     \textcolor{keywordtype}{int} coloring\_mode\_;}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00094}\mbox{\hyperlink{class_colored_point_handler_a1920c209cdbaf82feee3310787cedc47}{00094}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{class_colored_point_handler_a1920c209cdbaf82feee3310787cedc47}{radius\_resize\_factor\_}};}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00098}\mbox{\hyperlink{class_colored_point_handler_a10084b9ba7abcc7a6637cf51ae688a5d}{00098}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_colored_point_handler_a10084b9ba7abcc7a6637cf51ae688a5d}{point\_id\_}};}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00102}\mbox{\hyperlink{class_colored_point_handler_a4b3ee0b18de6bf71cd0f5124ce73c490}{00102}}     Scalar \mbox{\hyperlink{class_colored_point_handler_a4b3ee0b18de6bf71cd0f5124ce73c490}{point\_color\_}};}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00103}00103 }
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00104}00104 \};}
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00105}00105 }
+\DoxyCodeLine{\Hypertarget{colored__point__handler_8h_source_l00106}00106 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

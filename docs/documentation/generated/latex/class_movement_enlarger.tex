@@ -1,0 +1,322 @@
+\hypertarget{class_movement_enlarger}{}\doxysection{Класс Movement\+Enlarger}
+\label{class_movement_enlarger}\index{MovementEnlarger@{MovementEnlarger}}
+
+
+Дочерний (от \mbox{\hyperlink{class_euler_enlarger}{Euler\+Enlarger}}) класс для визуального увеличения вибрации на видео  
+
+
+
+
+{\ttfamily \#include $<$movement\+\_\+enlargement.\+h$>$}
+
+
+
+Граф наследования\+:Movement\+Enlarger\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=177pt]{class_movement_enlarger__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Граф связей класса Movement\+Enlarger\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=177pt]{class_movement_enlarger__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_movement_enlarger_afe702d1bc5c1d7778c3c8eef0138e11c}{Movement\+Enlarger}} (std\+::string input\+\_\+file\+\_\+name, std\+::string output\+\_\+file\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Конструктор этого класса \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_movement_enlarger_a1570d3e0ed67d4ec81a0f8e0c8048414}{Execute\+Laplace\+Enlargement}} ()
+\begin{DoxyCompactList}\small\item\em Выполняет визуальное увеличение движения \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Закрытые данные}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{class_movement_enlarger_a8b437b3c630f9211554b784d23fc03be}{input\+\_\+file\+\_\+name\+\_\+}}
+\begin{DoxyCompactList}\small\item\em имя (путь) входного файла (видео) \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_movement_enlarger_ac3a08d541d2bdd0fc5edae08b3efc9d6}{output\+\_\+file\+\_\+name\+\_\+}}
+\begin{DoxyCompactList}\small\item\em имя (путь) выходного файла (видео) \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_movement_enlarger_a2ddb490175f6d262dc5c99ff67aa624b}{win\+\_\+name\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Имя окна, в которое будет выводиться обработанный кадр \end{DoxyCompactList}\item 
+Mat \mbox{\hyperlink{class_movement_enlarger_ac2325761fbbb8d6ce75085c747f1659e}{frame\+\_\+to\+\_\+be\+\_\+enlarged\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Изображение (кадр), движение на котором будет увеличено \end{DoxyCompactList}\item 
+Mat \mbox{\hyperlink{class_movement_enlarger_ad7b1d50fd0db8bdfb0de243fd1a0ccbf}{frame\+\_\+enlarged\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Изображение (кадр), движение на котором было увеличено \end{DoxyCompactList}\item 
+Mat \mbox{\hyperlink{class_movement_enlarger_a8d8e17457694677c721ef3b47fbc0809}{frame\+\_\+with\+\_\+motion\+\_\+info\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Mat-\/сущность, содержащая информацию об увеличенном движении \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Дополнительные унаследованные члены}
+
+
+\doxysubsection{Подробное описание}
+Дочерний (от \mbox{\hyperlink{class_euler_enlarger}{Euler\+Enlarger}}) класс для визуального увеличения вибрации на видео 
+
+См. определение в файле \mbox{\hyperlink{movement__enlargement_8h_source}{movement\+\_\+enlargement.\+h}} строка \mbox{\hyperlink{movement__enlargement_8h_source_l00019}{19}}
+
+
+
+\doxysubsection{Конструктор(ы)}
+\mbox{\Hypertarget{class_movement_enlarger_afe702d1bc5c1d7778c3c8eef0138e11c}\label{class_movement_enlarger_afe702d1bc5c1d7778c3c8eef0138e11c}} 
+\index{MovementEnlarger@{MovementEnlarger}!MovementEnlarger@{MovementEnlarger}}
+\index{MovementEnlarger@{MovementEnlarger}!MovementEnlarger@{MovementEnlarger}}
+\doxysubsubsection{\texorpdfstring{MovementEnlarger()}{MovementEnlarger()}}
+{\footnotesize\ttfamily Movement\+Enlarger\+::\+Movement\+Enlarger (\begin{DoxyParamCaption}\item[{std\+::string}]{input\+\_\+file\+\_\+name,  }\item[{std\+::string}]{output\+\_\+file\+\_\+name }\end{DoxyParamCaption})}
+
+
+
+Конструктор этого класса 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em input\+\_\+file\+\_\+name} & имя (путь) входного файла (видео) \\
+\hline
+{\em output\+\_\+file\+\_\+name} & имя (путь) выходного файла (видео) \\
+\hline
+\end{DoxyParams}
+
+
+См. определение в файле \mbox{\hyperlink{movement__enlargement_8cpp_source}{movement\+\_\+enlargement.\+cpp}} строка \mbox{\hyperlink{movement__enlargement_8cpp_source_l00003}{3}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00003                                                                                         :}
+\DoxyCodeLine{00004     \mbox{\hyperlink{class_movement_enlarger_a8b437b3c630f9211554b784d23fc03be}{input\_file\_name\_}}\{ input\_file\_name \},}
+\DoxyCodeLine{00005     \mbox{\hyperlink{class_movement_enlarger_ac3a08d541d2bdd0fc5edae08b3efc9d6}{output\_file\_name\_}}\{ output\_file\_name \},}
+\DoxyCodeLine{00006     \mbox{\hyperlink{class_movement_enlarger_a2ddb490175f6d262dc5c99ff67aa624b}{win\_name\_}}\{ \textcolor{stringliteral}{"{}Movement Enlarger"{}} \}}
+\DoxyCodeLine{00007     }
+\DoxyCodeLine{00008 \{}
+\DoxyCodeLine{00009     std::cout << \textcolor{stringliteral}{"{}Movement Enlarger constructor"{}} << std::endl;}
+\DoxyCodeLine{00010 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_movement_enlarger_a091c50841ebe6226dc0a3492f0af956e}\label{class_movement_enlarger_a091c50841ebe6226dc0a3492f0af956e}} 
+\index{MovementEnlarger@{MovementEnlarger}!````~MovementEnlarger@{$\sim$MovementEnlarger}}
+\index{````~MovementEnlarger@{$\sim$MovementEnlarger}!MovementEnlarger@{MovementEnlarger}}
+\doxysubsubsection{\texorpdfstring{$\sim$MovementEnlarger()}{~MovementEnlarger()}}
+{\footnotesize\ttfamily Movement\+Enlarger\+::$\sim$\+Movement\+Enlarger (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+См. определение в файле \mbox{\hyperlink{movement__enlargement_8cpp_source}{movement\+\_\+enlargement.\+cpp}} строка \mbox{\hyperlink{movement__enlargement_8cpp_source_l00012}{12}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00013 \{}
+\DoxyCodeLine{00014     std::cout << \textcolor{stringliteral}{"{}Movement Enlarger destructor"{}} << std::endl;}
+\DoxyCodeLine{00015 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Методы}
+\mbox{\Hypertarget{class_movement_enlarger_a1570d3e0ed67d4ec81a0f8e0c8048414}\label{class_movement_enlarger_a1570d3e0ed67d4ec81a0f8e0c8048414}} 
+\index{MovementEnlarger@{MovementEnlarger}!ExecuteLaplaceEnlargement@{ExecuteLaplaceEnlargement}}
+\index{ExecuteLaplaceEnlargement@{ExecuteLaplaceEnlargement}!MovementEnlarger@{MovementEnlarger}}
+\doxysubsubsection{\texorpdfstring{ExecuteLaplaceEnlargement()}{ExecuteLaplaceEnlargement()}}
+{\footnotesize\ttfamily void Movement\+Enlarger\+::\+Execute\+Laplace\+Enlargement (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Выполняет визуальное увеличение движения 
+
+
+
+См. определение в файле \mbox{\hyperlink{movement__enlargement_8cpp_source}{movement\+\_\+enlargement.\+cpp}} строка \mbox{\hyperlink{movement__enlargement_8cpp_source_l00017}{17}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00018 \{}
+\DoxyCodeLine{00019     \mbox{\hyperlink{class_frame_handler}{FrameHandler}} frame\_handler(\mbox{\hyperlink{class_movement_enlarger_a8b437b3c630f9211554b784d23fc03be}{input\_file\_name\_}}, \mbox{\hyperlink{class_movement_enlarger_ac3a08d541d2bdd0fc5edae08b3efc9d6}{output\_file\_name\_}}, \mbox{\hyperlink{class_movement_enlarger_a2ddb490175f6d262dc5c99ff67aa624b}{win\_name\_}});}
+\DoxyCodeLine{00020     \textcolor{keywordtype}{int} current\_num\_of\_frame = 0;}
+\DoxyCodeLine{00021     \textcolor{keywordtype}{int} amount\_of\_frames = frame\_handler.GetAmountOfFrames();}
+\DoxyCodeLine{00022 }
+\DoxyCodeLine{00023     std::vector<Mat> input\_pyramid;}
+\DoxyCodeLine{00024     std::vector<Mat> motion\_pyramid;}
+\DoxyCodeLine{00025     \textcolor{keywordflow}{while} (current\_num\_of\_frame < amount\_of\_frames)}
+\DoxyCodeLine{00026     \{}
+\DoxyCodeLine{00027         frame\_handler.ReadNextFrame();}
+\DoxyCodeLine{00028         \textcolor{comment}{// обновляем номер кадра после чтения}}
+\DoxyCodeLine{00029         current\_num\_of\_frame = frame\_handler.GetCurrentPosOfFrame();}
+\DoxyCodeLine{00030         \mbox{\hyperlink{class_movement_enlarger_ac2325761fbbb8d6ce75085c747f1659e}{frame\_to\_be\_enlarged\_}} = frame\_handler.GetCurrentFrame();}
+\DoxyCodeLine{00031 }
+\DoxyCodeLine{00032         \textcolor{comment}{// Конвертим цвет}}
+\DoxyCodeLine{00033         \mbox{\hyperlink{class_movement_enlarger_ac2325761fbbb8d6ce75085c747f1659e}{frame\_to\_be\_enlarged\_}}.convertTo(\mbox{\hyperlink{class_movement_enlarger_ac2325761fbbb8d6ce75085c747f1659e}{frame\_to\_be\_enlarged\_}}, CV\_32FC3, 1.0 / 255.0f);}
+\DoxyCodeLine{00034         cvtColor(\mbox{\hyperlink{class_movement_enlarger_ac2325761fbbb8d6ce75085c747f1659e}{frame\_to\_be\_enlarged\_}}, \mbox{\hyperlink{class_movement_enlarger_ac2325761fbbb8d6ce75085c747f1659e}{frame\_to\_be\_enlarged\_}}, cv::COLOR\_BGR2Lab);}
+\DoxyCodeLine{00035 }
+\DoxyCodeLine{00036         \textcolor{comment}{// Строим пирамиду}}
+\DoxyCodeLine{00037         \mbox{\hyperlink{class_euler_enlarger_a9937057b5b3fae05bfdc67e66147b20f}{BuildLaplacePyramid}}(\mbox{\hyperlink{class_movement_enlarger_ac2325761fbbb8d6ce75085c747f1659e}{frame\_to\_be\_enlarged\_}}, input\_pyramid, \mbox{\hyperlink{class_euler_enlarger_a35076bfb98ab8e0ad28bba64f861b77a}{levels\_amount\_}});}
+\DoxyCodeLine{00038 }
+\DoxyCodeLine{00039         \textcolor{comment}{// Если кадр первый -\/ "{}инициализируем"{} его "{}нетронутой"{} пирамидой (до фильтрации)}}
+\DoxyCodeLine{00040         \textcolor{keywordflow}{if} (current\_num\_of\_frame == 1)}
+\DoxyCodeLine{00041         \{}
+\DoxyCodeLine{00042             low\_pass\_high\_pyramid\_ = input\_pyramid;}
+\DoxyCodeLine{00043             low\_pass\_low\_pyramid\_ = input\_pyramid;}
+\DoxyCodeLine{00044             motion\_pyramid = input\_pyramid;}
+\DoxyCodeLine{00045         \}}
+\DoxyCodeLine{00046         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00047         \{}
+\DoxyCodeLine{00048             \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} current\_level = 0; current\_level < \mbox{\hyperlink{class_euler_enlarger_a35076bfb98ab8e0ad28bba64f861b77a}{levels\_amount\_}}; ++current\_level)}
+\DoxyCodeLine{00049             \{}
+\DoxyCodeLine{00050                 \mbox{\hyperlink{class_euler_enlarger_a1c982a889d750215233354eba98bc391}{IirFilter}}(input\_pyramid[current\_level], motion\_pyramid[current\_level], low\_pass\_high\_pyramid\_[current\_level], low\_pass\_low\_pyramid\_[current\_level], cutoff\_low\_, cutoff\_high\_);}
+\DoxyCodeLine{00051             \}}
+\DoxyCodeLine{00052 }
+\DoxyCodeLine{00053             \textcolor{keywordtype}{int} width = frame\_handler.GetFrameWidth();}
+\DoxyCodeLine{00054             \textcolor{keywordtype}{int} height = frame\_handler.GetFrameHeight();}
+\DoxyCodeLine{00055 }
+\DoxyCodeLine{00056             \mbox{\hyperlink{class_euler_enlarger_a5ba64d98bf7304db30a7dddfc0009b2b}{delta\_}} = lambda\_cutoff\_ / (8.0 * (1.0 + alpha\_));}
+\DoxyCodeLine{00057 }
+\DoxyCodeLine{00058             \textcolor{comment}{// Посчитаем показательную длину волны lambda\_ для}}
+\DoxyCodeLine{00059             \textcolor{comment}{// самых низких частот пространств пирамиды Лапласиан}}
+\DoxyCodeLine{00060             \mbox{\hyperlink{class_euler_enlarger_a1af2a486a304fd753049f1647ea790e4}{lambda\_}} = sqrt((width * width + height * height)) / 3.0;}
+\DoxyCodeLine{00061 }
+\DoxyCodeLine{00062             \textcolor{comment}{// Увеличиваем движение на каждом уровне пирамиды}}
+\DoxyCodeLine{00063             \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} current\_level = \mbox{\hyperlink{class_euler_enlarger_a35076bfb98ab8e0ad28bba64f861b77a}{levels\_amount\_}}; current\_level >= 0; -\/-\/current\_level)}
+\DoxyCodeLine{00064             \{}
+\DoxyCodeLine{00065                 \mbox{\hyperlink{class_euler_enlarger_a4d191318cbe997cd7ac5dd027b508921}{LaplaceEnlarge}}(motion\_pyramid[current\_level], current\_level);}
+\DoxyCodeLine{00066                 \mbox{\hyperlink{class_euler_enlarger_a1af2a486a304fd753049f1647ea790e4}{lambda\_}} /= 2.0;}
+\DoxyCodeLine{00067                 std::cout << \textcolor{stringliteral}{"{}current lambda\_ is "{}} << \mbox{\hyperlink{class_euler_enlarger_a1af2a486a304fd753049f1647ea790e4}{lambda\_}} << \textcolor{stringliteral}{"{} on level "{}} << current\_level << std::endl;}
+\DoxyCodeLine{00068             \}}
+\DoxyCodeLine{00069         \}}
+\DoxyCodeLine{00070 }
+\DoxyCodeLine{00071         \textcolor{comment}{// Теперь соберем изображения обратно из пирамиды}}
+\DoxyCodeLine{00072         \mbox{\hyperlink{class_euler_enlarger_a253b74eea3ae020c1c549e7e0c47fd60}{BuildFromLaplacePyramid}}(motion\_pyramid, \mbox{\hyperlink{class_movement_enlarger_a8d8e17457694677c721ef3b47fbc0809}{frame\_with\_motion\_info\_}}, \mbox{\hyperlink{class_euler_enlarger_a35076bfb98ab8e0ad28bba64f861b77a}{levels\_amount\_}});}
+\DoxyCodeLine{00073 }
+\DoxyCodeLine{00074         \textcolor{comment}{// Приглушаем побежавшие цвета}}
+\DoxyCodeLine{00075         \textcolor{comment}{//Attenuate(frame\_with\_motion\_info\_);}}
+\DoxyCodeLine{00076 }
+\DoxyCodeLine{00077         \textcolor{comment}{// Добавляем движение на изначальное изображение, исключая первый кадр}}
+\DoxyCodeLine{00078         \textcolor{keywordflow}{if} (current\_num\_of\_frame > 1)}
+\DoxyCodeLine{00079             \mbox{\hyperlink{class_movement_enlarger_ad7b1d50fd0db8bdfb0de243fd1a0ccbf}{frame\_enlarged\_}} = \mbox{\hyperlink{class_movement_enlarger_ac2325761fbbb8d6ce75085c747f1659e}{frame\_to\_be\_enlarged\_}} + \mbox{\hyperlink{class_movement_enlarger_a8d8e17457694677c721ef3b47fbc0809}{frame\_with\_motion\_info\_}};}
+\DoxyCodeLine{00080         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00081             \mbox{\hyperlink{class_movement_enlarger_ad7b1d50fd0db8bdfb0de243fd1a0ccbf}{frame\_enlarged\_}} = \mbox{\hyperlink{class_movement_enlarger_ac2325761fbbb8d6ce75085c747f1659e}{frame\_to\_be\_enlarged\_}}.clone();}
+\DoxyCodeLine{00082 }
+\DoxyCodeLine{00083         \textcolor{comment}{// Конвертим обратно}}
+\DoxyCodeLine{00084         cvtColor(\mbox{\hyperlink{class_movement_enlarger_ad7b1d50fd0db8bdfb0de243fd1a0ccbf}{frame\_enlarged\_}}, \mbox{\hyperlink{class_movement_enlarger_ad7b1d50fd0db8bdfb0de243fd1a0ccbf}{frame\_enlarged\_}}, cv::COLOR\_Lab2BGR);}
+\DoxyCodeLine{00085         \mbox{\hyperlink{class_movement_enlarger_ad7b1d50fd0db8bdfb0de243fd1a0ccbf}{frame\_enlarged\_}}.convertTo(\mbox{\hyperlink{class_movement_enlarger_ad7b1d50fd0db8bdfb0de243fd1a0ccbf}{frame\_enlarged\_}}, CV\_8UC3, 255.0, 1.0 / 255.0);}
+\DoxyCodeLine{00086 }
+\DoxyCodeLine{00087         \textcolor{comment}{// DEBUG}}
+\DoxyCodeLine{00088         std::cout << \textcolor{stringliteral}{"{}frame "{}} << current\_num\_of\_frame << \textcolor{stringliteral}{"{} is processed. The are also "{}} << amount\_of\_frames -\/ current\_num\_of\_frame << \textcolor{stringliteral}{"{} frames left. "{}} << std::endl;}
+\DoxyCodeLine{00089 }
+\DoxyCodeLine{00090         frame\_handler.ShowFrame(\mbox{\hyperlink{class_movement_enlarger_ad7b1d50fd0db8bdfb0de243fd1a0ccbf}{frame\_enlarged\_}}, \textcolor{keyword}{false});}
+\DoxyCodeLine{00091         frame\_handler.WriteFrame(\mbox{\hyperlink{class_movement_enlarger_ad7b1d50fd0db8bdfb0de243fd1a0ccbf}{frame\_enlarged\_}});}
+\DoxyCodeLine{00092 }
+\DoxyCodeLine{00093         \textcolor{keywordtype}{int} code = waitKey(20);}
+\DoxyCodeLine{00094         \textcolor{keywordflow}{switch} (code)}
+\DoxyCodeLine{00095         \{}
+\DoxyCodeLine{00096         \textcolor{comment}{// пауза (пробел)}}
+\DoxyCodeLine{00097         \textcolor{keywordflow}{case} 32:}
+\DoxyCodeLine{00098         \{}
+\DoxyCodeLine{00099             waitKey(0);}
+\DoxyCodeLine{00100             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00101         \}}
+\DoxyCodeLine{00102         \textcolor{keywordflow}{case} \textcolor{charliteral}{'q'}:}
+\DoxyCodeLine{00103         \{}
+\DoxyCodeLine{00104             current\_num\_of\_frame = amount\_of\_frames;}
+\DoxyCodeLine{00105             std::cout << frame\_handler.GetInputCapStatus() << std::endl;}
+\DoxyCodeLine{00106             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00107         \}}
+\DoxyCodeLine{00108         \}}
+\DoxyCodeLine{00109     \}}
+\DoxyCodeLine{00110 }
+\DoxyCodeLine{00111 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Данные класса}
+\mbox{\Hypertarget{class_movement_enlarger_ad7b1d50fd0db8bdfb0de243fd1a0ccbf}\label{class_movement_enlarger_ad7b1d50fd0db8bdfb0de243fd1a0ccbf}} 
+\index{MovementEnlarger@{MovementEnlarger}!frame\_enlarged\_@{frame\_enlarged\_}}
+\index{frame\_enlarged\_@{frame\_enlarged\_}!MovementEnlarger@{MovementEnlarger}}
+\doxysubsubsection{\texorpdfstring{frame\_enlarged\_}{frame\_enlarged\_}}
+{\footnotesize\ttfamily Mat Movement\+Enlarger\+::frame\+\_\+enlarged\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Изображение (кадр), движение на котором было увеличено 
+
+
+
+См. определение в файле \mbox{\hyperlink{movement__enlargement_8h_source}{movement\+\_\+enlargement.\+h}} строка \mbox{\hyperlink{movement__enlargement_8h_source_l00055}{55}}
+
+\mbox{\Hypertarget{class_movement_enlarger_ac2325761fbbb8d6ce75085c747f1659e}\label{class_movement_enlarger_ac2325761fbbb8d6ce75085c747f1659e}} 
+\index{MovementEnlarger@{MovementEnlarger}!frame\_to\_be\_enlarged\_@{frame\_to\_be\_enlarged\_}}
+\index{frame\_to\_be\_enlarged\_@{frame\_to\_be\_enlarged\_}!MovementEnlarger@{MovementEnlarger}}
+\doxysubsubsection{\texorpdfstring{frame\_to\_be\_enlarged\_}{frame\_to\_be\_enlarged\_}}
+{\footnotesize\ttfamily Mat Movement\+Enlarger\+::frame\+\_\+to\+\_\+be\+\_\+enlarged\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Изображение (кадр), движение на котором будет увеличено 
+
+
+
+См. определение в файле \mbox{\hyperlink{movement__enlargement_8h_source}{movement\+\_\+enlargement.\+h}} строка \mbox{\hyperlink{movement__enlargement_8h_source_l00051}{51}}
+
+\mbox{\Hypertarget{class_movement_enlarger_a8d8e17457694677c721ef3b47fbc0809}\label{class_movement_enlarger_a8d8e17457694677c721ef3b47fbc0809}} 
+\index{MovementEnlarger@{MovementEnlarger}!frame\_with\_motion\_info\_@{frame\_with\_motion\_info\_}}
+\index{frame\_with\_motion\_info\_@{frame\_with\_motion\_info\_}!MovementEnlarger@{MovementEnlarger}}
+\doxysubsubsection{\texorpdfstring{frame\_with\_motion\_info\_}{frame\_with\_motion\_info\_}}
+{\footnotesize\ttfamily Mat Movement\+Enlarger\+::frame\+\_\+with\+\_\+motion\+\_\+info\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Mat-\/сущность, содержащая информацию об увеличенном движении 
+
+
+
+См. определение в файле \mbox{\hyperlink{movement__enlargement_8h_source}{movement\+\_\+enlargement.\+h}} строка \mbox{\hyperlink{movement__enlargement_8h_source_l00059}{59}}
+
+\mbox{\Hypertarget{class_movement_enlarger_a8b437b3c630f9211554b784d23fc03be}\label{class_movement_enlarger_a8b437b3c630f9211554b784d23fc03be}} 
+\index{MovementEnlarger@{MovementEnlarger}!input\_file\_name\_@{input\_file\_name\_}}
+\index{input\_file\_name\_@{input\_file\_name\_}!MovementEnlarger@{MovementEnlarger}}
+\doxysubsubsection{\texorpdfstring{input\_file\_name\_}{input\_file\_name\_}}
+{\footnotesize\ttfamily std\+::string Movement\+Enlarger\+::input\+\_\+file\+\_\+name\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+имя (путь) входного файла (видео) 
+
+
+
+См. определение в файле \mbox{\hyperlink{movement__enlargement_8h_source}{movement\+\_\+enlargement.\+h}} строка \mbox{\hyperlink{movement__enlargement_8h_source_l00038}{38}}
+
+\mbox{\Hypertarget{class_movement_enlarger_ac3a08d541d2bdd0fc5edae08b3efc9d6}\label{class_movement_enlarger_ac3a08d541d2bdd0fc5edae08b3efc9d6}} 
+\index{MovementEnlarger@{MovementEnlarger}!output\_file\_name\_@{output\_file\_name\_}}
+\index{output\_file\_name\_@{output\_file\_name\_}!MovementEnlarger@{MovementEnlarger}}
+\doxysubsubsection{\texorpdfstring{output\_file\_name\_}{output\_file\_name\_}}
+{\footnotesize\ttfamily std\+::string Movement\+Enlarger\+::output\+\_\+file\+\_\+name\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+имя (путь) выходного файла (видео) 
+
+
+
+См. определение в файле \mbox{\hyperlink{movement__enlargement_8h_source}{movement\+\_\+enlargement.\+h}} строка \mbox{\hyperlink{movement__enlargement_8h_source_l00042}{42}}
+
+\mbox{\Hypertarget{class_movement_enlarger_a2ddb490175f6d262dc5c99ff67aa624b}\label{class_movement_enlarger_a2ddb490175f6d262dc5c99ff67aa624b}} 
+\index{MovementEnlarger@{MovementEnlarger}!win\_name\_@{win\_name\_}}
+\index{win\_name\_@{win\_name\_}!MovementEnlarger@{MovementEnlarger}}
+\doxysubsubsection{\texorpdfstring{win\_name\_}{win\_name\_}}
+{\footnotesize\ttfamily std\+::string Movement\+Enlarger\+::win\+\_\+name\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Имя окна, в которое будет выводиться обработанный кадр 
+
+
+
+См. определение в файле \mbox{\hyperlink{movement__enlargement_8h_source}{movement\+\_\+enlargement.\+h}} строка \mbox{\hyperlink{movement__enlargement_8h_source_l00046}{46}}
+
+
+
+Объявления и описания членов классов находятся в файлах\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/seeyo/source/repos/\+Visual-\/\+Vibration-\/\+Tracking-\/\+V2/include/\+Mov\+En/movement\+\_\+enlargement.\+h\item 
+C\+:/\+Users/seeyo/source/repos/\+Visual-\/\+Vibration-\/\+Tracking-\/\+V2/source/movement\+\_\+enlargement.\+cpp\end{DoxyCompactItemize}

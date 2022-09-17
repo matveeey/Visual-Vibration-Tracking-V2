@@ -1,0 +1,61 @@
+\hypertarget{video__undistorter_8h_source}{}\doxysection{video\+\_\+undistorter.\+h}
+\label{video__undistorter_8h_source}\index{C:/Users/seeyo/source/repos/Visual-\/Vibration-\/Tracking-\/V2/include/CamCalib/video\_undistorter.h@{C:/Users/seeyo/source/repos/Visual-\/Vibration-\/Tracking-\/V2/include/CamCalib/video\_undistorter.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00001}00001 \textcolor{preprocessor}{\#ifndef VIDEO\_UNDISTORTER\_H}}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00002}00002 \textcolor{preprocessor}{\#define VIDEO\_UNDISTORTER\_H}}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00004}00004 \textcolor{comment}{// OpenCV headers}}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00005}00005 \textcolor{preprocessor}{\#include <opencv2/core.hpp>}}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00006}00006 \textcolor{preprocessor}{\#include <opencv2/imgcodecs.hpp>}}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00007}00007 \textcolor{preprocessor}{\#include <opencv2/highgui.hpp>}}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00008}00008 \textcolor{preprocessor}{\#include "{}opencv2/calib3d.hpp"{}}}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00009}00009 \textcolor{preprocessor}{\#include "{}opencv2/imgproc.hpp"{}}}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00010}00010 \textcolor{preprocessor}{\#include <opencv2/videoio/videoio.hpp>}}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00011}00011 }
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00012}00012 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00013}00013 \textcolor{preprocessor}{\#include <fstream>}}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00014}00014 \textcolor{preprocessor}{\#include <iomanip>}}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00015}00015 }
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00016}00016 \textcolor{comment}{// my headers}}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00017}00017 \textcolor{preprocessor}{\#include "{}VVT-\/V2/helper.h"{}}}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00019}00019 \textcolor{keyword}{using namespace }cv;}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00020}00020 }
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00030}\mbox{\hyperlink{class_video_undistorter}{00030}} \textcolor{keyword}{class }\mbox{\hyperlink{class_video_undistorter}{VideoUndistorter}}}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00031}00031 \{}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00032}00032 \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00040}00040     \mbox{\hyperlink{class_video_undistorter}{VideoUndistorter}}(std::string \mbox{\hyperlink{class_video_undistorter_a5d43fecaef39aa0136e13140432b8a57}{input\_file\_name\_}}, std::string output\_file\_name, std::string txt\_file\_name);}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00041}00041     \mbox{\hyperlink{class_video_undistorter}{\string~VideoUndistorter}}();}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00047}00047     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_video_undistorter_a05b19bb1af0c5fcfd147c48dd447d44d}{ExecuteVideoUndistortion}}();}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00048}00048 }
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00049}00049 \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00056}00056     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_video_undistorter_a015a3e4b982094d3ba737debd9f3590e}{AddTips}}(Mat\& frame, std::string tip);}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00062}00062     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_video_undistorter_ac82e158db201e5d3189cc2c2eaa0db46}{SaveFrame}}(Mat frame);}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00067}00067     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_video_undistorter_ad97e93cf1bb586a53494fb95909a4bc6}{LoadFoundParamsFromFile}}(std::string txt\_file\_name);}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00074}00074     std::vector<std::string> \mbox{\hyperlink{class_video_undistorter_adb5c11e438bef28a04b438ed7cf70c45}{SplitString}}(std::string line, std::string delimiter);}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00075}00075 }
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00076}00076 \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00080}\mbox{\hyperlink{class_video_undistorter_aaec69d8897221bf238ce22b9eefd0d1c}{00080}}     std::string \mbox{\hyperlink{class_video_undistorter_aaec69d8897221bf238ce22b9eefd0d1c}{winname\_}};}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00084}\mbox{\hyperlink{class_video_undistorter_a0ca2ae8209afff234c56e1cb61eb4240}{00084}}     VideoCapture* \mbox{\hyperlink{class_video_undistorter_a0ca2ae8209afff234c56e1cb61eb4240}{input\_cap\_}};}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00088}\mbox{\hyperlink{class_video_undistorter_aa51dcc2cc2726c97ed156eaa3249665f}{00088}}     VideoWriter* \mbox{\hyperlink{class_video_undistorter_aa51dcc2cc2726c97ed156eaa3249665f}{output\_cap\_}};}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00092}\mbox{\hyperlink{class_video_undistorter_a33e09df7fd3e1b728ce4a5fd7e1d5a84}{00092}}     \textcolor{keywordtype}{double} \mbox{\hyperlink{class_video_undistorter_a33e09df7fd3e1b728ce4a5fd7e1d5a84}{frame\_width\_}};}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00096}\mbox{\hyperlink{class_video_undistorter_a09eb1a83ffec08ce3c34c71c2e953b42}{00096}}     \textcolor{keywordtype}{double} \mbox{\hyperlink{class_video_undistorter_a09eb1a83ffec08ce3c34c71c2e953b42}{frame\_height\_}};}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00100}\mbox{\hyperlink{class_video_undistorter_a66a505ba920eabecbf0ddc268b96ec95}{00100}}     \textcolor{keywordtype}{double} \mbox{\hyperlink{class_video_undistorter_a66a505ba920eabecbf0ddc268b96ec95}{frame\_count\_}};}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00104}\mbox{\hyperlink{class_video_undistorter_a374b4a4060c1a77bdb736f432082c9ce}{00104}}     \textcolor{keywordtype}{double} \mbox{\hyperlink{class_video_undistorter_a374b4a4060c1a77bdb736f432082c9ce}{fps\_}};}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00108}\mbox{\hyperlink{class_video_undistorter_a5d43fecaef39aa0136e13140432b8a57}{00108}}     std::string \mbox{\hyperlink{class_video_undistorter_a5d43fecaef39aa0136e13140432b8a57}{input\_file\_name\_}};}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00112}\mbox{\hyperlink{class_video_undistorter_adb48040817f02d9e15638a06e5491777}{00112}}     std::string \mbox{\hyperlink{class_video_undistorter_adb48040817f02d9e15638a06e5491777}{output\_file\_name\_}};}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00117}\mbox{\hyperlink{class_video_undistorter_a78e9df5a43762efac01d4d37d97be8e5}{00117}}     Mat \mbox{\hyperlink{class_video_undistorter_a78e9df5a43762efac01d4d37d97be8e5}{camera\_matrix\_}};}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00121}\mbox{\hyperlink{class_video_undistorter_a9363566d895ea53cf3d7b48c5b6e1964}{00121}}     Mat \mbox{\hyperlink{class_video_undistorter_a9363566d895ea53cf3d7b48c5b6e1964}{distortion\_coefficients\_}};}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00125}\mbox{\hyperlink{class_video_undistorter_a5c8ce476d923037934eb6299a503593e}{00125}}     Mat \mbox{\hyperlink{class_video_undistorter_a5c8ce476d923037934eb6299a503593e}{current\_frame\_}};}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00129}\mbox{\hyperlink{class_video_undistorter_aea3bd77c199df2c27bf8162c67c54eff}{00129}}     Mat \mbox{\hyperlink{class_video_undistorter_aea3bd77c199df2c27bf8162c67c54eff}{undistorted\_frame\_}};}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00134}\mbox{\hyperlink{class_video_undistorter_aa11423c2edf80da39457470b604e995a}{00134}}     \textcolor{keywordtype}{double} \mbox{\hyperlink{class_video_undistorter_aa11423c2edf80da39457470b604e995a}{fx\_}};}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00139}\mbox{\hyperlink{class_video_undistorter_a07c962e8a5b9737cab7c7ceef4f99aff}{00139}}     \textcolor{keywordtype}{double} \mbox{\hyperlink{class_video_undistorter_a07c962e8a5b9737cab7c7ceef4f99aff}{fy\_}};}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00144}\mbox{\hyperlink{class_video_undistorter_a11c3a67cc5f2dc470a5354ffcbbd7816}{00144}}     \textcolor{keywordtype}{double} \mbox{\hyperlink{class_video_undistorter_a11c3a67cc5f2dc470a5354ffcbbd7816}{px\_}};}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00149}\mbox{\hyperlink{class_video_undistorter_a9e6d7352f492baaa97a51f161a016056}{00149}}     \textcolor{keywordtype}{double} \mbox{\hyperlink{class_video_undistorter_a9e6d7352f492baaa97a51f161a016056}{py\_}};}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00154}\mbox{\hyperlink{class_video_undistorter_af84edc3f788032cdb9895f05ab4a984b}{00154}}     std::string \mbox{\hyperlink{class_video_undistorter_af84edc3f788032cdb9895f05ab4a984b}{txt\_file\_name\_}};}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00155}00155 \};}
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00156}00156 }
+\DoxyCodeLine{\Hypertarget{video__undistorter_8h_source_l00157}00157 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

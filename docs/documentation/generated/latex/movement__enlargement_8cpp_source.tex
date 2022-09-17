@@ -1,0 +1,117 @@
+\hypertarget{movement__enlargement_8cpp_source}{}\doxysection{movement\+\_\+enlargement.\+cpp}
+\label{movement__enlargement_8cpp_source}\index{C:/Users/seeyo/source/repos/Visual-\/Vibration-\/Tracking-\/V2/source/movement\_enlargement.cpp@{C:/Users/seeyo/source/repos/Visual-\/Vibration-\/Tracking-\/V2/source/movement\_enlargement.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}MovEn/movement\_enlargement.h"{}}}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00003}\mbox{\hyperlink{class_movement_enlarger_afe702d1bc5c1d7778c3c8eef0138e11c}{00003}} \mbox{\hyperlink{class_movement_enlarger_afe702d1bc5c1d7778c3c8eef0138e11c}{MovementEnlarger::MovementEnlarger}}(std::string input\_file\_name, std::string output\_file\_name) :}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00004}00004     input\_file\_name\_\{ input\_file\_name \},}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00005}00005     output\_file\_name\_\{ output\_file\_name \},}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00006}00006     win\_name\_\{ \textcolor{stringliteral}{"{}Movement Enlarger"{}} \}}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00007}00007     }
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00008}00008 \{}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00009}00009     std::cout << \textcolor{stringliteral}{"{}Movement Enlarger constructor"{}} << std::endl;}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00010}00010 \}}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00011}00011 }
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00012}00012 MovementEnlarger::\string~MovementEnlarger()}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00013}00013 \{}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00014}00014     std::cout << \textcolor{stringliteral}{"{}Movement Enlarger destructor"{}} << std::endl;}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00015}00015 \}}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00016}00016 }
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00017}\mbox{\hyperlink{class_movement_enlarger_a1570d3e0ed67d4ec81a0f8e0c8048414}{00017}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_movement_enlarger_a1570d3e0ed67d4ec81a0f8e0c8048414}{MovementEnlarger::ExecuteLaplaceEnlargement}}()}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00018}00018 \{}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00019}00019     \mbox{\hyperlink{class_frame_handler}{FrameHandler}} frame\_handler(\mbox{\hyperlink{class_movement_enlarger_a8b437b3c630f9211554b784d23fc03be}{input\_file\_name\_}}, \mbox{\hyperlink{class_movement_enlarger_ac3a08d541d2bdd0fc5edae08b3efc9d6}{output\_file\_name\_}}, \mbox{\hyperlink{class_movement_enlarger_a2ddb490175f6d262dc5c99ff67aa624b}{win\_name\_}});}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00020}00020     \textcolor{keywordtype}{int} current\_num\_of\_frame = 0;}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00021}00021     \textcolor{keywordtype}{int} amount\_of\_frames = frame\_handler.\mbox{\hyperlink{class_frame_handler_a0a926273fbb3a3901c9a5a75e3380e16}{GetAmountOfFrames}}();}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00022}00022 }
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00023}00023     std::vector<Mat> input\_pyramid;}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00024}00024     std::vector<Mat> motion\_pyramid;}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00025}00025     \textcolor{keywordflow}{while} (current\_num\_of\_frame < amount\_of\_frames)}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00026}00026     \{}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00027}00027         frame\_handler.\mbox{\hyperlink{class_frame_handler_a3837bca5a13d8e1e4969edf0d831baf3}{ReadNextFrame}}();}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00028}00028         \textcolor{comment}{// обновляем номер кадра после чтения}}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00029}00029         current\_num\_of\_frame = frame\_handler.\mbox{\hyperlink{class_frame_handler_a79ab90b6a2ce7ea8fef695a11bef514c}{GetCurrentPosOfFrame}}();}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00030}00030         \mbox{\hyperlink{class_movement_enlarger_ac2325761fbbb8d6ce75085c747f1659e}{frame\_to\_be\_enlarged\_}} = frame\_handler.\mbox{\hyperlink{class_frame_handler_a26b5695df6161f00af36210e4d3d78ad}{GetCurrentFrame}}();}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00031}00031 }
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00032}00032         \textcolor{comment}{// Конвертим цвет}}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00033}00033         \mbox{\hyperlink{class_movement_enlarger_ac2325761fbbb8d6ce75085c747f1659e}{frame\_to\_be\_enlarged\_}}.convertTo(\mbox{\hyperlink{class_movement_enlarger_ac2325761fbbb8d6ce75085c747f1659e}{frame\_to\_be\_enlarged\_}}, CV\_32FC3, 1.0 / 255.0f);}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00034}00034         cvtColor(\mbox{\hyperlink{class_movement_enlarger_ac2325761fbbb8d6ce75085c747f1659e}{frame\_to\_be\_enlarged\_}}, \mbox{\hyperlink{class_movement_enlarger_ac2325761fbbb8d6ce75085c747f1659e}{frame\_to\_be\_enlarged\_}}, cv::COLOR\_BGR2Lab);}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00035}00035 }
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00036}00036         \textcolor{comment}{// Строим пирамиду}}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00037}00037         \mbox{\hyperlink{class_euler_enlarger_a9937057b5b3fae05bfdc67e66147b20f}{BuildLaplacePyramid}}(\mbox{\hyperlink{class_movement_enlarger_ac2325761fbbb8d6ce75085c747f1659e}{frame\_to\_be\_enlarged\_}}, input\_pyramid, \mbox{\hyperlink{class_euler_enlarger_a35076bfb98ab8e0ad28bba64f861b77a}{levels\_amount\_}});}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00038}00038 }
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00039}00039         \textcolor{comment}{// Если кадр первый -\/ "{}инициализируем"{} его "{}нетронутой"{} пирамидой (до фильтрации)}}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00040}00040         \textcolor{keywordflow}{if} (current\_num\_of\_frame == 1)}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00041}00041         \{}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00042}00042             low\_pass\_high\_pyramid\_ = input\_pyramid;}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00043}00043             low\_pass\_low\_pyramid\_ = input\_pyramid;}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00044}00044             motion\_pyramid = input\_pyramid;}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00045}00045         \}}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00046}00046         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00047}00047         \{}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00048}00048             \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} current\_level = 0; current\_level < \mbox{\hyperlink{class_euler_enlarger_a35076bfb98ab8e0ad28bba64f861b77a}{levels\_amount\_}}; ++current\_level)}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00049}00049             \{}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00050}00050                 \mbox{\hyperlink{class_euler_enlarger_a1c982a889d750215233354eba98bc391}{IirFilter}}(input\_pyramid[current\_level], motion\_pyramid[current\_level], low\_pass\_high\_pyramid\_[current\_level], low\_pass\_low\_pyramid\_[current\_level], cutoff\_low\_, cutoff\_high\_);}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00051}00051             \}}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00052}00052 }
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00053}00053             \textcolor{keywordtype}{int} width = frame\_handler.\mbox{\hyperlink{class_frame_handler_a128638bf1c2d42a6ef84bdd67d6bf442}{GetFrameWidth}}();}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00054}00054             \textcolor{keywordtype}{int} height = frame\_handler.\mbox{\hyperlink{class_frame_handler_abd588ce2d914edf1d719f86cca3912c5}{GetFrameHeight}}();}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00055}00055 }
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00056}00056             \mbox{\hyperlink{class_euler_enlarger_a5ba64d98bf7304db30a7dddfc0009b2b}{delta\_}} = lambda\_cutoff\_ / (8.0 * (1.0 + alpha\_));}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00057}00057 }
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00058}00058             \textcolor{comment}{// Посчитаем показательную длину волны lambda\_ для}}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00059}00059             \textcolor{comment}{// самых низких частот пространств пирамиды Лапласиан}}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00060}00060             \mbox{\hyperlink{class_euler_enlarger_a1af2a486a304fd753049f1647ea790e4}{lambda\_}} = sqrt((width * width + height * height)) / 3.0;}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00061}00061 }
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00062}00062             \textcolor{comment}{// Увеличиваем движение на каждом уровне пирамиды}}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00063}00063             \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} current\_level = \mbox{\hyperlink{class_euler_enlarger_a35076bfb98ab8e0ad28bba64f861b77a}{levels\_amount\_}}; current\_level >= 0; -\/-\/current\_level)}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00064}00064             \{}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00065}00065                 \mbox{\hyperlink{class_euler_enlarger_a4d191318cbe997cd7ac5dd027b508921}{LaplaceEnlarge}}(motion\_pyramid[current\_level], current\_level);}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00066}00066                 \mbox{\hyperlink{class_euler_enlarger_a1af2a486a304fd753049f1647ea790e4}{lambda\_}} /= 2.0;}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00067}00067                 std::cout << \textcolor{stringliteral}{"{}current lambda\_ is "{}} << \mbox{\hyperlink{class_euler_enlarger_a1af2a486a304fd753049f1647ea790e4}{lambda\_}} << \textcolor{stringliteral}{"{} on level "{}} << current\_level << std::endl;}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00068}00068             \}}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00069}00069         \}}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00070}00070 }
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00071}00071         \textcolor{comment}{// Теперь соберем изображения обратно из пирамиды}}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00072}00072         \mbox{\hyperlink{class_euler_enlarger_a253b74eea3ae020c1c549e7e0c47fd60}{BuildFromLaplacePyramid}}(motion\_pyramid, \mbox{\hyperlink{class_movement_enlarger_a8d8e17457694677c721ef3b47fbc0809}{frame\_with\_motion\_info\_}}, \mbox{\hyperlink{class_euler_enlarger_a35076bfb98ab8e0ad28bba64f861b77a}{levels\_amount\_}});}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00073}00073 }
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00074}00074         \textcolor{comment}{// Приглушаем побежавшие цвета}}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00075}00075         \textcolor{comment}{//Attenuate(frame\_with\_motion\_info\_);}}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00076}00076 }
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00077}00077         \textcolor{comment}{// Добавляем движение на изначальное изображение, исключая первый кадр}}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00078}00078         \textcolor{keywordflow}{if} (current\_num\_of\_frame > 1)}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00079}00079             \mbox{\hyperlink{class_movement_enlarger_ad7b1d50fd0db8bdfb0de243fd1a0ccbf}{frame\_enlarged\_}} = \mbox{\hyperlink{class_movement_enlarger_ac2325761fbbb8d6ce75085c747f1659e}{frame\_to\_be\_enlarged\_}} + \mbox{\hyperlink{class_movement_enlarger_a8d8e17457694677c721ef3b47fbc0809}{frame\_with\_motion\_info\_}};}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00080}00080         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00081}00081             \mbox{\hyperlink{class_movement_enlarger_ad7b1d50fd0db8bdfb0de243fd1a0ccbf}{frame\_enlarged\_}} = \mbox{\hyperlink{class_movement_enlarger_ac2325761fbbb8d6ce75085c747f1659e}{frame\_to\_be\_enlarged\_}}.clone();}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00082}00082 }
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00083}00083         \textcolor{comment}{// Конвертим обратно}}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00084}00084         cvtColor(\mbox{\hyperlink{class_movement_enlarger_ad7b1d50fd0db8bdfb0de243fd1a0ccbf}{frame\_enlarged\_}}, \mbox{\hyperlink{class_movement_enlarger_ad7b1d50fd0db8bdfb0de243fd1a0ccbf}{frame\_enlarged\_}}, cv::COLOR\_Lab2BGR);}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00085}00085         \mbox{\hyperlink{class_movement_enlarger_ad7b1d50fd0db8bdfb0de243fd1a0ccbf}{frame\_enlarged\_}}.convertTo(\mbox{\hyperlink{class_movement_enlarger_ad7b1d50fd0db8bdfb0de243fd1a0ccbf}{frame\_enlarged\_}}, CV\_8UC3, 255.0, 1.0 / 255.0);}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00086}00086 }
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00087}00087         \textcolor{comment}{// DEBUG}}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00088}00088         std::cout << \textcolor{stringliteral}{"{}frame "{}} << current\_num\_of\_frame << \textcolor{stringliteral}{"{} is processed. The are also "{}} << amount\_of\_frames -\/ current\_num\_of\_frame << \textcolor{stringliteral}{"{} frames left. "{}} << std::endl;}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00089}00089 }
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00090}00090         frame\_handler.\mbox{\hyperlink{class_frame_handler_a194e20bc41e1d8bb849dc6666f182202}{ShowFrame}}(\mbox{\hyperlink{class_movement_enlarger_ad7b1d50fd0db8bdfb0de243fd1a0ccbf}{frame\_enlarged\_}}, \textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00091}00091         frame\_handler.\mbox{\hyperlink{class_frame_handler_a43fe77a59e8e5d99f7bb0ad3499591ef}{WriteFrame}}(\mbox{\hyperlink{class_movement_enlarger_ad7b1d50fd0db8bdfb0de243fd1a0ccbf}{frame\_enlarged\_}});}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00092}00092 }
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00093}00093         \textcolor{keywordtype}{int} code = waitKey(20);}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00094}00094         \textcolor{keywordflow}{switch} (code)}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00095}00095         \{}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00096}00096         \textcolor{comment}{// пауза (пробел)}}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00097}00097         \textcolor{keywordflow}{case} 32:}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00098}00098         \{}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00099}00099             waitKey(0);}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00100}00100             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00101}00101         \}}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00102}00102         \textcolor{keywordflow}{case} \textcolor{charliteral}{'q'}:}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00103}00103         \{}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00104}00104             current\_num\_of\_frame = amount\_of\_frames;}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00105}00105             std::cout << frame\_handler.\mbox{\hyperlink{class_frame_handler_a18519accbae4e5e7a043e81bd6a9d2c6}{GetInputCapStatus}}() << std::endl;}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00106}00106             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00107}00107         \}}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00108}00108         \}}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00109}00109     \}}
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00110}00110 }
+\DoxyCodeLine{\Hypertarget{movement__enlargement_8cpp_source_l00111}00111 \}}
+
+\end{DoxyCode}

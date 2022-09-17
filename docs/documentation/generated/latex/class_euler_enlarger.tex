@@ -1,0 +1,410 @@
+\hypertarget{class_euler_enlarger}{}\doxysection{Класс Euler\+Enlarger}
+\label{class_euler_enlarger}\index{EulerEnlarger@{EulerEnlarger}}
+
+
+Класс для визуального увеличения вибрации на видео  
+
+
+
+
+{\ttfamily \#include $<$eulerian\+\_\+enlargement.\+h$>$}
+
+
+
+Граф наследования\+:Euler\+Enlarger\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=177pt]{class_euler_enlarger__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Защищенные члены}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_euler_enlarger_a4d191318cbe997cd7ac5dd027b508921}{Laplace\+Enlarge}} (Mat \&motion\+\_\+pyramid\+\_\+level, int current\+\_\+level)
+\begin{DoxyCompactList}\small\item\em Осуществляет увеличение движения на конкретном уровне пирамиды \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_euler_enlarger_a6c4a9b97963d309d990bde769f4dc582}{Attenuate}} (Mat \&motion\+\_\+frame)
+\begin{DoxyCompactList}\small\item\em \char`\"{}Приглушает\char`\"{} усиленные цвета на кадре \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_euler_enlarger_a9937057b5b3fae05bfdc67e66147b20f}{Build\+Laplace\+Pyramid}} (const Mat \&input\+\_\+frame, std\+::vector$<$ Mat $>$ \&input\+\_\+pyramid, const int levels)
+\begin{DoxyCompactList}\small\item\em Создает пирамиду изображений \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_euler_enlarger_a1c982a889d750215233354eba98bc391}{Iir\+Filter}} (Mat \&input\+\_\+pyramid\+\_\+level, Mat \&motion\+\_\+pyramid\+\_\+level, Mat \&low\+\_\+pass\+\_\+high\+\_\+level, Mat \&low\+\_\+pass\+\_\+low\+\_\+level, double cutoff\+\_\+low, double cutoff\+\_\+high)
+\begin{DoxyCompactList}\small\item\em Фильтр для отсекания низких и высоких \char`\"{}пространственных\char`\"{} частот (\char`\"{}фильтр с бесконечной импульсной характеристикой\char`\"{} -\/ infinite impulse response) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_euler_enlarger_a253b74eea3ae020c1c549e7e0c47fd60}{Build\+From\+Laplace\+Pyramid}} (std\+::vector$<$ Mat $>$ \&motion\+\_\+pyramid, Mat \&motion\+\_\+frame, int levels)
+\begin{DoxyCompactList}\small\item\em Извлекаем выходное изображение из пирамиды Лапласа \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Защищенные данные}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ Mat $>$ \mbox{\hyperlink{class_euler_enlarger_ade09863b5c4931f14e424e86168c60e0}{low\+\_\+pass\+\_\+high\+\_\+pyramid\+\_\+}}
+\item 
+std\+::vector$<$ Mat $>$ \mbox{\hyperlink{class_euler_enlarger_ae47c0a2c915288fbd02c6671861860f1}{low\+\_\+pass\+\_\+low\+\_\+pyramid\+\_\+}}
+\item 
+double \mbox{\hyperlink{class_euler_enlarger_a8fa8710057b79f42c2d1430693d65179}{cutoff\+\_\+low\+\_\+}}
+\item 
+double \mbox{\hyperlink{class_euler_enlarger_ab7775d588967f3fa4d9778d4ad9f4c2f}{cutoff\+\_\+high\+\_\+}}
+\item 
+int \mbox{\hyperlink{class_euler_enlarger_a35076bfb98ab8e0ad28bba64f861b77a}{levels\+\_\+amount\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Количество уровней (слоев) пирамиды \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_euler_enlarger_a2cb21e07ef755dd1e96e12df21077e90}{exaggeraiton\+\_\+coefficient\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Коэффициент увеличения. Чем выше -\/ тем больше шума, тем сильнее увеличиваются небольшие движения. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_euler_enlarger_a1af2a486a304fd753049f1647ea790e4}{lambda\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Показательная длина волны \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_euler_enlarger_aaa7ed3c1fa47e4420039f9c6cc7fe590}{lambda\+\_\+cutoff\+\_\+}}
+\item 
+double \mbox{\hyperlink{class_euler_enlarger_ab6176560a34867b75a7bc019cc550346}{color\+\_\+attenuation\+\_\+coefficient\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Коэффициент приглушеняи цвета \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_euler_enlarger_a5ba64d98bf7304db30a7dddfc0009b2b}{delta\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Коэффициент, использующийся при увеличении \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_euler_enlarger_a172eb1596931729b32b1fe7a68e0dcf3}{alpha\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Класс для визуального увеличения вибрации на видео 
+
+См. определение в файле \mbox{\hyperlink{eulerian__enlargement_8h_source}{eulerian\+\_\+enlargement.\+h}} строка \mbox{\hyperlink{eulerian__enlargement_8h_source_l00012}{12}}
+
+
+
+\doxysubsection{Конструктор(ы)}
+\mbox{\Hypertarget{class_euler_enlarger_a2ef838014ac66b081283506f3c2ebf95}\label{class_euler_enlarger_a2ef838014ac66b081283506f3c2ebf95}} 
+\index{EulerEnlarger@{EulerEnlarger}!EulerEnlarger@{EulerEnlarger}}
+\index{EulerEnlarger@{EulerEnlarger}!EulerEnlarger@{EulerEnlarger}}
+\doxysubsubsection{\texorpdfstring{EulerEnlarger()}{EulerEnlarger()}}
+{\footnotesize\ttfamily Euler\+Enlarger\+::\+Euler\+Enlarger (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+См. определение в файле \mbox{\hyperlink{eulerian__enlargement_8cpp_source}{eulerian\+\_\+enlargement.\+cpp}} строка \mbox{\hyperlink{eulerian__enlargement_8cpp_source_l00003}{3}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00003                              :}
+\DoxyCodeLine{00004     cutoff\_low\_\{ 0.1 \},}
+\DoxyCodeLine{00005     cutoff\_high\_\{ 1.0 \},}
+\DoxyCodeLine{00006     \mbox{\hyperlink{class_euler_enlarger_a2cb21e07ef755dd1e96e12df21077e90}{exaggeraiton\_coefficient\_}}\{ 2.0 \},}
+\DoxyCodeLine{00007     \mbox{\hyperlink{class_euler_enlarger_a1af2a486a304fd753049f1647ea790e4}{lambda\_}}\{ 0.0 \}, \textcolor{comment}{// будем изменено в цикле}}
+\DoxyCodeLine{00008     lambda\_cutoff\_\{ 16.0 \},}
+\DoxyCodeLine{00009     \mbox{\hyperlink{class_euler_enlarger_ab6176560a34867b75a7bc019cc550346}{color\_attenuation\_coefficient\_}}\{ 0.0 \},}
+\DoxyCodeLine{00010     \mbox{\hyperlink{class_euler_enlarger_a5ba64d98bf7304db30a7dddfc0009b2b}{delta\_}}\{ 0.0 \},}
+\DoxyCodeLine{00011     alpha\_\{ 10.0 \},}
+\DoxyCodeLine{00012     \mbox{\hyperlink{class_euler_enlarger_a35076bfb98ab8e0ad28bba64f861b77a}{levels\_amount\_}}\{ 3 \}}
+\DoxyCodeLine{00013 \{}
+\DoxyCodeLine{00014     std::cout << \textcolor{stringliteral}{"{}Euler Enlarger constructor"{}} << std::endl;}
+\DoxyCodeLine{00015 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_euler_enlarger_a266b299dacefc94a721e18927e0d55bb}\label{class_euler_enlarger_a266b299dacefc94a721e18927e0d55bb}} 
+\index{EulerEnlarger@{EulerEnlarger}!````~EulerEnlarger@{$\sim$EulerEnlarger}}
+\index{````~EulerEnlarger@{$\sim$EulerEnlarger}!EulerEnlarger@{EulerEnlarger}}
+\doxysubsubsection{\texorpdfstring{$\sim$EulerEnlarger()}{~EulerEnlarger()}}
+{\footnotesize\ttfamily Euler\+Enlarger\+::$\sim$\+Euler\+Enlarger (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+См. определение в файле \mbox{\hyperlink{eulerian__enlargement_8cpp_source}{eulerian\+\_\+enlargement.\+cpp}} строка \mbox{\hyperlink{eulerian__enlargement_8cpp_source_l00017}{17}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00018 \{}
+\DoxyCodeLine{00019     std::cout << \textcolor{stringliteral}{"{}Euler Enlarger destructor"{}} << std::endl;}
+\DoxyCodeLine{00020 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Методы}
+\mbox{\Hypertarget{class_euler_enlarger_a6c4a9b97963d309d990bde769f4dc582}\label{class_euler_enlarger_a6c4a9b97963d309d990bde769f4dc582}} 
+\index{EulerEnlarger@{EulerEnlarger}!Attenuate@{Attenuate}}
+\index{Attenuate@{Attenuate}!EulerEnlarger@{EulerEnlarger}}
+\doxysubsubsection{\texorpdfstring{Attenuate()}{Attenuate()}}
+{\footnotesize\ttfamily void Euler\+Enlarger\+::\+Attenuate (\begin{DoxyParamCaption}\item[{Mat \&}]{motion\+\_\+frame }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+\char`\"{}Приглушает\char`\"{} усиленные цвета на кадре 
+
+
+
+См. определение в файле \mbox{\hyperlink{eulerian__enlargement_8cpp_source}{eulerian\+\_\+enlargement.\+cpp}} строка \mbox{\hyperlink{eulerian__enlargement_8cpp_source_l00038}{38}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00039 \{}
+\DoxyCodeLine{00040     \textcolor{comment}{// "{}Приглушение"{} будет происходить только для цветных кадров}}
+\DoxyCodeLine{00041     \textcolor{keywordflow}{if} (motion\_frame.channels() > 2)}
+\DoxyCodeLine{00042     \{}
+\DoxyCodeLine{00043         \textcolor{comment}{//std::vector<Mat> planes;}}
+\DoxyCodeLine{00044         Mat planes[3];}
+\DoxyCodeLine{00045         split(motion\_frame, planes);}
+\DoxyCodeLine{00046         \textcolor{comment}{// Применяем только к 2-\/му и 3-\/му каналу, тк первый отвечает за ч-\/б составляющую картинки в нашем формате}}
+\DoxyCodeLine{00047         planes[1] = planes[1] * \mbox{\hyperlink{class_euler_enlarger_ab6176560a34867b75a7bc019cc550346}{color\_attenuation\_coefficient\_}};}
+\DoxyCodeLine{00048         planes[2] = planes[2] * \mbox{\hyperlink{class_euler_enlarger_ab6176560a34867b75a7bc019cc550346}{color\_attenuation\_coefficient\_}};}
+\DoxyCodeLine{00049         merge(planes, 3, motion\_frame);}
+\DoxyCodeLine{00050     \}}
+\DoxyCodeLine{00051 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_euler_enlarger_a253b74eea3ae020c1c549e7e0c47fd60}\label{class_euler_enlarger_a253b74eea3ae020c1c549e7e0c47fd60}} 
+\index{EulerEnlarger@{EulerEnlarger}!BuildFromLaplacePyramid@{BuildFromLaplacePyramid}}
+\index{BuildFromLaplacePyramid@{BuildFromLaplacePyramid}!EulerEnlarger@{EulerEnlarger}}
+\doxysubsubsection{\texorpdfstring{BuildFromLaplacePyramid()}{BuildFromLaplacePyramid()}}
+{\footnotesize\ttfamily void Euler\+Enlarger\+::\+Build\+From\+Laplace\+Pyramid (\begin{DoxyParamCaption}\item[{std\+::vector$<$ Mat $>$ \&}]{motion\+\_\+pyramid,  }\item[{Mat \&}]{motion\+\_\+frame,  }\item[{int}]{levels }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Извлекаем выходное изображение из пирамиды Лапласа 
+
+
+
+См. определение в файле \mbox{\hyperlink{eulerian__enlargement_8cpp_source}{eulerian\+\_\+enlargement.\+cpp}} строка \mbox{\hyperlink{eulerian__enlargement_8cpp_source_l00082}{82}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00083 \{}
+\DoxyCodeLine{00084     \textcolor{comment}{// Сначала рассматриваем последний элемент вектора -\/ он же первый уровень пирамиды}}
+\DoxyCodeLine{00085     Mat current\_level = motion\_pyramid[levels];}
+\DoxyCodeLine{00086 }
+\DoxyCodeLine{00087     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} level = levels -\/ 1; level >= 0; -\/-\/level)}
+\DoxyCodeLine{00088     \{}
+\DoxyCodeLine{00089         Mat up;}
+\DoxyCodeLine{00090         pyrUp(current\_level, up, motion\_pyramid[level].size());}
+\DoxyCodeLine{00091         \textcolor{comment}{// Добавляем только что заапсемпленный уровень к "{}текущему"{} (по сути предыдущему) уровню пирамиды}}
+\DoxyCodeLine{00092         current\_level = up + motion\_pyramid[level];}
+\DoxyCodeLine{00093     \}}
+\DoxyCodeLine{00094     motion\_frame = current\_level.clone();}
+\DoxyCodeLine{00095 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_euler_enlarger_a9937057b5b3fae05bfdc67e66147b20f}\label{class_euler_enlarger_a9937057b5b3fae05bfdc67e66147b20f}} 
+\index{EulerEnlarger@{EulerEnlarger}!BuildLaplacePyramid@{BuildLaplacePyramid}}
+\index{BuildLaplacePyramid@{BuildLaplacePyramid}!EulerEnlarger@{EulerEnlarger}}
+\doxysubsubsection{\texorpdfstring{BuildLaplacePyramid()}{BuildLaplacePyramid()}}
+{\footnotesize\ttfamily void Euler\+Enlarger\+::\+Build\+Laplace\+Pyramid (\begin{DoxyParamCaption}\item[{const Mat \&}]{input\+\_\+frame,  }\item[{std\+::vector$<$ Mat $>$ \&}]{input\+\_\+pyramid,  }\item[{const int}]{levels }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Создает пирамиду изображений 
+
+
+
+См. определение в файле \mbox{\hyperlink{eulerian__enlargement_8cpp_source}{eulerian\+\_\+enlargement.\+cpp}} строка \mbox{\hyperlink{eulerian__enlargement_8cpp_source_l00053}{53}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00054 \{}
+\DoxyCodeLine{00055     input\_pyramid.clear();}
+\DoxyCodeLine{00056     std::vector<Mat> pyramid;}
+\DoxyCodeLine{00057     Mat current\_level = input\_frame.clone();}
+\DoxyCodeLine{00058 }
+\DoxyCodeLine{00059     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} level = 0; level < levels; level++)}
+\DoxyCodeLine{00060     \{}
+\DoxyCodeLine{00061         Mat down, up;}
+\DoxyCodeLine{00062         \textcolor{comment}{// Блюрим кадр и уменьшаем его размер по ширине и высоте в два раза}}
+\DoxyCodeLine{00063         pyrDown(current\_level, down);}
+\DoxyCodeLine{00064         \textcolor{comment}{// Увеличиваем изображение по ширине и высоте в два раза, затем блюрим его}}
+\DoxyCodeLine{00065         pyrUp(down, up, current\_level.size());}
+\DoxyCodeLine{00066         Mat laplace = current\_level -\/ up;}
+\DoxyCodeLine{00067         pyramid.push\_back(laplace);}
+\DoxyCodeLine{00068         current\_level = down;}
+\DoxyCodeLine{00069     \}}
+\DoxyCodeLine{00070     pyramid.push\_back(current\_level);}
+\DoxyCodeLine{00071     input\_pyramid = pyramid;}
+\DoxyCodeLine{00072 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_euler_enlarger_a1c982a889d750215233354eba98bc391}\label{class_euler_enlarger_a1c982a889d750215233354eba98bc391}} 
+\index{EulerEnlarger@{EulerEnlarger}!IirFilter@{IirFilter}}
+\index{IirFilter@{IirFilter}!EulerEnlarger@{EulerEnlarger}}
+\doxysubsubsection{\texorpdfstring{IirFilter()}{IirFilter()}}
+{\footnotesize\ttfamily void Euler\+Enlarger\+::\+Iir\+Filter (\begin{DoxyParamCaption}\item[{Mat \&}]{input\+\_\+pyramid\+\_\+level,  }\item[{Mat \&}]{motion\+\_\+pyramid\+\_\+level,  }\item[{Mat \&}]{low\+\_\+pass\+\_\+high\+\_\+level,  }\item[{Mat \&}]{low\+\_\+pass\+\_\+low\+\_\+level,  }\item[{double}]{cutoff\+\_\+low,  }\item[{double}]{cutoff\+\_\+high }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Фильтр для отсекания низких и высоких \char`\"{}пространственных\char`\"{} частот (\char`\"{}фильтр с бесконечной импульсной характеристикой\char`\"{} -\/ infinite impulse response) 
+
+Чем больше cutoff (пороговое значение), тем быстрее исчезает \char`\"{}низкочастотные\char`\"{} области изображения из \char`\"{}низкочастотной\char`\"{} пирамиды =\texorpdfstring{$>$}{>} длительные (соответственно большие) движения быстрее исчезают 
+
+См. определение в файле \mbox{\hyperlink{eulerian__enlargement_8cpp_source}{eulerian\+\_\+enlargement.\+cpp}} строка \mbox{\hyperlink{eulerian__enlargement_8cpp_source_l00074}{74}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00075 \{}
+\DoxyCodeLine{00076     low\_pass\_high\_level = (1 -\/ cutoff\_high) * low\_pass\_high\_level + cutoff\_high * input\_pyramid\_level;}
+\DoxyCodeLine{00077     low\_pass\_low\_level = (1 -\/ cutoff\_low) * low\_pass\_low\_level + cutoff\_low * input\_pyramid\_level;}
+\DoxyCodeLine{00078 }
+\DoxyCodeLine{00079     motion\_pyramid\_level = low\_pass\_high\_level -\/ low\_pass\_low\_level;}
+\DoxyCodeLine{00080 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_euler_enlarger_a4d191318cbe997cd7ac5dd027b508921}\label{class_euler_enlarger_a4d191318cbe997cd7ac5dd027b508921}} 
+\index{EulerEnlarger@{EulerEnlarger}!LaplaceEnlarge@{LaplaceEnlarge}}
+\index{LaplaceEnlarge@{LaplaceEnlarge}!EulerEnlarger@{EulerEnlarger}}
+\doxysubsubsection{\texorpdfstring{LaplaceEnlarge()}{LaplaceEnlarge()}}
+{\footnotesize\ttfamily void Euler\+Enlarger\+::\+Laplace\+Enlarge (\begin{DoxyParamCaption}\item[{Mat \&}]{motion\+\_\+pyramid\+\_\+level,  }\item[{int}]{current\+\_\+level }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Осуществляет увеличение движения на конкретном уровне пирамиды 
+
+
+
+См. определение в файле \mbox{\hyperlink{eulerian__enlargement_8cpp_source}{eulerian\+\_\+enlargement.\+cpp}} строка \mbox{\hyperlink{eulerian__enlargement_8cpp_source_l00022}{22}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00023 \{}
+\DoxyCodeLine{00024     \textcolor{keywordtype}{double} current\_alpha = (\mbox{\hyperlink{class_euler_enlarger_a1af2a486a304fd753049f1647ea790e4}{lambda\_}} / \mbox{\hyperlink{class_euler_enlarger_a5ba64d98bf7304db30a7dddfc0009b2b}{delta\_}} / 8.0 -\/ 1.0) * \mbox{\hyperlink{class_euler_enlarger_a2cb21e07ef755dd1e96e12df21077e90}{exaggeraiton\_coefficient\_}};}
+\DoxyCodeLine{00025 }
+\DoxyCodeLine{00026     \textcolor{keywordflow}{if} (current\_level == \mbox{\hyperlink{class_euler_enlarger_a35076bfb98ab8e0ad28bba64f861b77a}{levels\_amount\_}} || current\_level == 0)}
+\DoxyCodeLine{00027     \{}
+\DoxyCodeLine{00028         \textcolor{comment}{// Для первого и последнего уровней пирамиды устанавливаем усиление на 0}}
+\DoxyCodeLine{00029         motion\_pyramid\_level = motion\_pyramid\_level * 0;}
+\DoxyCodeLine{00030     \}}
+\DoxyCodeLine{00031     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00032     \{}
+\DoxyCodeLine{00033         \textcolor{comment}{// Выполняем для остальных уровней}}
+\DoxyCodeLine{00034         motion\_pyramid\_level = motion\_pyramid\_level * std::min(current\_alpha, alpha\_);}
+\DoxyCodeLine{00035     \}}
+\DoxyCodeLine{00036 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Данные класса}
+\mbox{\Hypertarget{class_euler_enlarger_a172eb1596931729b32b1fe7a68e0dcf3}\label{class_euler_enlarger_a172eb1596931729b32b1fe7a68e0dcf3}} 
+\index{EulerEnlarger@{EulerEnlarger}!alpha\_@{alpha\_}}
+\index{alpha\_@{alpha\_}!EulerEnlarger@{EulerEnlarger}}
+\doxysubsubsection{\texorpdfstring{alpha\_}{alpha\_}}
+{\footnotesize\ttfamily double Euler\+Enlarger\+::alpha\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+См. определение в файле \mbox{\hyperlink{eulerian__enlargement_8h_source}{eulerian\+\_\+enlargement.\+h}} строка \mbox{\hyperlink{eulerian__enlargement_8h_source_l00075}{75}}
+
+\mbox{\Hypertarget{class_euler_enlarger_ab6176560a34867b75a7bc019cc550346}\label{class_euler_enlarger_ab6176560a34867b75a7bc019cc550346}} 
+\index{EulerEnlarger@{EulerEnlarger}!color\_attenuation\_coefficient\_@{color\_attenuation\_coefficient\_}}
+\index{color\_attenuation\_coefficient\_@{color\_attenuation\_coefficient\_}!EulerEnlarger@{EulerEnlarger}}
+\doxysubsubsection{\texorpdfstring{color\_attenuation\_coefficient\_}{color\_attenuation\_coefficient\_}}
+{\footnotesize\ttfamily double Euler\+Enlarger\+::color\+\_\+attenuation\+\_\+coefficient\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Коэффициент приглушеняи цвета 
+
+
+
+См. определение в файле \mbox{\hyperlink{eulerian__enlargement_8h_source}{eulerian\+\_\+enlargement.\+h}} строка \mbox{\hyperlink{eulerian__enlargement_8h_source_l00069}{69}}
+
+\mbox{\Hypertarget{class_euler_enlarger_ab7775d588967f3fa4d9778d4ad9f4c2f}\label{class_euler_enlarger_ab7775d588967f3fa4d9778d4ad9f4c2f}} 
+\index{EulerEnlarger@{EulerEnlarger}!cutoff\_high\_@{cutoff\_high\_}}
+\index{cutoff\_high\_@{cutoff\_high\_}!EulerEnlarger@{EulerEnlarger}}
+\doxysubsubsection{\texorpdfstring{cutoff\_high\_}{cutoff\_high\_}}
+{\footnotesize\ttfamily double Euler\+Enlarger\+::cutoff\+\_\+high\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+См. определение в файле \mbox{\hyperlink{eulerian__enlargement_8h_source}{eulerian\+\_\+enlargement.\+h}} строка \mbox{\hyperlink{eulerian__enlargement_8h_source_l00051}{51}}
+
+\mbox{\Hypertarget{class_euler_enlarger_a8fa8710057b79f42c2d1430693d65179}\label{class_euler_enlarger_a8fa8710057b79f42c2d1430693d65179}} 
+\index{EulerEnlarger@{EulerEnlarger}!cutoff\_low\_@{cutoff\_low\_}}
+\index{cutoff\_low\_@{cutoff\_low\_}!EulerEnlarger@{EulerEnlarger}}
+\doxysubsubsection{\texorpdfstring{cutoff\_low\_}{cutoff\_low\_}}
+{\footnotesize\ttfamily double Euler\+Enlarger\+::cutoff\+\_\+low\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+См. определение в файле \mbox{\hyperlink{eulerian__enlargement_8h_source}{eulerian\+\_\+enlargement.\+h}} строка \mbox{\hyperlink{eulerian__enlargement_8h_source_l00050}{50}}
+
+\mbox{\Hypertarget{class_euler_enlarger_a5ba64d98bf7304db30a7dddfc0009b2b}\label{class_euler_enlarger_a5ba64d98bf7304db30a7dddfc0009b2b}} 
+\index{EulerEnlarger@{EulerEnlarger}!delta\_@{delta\_}}
+\index{delta\_@{delta\_}!EulerEnlarger@{EulerEnlarger}}
+\doxysubsubsection{\texorpdfstring{delta\_}{delta\_}}
+{\footnotesize\ttfamily double Euler\+Enlarger\+::delta\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Коэффициент, использующийся при увеличении 
+
+
+
+См. определение в файле \mbox{\hyperlink{eulerian__enlargement_8h_source}{eulerian\+\_\+enlargement.\+h}} строка \mbox{\hyperlink{eulerian__enlargement_8h_source_l00073}{73}}
+
+\mbox{\Hypertarget{class_euler_enlarger_a2cb21e07ef755dd1e96e12df21077e90}\label{class_euler_enlarger_a2cb21e07ef755dd1e96e12df21077e90}} 
+\index{EulerEnlarger@{EulerEnlarger}!exaggeraiton\_coefficient\_@{exaggeraiton\_coefficient\_}}
+\index{exaggeraiton\_coefficient\_@{exaggeraiton\_coefficient\_}!EulerEnlarger@{EulerEnlarger}}
+\doxysubsubsection{\texorpdfstring{exaggeraiton\_coefficient\_}{exaggeraiton\_coefficient\_}}
+{\footnotesize\ttfamily double Euler\+Enlarger\+::exaggeraiton\+\_\+coefficient\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Коэффициент увеличения. Чем выше -\/ тем больше шума, тем сильнее увеличиваются небольшие движения. 
+
+
+
+См. определение в файле \mbox{\hyperlink{eulerian__enlargement_8h_source}{eulerian\+\_\+enlargement.\+h}} строка \mbox{\hyperlink{eulerian__enlargement_8h_source_l00060}{60}}
+
+\mbox{\Hypertarget{class_euler_enlarger_a1af2a486a304fd753049f1647ea790e4}\label{class_euler_enlarger_a1af2a486a304fd753049f1647ea790e4}} 
+\index{EulerEnlarger@{EulerEnlarger}!lambda\_@{lambda\_}}
+\index{lambda\_@{lambda\_}!EulerEnlarger@{EulerEnlarger}}
+\doxysubsubsection{\texorpdfstring{lambda\_}{lambda\_}}
+{\footnotesize\ttfamily double Euler\+Enlarger\+::lambda\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Показательная длина волны 
+
+
+
+См. определение в файле \mbox{\hyperlink{eulerian__enlargement_8h_source}{eulerian\+\_\+enlargement.\+h}} строка \mbox{\hyperlink{eulerian__enlargement_8h_source_l00064}{64}}
+
+\mbox{\Hypertarget{class_euler_enlarger_aaa7ed3c1fa47e4420039f9c6cc7fe590}\label{class_euler_enlarger_aaa7ed3c1fa47e4420039f9c6cc7fe590}} 
+\index{EulerEnlarger@{EulerEnlarger}!lambda\_cutoff\_@{lambda\_cutoff\_}}
+\index{lambda\_cutoff\_@{lambda\_cutoff\_}!EulerEnlarger@{EulerEnlarger}}
+\doxysubsubsection{\texorpdfstring{lambda\_cutoff\_}{lambda\_cutoff\_}}
+{\footnotesize\ttfamily double Euler\+Enlarger\+::lambda\+\_\+cutoff\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+См. определение в файле \mbox{\hyperlink{eulerian__enlargement_8h_source}{eulerian\+\_\+enlargement.\+h}} строка \mbox{\hyperlink{eulerian__enlargement_8h_source_l00065}{65}}
+
+\mbox{\Hypertarget{class_euler_enlarger_a35076bfb98ab8e0ad28bba64f861b77a}\label{class_euler_enlarger_a35076bfb98ab8e0ad28bba64f861b77a}} 
+\index{EulerEnlarger@{EulerEnlarger}!levels\_amount\_@{levels\_amount\_}}
+\index{levels\_amount\_@{levels\_amount\_}!EulerEnlarger@{EulerEnlarger}}
+\doxysubsubsection{\texorpdfstring{levels\_amount\_}{levels\_amount\_}}
+{\footnotesize\ttfamily int Euler\+Enlarger\+::levels\+\_\+amount\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Количество уровней (слоев) пирамиды 
+
+
+
+См. определение в файле \mbox{\hyperlink{eulerian__enlargement_8h_source}{eulerian\+\_\+enlargement.\+h}} строка \mbox{\hyperlink{eulerian__enlargement_8h_source_l00056}{56}}
+
+\mbox{\Hypertarget{class_euler_enlarger_ade09863b5c4931f14e424e86168c60e0}\label{class_euler_enlarger_ade09863b5c4931f14e424e86168c60e0}} 
+\index{EulerEnlarger@{EulerEnlarger}!low\_pass\_high\_pyramid\_@{low\_pass\_high\_pyramid\_}}
+\index{low\_pass\_high\_pyramid\_@{low\_pass\_high\_pyramid\_}!EulerEnlarger@{EulerEnlarger}}
+\doxysubsubsection{\texorpdfstring{low\_pass\_high\_pyramid\_}{low\_pass\_high\_pyramid\_}}
+{\footnotesize\ttfamily std\+::vector$<$Mat$>$ Euler\+Enlarger\+::low\+\_\+pass\+\_\+high\+\_\+pyramid\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+См. определение в файле \mbox{\hyperlink{eulerian__enlargement_8h_source}{eulerian\+\_\+enlargement.\+h}} строка \mbox{\hyperlink{eulerian__enlargement_8h_source_l00047}{47}}
+
+\mbox{\Hypertarget{class_euler_enlarger_ae47c0a2c915288fbd02c6671861860f1}\label{class_euler_enlarger_ae47c0a2c915288fbd02c6671861860f1}} 
+\index{EulerEnlarger@{EulerEnlarger}!low\_pass\_low\_pyramid\_@{low\_pass\_low\_pyramid\_}}
+\index{low\_pass\_low\_pyramid\_@{low\_pass\_low\_pyramid\_}!EulerEnlarger@{EulerEnlarger}}
+\doxysubsubsection{\texorpdfstring{low\_pass\_low\_pyramid\_}{low\_pass\_low\_pyramid\_}}
+{\footnotesize\ttfamily std\+::vector$<$Mat$>$ Euler\+Enlarger\+::low\+\_\+pass\+\_\+low\+\_\+pyramid\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+См. определение в файле \mbox{\hyperlink{eulerian__enlargement_8h_source}{eulerian\+\_\+enlargement.\+h}} строка \mbox{\hyperlink{eulerian__enlargement_8h_source_l00048}{48}}
+
+
+
+Объявления и описания членов классов находятся в файлах\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/seeyo/source/repos/\+Visual-\/\+Vibration-\/\+Tracking-\/\+V2/include/\+Mov\+En/eulerian\+\_\+enlargement.\+h\item 
+C\+:/\+Users/seeyo/source/repos/\+Visual-\/\+Vibration-\/\+Tracking-\/\+V2/source/eulerian\+\_\+enlargement.\+cpp\end{DoxyCompactItemize}

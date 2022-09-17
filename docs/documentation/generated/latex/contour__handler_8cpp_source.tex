@@ -1,0 +1,103 @@
+\hypertarget{contour__handler_8cpp_source}{}\doxysection{contour\+\_\+handler.\+cpp}
+\label{contour__handler_8cpp_source}\index{C:/Users/seeyo/source/repos/Visual-\/Vibration-\/Tracking-\/V2/source/contour\_handler.cpp@{C:/Users/seeyo/source/repos/Visual-\/Vibration-\/Tracking-\/V2/source/contour\_handler.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include <VVT-\/V2/contour\_handler.h>}}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00003}\mbox{\hyperlink{class_contour_handler_a166e4049c623a262f39ff0adbc19becc}{00003}} \mbox{\hyperlink{class_contour_handler_a166e4049c623a262f39ff0adbc19becc}{ContourHandler::ContourHandler}}(Mat frame, Rect* ROI) :}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00004}00004     minimal\_distance\_\{ 5.0f \}}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00005}00005 \{}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00006}00006     Mat prep\_frame;}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00007}00007     std::vector<Vec4i> hierarchy = \{ 0 \};}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00008}00008 }
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00009}00009     \textcolor{comment}{// Проверка на то, был ли послан ROI или нет}}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00010}00010     \textcolor{keywordflow}{if} (ROI != \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00011}00011         prep\_frame = Mat(frame, *ROI);}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00012}00012     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00013}00013         frame.copyTo(prep\_frame);}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00014}00014 }
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00015}00015     \textcolor{comment}{// Проверка на грейскейл}}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00016}00016     \textcolor{keywordflow}{if} (frame.channels() > 2)}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00017}00017         cvtColor(prep\_frame, prep\_frame, COLOR\_BGR2GRAY);}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00019}00019     \textcolor{comment}{// Имаге процессинг}}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00020}00020     GaussianBlur(prep\_frame, prep\_frame, Size(7, 7), 0);}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00021}00021     threshold(prep\_frame, prep\_frame, 80, 255, cv::THRESH\_BINARY);}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00022}00022     Canny(prep\_frame, prep\_frame, 64, 192);}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00023}00023     Canny(prep\_frame, prep\_frame, 64, 192);}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00024}00024 }
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00025}00025     \textcolor{comment}{// Находим контуры и дополнительно, если ROI не пустой}}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00026}00026     \textcolor{comment}{// транслируем координаты из координат "{}ROI-\/куска"{} в координаты исходного изображения (аналог contour\_shapes\_[i][j] += ROI.tl())}}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00027}00027     \textcolor{keywordflow}{if} (ROI != \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00028}00028         findContours(prep\_frame, \mbox{\hyperlink{class_contour_handler_acc71ce959c1863dfd3a995ea28e4225c}{contour\_shapes\_}}, hierarchy, RETR\_EXTERNAL, CHAIN\_APPROX\_SIMPLE, ROI-\/>tl());}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00029}00029     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00030}00030         findContours(prep\_frame, \mbox{\hyperlink{class_contour_handler_acc71ce959c1863dfd3a995ea28e4225c}{contour\_shapes\_}}, hierarchy, RETR\_EXTERNAL, CHAIN\_APPROX\_SIMPLE);}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00031}00031 \}}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00033}\mbox{\hyperlink{class_contour_handler_a8c2833a1ef8248481212716d2b9427e3}{00033}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_contour_handler_a8c2833a1ef8248481212716d2b9427e3}{ContourHandler::DrawContours}}(Mat\& frame)}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00034}00034 \{}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00035}00035     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_contour_handler_acc71ce959c1863dfd3a995ea28e4225c}{contour\_shapes\_}}.size(); i++)}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00036}00036     \{}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00037}00037         drawContours(frame, \mbox{\hyperlink{class_contour_handler_acc71ce959c1863dfd3a995ea28e4225c}{contour\_shapes\_}}, i, Scalar(255, 0, 0), 6);}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00038}00038     \}}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00039}00039 \}}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00040}00040 }
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00041}\mbox{\hyperlink{class_contour_handler_a5479d4bdebb1fff89f7d5467fc60b0c6}{00041}} std::vector<std::vector<Point2i>> \mbox{\hyperlink{class_contour_handler_a5479d4bdebb1fff89f7d5467fc60b0c6}{ContourHandler::GetContours}}()}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00042}00042 \{}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00043}00043     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_contour_handler_acc71ce959c1863dfd3a995ea28e4225c}{contour\_shapes\_}};}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00044}00044 \}}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00045}00045 }
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00046}\mbox{\hyperlink{class_contour_handler_a9cac49d5d2fda43b7be55efbc06913f6}{00046}} std::vector<Point2f> \mbox{\hyperlink{class_contour_handler_a9cac49d5d2fda43b7be55efbc06913f6}{ContourHandler::GetContinousContours}}()}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00047}00047 \{}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00048}00048     std::vector<Point2f> continous\_contour\_shapes;}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00049}00049 }
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00050}00050     \textcolor{comment}{// Проходимся по вектору контуров (std::vector<std::vector>>) и проверяем на соответствие условию ниже}}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00051}00051     \textcolor{keyword}{auto} extern\_itt = \mbox{\hyperlink{class_contour_handler_acc71ce959c1863dfd3a995ea28e4225c}{contour\_shapes\_}}.begin();}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00052}00052     \textcolor{keywordflow}{while} (extern\_itt != \mbox{\hyperlink{class_contour_handler_acc71ce959c1863dfd3a995ea28e4225c}{contour\_shapes\_}}.end())}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00053}00053     \{}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00054}00054         std::vector<Point> shape = *extern\_itt;}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00055}00055 }
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00056}00056         \textcolor{keyword}{auto} intern\_itt = shape.begin();}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00057}00057         \textcolor{keywordflow}{while} (intern\_itt != shape.end())}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00058}00058         \{}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00059}00059             \textcolor{comment}{// То самое условие: минимальная дистанция между точками + размер контура}}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00060}00060             \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_contour_handler_aaa6ec340cf86e6296174df57f87fd1ab}{CalculateDistance}}(*intern\_itt, *(intern\_itt + 1)) > \mbox{\hyperlink{class_contour_handler_a1558e96a61f972bfc202cededb335311}{minimal\_distance\_}} \&\& (contourArea(*extern\_itt) > 100))}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00061}00061             \{}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00062}00062                 continous\_contour\_shapes.push\_back(*intern\_itt);}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00063}00063             \}}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00064}00064             intern\_itt++;}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00065}00065         \}}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00066}00066 }
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00067}00067         extern\_itt++;}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00068}00068     \}}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00069}00069 }
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00070}00070     \textcolor{comment}{// Ограничиваем длину контуров}}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00071}00071     \textcolor{keywordflow}{while} (continous\_contour\_shapes.size() > 500)}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00072}00072         continous\_contour\_shapes = \mbox{\hyperlink{class_contour_handler_abc7f823a49e23e395f25c3d9778da80f}{MakeTwiceThinner}}(continous\_contour\_shapes);}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00073}00073 }
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00074}00074     \textcolor{keywordflow}{return} continous\_contour\_shapes;}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00075}00075 \}}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00076}00076 }
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00077}00077 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00078}\mbox{\hyperlink{class_contour_handler_abc7f823a49e23e395f25c3d9778da80f}{00078}} std::vector<T> \mbox{\hyperlink{class_contour_handler_abc7f823a49e23e395f25c3d9778da80f}{ContourHandler::MakeTwiceThinner}}(std::vector<T> src)}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00079}00079 \{}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00080}00080     std::vector<T> dst;}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00081}00081 }
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00082}00082     \textcolor{keyword}{auto} it = src.begin();}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00083}00083     \textcolor{keywordflow}{while} (it != src.end() -\/ 1)}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00084}00084     \{}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00085}00085         \textcolor{keywordflow}{if} ((std::distance(src.begin(), it)) \% 2 == 0)}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00086}00086             dst.push\_back(*(it));}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00087}00087         it++;}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00088}00088     \}}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00089}00089 }
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00090}00090     \textcolor{keywordflow}{return} dst;}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00091}00091 \}}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00092}00092 }
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00093}00093 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00094}\mbox{\hyperlink{class_contour_handler_aaa6ec340cf86e6296174df57f87fd1ab}{00094}} \textcolor{keywordtype}{float} \mbox{\hyperlink{class_contour_handler_aaa6ec340cf86e6296174df57f87fd1ab}{ContourHandler::CalculateDistance}}(T point1, T point2)}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00095}00095 \{}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00096}00096     \textcolor{keywordflow}{return} sqrt((point1.x -\/ point2.x) * (point1.x -\/ point2.x) + (point1.y -\/ point2.y) * (point1.y -\/ point2.y));}
+\DoxyCodeLine{\Hypertarget{contour__handler_8cpp_source_l00097}00097 \}}
+
+\end{DoxyCode}

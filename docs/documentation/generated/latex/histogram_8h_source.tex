@@ -1,0 +1,61 @@
+\hypertarget{histogram_8h_source}{}\doxysection{histogram.\+h}
+\label{histogram_8h_source}\index{C:/Users/seeyo/source/repos/Visual-\/Vibration-\/Tracking-\/V2/include/VVT-\/V2/histogram.h@{C:/Users/seeyo/source/repos/Visual-\/Vibration-\/Tracking-\/V2/include/VVT-\/V2/histogram.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00001}00001 \textcolor{preprocessor}{\#ifndef HISTOGRAM\_H}}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00002}00002 \textcolor{preprocessor}{\#define HISTOGRAM\_H}}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00004}00004 \textcolor{comment}{// standart headers}}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00005}00005 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00006}00006 \textcolor{comment}{//\#include <sstream>}}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00007}00007 }
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00008}00008 \textcolor{comment}{// OpenCV headers}}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00009}00009 \textcolor{preprocessor}{\#include <opencv2/opencv.hpp>}}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00010}00010 }
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00011}00011 \textcolor{keyword}{using namespace }cv;}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00012}00012 }
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00016}\mbox{\hyperlink{class_histogram}{00016}} \textcolor{keyword}{class }\mbox{\hyperlink{class_histogram}{Histogram}}}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00017}00017 \{}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00018}00018 \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00028}00028     \mbox{\hyperlink{class_histogram}{Histogram}}(\textcolor{keywordtype}{int} width, \textcolor{keywordtype}{int} height, \textcolor{keywordtype}{int} x\_limit, \textcolor{keywordtype}{int} \textcolor{keywordtype}{id}, std::vector<double>\& x\_values, std::vector<float>\& y\_values);}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00034}00034     \mbox{\hyperlink{class_histogram_aaf22daf3b8e3f0578337109005532f51}{\string~Histogram}}();}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00035}00035 }
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00039}00039     \textcolor{keyword}{static} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_histogram_a090252d83cd4beb02a842afbf0311d3d}{OnMouse}}(\textcolor{keywordtype}{int} event, \textcolor{keywordtype}{int} x, \textcolor{keywordtype}{int} y, \textcolor{keywordtype}{int} flags, \textcolor{keywordtype}{void}* userdata);}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00043}00043     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_histogram_a939c2c567799157b2088c63e661af15e}{DetectEvent}}(\textcolor{keywordtype}{int} event, \textcolor{keywordtype}{int} x, \textcolor{keywordtype}{int} y, \textcolor{keywordtype}{int} flags);}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00047}00047     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_histogram_a5a5a64a00231d62a6eeacb416f704262}{ShowHistogram}}();}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00051}00051     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_histogram_a8ed9e75be45d4c50b54b9150427a89c8}{SetXValues}}(std::vector<double> x\_values);}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00055}00055     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_histogram_a6f59d4b44f3f4866a7b709ec7e1e15c4}{SetYValues}}(std::vector<float> y\_values);}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00059}00059     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_histogram_aad4123748f53efc8cdbc0b8f6ae5444e}{SetHistogramFlag}}(\textcolor{keywordtype}{bool} flag);}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00065}00065     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_histogram_a67ea2102e72112ddffd05f0ed8e2a73e}{SetHistogramWindowProperty}}(\textcolor{keywordtype}{int} prop\_id, \textcolor{keywordtype}{int} prop\_value);}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00066}00066 }
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00067}00067 \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00071}00071     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_histogram_af03efd072e5360e76aa938add6e64fa6}{InitHistogramBackground}}();}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00075}00075     Mat \mbox{\hyperlink{class_histogram_a6a6a966da93879eea7b967b5c12d7b8a}{CalcHistogram}}();}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00079}00079     \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_histogram_a2008108f7dfd9ffbfa812ca26138540d}{IsInteracted}}(\textcolor{keywordtype}{int} x, \textcolor{keywordtype}{int} interval);}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00083}00083     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_histogram_a3bddf7035f3a842b2b9a3b22ab19ca29}{PlotMouseValue}}(Mat\& frame, \textcolor{keywordtype}{int} value\_idx);}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00087}00087     std::string \mbox{\hyperlink{class_histogram_a6f570c207d055c4034e12fca708e8a90}{to\_string\_with\_precision}}(\textcolor{keyword}{const} \textcolor{keywordtype}{float} value, \textcolor{keyword}{const} \textcolor{keywordtype}{int} n = 6);}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00088}00088 }
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00089}00089 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00093}\mbox{\hyperlink{class_histogram_ad5f780994e3453a67ed31b9437000ce3}{00093}}     \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_histogram_ad5f780994e3453a67ed31b9437000ce3}{is\_histogram\_plotted\_}};}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00094}00094 }
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00095}00095 \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00099}\mbox{\hyperlink{class_histogram_a292702c6d9b47cb4b017a10c410d7fea}{00099}}     std::string \mbox{\hyperlink{class_histogram_a292702c6d9b47cb4b017a10c410d7fea}{winname\_}};}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00103}\mbox{\hyperlink{class_histogram_a3d9dee7d6841b7fb9b37de8d87e4db91}{00103}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{class_histogram_a3d9dee7d6841b7fb9b37de8d87e4db91}{histogram\_offset\_}};}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00107}\mbox{\hyperlink{class_histogram_a11742964d450404cba6521e1811daeec}{00107}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_histogram_a11742964d450404cba6521e1811daeec}{histogram\_frame\_width\_}};}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00111}\mbox{\hyperlink{class_histogram_a19b4e5c3c82a3f26149633ce779ce447}{00111}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_histogram_a19b4e5c3c82a3f26149633ce779ce447}{histogram\_frame\_height\_}};}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00115}\mbox{\hyperlink{class_histogram_a62d371b7f1ca13ead2dfba8faa831a4c}{00115}}     Mat \mbox{\hyperlink{class_histogram_a62d371b7f1ca13ead2dfba8faa831a4c}{histogram\_}};}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00119}\mbox{\hyperlink{class_histogram_a04b862513a61fb68ab1c8fd5206d1bcb}{00119}}     Mat \mbox{\hyperlink{class_histogram_a04b862513a61fb68ab1c8fd5206d1bcb}{histogram\_background\_}};}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00123}\mbox{\hyperlink{class_histogram_a1e8da20001beb108c4d523cbbf5153a5}{00123}}     std::vector<double>* \mbox{\hyperlink{class_histogram_a1e8da20001beb108c4d523cbbf5153a5}{x\_values\_}};}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00127}\mbox{\hyperlink{class_histogram_a0042425ba721ed0c248c7bba486a66e6}{00127}}     std::vector<float>* \mbox{\hyperlink{class_histogram_a0042425ba721ed0c248c7bba486a66e6}{y\_values\_}};}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00131}\mbox{\hyperlink{class_histogram_ae468947a2d6f255abfb2e6add20e3770}{00131}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{class_histogram_ae468947a2d6f255abfb2e6add20e3770}{axis\_signature\_offset\_}};}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00135}\mbox{\hyperlink{class_histogram_a7a18ce6f843690d8be8f3490d7ea5cf1}{00135}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{class_histogram_a7a18ce6f843690d8be8f3490d7ea5cf1}{signature\_interval\_}};}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00139}\mbox{\hyperlink{class_histogram_ac1d77e929aeb4b8adc12404bc0dffdc5}{00139}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_histogram_ac1d77e929aeb4b8adc12404bc0dffdc5}{signature\_amount\_}};}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00143}\mbox{\hyperlink{class_histogram_ad7734ef44b2e7f0ec9cc46154f18d008}{00143}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_histogram_ad7734ef44b2e7f0ec9cc46154f18d008}{x\_limit\_}};}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00147}\mbox{\hyperlink{class_histogram_a1f5573dfce9dd07761a77916535ea9fd}{00147}}     Point2i \mbox{\hyperlink{class_histogram_a1f5573dfce9dd07761a77916535ea9fd}{last\_mouse\_coordinates\_}};}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00151}\mbox{\hyperlink{class_histogram_a0ed69396a74c9570ad6c22b182055f42}{00151}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{class_histogram_a0ed69396a74c9570ad6c22b182055f42}{dead\_zone\_coeff\_}};}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00152}00152 }
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00153}00153 \};}
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00154}00154 }
+\DoxyCodeLine{\Hypertarget{histogram_8h_source_l00155}00155 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

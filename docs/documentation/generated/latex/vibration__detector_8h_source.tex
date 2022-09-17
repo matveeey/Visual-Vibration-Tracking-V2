@@ -1,0 +1,118 @@
+\hypertarget{vibration__detector_8h_source}{}\doxysection{vibration\+\_\+detector.\+h}
+\label{vibration__detector_8h_source}\index{C:/Users/seeyo/source/repos/Visual-\/Vibration-\/Tracking-\/V2/include/VVT-\/V2/vibration\_detector.h@{C:/Users/seeyo/source/repos/Visual-\/Vibration-\/Tracking-\/V2/include/VVT-\/V2/vibration\_detector.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00001}00001 \textcolor{preprocessor}{\#ifndef VIBRATION\_DETECTOR\_H}}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00002}00002 \textcolor{preprocessor}{\#define VIBRATION\_DETECTOR\_H}}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00004}00004 \textcolor{comment}{// VREMENNO}}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00005}00005 \textcolor{preprocessor}{\#define MAIN\_WINDOW\_NAME "{}Video"{}}}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00006}00006 \textcolor{preprocessor}{\#define V\_MONITOR\_WINDOW\_NAME "{}Vibration Monitor"{}}}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00007}00007 }
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00008}00008 \textcolor{comment}{// standart headers}}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00009}00009 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00010}00010 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00011}00011 }
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00012}00012 \textcolor{comment}{// OpenCV headers}}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00013}00013 \textcolor{preprocessor}{\#include <opencv2/video/tracking.hpp>}}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00014}00014 }
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00015}00015 \textcolor{comment}{// my headers}}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00016}00016 \textcolor{preprocessor}{\#include "{}VVT-\/V2/lonely\_point\_handler.h"{}}}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00017}00017 \textcolor{preprocessor}{\#include "{}VVT-\/V2/colored\_point\_handler.h"{}}}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00018}00018 \textcolor{preprocessor}{\#include "{}VVT-\/V2/frame\_handler.h"{}}}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00019}00019 \textcolor{preprocessor}{\#include "{}VVT-\/V2/helper.h"{}}}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00020}00020 \textcolor{preprocessor}{\#include "{}VVT-\/V2/contour\_handler.h"{}}}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00021}00021 }
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00027}\mbox{\hyperlink{class_vibration_detector}{00027}} \textcolor{keyword}{class }\mbox{\hyperlink{class_vibration_detector}{VibrationDetector}} }
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00028}00028 \{}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00032}\mbox{\hyperlink{class_vibration_detector_abbd492ca1a716ff2e2dc81d745adedd0}{00032}}     \textcolor{keyword}{enum} \mbox{\hyperlink{class_vibration_detector_abbd492ca1a716ff2e2dc81d745adedd0}{main\_mode}}}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00033}00033     \{}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00034}00034         DEFAULT,}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00035}00035         SELECTINGROI,}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00036}00036         PAUSE}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00037}00037     \};}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00041}\mbox{\hyperlink{class_vibration_detector_a920ba9204ea3ca918470b242e2d22a9c}{00041}}     \textcolor{keyword}{enum} \mbox{\hyperlink{class_vibration_detector_a920ba9204ea3ca918470b242e2d22a9c}{colored\_point\_mode}}}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00042}00042     \{}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00043}00043         COLORING\_DEFAULT,}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00044}00044         COLORING\_BASED\_ON\_FREQUENCY,}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00045}00045         COLORING\_BASED\_ON\_AMPLITUDE}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00046}00046     \};}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00047}00047 }
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00048}00048 \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00052}00052     \mbox{\hyperlink{class_vibration_detector}{VibrationDetector}}(std::string input\_file\_name, std::string output\_file\_name, std::string window\_name);}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00053}00053     \mbox{\hyperlink{class_vibration_detector}{\string~VibrationDetector}}();}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00057}00057     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_vibration_detector_ae93a14aa147af694a90c012f16efc924}{ExecuteVibrationDetection}}();}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00058}00058 }
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00059}00059 \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00063}00063     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_vibration_detector_af1da28823c948acc115fc862378b62d8}{ServeTheQueues}}();}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00067}00067     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_vibration_detector_a176e5b0d0ca409c6cfcacdeca13240de}{CreateNewPoint}}(Point2f mouse\_coordinates);}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00071}00071     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_vibration_detector_aa43b85f7a90ea3021b63608b378a81f4}{LeftClickHandler}}(Point2f mouse\_coordinates);}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00075}00075     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_vibration_detector_a725d87ae6c09ef9f18c95f8490086478}{CreateNewColoredPoint}}(Point2f mouse\_coordinates);}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00079}00079     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_vibration_detector_a6c1ef9b4b8a5a8f2159398a05571c410}{DeletePoints}}(Point2i mouse\_coordinates);}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00083}00083     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_vibration_detector_ab0f3c59d611f15ff9505429bcf2e45b7}{DeleteColoredPoints}}();}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00087}00087     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_vibration_detector_aba1212595904b3a3d4f1ef8ebef89d87}{FindAndDeleteUncofidentPoints}}();}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00091}00091     \textcolor{keyword}{static} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_vibration_detector_a3596d10b3b4e68b7c4151631fbb7aeb1}{OnMouse}}(\textcolor{keywordtype}{int} event, \textcolor{keywordtype}{int} x, \textcolor{keywordtype}{int} y, \textcolor{keywordtype}{int} flags, \textcolor{keywordtype}{void}* userdata);}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00095}00095     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_vibration_detector_a7b586f40cc32c90aef3467d2c906758a}{DetectEvent}}(\textcolor{keywordtype}{int} event, \textcolor{keywordtype}{int} x, \textcolor{keywordtype}{int} y, \textcolor{keywordtype}{int} flags);}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00099}00099     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_vibration_detector_a21af0947bd97bcb37db8625516efcd9c}{DefaultModeHandler}}(\textcolor{keywordtype}{int} event, \textcolor{keywordtype}{int} x, \textcolor{keywordtype}{int} y);}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00103}00103     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_vibration_detector_a30c131133b8faa624d16839036c2a046}{RoiSelectionModeHandler}}(\textcolor{keywordtype}{int} event, \textcolor{keywordtype}{int} x, \textcolor{keywordtype}{int} y);}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00107}00107     Mat \mbox{\hyperlink{class_vibration_detector_ae2fadec69d259a03125901ad988e7137}{MakeWarpedFrame}}(Mat frame, std::vector<Point2i> warping\_figure);}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00111}00111     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_vibration_detector_a81f38d7f3d0599b01186a122d68d09ee}{TrackAndCalc}}();}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00115}00115     std::vector<Point2f> \mbox{\hyperlink{class_vibration_detector_a58f70fe74fee9f702773a0d2ab18643a}{FindGoodFeatures}}(Mat frame, Rect roi);}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00119}00119     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_vibration_detector_ad99686383d8b80d106ae486a085b092c}{DrawDebugLkWinRectangle}}(Mat\& frame);}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00123}00123     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_vibration_detector_ad8741b76c24a08ec2ce54ff9d934ce76}{DrawAndOutput}}(Mat\& frame);}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00124}00124 }
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00125}00125 \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00129}\mbox{\hyperlink{class_vibration_detector_a57b58c6da673cafcca839e5f48d9045c}{00129}}     \mbox{\hyperlink{class_frame_handler}{FrameHandler}}* \mbox{\hyperlink{class_vibration_detector_a57b58c6da673cafcca839e5f48d9045c}{frame\_handler}};}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00134}\mbox{\hyperlink{class_vibration_detector_ab0fa5fb784f1db6bdb7a9d9e5d608bb3}{00134}}     \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_vibration_detector_ab0fa5fb784f1db6bdb7a9d9e5d608bb3}{running\_}};}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00138}\mbox{\hyperlink{class_vibration_detector_a5c0d42618889da70c073056ba3e4065c}{00138}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{class_vibration_detector_a5c0d42618889da70c073056ba3e4065c}{res\_mp\_}};}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00142}\mbox{\hyperlink{class_vibration_detector_af7093e56d2391aceaeb9d9cbd389eaaf}{00142}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_vibration_detector_af7093e56d2391aceaeb9d9cbd389eaaf}{point\_id\_}};}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00146}\mbox{\hyperlink{class_vibration_detector_a69f64f7b483a4295abd6e5a48ab161ff}{00146}}     Point \mbox{\hyperlink{class_vibration_detector_a69f64f7b483a4295abd6e5a48ab161ff}{last\_mouse\_position\_}};}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00150}\mbox{\hyperlink{class_vibration_detector_ad3748489d876505deab724e16cf1e767}{00150}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_vibration_detector_ad3748489d876505deab724e16cf1e767}{current\_mode\_}};}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00154}\mbox{\hyperlink{class_vibration_detector_a49b64f3fe433f06af9444e8059d0cbc6}{00154}}     \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_vibration_detector_a49b64f3fe433f06af9444e8059d0cbc6}{fullscreen\_}};}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00155}00155 }
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00157}00157     \textcolor{comment}{// NORMAL MODE}}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00159}00159 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00162}\mbox{\hyperlink{class_vibration_detector_a51842be0abc4ac57d3e07bbb7ff33d8e}{00162}}     std::vector<Point2i> \mbox{\hyperlink{class_vibration_detector_a51842be0abc4ac57d3e07bbb7ff33d8e}{l\_click\_queue\_}};}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00166}\mbox{\hyperlink{class_vibration_detector_a48e1f58a28d451445a23ea6575ef9b38}{00166}}     std::vector<Point2f> \mbox{\hyperlink{class_vibration_detector_a48e1f58a28d451445a23ea6575ef9b38}{c\_point\_queue\_}};}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00170}\mbox{\hyperlink{class_vibration_detector_a290fb09835aef1220fc44485e0f391de}{00170}}     std::vector<Point2i> \mbox{\hyperlink{class_vibration_detector_a290fb09835aef1220fc44485e0f391de}{delete\_queue\_}};}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00174}\mbox{\hyperlink{class_vibration_detector_a0cdb940eece1b90795717d39cbac187d}{00174}}     std::vector<Point2i> \mbox{\hyperlink{class_vibration_detector_a0cdb940eece1b90795717d39cbac187d}{histograms\_queue\_}};}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00178}\mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{00178}}     std::vector<LonelyPointHandler*> \mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}};}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00182}\mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{00182}}     std::vector<ColoredPointHandler*> \mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}};}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00183}00183 }
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00185}00185     \textcolor{comment}{// ADJUST SENSIVITY MODE}}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00187}00187 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00194}\mbox{\hyperlink{class_vibration_detector_a418071707b1348281ef2a434c42de26e}{00194}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_vibration_detector_a418071707b1348281ef2a434c42de26e}{sensivity\_in\_percents\_}};}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00195}00195 }
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00199}\mbox{\hyperlink{class_vibration_detector_a3c823c70560e24ce3e8484ae25440357}{00199}}     Mat \mbox{\hyperlink{class_vibration_detector_a3c823c70560e24ce3e8484ae25440357}{current\_tracking\_frame\_}};}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00204}\mbox{\hyperlink{class_vibration_detector_ace1d4e3045fea22507c11b44cc6fb920}{00204}}     Mat \mbox{\hyperlink{class_vibration_detector_ace1d4e3045fea22507c11b44cc6fb920}{frame\_to\_be\_shown\_}};}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00209}\mbox{\hyperlink{class_vibration_detector_a41634272ca48ff33bf21b39d11559eaa}{00209}}     Mat \mbox{\hyperlink{class_vibration_detector_a41634272ca48ff33bf21b39d11559eaa}{grad\_scale\_}};}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00213}\mbox{\hyperlink{class_vibration_detector_af75ebe29dd6955ae7a249c4c854c2657}{00213}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_vibration_detector_af75ebe29dd6955ae7a249c4c854c2657}{colored\_point\_mode\_}};}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00214}00214 }
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00216}00216     \textcolor{comment}{// ROI SELECTING MODE}}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00218}00218 \textcolor{comment}{}    \textcolor{comment}{// }}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00222}\mbox{\hyperlink{class_vibration_detector_aacb53723f4a18df998738d0d54c5290b}{00222}} \textcolor{comment}{}    \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_vibration_detector_aacb53723f4a18df998738d0d54c5290b}{roi\_selecting\_}};}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00226}\mbox{\hyperlink{class_vibration_detector_afd9f8f38bcde73bb14c9cf643f270d36}{00226}}     \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_vibration_detector_afd9f8f38bcde73bb14c9cf643f270d36}{roi\_selected\_}};}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00230}\mbox{\hyperlink{class_vibration_detector_aef49bdadca0536214393e22addf4ce04}{00230}}     Point2i \mbox{\hyperlink{class_vibration_detector_aef49bdadca0536214393e22addf4ce04}{tl\_click\_coords\_}};}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00231}00231     }
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00235}\mbox{\hyperlink{class_vibration_detector_a5f9772794a4f76bb0503a9f046d65b72}{00235}}     std::string \mbox{\hyperlink{class_vibration_detector_a5f9772794a4f76bb0503a9f046d65b72}{input\_file\_name\_}};}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00239}\mbox{\hyperlink{class_vibration_detector_a7e4bada48fc235b2c02ad07fcec6fdd1}{00239}}     std::string \mbox{\hyperlink{class_vibration_detector_a7e4bada48fc235b2c02ad07fcec6fdd1}{output\_file\_name\_}};}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00244}\mbox{\hyperlink{class_vibration_detector_adda01acf92ced4b8bfa5880bb475ce55}{00244}}     std::string \mbox{\hyperlink{class_vibration_detector_adda01acf92ced4b8bfa5880bb475ce55}{output\_csv\_file\_name\_}};}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00248}\mbox{\hyperlink{class_vibration_detector_a1dddb74ae6ef1b1f5cb4b66e2a352509}{00248}}     std::string \mbox{\hyperlink{class_vibration_detector_a1dddb74ae6ef1b1f5cb4b66e2a352509}{window\_name\_}};}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00249}00249 }
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00253}\mbox{\hyperlink{class_vibration_detector_a3b8ea35de43e2702a889f8def948ece4}{00253}}     \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_vibration_detector_a3b8ea35de43e2702a889f8def948ece4}{warping\_figure\_selecting\_}};}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00257}\mbox{\hyperlink{class_vibration_detector_a901927a4199f5bf914675f19cae9a651}{00257}}     std::vector<Point> \mbox{\hyperlink{class_vibration_detector_a901927a4199f5bf914675f19cae9a651}{warping\_figure\_}};}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00258}00258 }
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00262}\mbox{\hyperlink{class_vibration_detector_a3c524b0b7ab0348fe4fb6018f64b4dcf}{00262}}     Mat \mbox{\hyperlink{class_vibration_detector_a3c524b0b7ab0348fe4fb6018f64b4dcf}{prev\_img\_gray\_}};}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00266}\mbox{\hyperlink{class_vibration_detector_a016d906a3746e6d61b9468c7127a717f}{00266}}     Mat \mbox{\hyperlink{class_vibration_detector_a016d906a3746e6d61b9468c7127a717f}{next\_img\_gray\_}};}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00270}\mbox{\hyperlink{class_vibration_detector_abc8267e01dbf92e742db792c530e490a}{00270}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_vibration_detector_abc8267e01dbf92e742db792c530e490a}{lk\_win\_size\_}};}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00274}\mbox{\hyperlink{class_vibration_detector_a2a3692c7dd7a78cbc9af4d070d71264a}{00274}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_vibration_detector_a2a3692c7dd7a78cbc9af4d070d71264a}{level\_amount\_}};}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00275}00275 }
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00276}00276 }
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00277}00277     \textcolor{comment}{// Для быстрого преобразования Фурье}}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00281}\mbox{\hyperlink{class_vibration_detector_a779ca47185d36d5fe0cf216c1cb9f48e}{00281}} \textcolor{comment}{}    \textcolor{keywordtype}{int} \mbox{\hyperlink{class_vibration_detector_a779ca47185d36d5fe0cf216c1cb9f48e}{fps\_}};}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00285}\mbox{\hyperlink{class_vibration_detector_a4cf6c4a052388d4fb17ec01815bc0bbe}{00285}}     \textcolor{keywordtype}{double} \mbox{\hyperlink{class_vibration_detector_a4cf6c4a052388d4fb17ec01815bc0bbe}{frame\_time\_}};}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00286}00286 \};}
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00287}00287 }
+\DoxyCodeLine{\Hypertarget{vibration__detector_8h_source_l00288}00288 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

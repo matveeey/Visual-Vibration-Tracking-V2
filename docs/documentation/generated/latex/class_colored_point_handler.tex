@@ -1,0 +1,473 @@
+\hypertarget{class_colored_point_handler}{}\doxysection{Класс Colored\+Point\+Handler}
+\label{class_colored_point_handler}\index{ColoredPointHandler@{ColoredPointHandler}}
+
+
+Дочерний (от \mbox{\hyperlink{class_vibrating_point}{Vibrating\+Point}}) класс. Предназначен для помещения множества цветных точек на кадр и отслеживания вибрации каждой из них  
+
+
+
+
+{\ttfamily \#include $<$colored\+\_\+point\+\_\+handler.\+h$>$}
+
+
+
+Граф наследования\+:Colored\+Point\+Handler\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=327pt]{class_colored_point_handler__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Граф связей класса Colored\+Point\+Handler\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=327pt]{class_colored_point_handler__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_colored_point_handler_a4c7292c2268cad44b6c656f4f582194a}{Colored\+Point\+Handler}} (Point2f init\+\_\+coordinates, double sampling\+\_\+rate, int point\+\_\+id, float radius\+\_\+resize\+\_\+factor, std\+::string output\+\_\+csv\+\_\+filename)
+\begin{DoxyCompactList}\small\item\em Конструктор этого класса \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_colored_point_handler_a55e451f03127858deb1dda40e2124611}{$\sim$\+Colored\+Point\+Handler}} ()
+\begin{DoxyCompactList}\small\item\em Деструктор этого класса \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_colored_point_handler_ad16eb2210bc1e9f8983186088cc9a573}{Draw}} (Mat \&frame) override
+\begin{DoxyCompactList}\small\item\em Отрисовывает точку и данные, связанные с ней \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_colored_point_handler_aca8be23a3787bd9f62dd0f950c1f2645}{Set\+Coloring\+Mode}} (int \mbox{\hyperlink{class_colored_point_handler_ad0550fe1aac50d476a071743e3c3802a}{coloring\+\_\+mode}})
+\begin{DoxyCompactList}\small\item\em Устанавливает нужный режим отрисовки цветом \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Закрытые типы}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{class_colored_point_handler_ad0550fe1aac50d476a071743e3c3802a}{coloring\+\_\+mode}} \{ {\bfseries DEFAULT}
+, {\bfseries COLORING\+\_\+\+BASED\+\_\+\+ON\+\_\+\+FREQUENCY}
+, {\bfseries COLORING\+\_\+\+BASED\+\_\+\+ON\+\_\+\+AMPLITUDE}
+ \}
+\begin{DoxyCompactList}\small\item\em Перечисление, используемое для более удобного отображения текущего режима подсветки точки \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Закрытые члены}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_colored_point_handler_a3c6b8eef49c18add5c4c56d9035c06df}{Draw\+Histogram}} () override
+\begin{DoxyCompactList}\small\item\em Отрисовывает гистограмму \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_colored_point_handler_a19d02da549d21bce5167c041257ad808}{Draw\+Point}} (Mat \&frame)
+\begin{DoxyCompactList}\small\item\em Отрисовывает точку на кадре \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_colored_point_handler_ae36ef1c44415f932993212c8aff980f6}{Draw\+Interaction\+Rectangle}} (Mat \&frame)
+\begin{DoxyCompactList}\small\item\em Отрисовывает прямоугольник взаимодействия \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_colored_point_handler_ad360ca58ca141acaf11d98a9bf59483b}{Update\+Point\+Color}} () override
+\begin{DoxyCompactList}\small\item\em Обновляет текущий цвет точки \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Закрытые данные}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{class_colored_point_handler_a2fe1b3b0ab84e773e09fa26d79f5d3f9}{coloring\+\_\+mode\+\_\+}}
+\item 
+float \mbox{\hyperlink{class_colored_point_handler_a1920c209cdbaf82feee3310787cedc47}{radius\+\_\+resize\+\_\+factor\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Коэффициент рескейла для радиуса точки \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_colored_point_handler_a10084b9ba7abcc7a6637cf51ae688a5d}{point\+\_\+id\+\_\+}}
+\begin{DoxyCompactList}\small\item\em ID точки (нет блин почки) \end{DoxyCompactList}\item 
+Scalar \mbox{\hyperlink{class_colored_point_handler_a4b3ee0b18de6bf71cd0f5124ce73c490}{point\+\_\+color\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Цвет точки \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Дополнительные унаследованные члены}
+
+
+\doxysubsection{Подробное описание}
+Дочерний (от \mbox{\hyperlink{class_vibrating_point}{Vibrating\+Point}}) класс. Предназначен для помещения множества цветных точек на кадр и отслеживания вибрации каждой из них 
+
+Объект класса -\/ \char`\"{}цветная\char`\"{} точка на видео, положение которой отслеживается с течением времени для вычисления частоты вибрации этой точки
+
+Точку можно отрисовать методом \mbox{\hyperlink{class_colored_point_handler_ad16eb2210bc1e9f8983186088cc9a573}{Draw()}} на кадре
+
+Также при взаимодействии с точкой (\mbox{\hyperlink{class_vibrating_point_a342c75a6ac0f9ab85de1a0dd663eab03}{Vibrating\+Point\+::\+Is\+Interacted()}}) будет выводиться гистограмма частот в отдельное окно (\mbox{\hyperlink{class_colored_point_handler_a3c6b8eef49c18add5c4c56d9035c06df}{Draw\+Histogram()}}) 
+
+См. определение в файле \mbox{\hyperlink{colored__point__handler_8h_source}{colored\+\_\+point\+\_\+handler.\+h}} строка \mbox{\hyperlink{colored__point__handler_8h_source_l00026}{26}}
+
+
+
+\doxysubsection{Перечисления}
+\mbox{\Hypertarget{class_colored_point_handler_ad0550fe1aac50d476a071743e3c3802a}\label{class_colored_point_handler_ad0550fe1aac50d476a071743e3c3802a}} 
+\index{ColoredPointHandler@{ColoredPointHandler}!coloring\_mode@{coloring\_mode}}
+\index{coloring\_mode@{coloring\_mode}!ColoredPointHandler@{ColoredPointHandler}}
+\doxysubsubsection{\texorpdfstring{coloring\_mode}{coloring\_mode}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{class_colored_point_handler_ad0550fe1aac50d476a071743e3c3802a}{Colored\+Point\+Handler\+::coloring\+\_\+mode}}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Перечисление, используемое для более удобного отображения текущего режима подсветки точки 
+
+
+
+См. определение в файле \mbox{\hyperlink{colored__point__handler_8h_source}{colored\+\_\+point\+\_\+handler.\+h}} строка \mbox{\hyperlink{colored__point__handler_8h_source_l00031}{31}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00032     \{}
+\DoxyCodeLine{00033         DEFAULT,}
+\DoxyCodeLine{00034         COLORING\_BASED\_ON\_FREQUENCY,}
+\DoxyCodeLine{00035         COLORING\_BASED\_ON\_AMPLITUDE,}
+\DoxyCodeLine{00036     \};}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Конструктор(ы)}
+\mbox{\Hypertarget{class_colored_point_handler_a4c7292c2268cad44b6c656f4f582194a}\label{class_colored_point_handler_a4c7292c2268cad44b6c656f4f582194a}} 
+\index{ColoredPointHandler@{ColoredPointHandler}!ColoredPointHandler@{ColoredPointHandler}}
+\index{ColoredPointHandler@{ColoredPointHandler}!ColoredPointHandler@{ColoredPointHandler}}
+\doxysubsubsection{\texorpdfstring{ColoredPointHandler()}{ColoredPointHandler()}}
+{\footnotesize\ttfamily Colored\+Point\+Handler\+::\+Colored\+Point\+Handler (\begin{DoxyParamCaption}\item[{Point2f}]{init\+\_\+coordinates,  }\item[{double}]{sampling\+\_\+rate,  }\item[{int}]{point\+\_\+id,  }\item[{float}]{radius\+\_\+resize\+\_\+factor,  }\item[{std\+::string}]{output\+\_\+csv\+\_\+filename }\end{DoxyParamCaption})}
+
+
+
+Конструктор этого класса 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em init\+\_\+coordinates} & самые первые координаты точки (фактически -\/ координаты клика мышью на окне, куда выводилось исходное видео) \\
+\hline
+{\em sampling\+\_\+rate} & частота сэмплирования (фактически -\/ FPS исходного видео) \\
+\hline
+{\em point\+\_\+id} & ID точки \\
+\hline
+{\em radius\+\_\+resize\+\_\+factor} & коэффициент масштабирования радиуса отрисовываемой точки \\
+\hline
+{\em output\+\_\+csv\+\_\+filename} & имя (путь) csv-\/файла для записи метаданных \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Заметки}
+Коэффициент масштабирования\+: \mbox{\hyperlink{class_frame_handler_ae3165c660c17d4b410c1690d13fda93c}{Frame\+Handler\+::\+Init\+Text\+Resize\+Factors()}} 
+\end{DoxyNote}
+
+
+См. определение в файле \mbox{\hyperlink{colored__point__handler_8cpp_source}{colored\+\_\+point\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{colored__point__handler_8cpp_source_l00003}{3}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00003                                                                                                                                                                 :}
+\DoxyCodeLine{00004     \mbox{\hyperlink{class_histogram}{Histogram}}\{ 600, 300, sampling\_rate / 2, point\_id, \mbox{\hyperlink{class_vibrating_point_a5ea36bdad5aeac784ecfa21f3ca98517}{x\_}}, \mbox{\hyperlink{class_vibrating_point_aa22ce2e3bdd0b4614b1c0ad0adf256e5}{y\_}} \},}
+\DoxyCodeLine{00005     \mbox{\hyperlink{class_output_to_csv}{OutputToCsv}}\{ output\_csv\_filename, \mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}, \mbox{\hyperlink{class_vibrating_point_ad2aa8fe4bc94a957f75aa00fb9ce9f26}{point\_time\_coordinates\_}}, point\_id \},}
+\DoxyCodeLine{00006     \mbox{\hyperlink{class_colored_point_handler_a10084b9ba7abcc7a6637cf51ae688a5d}{point\_id\_}}\{ point\_id \},}
+\DoxyCodeLine{00007     \mbox{\hyperlink{class_colored_point_handler_a1920c209cdbaf82feee3310787cedc47}{radius\_resize\_factor\_}}\{ radius\_resize\_factor \},}
+\DoxyCodeLine{00008     coloring\_mode\_\{ COLORING\_BASED\_ON\_FREQUENCY \}}
+\DoxyCodeLine{00009 \{}
+\DoxyCodeLine{00010     \mbox{\hyperlink{class_vibrating_point_a8c035e084006469922a45f023b1bcce0}{interaction\_offset\_}} = 3;}
+\DoxyCodeLine{00011     \mbox{\hyperlink{class_vibrating_point_a67ffaaa1b714226a78d6d5cc31c195c9}{sampling\_rate\_}} = sampling\_rate;}
+\DoxyCodeLine{00012 }
+\DoxyCodeLine{00013     \textcolor{comment}{// Добавляем первые координаты клика мышью}}
+\DoxyCodeLine{00014     \mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}.push\_back(init\_coordinates);}
+\DoxyCodeLine{00015     \mbox{\hyperlink{class_vibrating_point_a5b35f5a2109df2be2d2832b25dfa2285}{interaction\_box\_}} = Rect(}
+\DoxyCodeLine{00016         Point2i(init\_coordinates.x -\/ \mbox{\hyperlink{class_vibrating_point_a8c035e084006469922a45f023b1bcce0}{interaction\_offset\_}}, init\_coordinates.y -\/ \mbox{\hyperlink{class_vibrating_point_a8c035e084006469922a45f023b1bcce0}{interaction\_offset\_}}),}
+\DoxyCodeLine{00017         Point2i(init\_coordinates.x + \mbox{\hyperlink{class_vibrating_point_a8c035e084006469922a45f023b1bcce0}{interaction\_offset\_}}, init\_coordinates.y + \mbox{\hyperlink{class_vibrating_point_a8c035e084006469922a45f023b1bcce0}{interaction\_offset\_}})}
+\DoxyCodeLine{00018     );}
+\DoxyCodeLine{00019     \mbox{\hyperlink{class_vibrating_point_a0298c80261ea234f82e1afff59d2d1fa}{interacted\_}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{00020 }
+\DoxyCodeLine{00021     \mbox{\hyperlink{class_vibrating_point_af4a9903a86d6d1a98b1acf89684492ae}{default\_point\_radius\_}} = 4 * radius\_resize\_factor;}
+\DoxyCodeLine{00022     \mbox{\hyperlink{class_vibrating_point_ac0a7383346b67916a29c9dc892addfae}{current\_point\_radius\_}} = \mbox{\hyperlink{class_vibrating_point_af4a9903a86d6d1a98b1acf89684492ae}{default\_point\_radius\_}};}
+\DoxyCodeLine{00023 }
+\DoxyCodeLine{00024     \mbox{\hyperlink{class_vibrating_point_adfd1433886cf1fb2b3b07062b69614b1}{frequencies\_}}.push\_back(0.0);}
+\DoxyCodeLine{00025     \mbox{\hyperlink{class_vibrating_point_a9989c50fa30cecf13079ae0c595ef87c}{relative\_amplitude\_}} = Point3f(0.0, 0.0, 0.0);}
+\DoxyCodeLine{00026 }
+\DoxyCodeLine{00027     \mbox{\hyperlink{class_vibrating_point_ab2539b861e02f361eb772c71e06c9af3}{sensivity\_}} = 0.01;}
+\DoxyCodeLine{00028     \mbox{\hyperlink{class_vibrating_point_a6ed26ed40b33b1486cb4c304981d4444}{confidence\_level\_}} = 1.0;}
+\DoxyCodeLine{00029 }
+\DoxyCodeLine{00030     \mbox{\hyperlink{class_colored_point_handler_a4b3ee0b18de6bf71cd0f5124ce73c490}{point\_color\_}} = Scalar(0, 0, 255);}
+\DoxyCodeLine{00031 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_colored_point_handler_a55e451f03127858deb1dda40e2124611}\label{class_colored_point_handler_a55e451f03127858deb1dda40e2124611}} 
+\index{ColoredPointHandler@{ColoredPointHandler}!````~ColoredPointHandler@{$\sim$ColoredPointHandler}}
+\index{````~ColoredPointHandler@{$\sim$ColoredPointHandler}!ColoredPointHandler@{ColoredPointHandler}}
+\doxysubsubsection{\texorpdfstring{$\sim$ColoredPointHandler()}{~ColoredPointHandler()}}
+{\footnotesize\ttfamily Colored\+Point\+Handler\+::$\sim$\+Colored\+Point\+Handler (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Деструктор этого класса 
+
+Вызывает метод родительского класса \mbox{\hyperlink{class_output_to_csv}{Output\+To\+Csv}} \mbox{\hyperlink{class_output_to_csv_a8f1e3239fa21906aa102c3d601183f65}{Write()}} для записи метаданных 
+
+См. определение в файле \mbox{\hyperlink{colored__point__handler_8cpp_source}{colored\+\_\+point\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{colored__point__handler_8cpp_source_l00033}{33}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00034 \{}
+\DoxyCodeLine{00035     \mbox{\hyperlink{class_output_to_csv_a8f1e3239fa21906aa102c3d601183f65}{Write}}();}
+\DoxyCodeLine{00036 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Методы}
+\mbox{\Hypertarget{class_colored_point_handler_ad16eb2210bc1e9f8983186088cc9a573}\label{class_colored_point_handler_ad16eb2210bc1e9f8983186088cc9a573}} 
+\index{ColoredPointHandler@{ColoredPointHandler}!Draw@{Draw}}
+\index{Draw@{Draw}!ColoredPointHandler@{ColoredPointHandler}}
+\doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
+{\footnotesize\ttfamily void Colored\+Point\+Handler\+::\+Draw (\begin{DoxyParamCaption}\item[{Mat \&}]{frame }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Отрисовывает точку и данные, связанные с ней 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em frame} & изображение, на котором будет происходить отрисовка \\
+\hline
+\end{DoxyParams}
+
+
+Замещает \mbox{\hyperlink{class_vibrating_point_a84210a3247277ca0137d4754c5ec5b03}{Vibrating\+Point}}.
+
+
+
+См. определение в файле \mbox{\hyperlink{colored__point__handler_8cpp_source}{colored\+\_\+point\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{colored__point__handler_8cpp_source_l00038}{38}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00039 \{}
+\DoxyCodeLine{00040     \textcolor{comment}{// отрисовываем круг вокруг точки}}
+\DoxyCodeLine{00041     \mbox{\hyperlink{class_colored_point_handler_a19d02da549d21bce5167c041257ad808}{DrawPoint}}(frame);}
+\DoxyCodeLine{00042     \textcolor{comment}{// отрисовываем гистограмму}}
+\DoxyCodeLine{00043     \mbox{\hyperlink{class_colored_point_handler_a3c6b8eef49c18add5c4c56d9035c06df}{DrawHistogram}}();}
+\DoxyCodeLine{00044 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_colored_point_handler_a3c6b8eef49c18add5c4c56d9035c06df}\label{class_colored_point_handler_a3c6b8eef49c18add5c4c56d9035c06df}} 
+\index{ColoredPointHandler@{ColoredPointHandler}!DrawHistogram@{DrawHistogram}}
+\index{DrawHistogram@{DrawHistogram}!ColoredPointHandler@{ColoredPointHandler}}
+\doxysubsubsection{\texorpdfstring{DrawHistogram()}{DrawHistogram()}}
+{\footnotesize\ttfamily void Colored\+Point\+Handler\+::\+Draw\+Histogram (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [private]}, {\ttfamily [virtual]}}
+
+
+
+Отрисовывает гистограмму 
+
+
+
+Замещает \mbox{\hyperlink{class_vibrating_point_a2bd28bb86f01ccae6fa193914863045a}{Vibrating\+Point}}.
+
+
+
+См. определение в файле \mbox{\hyperlink{colored__point__handler_8cpp_source}{colored\+\_\+point\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{colored__point__handler_8cpp_source_l00051}{51}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00052 \{}
+\DoxyCodeLine{00053     \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_histogram_ad5f780994e3453a67ed31b9437000ce3}{is\_histogram\_plotted\_}})}
+\DoxyCodeLine{00054     \{}
+\DoxyCodeLine{00055         \mbox{\hyperlink{class_histogram_a8ed9e75be45d4c50b54b9150427a89c8}{SetXValues}}(\mbox{\hyperlink{class_vibrating_point_a5ea36bdad5aeac784ecfa21f3ca98517}{x\_}});}
+\DoxyCodeLine{00056         \mbox{\hyperlink{class_histogram_a6f59d4b44f3f4866a7b709ec7e1e15c4}{SetYValues}}(\mbox{\hyperlink{class_vibrating_point_aa22ce2e3bdd0b4614b1c0ad0adf256e5}{y\_}});}
+\DoxyCodeLine{00057         \mbox{\hyperlink{class_histogram_a5a5a64a00231d62a6eeacb416f704262}{ShowHistogram}}();}
+\DoxyCodeLine{00058     \}}
+\DoxyCodeLine{00059 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_colored_point_handler_ae36ef1c44415f932993212c8aff980f6}\label{class_colored_point_handler_ae36ef1c44415f932993212c8aff980f6}} 
+\index{ColoredPointHandler@{ColoredPointHandler}!DrawInteractionRectangle@{DrawInteractionRectangle}}
+\index{DrawInteractionRectangle@{DrawInteractionRectangle}!ColoredPointHandler@{ColoredPointHandler}}
+\doxysubsubsection{\texorpdfstring{DrawInteractionRectangle()}{DrawInteractionRectangle()}}
+{\footnotesize\ttfamily void Colored\+Point\+Handler\+::\+Draw\+Interaction\+Rectangle (\begin{DoxyParamCaption}\item[{Mat \&}]{frame }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Отрисовывает прямоугольник взаимодействия 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em frame} & изображение, на котором будет происходить отрисовка \\
+\hline
+\end{DoxyParams}
+
+
+См. определение в файле \mbox{\hyperlink{colored__point__handler_8cpp_source}{colored\+\_\+point\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{colored__point__handler_8cpp_source_l00068}{68}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00069 \{}
+\DoxyCodeLine{00070     rectangle(frame, \mbox{\hyperlink{class_vibrating_point_a5b35f5a2109df2be2d2832b25dfa2285}{interaction\_box\_}}, Scalar(0, 0, 255), 1);}
+\DoxyCodeLine{00071 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_colored_point_handler_a19d02da549d21bce5167c041257ad808}\label{class_colored_point_handler_a19d02da549d21bce5167c041257ad808}} 
+\index{ColoredPointHandler@{ColoredPointHandler}!DrawPoint@{DrawPoint}}
+\index{DrawPoint@{DrawPoint}!ColoredPointHandler@{ColoredPointHandler}}
+\doxysubsubsection{\texorpdfstring{DrawPoint()}{DrawPoint()}}
+{\footnotesize\ttfamily void Colored\+Point\+Handler\+::\+Draw\+Point (\begin{DoxyParamCaption}\item[{Mat \&}]{frame }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Отрисовывает точку на кадре 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em frame} & изображение, на котором будет происходить отрисовка \\
+\hline
+\end{DoxyParams}
+
+
+См. определение в файле \mbox{\hyperlink{colored__point__handler_8cpp_source}{colored\+\_\+point\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{colored__point__handler_8cpp_source_l00061}{61}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00062 \{}
+\DoxyCodeLine{00063     \mbox{\hyperlink{class_colored_point_handler_ad360ca58ca141acaf11d98a9bf59483b}{UpdatePointColor}}();}
+\DoxyCodeLine{00064     \textcolor{comment}{// отрисовываем круг вокруг точки}}
+\DoxyCodeLine{00065     circle(frame, \mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}.back(), \mbox{\hyperlink{class_vibrating_point_ac0a7383346b67916a29c9dc892addfae}{current\_point\_radius\_}}, \mbox{\hyperlink{class_colored_point_handler_a4b3ee0b18de6bf71cd0f5124ce73c490}{point\_color\_}}, FILLED);}
+\DoxyCodeLine{00066 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_colored_point_handler_aca8be23a3787bd9f62dd0f950c1f2645}\label{class_colored_point_handler_aca8be23a3787bd9f62dd0f950c1f2645}} 
+\index{ColoredPointHandler@{ColoredPointHandler}!SetColoringMode@{SetColoringMode}}
+\index{SetColoringMode@{SetColoringMode}!ColoredPointHandler@{ColoredPointHandler}}
+\doxysubsubsection{\texorpdfstring{SetColoringMode()}{SetColoringMode()}}
+{\footnotesize\ttfamily void Colored\+Point\+Handler\+::\+Set\+Coloring\+Mode (\begin{DoxyParamCaption}\item[{int}]{coloring\+\_\+mode }\end{DoxyParamCaption})}
+
+
+
+Устанавливает нужный режим отрисовки цветом 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em coloring\+\_\+mode} & режим, который нужно установить \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Заметки}
+\mbox{\hyperlink{class_colored_point_handler_ad0550fe1aac50d476a071743e3c3802a}{Colored\+Point\+Handler\+::coloring\+\_\+mode}} 
+\end{DoxyNote}
+
+
+См. определение в файле \mbox{\hyperlink{colored__point__handler_8cpp_source}{colored\+\_\+point\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{colored__point__handler_8cpp_source_l00046}{46}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00047 \{}
+\DoxyCodeLine{00048     coloring\_mode\_ = \mbox{\hyperlink{class_colored_point_handler_ad0550fe1aac50d476a071743e3c3802a}{coloring\_mode}};}
+\DoxyCodeLine{00049 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_colored_point_handler_ad360ca58ca141acaf11d98a9bf59483b}\label{class_colored_point_handler_ad360ca58ca141acaf11d98a9bf59483b}} 
+\index{ColoredPointHandler@{ColoredPointHandler}!UpdatePointColor@{UpdatePointColor}}
+\index{UpdatePointColor@{UpdatePointColor}!ColoredPointHandler@{ColoredPointHandler}}
+\doxysubsubsection{\texorpdfstring{UpdatePointColor()}{UpdatePointColor()}}
+{\footnotesize\ttfamily void Colored\+Point\+Handler\+::\+Update\+Point\+Color (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [private]}, {\ttfamily [virtual]}}
+
+
+
+Обновляет текущий цвет точки 
+
+
+
+Замещает \mbox{\hyperlink{class_vibrating_point_aadc5ff6408bb2e4a474dd25cd5bb6fdf}{Vibrating\+Point}}.
+
+
+
+См. определение в файле \mbox{\hyperlink{colored__point__handler_8cpp_source}{colored\+\_\+point\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{colored__point__handler_8cpp_source_l00073}{73}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00074 \{}
+\DoxyCodeLine{00075     \textcolor{keywordflow}{switch} (coloring\_mode\_)}
+\DoxyCodeLine{00076     \{}
+\DoxyCodeLine{00077     \textcolor{keywordflow}{case} DEFAULT:}
+\DoxyCodeLine{00078     \{}
+\DoxyCodeLine{00079         \mbox{\hyperlink{class_vibrating_point_ac0a7383346b67916a29c9dc892addfae}{current\_point\_radius\_}} = \mbox{\hyperlink{class_vibrating_point_af4a9903a86d6d1a98b1acf89684492ae}{default\_point\_radius\_}};}
+\DoxyCodeLine{00080         \mbox{\hyperlink{class_colored_point_handler_a4b3ee0b18de6bf71cd0f5124ce73c490}{point\_color\_}} = Scalar(0, 0, 255);}
+\DoxyCodeLine{00081         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00082     \}}
+\DoxyCodeLine{00083     \textcolor{keywordflow}{case} COLORING\_BASED\_ON\_FREQUENCY:}
+\DoxyCodeLine{00084     \{}
+\DoxyCodeLine{00085         \mbox{\hyperlink{class_vibrating_point_ac0a7383346b67916a29c9dc892addfae}{current\_point\_radius\_}} = \mbox{\hyperlink{class_vibrating_point_af4a9903a86d6d1a98b1acf89684492ae}{default\_point\_radius\_}};}
+\DoxyCodeLine{00086         \textcolor{comment}{// переведём диапазон частоты [0; range\_limit] в [0; 255] int color value;}}
+\DoxyCodeLine{00087         \textcolor{keywordflow}{if} (!\mbox{\hyperlink{class_vibrating_point_adfd1433886cf1fb2b3b07062b69614b1}{frequencies\_}}.empty())}
+\DoxyCodeLine{00088         \{}
+\DoxyCodeLine{00089             \mbox{\hyperlink{class_colored_point_handler_a4b3ee0b18de6bf71cd0f5124ce73c490}{point\_color\_}} = \mbox{\hyperlink{group___helper_functions_ga79584d71167afeb72ca384eaf87c1419}{HelperFunctions::RatioToRgb}}(\mbox{\hyperlink{class_vibrating_point_aa0b94560fbac6ae1c5dbae9f4931d28c}{main\_frequency\_}} / (\mbox{\hyperlink{class_vibrating_point_a67ffaaa1b714226a78d6d5cc31c195c9}{sampling\_rate\_}} / 2));}
+\DoxyCodeLine{00090         \}}
+\DoxyCodeLine{00091         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00092     \}}
+\DoxyCodeLine{00093     \textcolor{keywordflow}{case} COLORING\_BASED\_ON\_AMPLITUDE:}
+\DoxyCodeLine{00094     \{}
+\DoxyCodeLine{00095         \mbox{\hyperlink{class_vibrating_point_ac0a7383346b67916a29c9dc892addfae}{current\_point\_radius\_}} = \mbox{\hyperlink{class_vibrating_point_af4a9903a86d6d1a98b1acf89684492ae}{default\_point\_radius\_}};}
+\DoxyCodeLine{00096         \textcolor{comment}{// переведём диапазон амплитуд [0; max\_amplitude\_] в [0; 255] int color value;}}
+\DoxyCodeLine{00097         \textcolor{keywordtype}{double} current\_amplitude\_absolute = sqrt(\mbox{\hyperlink{class_vibrating_point_a5ae50ac111f6681489eded6da7ef66ea}{current\_amplitude\_}}.x * \mbox{\hyperlink{class_vibrating_point_a5ae50ac111f6681489eded6da7ef66ea}{current\_amplitude\_}}.x + \mbox{\hyperlink{class_vibrating_point_a5ae50ac111f6681489eded6da7ef66ea}{current\_amplitude\_}}.y * \mbox{\hyperlink{class_vibrating_point_a5ae50ac111f6681489eded6da7ef66ea}{current\_amplitude\_}}.y);}
+\DoxyCodeLine{00098         \textcolor{keywordtype}{double} ratio = (current\_amplitude\_absolute -\/ \mbox{\hyperlink{class_vibrating_point_afdefa096df21cf891ae6835a6df4ffc9}{extremum\_amplitude\_}}.second) / (\mbox{\hyperlink{class_vibrating_point_afdefa096df21cf891ae6835a6df4ffc9}{extremum\_amplitude\_}}.first -\/ \mbox{\hyperlink{class_vibrating_point_afdefa096df21cf891ae6835a6df4ffc9}{extremum\_amplitude\_}}.second);}
+\DoxyCodeLine{00099         \mbox{\hyperlink{class_colored_point_handler_a4b3ee0b18de6bf71cd0f5124ce73c490}{point\_color\_}} = \mbox{\hyperlink{group___helper_functions_ga79584d71167afeb72ca384eaf87c1419}{HelperFunctions::RatioToRgb}}(ratio);}
+\DoxyCodeLine{00100         \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_colored_point_handler_a4b3ee0b18de6bf71cd0f5124ce73c490}{point\_color\_}} == Scalar(0, 0, 0))}
+\DoxyCodeLine{00101         \{}
+\DoxyCodeLine{00102             std::cout << \textcolor{stringliteral}{"{}ratio: "{}} << ratio << std::endl;}
+\DoxyCodeLine{00103             std::cout << \textcolor{stringliteral}{"{}current\_amplitude\_.x: "{}} << \mbox{\hyperlink{class_vibrating_point_a5ae50ac111f6681489eded6da7ef66ea}{current\_amplitude\_}}.x << std::endl;}
+\DoxyCodeLine{00104             std::cout << \textcolor{stringliteral}{"{}max ampl: "{}} << \mbox{\hyperlink{class_vibrating_point_afdefa096df21cf891ae6835a6df4ffc9}{extremum\_amplitude\_}}.first << std::endl;}
+\DoxyCodeLine{00105             std::cout << \textcolor{stringliteral}{"{}min ampl: "{}} << \mbox{\hyperlink{class_vibrating_point_afdefa096df21cf891ae6835a6df4ffc9}{extremum\_amplitude\_}}.second << std::endl;}
+\DoxyCodeLine{00106         \}}
+\DoxyCodeLine{00107         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00108     \}}
+\DoxyCodeLine{00109     \}}
+\DoxyCodeLine{00110     \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_vibrating_point_a0298c80261ea234f82e1afff59d2d1fa}{interacted\_}})}
+\DoxyCodeLine{00111     \{}
+\DoxyCodeLine{00112         \mbox{\hyperlink{class_colored_point_handler_a4b3ee0b18de6bf71cd0f5124ce73c490}{point\_color\_}} = Scalar(255, 255, 255);}
+\DoxyCodeLine{00113         \mbox{\hyperlink{class_vibrating_point_ac0a7383346b67916a29c9dc892addfae}{current\_point\_radius\_}} *= 3;}
+\DoxyCodeLine{00114     \}}
+\DoxyCodeLine{00115 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Данные класса}
+\mbox{\Hypertarget{class_colored_point_handler_a2fe1b3b0ab84e773e09fa26d79f5d3f9}\label{class_colored_point_handler_a2fe1b3b0ab84e773e09fa26d79f5d3f9}} 
+\index{ColoredPointHandler@{ColoredPointHandler}!coloring\_mode\_@{coloring\_mode\_}}
+\index{coloring\_mode\_@{coloring\_mode\_}!ColoredPointHandler@{ColoredPointHandler}}
+\doxysubsubsection{\texorpdfstring{coloring\_mode\_}{coloring\_mode\_}}
+{\footnotesize\ttfamily int Colored\+Point\+Handler\+::coloring\+\_\+mode\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+См. определение в файле \mbox{\hyperlink{colored__point__handler_8h_source}{colored\+\_\+point\+\_\+handler.\+h}} строка \mbox{\hyperlink{colored__point__handler_8h_source_l00090}{90}}
+
+\mbox{\Hypertarget{class_colored_point_handler_a4b3ee0b18de6bf71cd0f5124ce73c490}\label{class_colored_point_handler_a4b3ee0b18de6bf71cd0f5124ce73c490}} 
+\index{ColoredPointHandler@{ColoredPointHandler}!point\_color\_@{point\_color\_}}
+\index{point\_color\_@{point\_color\_}!ColoredPointHandler@{ColoredPointHandler}}
+\doxysubsubsection{\texorpdfstring{point\_color\_}{point\_color\_}}
+{\footnotesize\ttfamily Scalar Colored\+Point\+Handler\+::point\+\_\+color\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Цвет точки 
+
+
+
+См. определение в файле \mbox{\hyperlink{colored__point__handler_8h_source}{colored\+\_\+point\+\_\+handler.\+h}} строка \mbox{\hyperlink{colored__point__handler_8h_source_l00102}{102}}
+
+\mbox{\Hypertarget{class_colored_point_handler_a10084b9ba7abcc7a6637cf51ae688a5d}\label{class_colored_point_handler_a10084b9ba7abcc7a6637cf51ae688a5d}} 
+\index{ColoredPointHandler@{ColoredPointHandler}!point\_id\_@{point\_id\_}}
+\index{point\_id\_@{point\_id\_}!ColoredPointHandler@{ColoredPointHandler}}
+\doxysubsubsection{\texorpdfstring{point\_id\_}{point\_id\_}}
+{\footnotesize\ttfamily int Colored\+Point\+Handler\+::point\+\_\+id\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ID точки (нет блин почки) 
+
+
+
+См. определение в файле \mbox{\hyperlink{colored__point__handler_8h_source}{colored\+\_\+point\+\_\+handler.\+h}} строка \mbox{\hyperlink{colored__point__handler_8h_source_l00098}{98}}
+
+\mbox{\Hypertarget{class_colored_point_handler_a1920c209cdbaf82feee3310787cedc47}\label{class_colored_point_handler_a1920c209cdbaf82feee3310787cedc47}} 
+\index{ColoredPointHandler@{ColoredPointHandler}!radius\_resize\_factor\_@{radius\_resize\_factor\_}}
+\index{radius\_resize\_factor\_@{radius\_resize\_factor\_}!ColoredPointHandler@{ColoredPointHandler}}
+\doxysubsubsection{\texorpdfstring{radius\_resize\_factor\_}{radius\_resize\_factor\_}}
+{\footnotesize\ttfamily float Colored\+Point\+Handler\+::radius\+\_\+resize\+\_\+factor\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Коэффициент рескейла для радиуса точки 
+
+
+
+См. определение в файле \mbox{\hyperlink{colored__point__handler_8h_source}{colored\+\_\+point\+\_\+handler.\+h}} строка \mbox{\hyperlink{colored__point__handler_8h_source_l00094}{94}}
+
+
+
+Объявления и описания членов классов находятся в файлах\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/seeyo/source/repos/\+Visual-\/\+Vibration-\/\+Tracking-\/\+V2/include/\+VVT-\/\+V2/colored\+\_\+point\+\_\+handler.\+h\item 
+C\+:/\+Users/seeyo/source/repos/\+Visual-\/\+Vibration-\/\+Tracking-\/\+V2/source/colored\+\_\+point\+\_\+handler.\+cpp\end{DoxyCompactItemize}

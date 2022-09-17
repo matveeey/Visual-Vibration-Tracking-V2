@@ -1,0 +1,210 @@
+\hypertarget{class_output_to_csv}{}\doxysection{Класс Output\+To\+Csv}
+\label{class_output_to_csv}\index{OutputToCsv@{OutputToCsv}}
+
+
+Класс для сохранения метаданных (временных и пространственных координат, ID точки)  
+
+
+
+
+{\ttfamily \#include $<$output\+\_\+to\+\_\+csv.\+h$>$}
+
+
+
+Граф наследования\+:Output\+To\+Csv\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=304pt]{class_output_to_csv__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_output_to_csv_a6c2e719cbb3ff83b249e8820029895f0}{Output\+To\+Csv}} (std\+::string output\+\_\+file\+\_\+name, std\+::vector$<$ Point2f $>$ \&point\+\_\+coordinates, std\+::vector$<$ double $>$ \&point\+\_\+time\+\_\+coordinates, int point\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Конструктор этого класса \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_output_to_csv_a8f1e3239fa21906aa102c3d601183f65}{Write}} ()
+\begin{DoxyCompactList}\small\item\em Добавляет данные для записи \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Закрытые данные}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{class_output_to_csv_a54c842383d98ee9896149112be64e70e}{output\+\_\+file\+\_\+name\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Имя (путь) файла, в который будет производиться запись \end{DoxyCompactList}\item 
+std\+::vector$<$ Point2f $>$ $\ast$ \mbox{\hyperlink{class_output_to_csv_a88fc80ddae3f02ad0dfb04b0529f9fd3}{coordinates\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Контейнер для пространственных координат (позиций на экране) точки \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ $\ast$ \mbox{\hyperlink{class_output_to_csv_a8aaab03dcb5f23e40bc58c6d1ac1e4a1}{time\+\_\+coordinates\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Контейнер для временных координат (позиций на экране) точки \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_output_to_csv_a13ad8d8720f27eab5e5c504fc755398c}{point\+\_\+id\+\_\+}}
+\begin{DoxyCompactList}\small\item\em ID точки \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Класс для сохранения метаданных (временных и пространственных координат, ID точки) 
+
+Имя выходного файла имеет следующий вид\+: output\+\_\+year-\/mm-\/dd\+\_\+hh-\/mm-\/ss.\+csv
+
+Оно генерируется вне дочернего объекта этого класса, а во время начала работы программы. Поэтому можно сохранять метаданные разных точек в один файл (с одним названием) 
+
+См. определение в файле \mbox{\hyperlink{output__to__csv_8h_source}{output\+\_\+to\+\_\+csv.\+h}} строка \mbox{\hyperlink{output__to__csv_8h_source_l00018}{18}}
+
+
+
+\doxysubsection{Конструктор(ы)}
+\mbox{\Hypertarget{class_output_to_csv_a6c2e719cbb3ff83b249e8820029895f0}\label{class_output_to_csv_a6c2e719cbb3ff83b249e8820029895f0}} 
+\index{OutputToCsv@{OutputToCsv}!OutputToCsv@{OutputToCsv}}
+\index{OutputToCsv@{OutputToCsv}!OutputToCsv@{OutputToCsv}}
+\doxysubsubsection{\texorpdfstring{OutputToCsv()}{OutputToCsv()}}
+{\footnotesize\ttfamily Output\+To\+Csv\+::\+Output\+To\+Csv (\begin{DoxyParamCaption}\item[{std\+::string}]{output\+\_\+file\+\_\+name,  }\item[{std\+::vector$<$ Point2f $>$ \&}]{point\+\_\+coordinates,  }\item[{std\+::vector$<$ double $>$ \&}]{point\+\_\+time\+\_\+coordinates,  }\item[{int}]{point\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+Конструктор этого класса 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em output\+\_\+file\+\_\+name} & имя выходного файла. \\
+\hline
+{\em point\+\_\+coordinates} & ссылка на контейнер пространственных координат точки \\
+\hline
+{\em point\+\_\+time\+\_\+coordinates} & ссылка на контейнер временных координат точки \\
+\hline
+{\em point\+\_\+id} & ID точки \\
+\hline
+\end{DoxyParams}
+
+
+См. определение в файле \mbox{\hyperlink{output__to__csv_8cpp_source}{output\+\_\+to\+\_\+csv.\+cpp}} строка \mbox{\hyperlink{output__to__csv_8cpp_source_l00003}{3}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00003                                                                                                                                                    :}
+\DoxyCodeLine{00004     \mbox{\hyperlink{class_output_to_csv_a54c842383d98ee9896149112be64e70e}{output\_file\_name\_}}\{ output\_file\_name \},}
+\DoxyCodeLine{00005     \mbox{\hyperlink{class_output_to_csv_a88fc80ddae3f02ad0dfb04b0529f9fd3}{coordinates\_}}\{ \&point\_coordinates \},}
+\DoxyCodeLine{00006     \mbox{\hyperlink{class_output_to_csv_a8aaab03dcb5f23e40bc58c6d1ac1e4a1}{time\_coordinates\_}}\{ \&point\_time\_coordinates \},}
+\DoxyCodeLine{00007     \mbox{\hyperlink{class_output_to_csv_a13ad8d8720f27eab5e5c504fc755398c}{point\_id\_}}\{ point\_id \}}
+\DoxyCodeLine{00008 \{}
+\DoxyCodeLine{00009 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Методы}
+\mbox{\Hypertarget{class_output_to_csv_a8f1e3239fa21906aa102c3d601183f65}\label{class_output_to_csv_a8f1e3239fa21906aa102c3d601183f65}} 
+\index{OutputToCsv@{OutputToCsv}!Write@{Write}}
+\index{Write@{Write}!OutputToCsv@{OutputToCsv}}
+\doxysubsubsection{\texorpdfstring{Write()}{Write()}}
+{\footnotesize\ttfamily void Output\+To\+Csv\+::\+Write (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Добавляет данные для записи 
+
+
+
+См. определение в файле \mbox{\hyperlink{output__to__csv_8cpp_source}{output\+\_\+to\+\_\+csv.\+cpp}} строка \mbox{\hyperlink{output__to__csv_8cpp_source_l00011}{11}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00012 \{}
+\DoxyCodeLine{00013     std::ofstream file;}
+\DoxyCodeLine{00014     file.open(\mbox{\hyperlink{class_output_to_csv_a54c842383d98ee9896149112be64e70e}{output\_file\_name\_}}, std::fstream::app);}
+\DoxyCodeLine{00015 }
+\DoxyCodeLine{00016     \textcolor{comment}{// Запишем ID точки}}
+\DoxyCodeLine{00017     file << \textcolor{stringliteral}{"{}Point "{}} + std::to\_string(\mbox{\hyperlink{class_output_to_csv_a13ad8d8720f27eab5e5c504fc755398c}{point\_id\_}}) + \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00018 }
+\DoxyCodeLine{00019     \textcolor{comment}{// Запишем временные позиции точки}}
+\DoxyCodeLine{00020     file << \textcolor{stringliteral}{"{}Time pos;"{}};}
+\DoxyCodeLine{00021     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_output_to_csv_a8aaab03dcb5f23e40bc58c6d1ac1e4a1}{time\_coordinates\_}}-\/>size(); i++)}
+\DoxyCodeLine{00022     \{}
+\DoxyCodeLine{00023         file << std::to\_string(\mbox{\hyperlink{class_output_to_csv_a8aaab03dcb5f23e40bc58c6d1ac1e4a1}{time\_coordinates\_}}-\/>at(i)) + \textcolor{stringliteral}{"{};"{}};}
+\DoxyCodeLine{00024     \}}
+\DoxyCodeLine{00025     file << \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00026 }
+\DoxyCodeLine{00027     \textcolor{comment}{// Запишем координаты }}
+\DoxyCodeLine{00028     \textcolor{comment}{// Сначала по X}}
+\DoxyCodeLine{00029     file << \textcolor{stringliteral}{"{}X pos; "{}};}
+\DoxyCodeLine{00030     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_output_to_csv_a88fc80ddae3f02ad0dfb04b0529f9fd3}{coordinates\_}}-\/>size(); i++)}
+\DoxyCodeLine{00031     \{}
+\DoxyCodeLine{00032         file << std::to\_string(\mbox{\hyperlink{class_output_to_csv_a88fc80ddae3f02ad0dfb04b0529f9fd3}{coordinates\_}}-\/>at(i).x) + \textcolor{stringliteral}{"{};"{}};}
+\DoxyCodeLine{00033     \}}
+\DoxyCodeLine{00034     file << \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00035 }
+\DoxyCodeLine{00036     \textcolor{comment}{// Затем по Y}}
+\DoxyCodeLine{00037     file << \textcolor{stringliteral}{"{}Y pos; "{}};}
+\DoxyCodeLine{00038     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_output_to_csv_a88fc80ddae3f02ad0dfb04b0529f9fd3}{coordinates\_}}-\/>size(); i++)}
+\DoxyCodeLine{00039     \{}
+\DoxyCodeLine{00040         file << std::to\_string(\mbox{\hyperlink{class_output_to_csv_a88fc80ddae3f02ad0dfb04b0529f9fd3}{coordinates\_}}-\/>at(i).y) + \textcolor{stringliteral}{"{};"{}};}
+\DoxyCodeLine{00041     \}}
+\DoxyCodeLine{00042     file << \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00043 }
+\DoxyCodeLine{00044     file.close();}
+\DoxyCodeLine{00045     }
+\DoxyCodeLine{00046 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Данные класса}
+\mbox{\Hypertarget{class_output_to_csv_a88fc80ddae3f02ad0dfb04b0529f9fd3}\label{class_output_to_csv_a88fc80ddae3f02ad0dfb04b0529f9fd3}} 
+\index{OutputToCsv@{OutputToCsv}!coordinates\_@{coordinates\_}}
+\index{coordinates\_@{coordinates\_}!OutputToCsv@{OutputToCsv}}
+\doxysubsubsection{\texorpdfstring{coordinates\_}{coordinates\_}}
+{\footnotesize\ttfamily std\+::vector$<$Point2f$>$$\ast$ Output\+To\+Csv\+::coordinates\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Контейнер для пространственных координат (позиций на экране) точки 
+
+
+
+См. определение в файле \mbox{\hyperlink{output__to__csv_8h_source}{output\+\_\+to\+\_\+csv.\+h}} строка \mbox{\hyperlink{output__to__csv_8h_source_l00042}{42}}
+
+\mbox{\Hypertarget{class_output_to_csv_a54c842383d98ee9896149112be64e70e}\label{class_output_to_csv_a54c842383d98ee9896149112be64e70e}} 
+\index{OutputToCsv@{OutputToCsv}!output\_file\_name\_@{output\_file\_name\_}}
+\index{output\_file\_name\_@{output\_file\_name\_}!OutputToCsv@{OutputToCsv}}
+\doxysubsubsection{\texorpdfstring{output\_file\_name\_}{output\_file\_name\_}}
+{\footnotesize\ttfamily std\+::string Output\+To\+Csv\+::output\+\_\+file\+\_\+name\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Имя (путь) файла, в который будет производиться запись 
+
+
+
+См. определение в файле \mbox{\hyperlink{output__to__csv_8h_source}{output\+\_\+to\+\_\+csv.\+h}} строка \mbox{\hyperlink{output__to__csv_8h_source_l00038}{38}}
+
+\mbox{\Hypertarget{class_output_to_csv_a13ad8d8720f27eab5e5c504fc755398c}\label{class_output_to_csv_a13ad8d8720f27eab5e5c504fc755398c}} 
+\index{OutputToCsv@{OutputToCsv}!point\_id\_@{point\_id\_}}
+\index{point\_id\_@{point\_id\_}!OutputToCsv@{OutputToCsv}}
+\doxysubsubsection{\texorpdfstring{point\_id\_}{point\_id\_}}
+{\footnotesize\ttfamily int Output\+To\+Csv\+::point\+\_\+id\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ID точки 
+
+
+
+См. определение в файле \mbox{\hyperlink{output__to__csv_8h_source}{output\+\_\+to\+\_\+csv.\+h}} строка \mbox{\hyperlink{output__to__csv_8h_source_l00050}{50}}
+
+\mbox{\Hypertarget{class_output_to_csv_a8aaab03dcb5f23e40bc58c6d1ac1e4a1}\label{class_output_to_csv_a8aaab03dcb5f23e40bc58c6d1ac1e4a1}} 
+\index{OutputToCsv@{OutputToCsv}!time\_coordinates\_@{time\_coordinates\_}}
+\index{time\_coordinates\_@{time\_coordinates\_}!OutputToCsv@{OutputToCsv}}
+\doxysubsubsection{\texorpdfstring{time\_coordinates\_}{time\_coordinates\_}}
+{\footnotesize\ttfamily std\+::vector$<$double$>$$\ast$ Output\+To\+Csv\+::time\+\_\+coordinates\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Контейнер для временных координат (позиций на экране) точки 
+
+
+
+См. определение в файле \mbox{\hyperlink{output__to__csv_8h_source}{output\+\_\+to\+\_\+csv.\+h}} строка \mbox{\hyperlink{output__to__csv_8h_source_l00046}{46}}
+
+
+
+Объявления и описания членов классов находятся в файлах\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/seeyo/source/repos/\+Visual-\/\+Vibration-\/\+Tracking-\/\+V2/include/\+VVT-\/\+V2/output\+\_\+to\+\_\+csv.\+h\item 
+C\+:/\+Users/seeyo/source/repos/\+Visual-\/\+Vibration-\/\+Tracking-\/\+V2/source/output\+\_\+to\+\_\+csv.\+cpp\end{DoxyCompactItemize}

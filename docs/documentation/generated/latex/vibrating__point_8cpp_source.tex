@@ -1,0 +1,262 @@
+\hypertarget{vibrating__point_8cpp_source}{}\doxysection{vibrating\+\_\+point.\+cpp}
+\label{vibrating__point_8cpp_source}\index{C:/Users/seeyo/source/repos/Visual-\/Vibration-\/Tracking-\/V2/source/vibrating\_point.cpp@{C:/Users/seeyo/source/repos/Visual-\/Vibration-\/Tracking-\/V2/source/vibrating\_point.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}VVT-\/V2/vibrating\_point.h"{}}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00003}\mbox{\hyperlink{class_vibrating_point_a005868411bd6b296d992f3dcd79451d7}{00003}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_vibrating_point_a005868411bd6b296d992f3dcd79451d7}{VibratingPoint::ExecuteFFT}}()}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00004}00004 \{}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00005}00005     \textcolor{keywordtype}{bool} absolute\_peak = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00007}00007     std::vector<Point2f> fft\_result;}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00008}00008     std::vector<Point2f> p2;}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00009}00009     std::vector<Point2f> p1;}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00010}00010     std::vector<double> frequencies;}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00011}00011     std::vector<int> indexes\_of\_peak\_frequencies;}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00012}00012     std::vector<float> magnitudes;}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00013}00013 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00014}00014     std::vector<double> peak\_frequencies;}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00015}00015 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00016}00016     \textcolor{keywordtype}{int} samples\_amount = \mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}.size();}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00017}00017 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00018}00018     Scalar mean\_coordinates\_of\_point\_ = mean(\mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}});}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00019}00019     \textcolor{comment}{//std::cout << mean\_coordinates\_of\_point\_ << std::endl;}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00020}00020     \textcolor{keywordtype}{double} meaned\_x = mean\_coordinates\_of\_point\_.val[0];}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00021}00021     \textcolor{keywordtype}{double} meaned\_y = mean\_coordinates\_of\_point\_.val[1];}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00022}00022 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00023}00023     \mbox{\hyperlink{class_vibrating_point_aa65df19b908306e2f4c725480594b2bb}{vec\_meaned\_coordinates\_of\_point\_}}.clear();}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00024}00024     \mbox{\hyperlink{class_vibrating_point_a6653e27fe96e5fe6e7aa410fb3138c92}{x\_coordinates\_}}.clear();}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00025}00025     \mbox{\hyperlink{class_vibrating_point_a5df5aa7a4d955de091640290f849961c}{y\_coordinates\_}}.clear();}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00026}00026     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}.size(); i++)}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00027}00027     \{}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00028}00028         \mbox{\hyperlink{class_vibrating_point_aa65df19b908306e2f4c725480594b2bb}{vec\_meaned\_coordinates\_of\_point\_}}.push\_back(Point2f(\mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}[i].x -\/ meaned\_x, \mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}[i].y -\/ meaned\_y));}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00029}00029         \mbox{\hyperlink{class_vibrating_point_a6653e27fe96e5fe6e7aa410fb3138c92}{x\_coordinates\_}}.push\_back(\mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}[i].x -\/ meaned\_x);}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00030}00030         \mbox{\hyperlink{class_vibrating_point_a5df5aa7a4d955de091640290f849961c}{y\_coordinates\_}}.push\_back(\mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}[i].y -\/ meaned\_y);}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00031}00031     \}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00033}00033     dft(\mbox{\hyperlink{class_vibrating_point_aa65df19b908306e2f4c725480594b2bb}{vec\_meaned\_coordinates\_of\_point\_}}, fft\_result);}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00034}00034 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00035}00035     \textcolor{comment}{// computing two-\/sided spectrum P2}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00036}00036     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < fft\_result.size(); i++)}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00037}00037     \{}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00038}00038         Point2f tmp;}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00039}00039         tmp.x = abs(fft\_result[i].x / samples\_amount);}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00040}00040         tmp.y = abs(fft\_result[i].y / samples\_amount);}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00041}00041         p2.push\_back(tmp);}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00042}00042     \}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00044}00044     \textcolor{comment}{// computing single-\/sided spectrum P1 based on P2 and the even-\/valued signal length (the same as size\_of\_vecs\_)}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00045}00045     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < p2.size(); i++)}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00046}00046     \{}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00047}00047         \textcolor{keywordtype}{size\_t} idx = 0;}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00048}00048         idx = (int)(((\textcolor{keywordtype}{double})(i)) / 2.0 + 1.0);}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00049}00049         p1.push\_back(p2[idx]);}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00050}00050     \}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00051}00051 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00052}00052     \textcolor{comment}{// possible frequencies}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00053}00053     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < samples\_amount; i++)}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00054}00054     \{}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00055}00055         \textcolor{keywordtype}{float} tmp = \mbox{\hyperlink{class_vibrating_point_a67ffaaa1b714226a78d6d5cc31c195c9}{sampling\_rate\_}} * ((double)(i) / 2) / samples\_amount;}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00056}00056         frequencies.push\_back(tmp);}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00057}00057     \}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00058}00058 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00059}00059     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < p1.size(); i++)}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00060}00060     \{}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00061}00061         \textcolor{keywordtype}{float} current\_magnitude = sqrt(p1[i].x * p1[i].x + p1[i].y * p1[i].y);}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00062}00062         magnitudes.push\_back(current\_magnitude);}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00063}00063     \}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00064}00064 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00065}00065     \mbox{\hyperlink{group___helper_functions_ga09104c3d04cd6c0eb8bcc39bea203eb6}{HelperFunctions::DeadzoneFilter}}(frequencies);}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00066}00066     \mbox{\hyperlink{group___helper_functions_ga09104c3d04cd6c0eb8bcc39bea203eb6}{HelperFunctions::DeadzoneFilter}}(magnitudes);}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00067}00067 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00068}00068     \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00069}00069 \textcolor{comment}{    * FOR DEBUG}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00070}00070 \textcolor{comment}{    * }}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00071}00071 \textcolor{comment}{    if (point\_coordinates\_.size() > 5)}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00072}00072 \textcolor{comment}{    \{}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00073}00073 \textcolor{comment}{        std::fstream file;}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00074}00074 \textcolor{comment}{        file.open("{}C:/Users/seeyo/source/repos/Visual-\/Vibration-\/Tracking-\/V2/docs/magnitudes.txt"{}, 'w');}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00075}00075 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00076}00076 \textcolor{comment}{        //for (int i = 0; i < magnitudes.size(); i++)}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00077}00077 \textcolor{comment}{        //\{}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00078}00078 \textcolor{comment}{        //  std::string tmp = std::to\_string(frequencies[i]) + "{} "{} + std::to\_string(magnitudes[i]) + "{} "{} + std::to\_string(p1[i].x) + "{} "{} + std::to\_string(p1[i].y);}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00079}00079 \textcolor{comment}{        //  file << tmp << std::endl;}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00080}00080 \textcolor{comment}{        //\}}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00081}00081 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00082}00082 \textcolor{comment}{        for (int i = 0; i < point\_coordinates\_.size(); i++)}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00083}00083 \textcolor{comment}{        \{}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00084}00084 \textcolor{comment}{            std::string tmp = std::to\_string(point\_coordinates\_[i].x) + "{} "{} + std::to\_string(point\_coordinates\_[i].y) + "{} "{} + std::to\_string(point\_time\_coordinates\_[i]);}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00085}00085 \textcolor{comment}{            file << tmp << std::endl;}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00086}00086 \textcolor{comment}{        \}}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00087}00087 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00088}00088 \textcolor{comment}{        file.close();}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00089}00089 \textcolor{comment}{    \}}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00090}00090 \textcolor{comment}{    */}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00091}00091 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00092}00092     \mbox{\hyperlink{class_vibrating_point_a5ea36bdad5aeac784ecfa21f3ca98517}{x\_}} = frequencies;}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00093}00093     \mbox{\hyperlink{class_vibrating_point_aa22ce2e3bdd0b4614b1c0ad0adf256e5}{y\_}} = magnitudes;}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00094}00094 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00095}00095     \textcolor{comment}{// Вызов отрисовщика гистограммы}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00096}00096     \mbox{\hyperlink{class_vibrating_point_a2bd28bb86f01ccae6fa193914863045a}{DrawHistogram}}();}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00097}00097 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00098}00098     \textcolor{keywordtype}{bool} candidate\_for\_being\_full\_zero = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00099}00099     \textcolor{keywordtype}{int} zero\_flag = 0;}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00100}00100 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00101}00101     \textcolor{keywordflow}{if} (!absolute\_peak)}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00102}00102     \{}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00103}00103         \textcolor{comment}{// searching peaks in output vector of magnitudes}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00104}00104         }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00105}00105         \mbox{\hyperlink{group___peak_finder_ga3abfea54e33401437ebbee36ab9ee1f2}{PeakFinder::findPeaks}}(magnitudes, indexes\_of\_peak\_frequencies, \textcolor{keyword}{false}, 1);}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00106}00106 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00107}00107         \textcolor{keywordtype}{int} maxIdx = 0;}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00108}00108 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00109}00109         zero\_flag = indexes\_of\_peak\_frequencies.size();}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00110}00110 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00111}00111         \textcolor{keywordtype}{double} mag\_sum = 0;}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00112}00112 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00113}00113         \textcolor{comment}{// filling in vector of peak\_frequencies with the just found peak frequencies }}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00114}00114         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < indexes\_of\_peak\_frequencies.size(); i++)}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00115}00115         \{}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00116}00116             peak\_frequencies.push\_back(frequencies[indexes\_of\_peak\_frequencies[i]]);}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00117}00117 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00118}00118             \textcolor{comment}{//std::cout << "{}mag: "{} << magnitudes[indexes\_of\_peak\_frequencies[i]] << std::endl;}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00119}00119             mag\_sum += magnitudes[indexes\_of\_peak\_frequencies[i]];}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00120}00120             \textcolor{keywordflow}{if} ((magnitudes[indexes\_of\_peak\_frequencies[i]]) < 0.01f)}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00121}00121                 zero\_flag-\/-\/;}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00122}00122         \}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00123}00123 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00124}00124         \mbox{\hyperlink{class_vibrating_point_aa0b94560fbac6ae1c5dbae9f4931d28c}{main\_frequency\_}} = frequencies[\mbox{\hyperlink{group___helper_functions_gacc82d70b750eb60ad49c7a36e5c7f0ca}{HelperFunctions::FindGlobalMaxIdx}}(magnitudes)];}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00125}00125         \textcolor{keywordtype}{float} max\_diff = \mbox{\hyperlink{group___helper_functions_gae2aaeb3c9edcae730b5c4fdb6655ef71}{HelperFunctions::CalculateMaxDifferenceInVector}}(magnitudes);}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00126}00126         \mbox{\hyperlink{class_vibrating_point_a69824b3fe81e876f3018844d236b72c5}{mag\_max\_differences\_}}.push\_back(max\_diff);}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00127}00127         \textcolor{keywordtype}{float} mean\_diff\_of\_max\_diffs = 0;}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00128}00128         \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_vibrating_point_a69824b3fe81e876f3018844d236b72c5}{mag\_max\_differences\_}}.size() > 1)}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00129}00129             mean\_diff\_of\_max\_diffs = \mbox{\hyperlink{group___helper_functions_gae752077bcc98a1b2dcd5a1371d55bca5}{HelperFunctions::CalculateMeanDifferenceInVector}}(\mbox{\hyperlink{class_vibrating_point_a69824b3fe81e876f3018844d236b72c5}{mag\_max\_differences\_}});}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00130}00130 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00131}00131         \textcolor{keywordflow}{if} (mean\_diff\_of\_max\_diffs < \mbox{\hyperlink{class_vibrating_point_ab2539b861e02f361eb772c71e06c9af3}{sensivity\_}} || std::isnan(mean\_diff\_of\_max\_diffs))}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00132}00132             \mbox{\hyperlink{class_vibrating_point_a6ed26ed40b33b1486cb4c304981d4444}{confidence\_level\_}} -\/= 0.01;}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00133}00133         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00134}00134             \mbox{\hyperlink{class_vibrating_point_a6ed26ed40b33b1486cb4c304981d4444}{confidence\_level\_}} += 0.01;}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00135}00135         }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00136}00136         \textcolor{keywordflow}{if} (zero\_flag == 0 \&\& indexes\_of\_peak\_frequencies.size() != 0)}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00137}00137         \{}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00138}00138             \mbox{\hyperlink{class_vibrating_point_adfd1433886cf1fb2b3b07062b69614b1}{frequencies\_}}.clear();}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00139}00139             \mbox{\hyperlink{class_vibrating_point_adfd1433886cf1fb2b3b07062b69614b1}{frequencies\_}}.push\_back(0.0);}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00140}00140         \}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00141}00141         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00142}00142         \{}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00143}00143             \mbox{\hyperlink{class_vibrating_point_adfd1433886cf1fb2b3b07062b69614b1}{frequencies\_}} = peak\_frequencies;}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00144}00144         \}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00145}00145     \}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00146}00146 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00147}00147 \}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00148}00148 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00149}\mbox{\hyperlink{class_vibrating_point_a1b2402724fd5d9aba2785ba771042c91}{00149}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_vibrating_point_a1b2402724fd5d9aba2785ba771042c91}{VibratingPoint::AddNewPointPosition}}(Point2f position)}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00150}00150 \{}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00151}00151     \textcolor{comment}{// Обновляем прямоугольник взаимодействия}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00152}00152     \mbox{\hyperlink{class_vibrating_point_a5b35f5a2109df2be2d2832b25dfa2285}{interaction\_box\_}} = Rect(}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00153}00153         Point2i(position.x -\/ \mbox{\hyperlink{class_vibrating_point_a8c035e084006469922a45f023b1bcce0}{interaction\_offset\_}}, position.y -\/ \mbox{\hyperlink{class_vibrating_point_a8c035e084006469922a45f023b1bcce0}{interaction\_offset\_}}),}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00154}00154         Point2i(position.x + \mbox{\hyperlink{class_vibrating_point_a8c035e084006469922a45f023b1bcce0}{interaction\_offset\_}}, position.y + \mbox{\hyperlink{class_vibrating_point_a8c035e084006469922a45f023b1bcce0}{interaction\_offset\_}})}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00155}00155     );}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00156}00156 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00157}00157     \mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}.push\_back(position);}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00158}00158 \}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00159}00159 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00160}\mbox{\hyperlink{class_vibrating_point_a4ba7478f71991439ad31ee5555bb93c6}{00160}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_vibrating_point_a4ba7478f71991439ad31ee5555bb93c6}{VibratingPoint::AddNewPointTime}}(\textcolor{keywordtype}{double} time)}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00161}00161 \{}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00162}00162     \mbox{\hyperlink{class_vibrating_point_ad2aa8fe4bc94a957f75aa00fb9ce9f26}{point\_time\_coordinates\_}}.push\_back(time);}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00163}00163 \}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00164}00164 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00165}\mbox{\hyperlink{class_vibrating_point_a342c75a6ac0f9ab85de1a0dd663eab03}{00165}} \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_vibrating_point_a342c75a6ac0f9ab85de1a0dd663eab03}{VibratingPoint::IsInteracted}}(Point2i coordinates)}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00166}00166 \{}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00167}00167     \mbox{\hyperlink{class_vibrating_point_a0298c80261ea234f82e1afff59d2d1fa}{interacted\_}} = \mbox{\hyperlink{class_vibrating_point_a5b35f5a2109df2be2d2832b25dfa2285}{interaction\_box\_}}.contains(coordinates);}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00168}00168     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_vibrating_point_a0298c80261ea234f82e1afff59d2d1fa}{interacted\_}};}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00169}00169 \}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00170}00170 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00171}\mbox{\hyperlink{class_vibrating_point_ad9e5f2e543097cc7010baadec3c7e0df}{00171}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_vibrating_point_ad9e5f2e543097cc7010baadec3c7e0df}{VibratingPoint::SetSensivity}}(\textcolor{keywordtype}{double} sensivity)}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00172}00172 \{}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00173}00173     \mbox{\hyperlink{class_vibrating_point_ab2539b861e02f361eb772c71e06c9af3}{sensivity\_}} = sensivity;}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00174}00174 \}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00175}00175 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00176}\mbox{\hyperlink{class_vibrating_point_afeb56c53e4ee3e3dc2049e4553bff402}{00176}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_vibrating_point_afeb56c53e4ee3e3dc2049e4553bff402}{VibratingPoint::CalculateAmplitude}}()}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00177}00177 \{}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00181}00181     \textcolor{keywordtype}{float} max\_meaned\_x = 0;}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00182}00182     \textcolor{keywordtype}{float} max\_meaned\_y = 0;}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00183}00183 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00184}00184     \textcolor{comment}{// Создаем контей}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00185}00185 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00186}00186     max\_meaned\_x = \mbox{\hyperlink{class_vibrating_point_aa65df19b908306e2f4c725480594b2bb}{vec\_meaned\_coordinates\_of\_point\_}}[\mbox{\hyperlink{group___helper_functions_gacc82d70b750eb60ad49c7a36e5c7f0ca}{HelperFunctions::FindGlobalMaxIdx}}(\mbox{\hyperlink{class_vibrating_point_a6653e27fe96e5fe6e7aa410fb3138c92}{x\_coordinates\_}})].x;}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00187}00187     max\_meaned\_y = \mbox{\hyperlink{class_vibrating_point_aa65df19b908306e2f4c725480594b2bb}{vec\_meaned\_coordinates\_of\_point\_}}[\mbox{\hyperlink{group___helper_functions_gacc82d70b750eb60ad49c7a36e5c7f0ca}{HelperFunctions::FindGlobalMaxIdx}}(\mbox{\hyperlink{class_vibrating_point_a5df5aa7a4d955de091640290f849961c}{y\_coordinates\_}})].y;}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00188}00188 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00189}00189     \textcolor{keywordtype}{float} relative\_amplitude\_x = 0.0f;}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00190}00190     \textcolor{keywordtype}{float} relative\_amplitude\_y = 0.0f;}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00191}00191 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00192}00192     Scalar mean\_of\_mean\_coordinates\_of\_point = mean(\mbox{\hyperlink{class_vibrating_point_aa65df19b908306e2f4c725480594b2bb}{vec\_meaned\_coordinates\_of\_point\_}});}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00193}00193     \textcolor{keywordtype}{double} meaned\_mean\_x = mean\_of\_mean\_coordinates\_of\_point.val[0];}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00194}00194     \textcolor{keywordtype}{double} meaned\_mean\_y = mean\_of\_mean\_coordinates\_of\_point.val[1];}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00195}00195 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00197}00197     \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}.size() > 2)}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00198}00198     \{}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00199}00199         relative\_amplitude\_x = (max\_meaned\_x) / (max\_meaned\_x + max\_meaned\_y);}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00200}00200         relative\_amplitude\_y = (max\_meaned\_y) / (max\_meaned\_x + max\_meaned\_y);}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00201}00201     \}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00202}00202 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00203}00203     \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00204}00204 \textcolor{comment}{    // FOR DEBUG PURPOSES}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00205}00205 \textcolor{comment}{    if (std::isnan(relative\_amplitude\_x) || std::isnan(relative\_amplitude\_y))}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00206}00206 \textcolor{comment}{    \{}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00207}00207 \textcolor{comment}{        std::cout << "{}!DEBUG first inf (x): "{} << relative\_amplitude\_x << "{} second inf (y): "{} << relative\_amplitude\_y << std::endl;}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00208}00208 \textcolor{comment}{        std::cout << "{}!DEBUG max\_meaned\_x: "{} << vec\_meaned\_coordinates\_of\_point\_[HelperFunctions::FindGlobalMaxIdx(x\_coordinates)].x << "{} max\_meaned\_y: "{} << vec\_meaned\_coordinates\_of\_point\_[HelperFunctions::FindGlobalMaxIdx(y\_coordinates)].y << std::endl;}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00209}00209 \textcolor{comment}{        std::cout << "{}vec size: "{} << point\_coordinates\_.size() << std::endl;}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00210}00210 \textcolor{comment}{        for (int i = 0; i < point\_coordinates\_.size(); i++)}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00211}00211 \textcolor{comment}{        \{}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00212}00212 \textcolor{comment}{            std::cout << i << "{}-\/th coords: "{} << point\_coordinates\_[i] << std::endl;}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00213}00213 \textcolor{comment}{        \}}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00214}00214 \textcolor{comment}{    \}}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00215}00215 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00216}00216 \textcolor{comment}{    if ((relative\_amplitude\_x > 1) || (relative\_amplitude\_y > 1))}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00217}00217 \textcolor{comment}{    \{}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00218}00218 \textcolor{comment}{        std::cout << "{}!DEBUG first big (x): "{} << relative\_amplitude\_x << "{} second big (y): "{} << relative\_amplitude\_y << std::endl;}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00219}00219 \textcolor{comment}{        std::cout << "{}!DEBUG max\_meaned\_x: "{} << max\_meaned\_x << "{} max\_meaned\_y: "{} << max\_meaned\_y << std::endl;}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00220}00220 \textcolor{comment}{    \}}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00221}00221 \textcolor{comment}{    */}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00222}00222 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00223}00223     \textcolor{keywordflow}{if} (!(std::isnan(relative\_amplitude\_x) || std::isnan(relative\_amplitude\_y)))}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00224}00224     \{}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00225}00225         \mbox{\hyperlink{class_vibrating_point_a9989c50fa30cecf13079ae0c595ef87c}{relative\_amplitude\_}}.x = relative\_amplitude\_x;}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00226}00226         \mbox{\hyperlink{class_vibrating_point_a9989c50fa30cecf13079ae0c595ef87c}{relative\_amplitude\_}}.y = relative\_amplitude\_y;}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00227}00227         \mbox{\hyperlink{class_vibrating_point_a5ae50ac111f6681489eded6da7ef66ea}{current\_amplitude\_}}.x = max\_meaned\_x -\/ meaned\_mean\_x;}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00228}00228         \mbox{\hyperlink{class_vibrating_point_a5ae50ac111f6681489eded6da7ef66ea}{current\_amplitude\_}}.y = max\_meaned\_y -\/ meaned\_mean\_y;}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00229}00229     \}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00230}00230 \}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00231}00231 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00232}\mbox{\hyperlink{class_vibrating_point_afa134e84fe3e2ffc492b34823f60d14d}{00232}} Point2f \mbox{\hyperlink{class_vibrating_point_afa134e84fe3e2ffc492b34823f60d14d}{VibratingPoint::GetLastFoundCoordinates}}()}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00233}00233 \{}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00234}00234     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_vibrating_point_afb01bb9d96c3d2fb6d9f99982fde66c6}{point\_coordinates\_}}.back();}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00235}00235 \}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00236}00236 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00237}\mbox{\hyperlink{class_vibrating_point_a2e3b78289d75d6fa3f7888b36a8b5a42}{00237}} std::vector<double> \mbox{\hyperlink{class_vibrating_point_a2e3b78289d75d6fa3f7888b36a8b5a42}{VibratingPoint::GetCurrentVibrationFrequency}}()}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00238}00238 \{}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00239}00239     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_vibrating_point_adfd1433886cf1fb2b3b07062b69614b1}{frequencies\_}};}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00240}00240 \}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00241}00241 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00242}\mbox{\hyperlink{class_vibrating_point_a5c943d1b1916ac33a214f46cbe2cb8fa}{00242}} \textcolor{keywordtype}{double} \mbox{\hyperlink{class_vibrating_point_a5c943d1b1916ac33a214f46cbe2cb8fa}{VibratingPoint::GetCurrentMainFrequency}}()}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00243}00243 \{}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00244}00244     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_vibrating_point_aa0b94560fbac6ae1c5dbae9f4931d28c}{main\_frequency\_}};}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00245}00245 \}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00246}00246 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00247}\mbox{\hyperlink{class_vibrating_point_af1651e3d022f841aa1442b20b5f40b42}{00247}} Point3f \mbox{\hyperlink{class_vibrating_point_af1651e3d022f841aa1442b20b5f40b42}{VibratingPoint::GetRelativeAmplitude}}()}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00248}00248 \{}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00249}00249     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_vibrating_point_a9989c50fa30cecf13079ae0c595ef87c}{relative\_amplitude\_}};}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00250}00250 \}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00251}00251 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00252}\mbox{\hyperlink{class_vibrating_point_abf5fd60d3d7f900d597040c0dcb69586}{00252}} Point3f \mbox{\hyperlink{class_vibrating_point_abf5fd60d3d7f900d597040c0dcb69586}{VibratingPoint::GetCurrentAmplitude}}()}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00253}00253 \{}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00254}00254     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_vibrating_point_a5ae50ac111f6681489eded6da7ef66ea}{current\_amplitude\_}};}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00255}00255 \}}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00256}00256 }
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00257}\mbox{\hyperlink{class_vibrating_point_a056d67ffd99e21b98ebaa97150641fe3}{00257}} \textcolor{keywordtype}{double} \mbox{\hyperlink{class_vibrating_point_a056d67ffd99e21b98ebaa97150641fe3}{VibratingPoint::GetCurrentConfidenceLevel}}()}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00258}00258 \{}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00259}00259     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_vibrating_point_a6ed26ed40b33b1486cb4c304981d4444}{confidence\_level\_}};}
+\DoxyCodeLine{\Hypertarget{vibrating__point_8cpp_source_l00260}00260 \}}
+
+\end{DoxyCode}

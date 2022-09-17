@@ -1,0 +1,1715 @@
+\hypertarget{class_vibration_detector}{}\doxysection{Класс Vibration\+Detector}
+\label{class_vibration_detector}\index{VibrationDetector@{VibrationDetector}}
+
+
+Класс для создания объектов-\/детекторов вибрации  
+
+
+
+
+{\ttfamily \#include $<$vibration\+\_\+detector.\+h$>$}
+
+
+
+Граф связей класса Vibration\+Detector\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=190pt]{class_vibration_detector__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_vibration_detector_a5118f744911132e7683580dde4e25c0d}{Vibration\+Detector}} (std\+::string input\+\_\+file\+\_\+name, std\+::string output\+\_\+file\+\_\+name, std\+::string window\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Конструктор класса \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_vibration_detector_ae93a14aa147af694a90c012f16efc924}{Execute\+Vibration\+Detection}} ()
+\begin{DoxyCompactList}\small\item\em Выполняет детекцию вибрации \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Закрытые типы}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{class_vibration_detector_abbd492ca1a716ff2e2dc81d745adedd0}{main\+\_\+mode}} \{ {\bfseries DEFAULT}
+, {\bfseries SELECTINGROI}
+, {\bfseries PAUSE}
+ \}
+\item 
+enum \mbox{\hyperlink{class_vibration_detector_a920ba9204ea3ca918470b242e2d22a9c}{colored\+\_\+point\+\_\+mode}} \{ {\bfseries COLORING\+\_\+\+DEFAULT}
+, {\bfseries COLORING\+\_\+\+BASED\+\_\+\+ON\+\_\+\+FREQUENCY}
+, {\bfseries COLORING\+\_\+\+BASED\+\_\+\+ON\+\_\+\+AMPLITUDE}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Закрытые члены}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_vibration_detector_af1da28823c948acc115fc862378b62d8}{Serve\+The\+Queues}} ()
+\begin{DoxyCompactList}\small\item\em Обслуживает очереди на удаление и создание. Необходимо для того, чтобы не нарушить нумерацию точек во время выполнения основного цикла \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_vibration_detector_a176e5b0d0ca409c6cfcacdeca13240de}{Create\+New\+Point}} (Point2f mouse\+\_\+coordinates)
+\begin{DoxyCompactList}\small\item\em Создаем \char`\"{}обычную\char`\"{} точку \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_vibration_detector_aa43b85f7a90ea3021b63608b378a81f4}{Left\+Click\+Handler}} (Point2f mouse\+\_\+coordinates)
+\begin{DoxyCompactList}\small\item\em Обработчик левых кликов \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_vibration_detector_a725d87ae6c09ef9f18c95f8490086478}{Create\+New\+Colored\+Point}} (Point2f mouse\+\_\+coordinates)
+\begin{DoxyCompactList}\small\item\em Обработчик \char`\"{}цветных\char`\"{} точек \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_vibration_detector_a6c1ef9b4b8a5a8f2159398a05571c410}{Delete\+Points}} (Point2i mouse\+\_\+coordinates)
+\begin{DoxyCompactList}\small\item\em Удаляем объект \char`\"{}обычную\char`\"{} точку \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_vibration_detector_ab0f3c59d611f15ff9505429bcf2e45b7}{Delete\+Colored\+Points}} ()
+\begin{DoxyCompactList}\small\item\em Удаляем объекты \char`\"{}цветная\char`\"{} точка \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_vibration_detector_aba1212595904b3a3d4f1ef8ebef89d87}{Find\+And\+Delete\+Uncofident\+Points}} ()
+\begin{DoxyCompactList}\small\item\em Удаляет \char`\"{}цветные\char`\"{} и \char`\"{}обычные\char`\"{} точки, если уровень доверия к нми слишком низкий \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_vibration_detector_a7b586f40cc32c90aef3467d2c906758a}{Detect\+Event}} (int event, int x, int y, int flags)
+\begin{DoxyCompactList}\small\item\em callback functions for detecting the click \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_vibration_detector_a21af0947bd97bcb37db8625516efcd9c}{Default\+Mode\+Handler}} (int event, int x, int y)
+\begin{DoxyCompactList}\small\item\em Обычный режим \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_vibration_detector_a30c131133b8faa624d16839036c2a046}{Roi\+Selection\+Mode\+Handler}} (int event, int x, int y)
+\begin{DoxyCompactList}\small\item\em Режим выделения региона интереса \end{DoxyCompactList}\item 
+Mat \mbox{\hyperlink{class_vibration_detector_ae2fadec69d259a03125901ad988e7137}{Make\+Warped\+Frame}} (Mat frame, std\+::vector$<$ Point2i $>$ warping\+\_\+figure)
+\begin{DoxyCompactList}\small\item\em Удаляет перспективные искажения \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_vibration_detector_a81f38d7f3d0599b01186a122d68d09ee}{Track\+And\+Calc}} ()
+\begin{DoxyCompactList}\small\item\em Трекает точки алгоритмом Лукаса-\/Канаде и вызывает БПФ \end{DoxyCompactList}\item 
+std\+::vector$<$ Point2f $>$ \mbox{\hyperlink{class_vibration_detector_a58f70fe74fee9f702773a0d2ab18643a}{Find\+Good\+Features}} (Mat frame, Rect roi)
+\begin{DoxyCompactList}\small\item\em Находит подходящие для трекинга точки на изображении \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_vibration_detector_ad99686383d8b80d106ae486a085b092c}{Draw\+Debug\+Lk\+Win\+Rectangle}} (Mat \&frame)
+\begin{DoxyCompactList}\small\item\em Рисует точки и выводит данные \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_vibration_detector_ad8741b76c24a08ec2ce54ff9d934ce76}{Draw\+And\+Output}} (Mat \&frame)
+\begin{DoxyCompactList}\small\item\em Масштабирует, рисует и выводит на экран обработанный кадр с точками \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Закрытые статические члены}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_vibration_detector_a3596d10b3b4e68b7c4151631fbb7aeb1}{On\+Mouse}} (int event, int x, int y, int flags, void $\ast$userdata)
+\begin{DoxyCompactList}\small\item\em callback functions for detecting the click \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Закрытые данные}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_frame_handler}{Frame\+Handler}} $\ast$ \mbox{\hyperlink{class_vibration_detector_a57b58c6da673cafcca839e5f48d9045c}{frame\+\_\+handler}}
+\begin{DoxyCompactList}\small\item\em Фреймпроцессор \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_vibration_detector_ab0fa5fb784f1db6bdb7a9d9e5d608bb3}{running\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Флаг запущенного основного алгоритма \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_vibration_detector_a5c0d42618889da70c073056ba3e4065c}{res\+\_\+mp\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Коэффициент автоскейла размеров окна в зависимости от разрешения исходного видео \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_vibration_detector_af7093e56d2391aceaeb9d9cbd389eaaf}{point\+\_\+id\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Псевдо-\/id (порядковывй номер точки) \end{DoxyCompactList}\item 
+Point \mbox{\hyperlink{class_vibration_detector_a69f64f7b483a4295abd6e5a48ab161ff}{last\+\_\+mouse\+\_\+position\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Последняя позиция курсора в главном окне \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_vibration_detector_ad3748489d876505deab724e16cf1e767}{current\+\_\+mode\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Основной режим работы (enum main\+\_\+mode) \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_vibration_detector_a49b64f3fe433f06af9444e8059d0cbc6}{fullscreen\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Флаг для полноэкранного режима \end{DoxyCompactList}\item 
+std\+::vector$<$ Point2i $>$ \mbox{\hyperlink{class_vibration_detector_a51842be0abc4ac57d3e07bbb7ff33d8e}{l\+\_\+click\+\_\+queue\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Очередь на создание \char`\"{}обычных\char`\"{} точек \end{DoxyCompactList}\item 
+std\+::vector$<$ Point2f $>$ \mbox{\hyperlink{class_vibration_detector_a48e1f58a28d451445a23ea6575ef9b38}{c\+\_\+point\+\_\+queue\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Очередь на создание \char`\"{}цветных\char`\"{} точек \end{DoxyCompactList}\item 
+std\+::vector$<$ Point2i $>$ \mbox{\hyperlink{class_vibration_detector_a290fb09835aef1220fc44485e0f391de}{delete\+\_\+queue\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Очередь на удаление точек \end{DoxyCompactList}\item 
+std\+::vector$<$ Point2i $>$ \mbox{\hyperlink{class_vibration_detector_a0cdb940eece1b90795717d39cbac187d}{histograms\+\_\+queue\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Очередь на отрисовку гистограм \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{class_lonely_point_handler}{Lonely\+Point\+Handler}} $\ast$ $>$ \mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\+\_\+lonely\+\_\+point\+\_\+handlers\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Вектор обработчиков \char`\"{}одиноких\char`\"{} точек \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{class_colored_point_handler}{Colored\+Point\+Handler}} $\ast$ $>$ \mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\+\_\+colored\+\_\+point\+\_\+handlers\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Вектор обработчиков \char`\"{}цветных\char`\"{} точек \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_vibration_detector_a418071707b1348281ef2a434c42de26e}{sensivity\+\_\+in\+\_\+percents\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Чувствительность при трекинге вибрации \end{DoxyCompactList}\item 
+Mat \mbox{\hyperlink{class_vibration_detector_a3c823c70560e24ce3e8484ae25440357}{current\+\_\+tracking\+\_\+frame\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Текущий Mat-\/instance только что найденного кадра из видео \end{DoxyCompactList}\item 
+Mat \mbox{\hyperlink{class_vibration_detector_ace1d4e3045fea22507c11b44cc6fb920}{frame\+\_\+to\+\_\+be\+\_\+shown\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Mat-\/instance, который будет показан в окне \end{DoxyCompactList}\item 
+Mat \mbox{\hyperlink{class_vibration_detector_a41634272ca48ff33bf21b39d11559eaa}{grad\+\_\+scale\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Изображение цветной шкалы внизу экрана \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_vibration_detector_af75ebe29dd6955ae7a249c4c854c2657}{colored\+\_\+point\+\_\+mode\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Текущий режим подсветки точек при выбранном регионе интереса (по амплитуде/по частоте) \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_vibration_detector_aacb53723f4a18df998738d0d54c5290b}{roi\+\_\+selecting\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Флаг, показывающий происходит ли в данный момент выделение ROI. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_vibration_detector_afd9f8f38bcde73bb14c9cf643f270d36}{roi\+\_\+selected\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Флаг, показывающий был ли выделен ROI или нет \end{DoxyCompactList}\item 
+Point2i \mbox{\hyperlink{class_vibration_detector_aef49bdadca0536214393e22addf4ce04}{tl\+\_\+click\+\_\+coords\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Координаты первой точки прямоугольник (top left, bottom left, top right, bottom right -\/ смотря \char`\"{}в какую сторону\char`\"{} выделять ROI с помощью мыши (курсора)) \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_vibration_detector_a5f9772794a4f76bb0503a9f046d65b72}{input\+\_\+file\+\_\+name\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Имя (путь) входного видео \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_vibration_detector_a7e4bada48fc235b2c02ad07fcec6fdd1}{output\+\_\+file\+\_\+name\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Имя (путь) видео, в котором будет результат детектинга \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_vibration_detector_adda01acf92ced4b8bfa5880bb475ce55}{output\+\_\+csv\+\_\+file\+\_\+name\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Имя (путь) файла для хранения метаданных \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_vibration_detector_a1dddb74ae6ef1b1f5cb4b66e2a352509}{window\+\_\+name\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Имя главного окна \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_vibration_detector_a3b8ea35de43e2702a889f8def948ece4}{warping\+\_\+figure\+\_\+selecting\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Флаг, показывающий, происходит ли в данный момент выделение фигуры (эта возможность отключена временно) \end{DoxyCompactList}\item 
+std\+::vector$<$ Point $>$ \mbox{\hyperlink{class_vibration_detector_a901927a4199f5bf914675f19cae9a651}{warping\+\_\+figure\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Координаты фигуры для исправления перспективы \end{DoxyCompactList}\item 
+Mat \mbox{\hyperlink{class_vibration_detector_a3c524b0b7ab0348fe4fb6018f64b4dcf}{prev\+\_\+img\+\_\+gray\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Предыдущий кадр видео в грейскейл и с небольшим блюром (\mbox{\hyperlink{class_frame_handler_a4bd1108adbbd4c21c4c3233efa8c8d1e}{Frame\+Handler\+::\+Make\+Gray\+Frame()}}) \end{DoxyCompactList}\item 
+Mat \mbox{\hyperlink{class_vibration_detector_a016d906a3746e6d61b9468c7127a717f}{next\+\_\+img\+\_\+gray\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Следующий (или текущий после \char`\"{}предыдущего\char`\"{} -\/ смотря как удобнее для понимания) кадр видео в грейскейл и с небольшим блюром (\mbox{\hyperlink{class_frame_handler_a4bd1108adbbd4c21c4c3233efa8c8d1e}{Frame\+Handler\+::\+Make\+Gray\+Frame()}}) \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_vibration_detector_abc8267e01dbf92e742db792c530e490a}{lk\+\_\+win\+\_\+size\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Размер окна для алгоритма Лукаса-\/Канаде \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_vibration_detector_a2a3692c7dd7a78cbc9af4d070d71264a}{level\+\_\+amount\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Количество слоев пирамиды изображений в алгоритме Л-\/К \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_vibration_detector_a779ca47185d36d5fe0cf216c1cb9f48e}{fps\+\_\+}}
+\begin{DoxyCompactList}\small\item\em ФПС входного видео (две ширины полосы частот вибрации, которые можно отследить) \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_vibration_detector_a4cf6c4a052388d4fb17ec01815bc0bbe}{frame\+\_\+time\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Текущее время кадра в мс (таймкод) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Класс для создания объектов-\/детекторов вибрации 
+
+Объект класса является основной единицей в программе. Внутри себя создает объекты различных классов, описанных в заголовочных файлах проекта. См. 
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8h_source}{vibration\+\_\+detector.\+h}} строка \mbox{\hyperlink{vibration__detector_8h_source_l00027}{27}}
+
+
+
+\doxysubsection{Перечисления}
+\mbox{\Hypertarget{class_vibration_detector_a920ba9204ea3ca918470b242e2d22a9c}\label{class_vibration_detector_a920ba9204ea3ca918470b242e2d22a9c}} 
+\index{VibrationDetector@{VibrationDetector}!colored\_point\_mode@{colored\_point\_mode}}
+\index{colored\_point\_mode@{colored\_point\_mode}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{colored\_point\_mode}{colored\_point\_mode}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{class_vibration_detector_a920ba9204ea3ca918470b242e2d22a9c}{Vibration\+Detector\+::colored\+\_\+point\+\_\+mode}}\hspace{0.3cm}{\ttfamily [private]}}
+
+енум, описывающий режимы подсветки цветных точек 
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8h_source}{vibration\+\_\+detector.\+h}} строка \mbox{\hyperlink{vibration__detector_8h_source_l00041}{41}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00042     \{}
+\DoxyCodeLine{00043         COLORING\_DEFAULT,}
+\DoxyCodeLine{00044         COLORING\_BASED\_ON\_FREQUENCY,}
+\DoxyCodeLine{00045         COLORING\_BASED\_ON\_AMPLITUDE}
+\DoxyCodeLine{00046     \};}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_vibration_detector_abbd492ca1a716ff2e2dc81d745adedd0}\label{class_vibration_detector_abbd492ca1a716ff2e2dc81d745adedd0}} 
+\index{VibrationDetector@{VibrationDetector}!main\_mode@{main\_mode}}
+\index{main\_mode@{main\_mode}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{main\_mode}{main\_mode}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{class_vibration_detector_abbd492ca1a716ff2e2dc81d745adedd0}{Vibration\+Detector\+::main\+\_\+mode}}\hspace{0.3cm}{\ttfamily [private]}}
+
+перечисление, описывающее глобальные режимы (дефолтный, режим выбирания региона интереса и пауза) 
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8h_source}{vibration\+\_\+detector.\+h}} строка \mbox{\hyperlink{vibration__detector_8h_source_l00032}{32}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00033     \{}
+\DoxyCodeLine{00034         DEFAULT,}
+\DoxyCodeLine{00035         SELECTINGROI,}
+\DoxyCodeLine{00036         PAUSE}
+\DoxyCodeLine{00037     \};}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Конструктор(ы)}
+\mbox{\Hypertarget{class_vibration_detector_a5118f744911132e7683580dde4e25c0d}\label{class_vibration_detector_a5118f744911132e7683580dde4e25c0d}} 
+\index{VibrationDetector@{VibrationDetector}!VibrationDetector@{VibrationDetector}}
+\index{VibrationDetector@{VibrationDetector}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{VibrationDetector()}{VibrationDetector()}}
+{\footnotesize\ttfamily Vibration\+Detector\+::\+Vibration\+Detector (\begin{DoxyParamCaption}\item[{std\+::string}]{input\+\_\+file\+\_\+name,  }\item[{std\+::string}]{output\+\_\+file\+\_\+name,  }\item[{std\+::string}]{window\+\_\+name }\end{DoxyParamCaption})}
+
+
+
+Конструктор класса 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8cpp_source}{vibration\+\_\+detector.\+cpp}} строка \mbox{\hyperlink{vibration__detector_8cpp_source_l00003}{3}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00003                                                                                                                  :}
+\DoxyCodeLine{00004     \mbox{\hyperlink{class_vibration_detector_a5f9772794a4f76bb0503a9f046d65b72}{input\_file\_name\_}}\{ input\_file\_name \},}
+\DoxyCodeLine{00005     \mbox{\hyperlink{class_vibration_detector_a7e4bada48fc235b2c02ad07fcec6fdd1}{output\_file\_name\_}}\{ output\_file\_name \},}
+\DoxyCodeLine{00006     \mbox{\hyperlink{class_vibration_detector_a1dddb74ae6ef1b1f5cb4b66e2a352509}{window\_name\_}}\{ window\_name \},}
+\DoxyCodeLine{00007     \mbox{\hyperlink{class_vibration_detector_a3b8ea35de43e2702a889f8def948ece4}{warping\_figure\_selecting\_}}\{ \textcolor{keyword}{false} \},}
+\DoxyCodeLine{00008     \mbox{\hyperlink{class_vibration_detector_af75ebe29dd6955ae7a249c4c854c2657}{colored\_point\_mode\_}}\{ COLORING\_BASED\_ON\_FREQUENCY \},}
+\DoxyCodeLine{00009     \mbox{\hyperlink{class_vibration_detector_a418071707b1348281ef2a434c42de26e}{sensivity\_in\_percents\_}}\{ 1 \},}
+\DoxyCodeLine{00010     \mbox{\hyperlink{class_vibration_detector_aacb53723f4a18df998738d0d54c5290b}{roi\_selecting\_}}\{ \textcolor{keyword}{false} \},}
+\DoxyCodeLine{00011     \mbox{\hyperlink{class_vibration_detector_af7093e56d2391aceaeb9d9cbd389eaaf}{point\_id\_}}\{ 0 \},}
+\DoxyCodeLine{00012     \mbox{\hyperlink{class_vibration_detector_ad3748489d876505deab724e16cf1e767}{current\_mode\_}}\{ DEFAULT \},}
+\DoxyCodeLine{00013     \mbox{\hyperlink{class_vibration_detector_a49b64f3fe433f06af9444e8059d0cbc6}{fullscreen\_}}\{ \textcolor{keyword}{false} \}}
+\DoxyCodeLine{00014 \{}
+\DoxyCodeLine{00015     \mbox{\hyperlink{class_vibration_detector_afd9f8f38bcde73bb14c9cf643f270d36}{roi\_selected\_}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{00016     \mbox{\hyperlink{class_vibration_detector_abc8267e01dbf92e742db792c530e490a}{lk\_win\_size\_}} = 40;}
+\DoxyCodeLine{00017     \mbox{\hyperlink{class_vibration_detector_a2a3692c7dd7a78cbc9af4d070d71264a}{level\_amount\_}} = 1;}
+\DoxyCodeLine{00018 }
+\DoxyCodeLine{00019     \mbox{\hyperlink{class_vibration_detector_a57b58c6da673cafcca839e5f48d9045c}{frame\_handler}} = \textcolor{keyword}{new} \mbox{\hyperlink{class_frame_handler}{FrameHandler}}(\mbox{\hyperlink{class_vibration_detector_a5f9772794a4f76bb0503a9f046d65b72}{input\_file\_name\_}}, \mbox{\hyperlink{class_vibration_detector_a7e4bada48fc235b2c02ad07fcec6fdd1}{output\_file\_name\_}}, MAIN\_WINDOW\_NAME);}
+\DoxyCodeLine{00020 }
+\DoxyCodeLine{00021     \mbox{\hyperlink{class_vibration_detector_a5c0d42618889da70c073056ba3e4065c}{res\_mp\_}} = \mbox{\hyperlink{class_vibration_detector_a57b58c6da673cafcca839e5f48d9045c}{frame\_handler}}-\/>\mbox{\hyperlink{class_frame_handler_ae37c57501fea114483f4ea51da37d08a}{GetTextResizeFactor}}();}
+\DoxyCodeLine{00022 }
+\DoxyCodeLine{00023     \mbox{\hyperlink{class_vibration_detector_adda01acf92ced4b8bfa5880bb475ce55}{output\_csv\_file\_name\_}} = \mbox{\hyperlink{group___helper_functions_ga757c85a4bbcc0f0aa436369ac7ed57e0}{HelperFunctions::GenerateCsvFilename}}();}
+\DoxyCodeLine{00024 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_vibration_detector_a4d03711478339213420126adc48793d2}\label{class_vibration_detector_a4d03711478339213420126adc48793d2}} 
+\index{VibrationDetector@{VibrationDetector}!````~VibrationDetector@{$\sim$VibrationDetector}}
+\index{````~VibrationDetector@{$\sim$VibrationDetector}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{$\sim$VibrationDetector()}{~VibrationDetector()}}
+{\footnotesize\ttfamily Vibration\+Detector\+::$\sim$\+Vibration\+Detector (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8cpp_source}{vibration\+\_\+detector.\+cpp}} строка \mbox{\hyperlink{vibration__detector_8cpp_source_l00026}{26}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00027 \{}
+\DoxyCodeLine{00028     \textcolor{keyword}{delete} \mbox{\hyperlink{class_vibration_detector_a57b58c6da673cafcca839e5f48d9045c}{frame\_handler}};}
+\DoxyCodeLine{00029     \mbox{\hyperlink{class_vibration_detector_ab0f3c59d611f15ff9505429bcf2e45b7}{DeleteColoredPoints}}();}
+\DoxyCodeLine{00030     \textcolor{keywordflow}{while} (!\mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}.empty())}
+\DoxyCodeLine{00031     \{}
+\DoxyCodeLine{00032         \textcolor{keyword}{delete}(*(std::begin(\mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}})));}
+\DoxyCodeLine{00033         \textcolor{comment}{// удаляем первую точку (первую в векторе и по сути первую по номеру)}}
+\DoxyCodeLine{00034         \mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}.erase(std::begin(\mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}));}
+\DoxyCodeLine{00035     \}}
+\DoxyCodeLine{00036 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Методы}
+\mbox{\Hypertarget{class_vibration_detector_a725d87ae6c09ef9f18c95f8490086478}\label{class_vibration_detector_a725d87ae6c09ef9f18c95f8490086478}} 
+\index{VibrationDetector@{VibrationDetector}!CreateNewColoredPoint@{CreateNewColoredPoint}}
+\index{CreateNewColoredPoint@{CreateNewColoredPoint}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{CreateNewColoredPoint()}{CreateNewColoredPoint()}}
+{\footnotesize\ttfamily void Vibration\+Detector\+::\+Create\+New\+Colored\+Point (\begin{DoxyParamCaption}\item[{Point2f}]{mouse\+\_\+coordinates }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Обработчик \char`\"{}цветных\char`\"{} точек 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8cpp_source}{vibration\+\_\+detector.\+cpp}} строка \mbox{\hyperlink{vibration__detector_8cpp_source_l00108}{108}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00109 \{}
+\DoxyCodeLine{00110     \mbox{\hyperlink{class_colored_point_handler}{ColoredPointHandler}}* point\_handler\_ = \textcolor{keyword}{new} \mbox{\hyperlink{class_colored_point_handler}{ColoredPointHandler}}(mouse\_coordinates, \mbox{\hyperlink{class_vibration_detector_a779ca47185d36d5fe0cf216c1cb9f48e}{fps\_}}, \mbox{\hyperlink{class_vibration_detector_af7093e56d2391aceaeb9d9cbd389eaaf}{point\_id\_}}++, \mbox{\hyperlink{class_vibration_detector_a5c0d42618889da70c073056ba3e4065c}{res\_mp\_}}, \mbox{\hyperlink{class_vibration_detector_adda01acf92ced4b8bfa5880bb475ce55}{output\_csv\_file\_name\_}});}
+\DoxyCodeLine{00111     \mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}}.push\_back(point\_handler\_);}
+\DoxyCodeLine{00112 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_vibration_detector_a176e5b0d0ca409c6cfcacdeca13240de}\label{class_vibration_detector_a176e5b0d0ca409c6cfcacdeca13240de}} 
+\index{VibrationDetector@{VibrationDetector}!CreateNewPoint@{CreateNewPoint}}
+\index{CreateNewPoint@{CreateNewPoint}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{CreateNewPoint()}{CreateNewPoint()}}
+{\footnotesize\ttfamily void Vibration\+Detector\+::\+Create\+New\+Point (\begin{DoxyParamCaption}\item[{Point2f}]{mouse\+\_\+coordinates }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Создаем \char`\"{}обычную\char`\"{} точку 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8cpp_source}{vibration\+\_\+detector.\+cpp}} строка \mbox{\hyperlink{vibration__detector_8cpp_source_l00057}{57}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00058 \{}
+\DoxyCodeLine{00059     \mbox{\hyperlink{class_lonely_point_handler}{LonelyPointHandler}}* point\_handler\_ = \textcolor{keyword}{new} \mbox{\hyperlink{class_lonely_point_handler}{LonelyPointHandler}}(mouse\_coordinates, \mbox{\hyperlink{class_vibration_detector_a779ca47185d36d5fe0cf216c1cb9f48e}{fps\_}}, \mbox{\hyperlink{class_vibration_detector_af7093e56d2391aceaeb9d9cbd389eaaf}{point\_id\_}}++, \mbox{\hyperlink{class_vibration_detector_a5c0d42618889da70c073056ba3e4065c}{res\_mp\_}}, \mbox{\hyperlink{class_vibration_detector_adda01acf92ced4b8bfa5880bb475ce55}{output\_csv\_file\_name\_}});}
+\DoxyCodeLine{00060     \mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}.push\_back(point\_handler\_);}
+\DoxyCodeLine{00061 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_vibration_detector_a21af0947bd97bcb37db8625516efcd9c}\label{class_vibration_detector_a21af0947bd97bcb37db8625516efcd9c}} 
+\index{VibrationDetector@{VibrationDetector}!DefaultModeHandler@{DefaultModeHandler}}
+\index{DefaultModeHandler@{DefaultModeHandler}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{DefaultModeHandler()}{DefaultModeHandler()}}
+{\footnotesize\ttfamily void Vibration\+Detector\+::\+Default\+Mode\+Handler (\begin{DoxyParamCaption}\item[{int}]{event,  }\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Обычный режим 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8cpp_source}{vibration\+\_\+detector.\+cpp}} строка \mbox{\hyperlink{vibration__detector_8cpp_source_l00245}{245}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00246 \{}
+\DoxyCodeLine{00247     \textcolor{keywordflow}{switch} (event)}
+\DoxyCodeLine{00248     \{}
+\DoxyCodeLine{00249     \textcolor{keywordflow}{case} EVENT\_LBUTTONDOWN:}
+\DoxyCodeLine{00250     \{}
+\DoxyCodeLine{00251         \textcolor{comment}{// Проверяем флаги выделения ROI и фигуры для варпа}}
+\DoxyCodeLine{00252         \textcolor{keywordflow}{if} (!\mbox{\hyperlink{class_vibration_detector_aacb53723f4a18df998738d0d54c5290b}{roi\_selecting\_}})}
+\DoxyCodeLine{00253         \{}
+\DoxyCodeLine{00254             \mbox{\hyperlink{class_vibration_detector_a51842be0abc4ac57d3e07bbb7ff33d8e}{l\_click\_queue\_}}.push\_back(Point2i(x, y));}
+\DoxyCodeLine{00255         \}}
+\DoxyCodeLine{00256         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00257     \}}
+\DoxyCodeLine{00258     \textcolor{keywordflow}{case} EVENT\_RBUTTONDOWN:}
+\DoxyCodeLine{00259     \{}
+\DoxyCodeLine{00260         \textcolor{keywordflow}{if} (!\mbox{\hyperlink{class_vibration_detector_aacb53723f4a18df998738d0d54c5290b}{roi\_selecting\_}} \&\& !\mbox{\hyperlink{class_vibration_detector_a3b8ea35de43e2702a889f8def948ece4}{warping\_figure\_selecting\_}})}
+\DoxyCodeLine{00261             \mbox{\hyperlink{class_vibration_detector_a290fb09835aef1220fc44485e0f391de}{delete\_queue\_}}.push\_back(Point2i(x, y));}
+\DoxyCodeLine{00262         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00263     \}}
+\DoxyCodeLine{00264     \textcolor{keywordflow}{case} EVENT\_MOUSEMOVE:}
+\DoxyCodeLine{00265     \{}
+\DoxyCodeLine{00266         \textcolor{comment}{// Координаты последнего перемещения мыши}}
+\DoxyCodeLine{00267         \mbox{\hyperlink{class_vibration_detector_a69f64f7b483a4295abd6e5a48ab161ff}{last\_mouse\_position\_}}.x = x;}
+\DoxyCodeLine{00268         \mbox{\hyperlink{class_vibration_detector_a69f64f7b483a4295abd6e5a48ab161ff}{last\_mouse\_position\_}}.y = y;}
+\DoxyCodeLine{00269     \}}
+\DoxyCodeLine{00270     \}}
+\DoxyCodeLine{00271 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_vibration_detector_ab0f3c59d611f15ff9505429bcf2e45b7}\label{class_vibration_detector_ab0f3c59d611f15ff9505429bcf2e45b7}} 
+\index{VibrationDetector@{VibrationDetector}!DeleteColoredPoints@{DeleteColoredPoints}}
+\index{DeleteColoredPoints@{DeleteColoredPoints}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{DeleteColoredPoints()}{DeleteColoredPoints()}}
+{\footnotesize\ttfamily void Vibration\+Detector\+::\+Delete\+Colored\+Points (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Удаляем объекты \char`\"{}цветная\char`\"{} точка 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8cpp_source}{vibration\+\_\+detector.\+cpp}} строка \mbox{\hyperlink{vibration__detector_8cpp_source_l00177}{177}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00178 \{}
+\DoxyCodeLine{00179     \textcolor{comment}{// Проходимся по вектору хэндлеров}}
+\DoxyCodeLine{00180     \textcolor{keywordflow}{while} (!\mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}}.empty())}
+\DoxyCodeLine{00181     \{}
+\DoxyCodeLine{00182         \textcolor{keyword}{delete}(*(std::begin(\mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}})));}
+\DoxyCodeLine{00183         \textcolor{comment}{// удаляем первую точку (первую в векторе и по сути первую по номеру)}}
+\DoxyCodeLine{00184         \mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}}.erase(std::begin(\mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}}));}
+\DoxyCodeLine{00185     \}}
+\DoxyCodeLine{00186 }
+\DoxyCodeLine{00187     \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}.empty())}
+\DoxyCodeLine{00188     \{}
+\DoxyCodeLine{00189         \mbox{\hyperlink{class_vibrating_point_afdefa096df21cf891ae6835a6df4ffc9}{VibratingPoint::extremum\_amplitude\_}}.first = 0.0;}
+\DoxyCodeLine{00190         \mbox{\hyperlink{class_vibrating_point_afdefa096df21cf891ae6835a6df4ffc9}{VibratingPoint::extremum\_amplitude\_}}.second = 500.0;}
+\DoxyCodeLine{00191     \}}
+\DoxyCodeLine{00192 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_vibration_detector_a6c1ef9b4b8a5a8f2159398a05571c410}\label{class_vibration_detector_a6c1ef9b4b8a5a8f2159398a05571c410}} 
+\index{VibrationDetector@{VibrationDetector}!DeletePoints@{DeletePoints}}
+\index{DeletePoints@{DeletePoints}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{DeletePoints()}{DeletePoints()}}
+{\footnotesize\ttfamily void Vibration\+Detector\+::\+Delete\+Points (\begin{DoxyParamCaption}\item[{Point2i}]{mouse\+\_\+coordinates }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Удаляем объект \char`\"{}обычную\char`\"{} точку 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8cpp_source}{vibration\+\_\+detector.\+cpp}} строка \mbox{\hyperlink{vibration__detector_8cpp_source_l00114}{114}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00115 \{}
+\DoxyCodeLine{00116     \textcolor{comment}{// создаем вектор ID (номеров) для точек, которые удалим}}
+\DoxyCodeLine{00117     std::vector<int> lon\_point\_ids\_to\_be\_deleted\_;}
+\DoxyCodeLine{00118     std::vector<int> col\_point\_ids\_to\_be\_deleted\_;}
+\DoxyCodeLine{00119 }
+\DoxyCodeLine{00120     \textcolor{comment}{// проходим по всему вектору точек}}
+\DoxyCodeLine{00121     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}.size(); i++)}
+\DoxyCodeLine{00122     \{}
+\DoxyCodeLine{00123         \textcolor{comment}{// если произошло пересечение с мышкой, вносим ID (номер) точки в "{}вектор точек на удаление"{} или уровень доверия"{} точки стал слишком маленький, так же удаляем точку}}
+\DoxyCodeLine{00124         \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}[i]-\/>\mbox{\hyperlink{class_vibrating_point_a342c75a6ac0f9ab85de1a0dd663eab03}{VibratingPoint::IsInteracted}}(mouse\_coordinates))}
+\DoxyCodeLine{00125         \{}
+\DoxyCodeLine{00126             lon\_point\_ids\_to\_be\_deleted\_.push\_back(i);}
+\DoxyCodeLine{00127         \}}
+\DoxyCodeLine{00128     \}}
+\DoxyCodeLine{00129     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}}.size(); i++)}
+\DoxyCodeLine{00130     \{}
+\DoxyCodeLine{00131         \textcolor{comment}{// если произошло пересечение с мышкой, вносим ID (номер) точки в "{}вектор точек на удаление"{} или уровень доверия"{} точки стал слишком маленький, так же удаляем точку}}
+\DoxyCodeLine{00132         \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}}[i]-\/>\mbox{\hyperlink{class_vibrating_point_a342c75a6ac0f9ab85de1a0dd663eab03}{VibratingPoint::IsInteracted}}(mouse\_coordinates))}
+\DoxyCodeLine{00133         \{}
+\DoxyCodeLine{00134             col\_point\_ids\_to\_be\_deleted\_.push\_back(i);}
+\DoxyCodeLine{00135         \}}
+\DoxyCodeLine{00136     \}}
+\DoxyCodeLine{00137     std::cout << \textcolor{stringliteral}{"{}DEBUG: deleting "{}} << lon\_point\_ids\_to\_be\_deleted\_.size() + col\_point\_ids\_to\_be\_deleted\_.size() << \textcolor{stringliteral}{"{} point"{}} << std::endl;}
+\DoxyCodeLine{00138 }
+\DoxyCodeLine{00139     \textcolor{comment}{// проходимся по вектору точек на удаление}}
+\DoxyCodeLine{00140     \textcolor{keywordflow}{while} (!lon\_point\_ids\_to\_be\_deleted\_.empty())}
+\DoxyCodeLine{00141     \{}
+\DoxyCodeLine{00142         \textcolor{keyword}{delete}(*(std::begin(\mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}) + lon\_point\_ids\_to\_be\_deleted\_[0]));}
+\DoxyCodeLine{00143         \textcolor{comment}{// удаляем первую точку (первую в векторе и по сути первую по номеру)}}
+\DoxyCodeLine{00144         \mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}.erase(std::begin(\mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}) + lon\_point\_ids\_to\_be\_deleted\_[0]);}
+\DoxyCodeLine{00145         \textcolor{comment}{// удаляем номер только что удалённой точки из вектора}}
+\DoxyCodeLine{00146         lon\_point\_ids\_to\_be\_deleted\_.erase(std::begin(lon\_point\_ids\_to\_be\_deleted\_));}
+\DoxyCodeLine{00147         \textcolor{comment}{// меняем номера других точек в списке, если там ещё что-\/то есть}}
+\DoxyCodeLine{00148         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < lon\_point\_ids\_to\_be\_deleted\_.size(); i++)}
+\DoxyCodeLine{00149         \{}
+\DoxyCodeLine{00150             \textcolor{comment}{// уменьшаем номер оставшихся в очереди на удаление точек на один, тк номера в vec\_point\_handlers сместились на один вниз (влево и тп, как удобнее для понимания :))}}
+\DoxyCodeLine{00151             lon\_point\_ids\_to\_be\_deleted\_[i] = lon\_point\_ids\_to\_be\_deleted\_[i] -\/ 1;}
+\DoxyCodeLine{00152         \}}
+\DoxyCodeLine{00153     \}}
+\DoxyCodeLine{00154 }
+\DoxyCodeLine{00155     \textcolor{keywordflow}{while} (!col\_point\_ids\_to\_be\_deleted\_.empty())}
+\DoxyCodeLine{00156     \{}
+\DoxyCodeLine{00157         \textcolor{keyword}{delete}(*(std::begin(\mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}}) + col\_point\_ids\_to\_be\_deleted\_[0]));}
+\DoxyCodeLine{00158         \textcolor{comment}{// удаляем первую точку (первую в векторе и по сути первую по номеру)}}
+\DoxyCodeLine{00159         \mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}}.erase(std::begin(\mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}}) + col\_point\_ids\_to\_be\_deleted\_[0]);}
+\DoxyCodeLine{00160         \textcolor{comment}{// удаляем номер только что удалённой точки из вектора}}
+\DoxyCodeLine{00161         col\_point\_ids\_to\_be\_deleted\_.erase(std::begin(col\_point\_ids\_to\_be\_deleted\_));}
+\DoxyCodeLine{00162         \textcolor{comment}{// меняем номера других точек в списке, если там ещё что-\/то есть}}
+\DoxyCodeLine{00163         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < col\_point\_ids\_to\_be\_deleted\_.size(); i++)}
+\DoxyCodeLine{00164         \{}
+\DoxyCodeLine{00165             \textcolor{comment}{// уменьшаем номер оставшихся в очереди на удаление точек на один, тк номера в vec\_point\_handlers сместились на один вниз (влево и тп, как удобнее для понимания :))}}
+\DoxyCodeLine{00166             col\_point\_ids\_to\_be\_deleted\_[i] = col\_point\_ids\_to\_be\_deleted\_[i] -\/ 1;}
+\DoxyCodeLine{00167         \}}
+\DoxyCodeLine{00168     \}}
+\DoxyCodeLine{00169 }
+\DoxyCodeLine{00170     \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}.empty())}
+\DoxyCodeLine{00171     \{}
+\DoxyCodeLine{00172         \mbox{\hyperlink{class_vibrating_point_afdefa096df21cf891ae6835a6df4ffc9}{VibratingPoint::extremum\_amplitude\_}}.first = 0.0;}
+\DoxyCodeLine{00173         \mbox{\hyperlink{class_vibrating_point_afdefa096df21cf891ae6835a6df4ffc9}{VibratingPoint::extremum\_amplitude\_}}.second = 500.0;}
+\DoxyCodeLine{00174     \}}
+\DoxyCodeLine{00175 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_vibration_detector_a7b586f40cc32c90aef3467d2c906758a}\label{class_vibration_detector_a7b586f40cc32c90aef3467d2c906758a}} 
+\index{VibrationDetector@{VibrationDetector}!DetectEvent@{DetectEvent}}
+\index{DetectEvent@{DetectEvent}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{DetectEvent()}{DetectEvent()}}
+{\footnotesize\ttfamily void Vibration\+Detector\+::\+Detect\+Event (\begin{DoxyParamCaption}\item[{int}]{event,  }\item[{int}]{x,  }\item[{int}]{y,  }\item[{int}]{flags }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+callback functions for detecting the click 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8cpp_source}{vibration\+\_\+detector.\+cpp}} строка \mbox{\hyperlink{vibration__detector_8cpp_source_l00224}{224}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00225 \{}
+\DoxyCodeLine{00226     \textcolor{keywordflow}{switch} (\mbox{\hyperlink{class_vibration_detector_ad3748489d876505deab724e16cf1e767}{current\_mode\_}})}
+\DoxyCodeLine{00227     \{}
+\DoxyCodeLine{00228     \textcolor{keywordflow}{case} DEFAULT:}
+\DoxyCodeLine{00229     \{}
+\DoxyCodeLine{00230         \mbox{\hyperlink{class_vibration_detector_a21af0947bd97bcb37db8625516efcd9c}{DefaultModeHandler}}(event, x, y);}
+\DoxyCodeLine{00231         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00232     \}}
+\DoxyCodeLine{00233     \textcolor{keywordflow}{case} SELECTINGROI:}
+\DoxyCodeLine{00234     \{}
+\DoxyCodeLine{00235         \mbox{\hyperlink{class_vibration_detector_a30c131133b8faa624d16839036c2a046}{RoiSelectionModeHandler}}(event, x, y);}
+\DoxyCodeLine{00236         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00237     \}}
+\DoxyCodeLine{00238     \textcolor{keywordflow}{case} PAUSE:}
+\DoxyCodeLine{00239     \{}
+\DoxyCodeLine{00240         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00241     \}}
+\DoxyCodeLine{00242     \}}
+\DoxyCodeLine{00243 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_vibration_detector_ad8741b76c24a08ec2ce54ff9d934ce76}\label{class_vibration_detector_ad8741b76c24a08ec2ce54ff9d934ce76}} 
+\index{VibrationDetector@{VibrationDetector}!DrawAndOutput@{DrawAndOutput}}
+\index{DrawAndOutput@{DrawAndOutput}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{DrawAndOutput()}{DrawAndOutput()}}
+{\footnotesize\ttfamily void Vibration\+Detector\+::\+Draw\+And\+Output (\begin{DoxyParamCaption}\item[{Mat \&}]{frame }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Масштабирует, рисует и выводит на экран обработанный кадр с точками 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8cpp_source}{vibration\+\_\+detector.\+cpp}} строка \mbox{\hyperlink{vibration__detector_8cpp_source_l00465}{465}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00466 \{}
+\DoxyCodeLine{00467     \textcolor{comment}{// Рассматриваем вариант, при котором выбран ROI для цветных (colored) точек}}
+\DoxyCodeLine{00468     \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_vibration_detector_afd9f8f38bcde73bb14c9cf643f270d36}{roi\_selected\_}})}
+\DoxyCodeLine{00469     \{}
+\DoxyCodeLine{00470         \textcolor{comment}{// Перемещение изображение на переднем плане на X единиц (px)}}
+\DoxyCodeLine{00471         \textcolor{keywordtype}{int} x\_translation = frame.cols -\/ \mbox{\hyperlink{class_vibration_detector_a41634272ca48ff33bf21b39d11559eaa}{grad\_scale\_}}.cols;}
+\DoxyCodeLine{00472         \textcolor{comment}{// Перемещение изображение на переднем плане на Y единиц (px)}}
+\DoxyCodeLine{00473         \textcolor{keywordtype}{int} y\_translation = frame.rows -\/ \mbox{\hyperlink{class_vibration_detector_a41634272ca48ff33bf21b39d11559eaa}{grad\_scale\_}}.rows;}
+\DoxyCodeLine{00474         \textcolor{comment}{// Вектор этого перемещения}}
+\DoxyCodeLine{00475         Point2i translation\_vector = Point2i(x\_translation, y\_translation);}
+\DoxyCodeLine{00476         \textcolor{comment}{// Вставляем градиент на кадр}}
+\DoxyCodeLine{00477         frame = \mbox{\hyperlink{class_vibration_detector_a57b58c6da673cafcca839e5f48d9045c}{frame\_handler}}-\/>\mbox{\hyperlink{class_frame_handler_a7c33b8ad150344db93c24d29bbabd853}{PutFrameOverFrame}}(\mbox{\hyperlink{class_vibration_detector_a41634272ca48ff33bf21b39d11559eaa}{grad\_scale\_}}, frame, translation\_vector);}
+\DoxyCodeLine{00478     \}}
+\DoxyCodeLine{00479     \textcolor{comment}{// Масштабируем кадр для вывода на экран и добавляем на него подсказки для пользователя}}
+\DoxyCodeLine{00480     frame.copyTo(\mbox{\hyperlink{class_vibration_detector_ace1d4e3045fea22507c11b44cc6fb920}{frame\_to\_be\_shown\_}});}
+\DoxyCodeLine{00481     \mbox{\hyperlink{class_vibration_detector_ace1d4e3045fea22507c11b44cc6fb920}{frame\_to\_be\_shown\_}} = \mbox{\hyperlink{class_vibration_detector_a57b58c6da673cafcca839e5f48d9045c}{frame\_handler}}-\/>\mbox{\hyperlink{class_frame_handler_a13af7fdd06b373db04ece2adc6e62d14}{AddTips}}(\mbox{\hyperlink{class_vibration_detector_ace1d4e3045fea22507c11b44cc6fb920}{frame\_to\_be\_shown\_}}, \mbox{\hyperlink{class_vibration_detector_ad3748489d876505deab724e16cf1e767}{current\_mode\_}});}
+\DoxyCodeLine{00482     \textcolor{comment}{// Выводим кадр на экран}}
+\DoxyCodeLine{00483     \mbox{\hyperlink{class_vibration_detector_a57b58c6da673cafcca839e5f48d9045c}{frame\_handler}}-\/>\mbox{\hyperlink{class_frame_handler_a194e20bc41e1d8bb849dc6666f182202}{ShowFrame}}(\mbox{\hyperlink{class_vibration_detector_ace1d4e3045fea22507c11b44cc6fb920}{frame\_to\_be\_shown\_}}, \mbox{\hyperlink{class_vibration_detector_a49b64f3fe433f06af9444e8059d0cbc6}{fullscreen\_}});}
+\DoxyCodeLine{00484 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_vibration_detector_ad99686383d8b80d106ae486a085b092c}\label{class_vibration_detector_ad99686383d8b80d106ae486a085b092c}} 
+\index{VibrationDetector@{VibrationDetector}!DrawDebugLkWinRectangle@{DrawDebugLkWinRectangle}}
+\index{DrawDebugLkWinRectangle@{DrawDebugLkWinRectangle}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{DrawDebugLkWinRectangle()}{DrawDebugLkWinRectangle()}}
+{\footnotesize\ttfamily void Vibration\+Detector\+::\+Draw\+Debug\+Lk\+Win\+Rectangle (\begin{DoxyParamCaption}\item[{Mat \&}]{frame }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Рисует точки и выводит данные 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8cpp_source}{vibration\+\_\+detector.\+cpp}} строка \mbox{\hyperlink{vibration__detector_8cpp_source_l00487}{487}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00488 \{}
+\DoxyCodeLine{00489 }
+\DoxyCodeLine{00490     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}.size(); i++)}
+\DoxyCodeLine{00491     \{}
+\DoxyCodeLine{00492         \textcolor{comment}{// DEBUG}}
+\DoxyCodeLine{00493         Rect debug\_lk\_win\_size = Rect(}
+\DoxyCodeLine{00494             Point2i(\mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}[i]-\/>GetLastFoundCoordinates().x -\/ \mbox{\hyperlink{class_vibration_detector_abc8267e01dbf92e742db792c530e490a}{lk\_win\_size\_}}, \mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}[i]-\/>GetLastFoundCoordinates().y -\/ \mbox{\hyperlink{class_vibration_detector_abc8267e01dbf92e742db792c530e490a}{lk\_win\_size\_}}),}
+\DoxyCodeLine{00495             Point2i(\mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}[i]-\/>GetLastFoundCoordinates().x + \mbox{\hyperlink{class_vibration_detector_abc8267e01dbf92e742db792c530e490a}{lk\_win\_size\_}}, \mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}[i]-\/>GetLastFoundCoordinates().y + \mbox{\hyperlink{class_vibration_detector_abc8267e01dbf92e742db792c530e490a}{lk\_win\_size\_}})}
+\DoxyCodeLine{00496         );}
+\DoxyCodeLine{00497         rectangle(frame, debug\_lk\_win\_size, Scalar(0, 0, 255), 1);}
+\DoxyCodeLine{00498     \}}
+\DoxyCodeLine{00499 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_vibration_detector_ae93a14aa147af694a90c012f16efc924}\label{class_vibration_detector_ae93a14aa147af694a90c012f16efc924}} 
+\index{VibrationDetector@{VibrationDetector}!ExecuteVibrationDetection@{ExecuteVibrationDetection}}
+\index{ExecuteVibrationDetection@{ExecuteVibrationDetection}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{ExecuteVibrationDetection()}{ExecuteVibrationDetection()}}
+{\footnotesize\ttfamily void Vibration\+Detector\+::\+Execute\+Vibration\+Detection (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Выполняет детекцию вибрации 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8cpp_source}{vibration\+\_\+detector.\+cpp}} строка \mbox{\hyperlink{vibration__detector_8cpp_source_l00501}{501}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00502 \{}
+\DoxyCodeLine{00504     \mbox{\hyperlink{class_vibrating_point_afdefa096df21cf891ae6835a6df4ffc9}{VibratingPoint::extremum\_amplitude\_}}.first = 0.0;}
+\DoxyCodeLine{00505     \mbox{\hyperlink{class_vibrating_point_afdefa096df21cf891ae6835a6df4ffc9}{VibratingPoint::extremum\_amplitude\_}}.second = 500.0;}
+\DoxyCodeLine{00507 }
+\DoxyCodeLine{00508     \textcolor{comment}{// reading the first frame of sequence so we can convert it to gray color space}}
+\DoxyCodeLine{00509     \mbox{\hyperlink{class_vibration_detector_a57b58c6da673cafcca839e5f48d9045c}{frame\_handler}}-\/>\mbox{\hyperlink{class_frame_handler_a3837bca5a13d8e1e4969edf0d831baf3}{ReadNextFrame}}();}
+\DoxyCodeLine{00510     \mbox{\hyperlink{class_vibration_detector_a3c823c70560e24ce3e8484ae25440357}{current\_tracking\_frame\_}} = \mbox{\hyperlink{class_vibration_detector_a57b58c6da673cafcca839e5f48d9045c}{frame\_handler}}-\/>\mbox{\hyperlink{class_frame_handler_a26b5695df6161f00af36210e4d3d78ad}{GetCurrentFrame}}();}
+\DoxyCodeLine{00511 }
+\DoxyCodeLine{00512     \mbox{\hyperlink{class_vibration_detector_a3c524b0b7ab0348fe4fb6018f64b4dcf}{prev\_img\_gray\_}} = \mbox{\hyperlink{class_vibration_detector_a57b58c6da673cafcca839e5f48d9045c}{frame\_handler}}-\/>\mbox{\hyperlink{class_frame_handler_a4bd1108adbbd4c21c4c3233efa8c8d1e}{MakeGrayFrame}}(\mbox{\hyperlink{class_vibration_detector_a3c823c70560e24ce3e8484ae25440357}{current\_tracking\_frame\_}});}
+\DoxyCodeLine{00513     \mbox{\hyperlink{class_vibration_detector_a779ca47185d36d5fe0cf216c1cb9f48e}{fps\_}} = \mbox{\hyperlink{class_vibration_detector_a57b58c6da673cafcca839e5f48d9045c}{frame\_handler}}-\/>\mbox{\hyperlink{class_frame_handler_a7871807bfd918b88272a175aa33ea165}{GetInputFps}}();}
+\DoxyCodeLine{00514 }
+\DoxyCodeLine{00515     \textcolor{comment}{// Генерируем шкалу}}
+\DoxyCodeLine{00516     \mbox{\hyperlink{class_vibration_detector_a41634272ca48ff33bf21b39d11559eaa}{grad\_scale\_}} = \mbox{\hyperlink{class_vibration_detector_a57b58c6da673cafcca839e5f48d9045c}{frame\_handler}}-\/>\mbox{\hyperlink{class_frame_handler_ac586501514225a9e054845c69fe9ccc7}{GenerateGradScale}}(0, \mbox{\hyperlink{class_vibration_detector_a779ca47185d36d5fe0cf216c1cb9f48e}{fps\_}} / 2, \mbox{\hyperlink{class_vibration_detector_af75ebe29dd6955ae7a249c4c854c2657}{colored\_point\_mode\_}});}
+\DoxyCodeLine{00517 }
+\DoxyCodeLine{00518     \textcolor{comment}{// conditions of exit}}
+\DoxyCodeLine{00519     \mbox{\hyperlink{class_vibration_detector_ab0fa5fb784f1db6bdb7a9d9e5d608bb3}{running\_}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{00520     \textcolor{keywordtype}{int} current\_num\_of\_frame = 0;}
+\DoxyCodeLine{00521     \textcolor{keywordtype}{int} amount\_of\_frames = \mbox{\hyperlink{class_vibration_detector_a57b58c6da673cafcca839e5f48d9045c}{frame\_handler}}-\/>\mbox{\hyperlink{class_frame_handler_a0a926273fbb3a3901c9a5a75e3380e16}{GetAmountOfFrames}}();}
+\DoxyCodeLine{00522 }
+\DoxyCodeLine{00523     \textcolor{comment}{// устанавливаем callback handler на основное окно}}
+\DoxyCodeLine{00524     setMouseCallback(\mbox{\hyperlink{class_vibration_detector_a57b58c6da673cafcca839e5f48d9045c}{frame\_handler}}-\/>\mbox{\hyperlink{class_frame_handler_a115a1da50a8bc1b00d703b6f8c44222b}{GetMainWindowName}}(), \mbox{\hyperlink{class_vibration_detector_a3596d10b3b4e68b7c4151631fbb7aeb1}{OnMouse}}, (\textcolor{keywordtype}{void}*)\textcolor{keyword}{this});}
+\DoxyCodeLine{00525 }
+\DoxyCodeLine{00526     \textcolor{keywordflow}{while} ((current\_num\_of\_frame < amount\_of\_frames -\/ 1) \&\& \mbox{\hyperlink{class_vibration_detector_ab0fa5fb784f1db6bdb7a9d9e5d608bb3}{running\_}} == \textcolor{keyword}{true})}
+\DoxyCodeLine{00527     \{}
+\DoxyCodeLine{00528         current\_num\_of\_frame = \mbox{\hyperlink{class_vibration_detector_a57b58c6da673cafcca839e5f48d9045c}{frame\_handler}}-\/>\mbox{\hyperlink{class_frame_handler_a79ab90b6a2ce7ea8fef695a11bef514c}{GetCurrentPosOfFrame}}();}
+\DoxyCodeLine{00529 }
+\DoxyCodeLine{00530         \textcolor{comment}{// reading next frame and converting it to gray color space}}
+\DoxyCodeLine{00531         \mbox{\hyperlink{class_vibration_detector_a57b58c6da673cafcca839e5f48d9045c}{frame\_handler}}-\/>\mbox{\hyperlink{class_frame_handler_a3837bca5a13d8e1e4969edf0d831baf3}{ReadNextFrame}}();}
+\DoxyCodeLine{00532 }
+\DoxyCodeLine{00533         \mbox{\hyperlink{class_vibration_detector_a3c823c70560e24ce3e8484ae25440357}{current\_tracking\_frame\_}} = \mbox{\hyperlink{class_vibration_detector_a57b58c6da673cafcca839e5f48d9045c}{frame\_handler}}-\/>\mbox{\hyperlink{class_frame_handler_a26b5695df6161f00af36210e4d3d78ad}{GetCurrentFrame}}();}
+\DoxyCodeLine{00534         \textcolor{keywordflow}{if} (!\mbox{\hyperlink{class_vibration_detector_a901927a4199f5bf914675f19cae9a651}{warping\_figure\_}}.empty())}
+\DoxyCodeLine{00535         \{}
+\DoxyCodeLine{00536             \mbox{\hyperlink{class_vibration_detector_a3c823c70560e24ce3e8484ae25440357}{current\_tracking\_frame\_}} = \mbox{\hyperlink{class_vibration_detector_ae2fadec69d259a03125901ad988e7137}{MakeWarpedFrame}}(\mbox{\hyperlink{class_vibration_detector_a3c823c70560e24ce3e8484ae25440357}{current\_tracking\_frame\_}}, \mbox{\hyperlink{class_vibration_detector_a901927a4199f5bf914675f19cae9a651}{warping\_figure\_}});}
+\DoxyCodeLine{00537         \}}
+\DoxyCodeLine{00538 }
+\DoxyCodeLine{00539         \mbox{\hyperlink{class_vibration_detector_a016d906a3746e6d61b9468c7127a717f}{next\_img\_gray\_}} = \mbox{\hyperlink{class_vibration_detector_a57b58c6da673cafcca839e5f48d9045c}{frame\_handler}}-\/>\mbox{\hyperlink{class_frame_handler_a4bd1108adbbd4c21c4c3233efa8c8d1e}{MakeGrayFrame}}(\mbox{\hyperlink{class_vibration_detector_a3c823c70560e24ce3e8484ae25440357}{current\_tracking\_frame\_}});}
+\DoxyCodeLine{00540 }
+\DoxyCodeLine{00541         \textcolor{comment}{// Трекинг и вычисление частоты вибрации}}
+\DoxyCodeLine{00542         \mbox{\hyperlink{class_vibration_detector_a4cf6c4a052388d4fb17ec01815bc0bbe}{frame\_time\_}} = \mbox{\hyperlink{class_vibration_detector_a57b58c6da673cafcca839e5f48d9045c}{frame\_handler}}-\/>\mbox{\hyperlink{class_frame_handler_a61109313b6d4a9a21783a9c7b66dea68}{GetCurrentTimeOfFrame}}();}
+\DoxyCodeLine{00543 }
+\DoxyCodeLine{00544         \mbox{\hyperlink{class_vibration_detector_a81f38d7f3d0599b01186a122d68d09ee}{TrackAndCalc}}();}
+\DoxyCodeLine{00545 }
+\DoxyCodeLine{00546         \textcolor{comment}{// Рисование точек, треков и данных (вибрации, амплитуды и т.п.)}}
+\DoxyCodeLine{00547         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}.size(); i++)}
+\DoxyCodeLine{00548         \{}
+\DoxyCodeLine{00549             \mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}[i]-\/>VibratingPoint::IsInteracted(\mbox{\hyperlink{class_vibration_detector_a69f64f7b483a4295abd6e5a48ab161ff}{last\_mouse\_position\_}});}
+\DoxyCodeLine{00550             \mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}[i]-\/>Draw(\mbox{\hyperlink{class_vibration_detector_a3c823c70560e24ce3e8484ae25440357}{current\_tracking\_frame\_}});}
+\DoxyCodeLine{00551         \}}
+\DoxyCodeLine{00552         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}}.size(); i++)}
+\DoxyCodeLine{00553         \{}
+\DoxyCodeLine{00554             \textcolor{comment}{// Обновляем максимальную амплитуду}}
+\DoxyCodeLine{00555             \mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}}[i]-\/>VibratingPoint::IsInteracted(\mbox{\hyperlink{class_vibration_detector_a69f64f7b483a4295abd6e5a48ab161ff}{last\_mouse\_position\_}});}
+\DoxyCodeLine{00556             \mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}}[i]-\/>SetColoringMode(\mbox{\hyperlink{class_vibration_detector_af75ebe29dd6955ae7a249c4c854c2657}{colored\_point\_mode\_}});}
+\DoxyCodeLine{00557             \mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}}[i]-\/>Draw(\mbox{\hyperlink{class_vibration_detector_a3c823c70560e24ce3e8484ae25440357}{current\_tracking\_frame\_}});}
+\DoxyCodeLine{00558         \}}
+\DoxyCodeLine{00559 }
+\DoxyCodeLine{00560         \textcolor{comment}{// обслуживаем и очищаем очереди на создание и удаление точек}}
+\DoxyCodeLine{00561         \mbox{\hyperlink{class_vibration_detector_af1da28823c948acc115fc862378b62d8}{ServeTheQueues}}();}
+\DoxyCodeLine{00562 }
+\DoxyCodeLine{00563         \mbox{\hyperlink{class_vibration_detector_ad8741b76c24a08ec2ce54ff9d934ce76}{DrawAndOutput}}(\mbox{\hyperlink{class_vibration_detector_a3c823c70560e24ce3e8484ae25440357}{current\_tracking\_frame\_}});}
+\DoxyCodeLine{00564 }
+\DoxyCodeLine{00565         \textcolor{comment}{// Записываем изначальный кадр}}
+\DoxyCodeLine{00566         \mbox{\hyperlink{class_vibration_detector_a57b58c6da673cafcca839e5f48d9045c}{frame\_handler}}-\/>\mbox{\hyperlink{class_frame_handler_a43fe77a59e8e5d99f7bb0ad3499591ef}{WriteFrame}}(\mbox{\hyperlink{class_vibration_detector_a3c823c70560e24ce3e8484ae25440357}{current\_tracking\_frame\_}});}
+\DoxyCodeLine{00567 }
+\DoxyCodeLine{00568         \textcolor{comment}{// Обновляем предыдущий кадр}}
+\DoxyCodeLine{00569         \mbox{\hyperlink{class_vibration_detector_a3c524b0b7ab0348fe4fb6018f64b4dcf}{prev\_img\_gray\_}} = \mbox{\hyperlink{class_vibration_detector_a016d906a3746e6d61b9468c7127a717f}{next\_img\_gray\_}};}
+\DoxyCodeLine{00570 }
+\DoxyCodeLine{00571         \textcolor{comment}{// 20 -\/ задержка в мс}}
+\DoxyCodeLine{00572         \textcolor{keywordtype}{int} code = waitKey(20);}
+\DoxyCodeLine{00573         \textcolor{keywordflow}{switch} (code)}
+\DoxyCodeLine{00574         \{}
+\DoxyCodeLine{00575         \textcolor{comment}{// Пауза}}
+\DoxyCodeLine{00576         \textcolor{comment}{// Клавиши -\/ пробел (ASCII code)}}
+\DoxyCodeLine{00577         \textcolor{keywordflow}{case} 32:}
+\DoxyCodeLine{00578         \{}
+\DoxyCodeLine{00579             \mbox{\hyperlink{class_vibration_detector_ad3748489d876505deab724e16cf1e767}{current\_mode\_}} = PAUSE;}
+\DoxyCodeLine{00580             }
+\DoxyCodeLine{00581             \mbox{\hyperlink{class_vibration_detector_ad8741b76c24a08ec2ce54ff9d934ce76}{DrawAndOutput}}(\mbox{\hyperlink{class_vibration_detector_a3c823c70560e24ce3e8484ae25440357}{current\_tracking\_frame\_}});}
+\DoxyCodeLine{00582 }
+\DoxyCodeLine{00583             waitKey(0);}
+\DoxyCodeLine{00584             \mbox{\hyperlink{class_vibration_detector_ad3748489d876505deab724e16cf1e767}{current\_mode\_}} = DEFAULT;}
+\DoxyCodeLine{00585             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00586         \}}
+\DoxyCodeLine{00587         \textcolor{keywordflow}{case} \textcolor{charliteral}{'c'}:}
+\DoxyCodeLine{00588         \{}
+\DoxyCodeLine{00589             Mat unchanged\_frame = \mbox{\hyperlink{class_vibration_detector_a3c823c70560e24ce3e8484ae25440357}{current\_tracking\_frame\_}};}
+\DoxyCodeLine{00590             \mbox{\hyperlink{class_vibration_detector_a57b58c6da673cafcca839e5f48d9045c}{frame\_handler}}-\/>\mbox{\hyperlink{class_frame_handler_a194e20bc41e1d8bb849dc6666f182202}{ShowFrame}}(\mbox{\hyperlink{class_vibration_detector_a3c823c70560e24ce3e8484ae25440357}{current\_tracking\_frame\_}}, \mbox{\hyperlink{class_vibration_detector_a49b64f3fe433f06af9444e8059d0cbc6}{fullscreen\_}});}
+\DoxyCodeLine{00591             }
+\DoxyCodeLine{00592             \mbox{\hyperlink{class_vibration_detector_a901927a4199f5bf914675f19cae9a651}{warping\_figure\_}}.clear();}
+\DoxyCodeLine{00593             \mbox{\hyperlink{class_vibration_detector_a3b8ea35de43e2702a889f8def948ece4}{warping\_figure\_selecting\_}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{00594 }
+\DoxyCodeLine{00595             \textcolor{keywordflow}{while} (\mbox{\hyperlink{class_vibration_detector_a3b8ea35de43e2702a889f8def948ece4}{warping\_figure\_selecting\_}})}
+\DoxyCodeLine{00596             \{       }
+\DoxyCodeLine{00597                 \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_vibration_detector_a901927a4199f5bf914675f19cae9a651}{warping\_figure\_}}.size(); i++)}
+\DoxyCodeLine{00598                 \{}
+\DoxyCodeLine{00599                     circle(unchanged\_frame, \mbox{\hyperlink{class_vibration_detector_a901927a4199f5bf914675f19cae9a651}{warping\_figure\_}}[i], 10, Scalar(255, 207, 64), 2);}
+\DoxyCodeLine{00600                 \}}
+\DoxyCodeLine{00601         }
+\DoxyCodeLine{00602                 \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_vibration_detector_a901927a4199f5bf914675f19cae9a651}{warping\_figure\_}}.size() == 4)}
+\DoxyCodeLine{00603                     \mbox{\hyperlink{class_vibration_detector_a3b8ea35de43e2702a889f8def948ece4}{warping\_figure\_selecting\_}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{00604         }
+\DoxyCodeLine{00605                 \mbox{\hyperlink{class_vibration_detector_a57b58c6da673cafcca839e5f48d9045c}{frame\_handler}}-\/>\mbox{\hyperlink{class_frame_handler_a194e20bc41e1d8bb849dc6666f182202}{ShowFrame}}(unchanged\_frame, \mbox{\hyperlink{class_vibration_detector_a49b64f3fe433f06af9444e8059d0cbc6}{fullscreen\_}});}
+\DoxyCodeLine{00606                 waitKey(20);}
+\DoxyCodeLine{00607             \}}
+\DoxyCodeLine{00608             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00609         \}}
+\DoxyCodeLine{00610         \textcolor{comment}{// Изменение чувствительности (VibratingPoint::sensivity\_ -\/> влияет на VibratingPoint::confidence\_level\_)}}
+\DoxyCodeLine{00611         \textcolor{comment}{// Клавиши -\/ "{}A"{} или "{}a"{} (ASCII code)}}
+\DoxyCodeLine{00612         \textcolor{comment}{// A -\/ for adjust}}
+\DoxyCodeLine{00613         \textcolor{keywordflow}{case} 65:}
+\DoxyCodeLine{00614         \textcolor{keywordflow}{case} 97:}
+\DoxyCodeLine{00615         \{}
+\DoxyCodeLine{00616             \mbox{\hyperlink{class_vibration_detector_ad3748489d876505deab724e16cf1e767}{current\_mode\_}} = PAUSE;}
+\DoxyCodeLine{00617 }
+\DoxyCodeLine{00618             \mbox{\hyperlink{class_vibration_detector_ad8741b76c24a08ec2ce54ff9d934ce76}{DrawAndOutput}}(\mbox{\hyperlink{class_vibration_detector_a3c823c70560e24ce3e8484ae25440357}{current\_tracking\_frame\_}});}
+\DoxyCodeLine{00619 }
+\DoxyCodeLine{00620             namedWindow(\textcolor{stringliteral}{"{}Sensivity Window"{}}, WINDOW\_FULLSCREEN);}
+\DoxyCodeLine{00621             createTrackbar(\textcolor{stringliteral}{"{}Sensivity"{}}, \textcolor{stringliteral}{"{}Sensivity Window"{}}, \&\mbox{\hyperlink{class_vibration_detector_a418071707b1348281ef2a434c42de26e}{sensivity\_in\_percents\_}}, 100, NULL);}
+\DoxyCodeLine{00622 }
+\DoxyCodeLine{00623             waitKey(0);}
+\DoxyCodeLine{00624 }
+\DoxyCodeLine{00625             destroyWindow(\textcolor{stringliteral}{"{}Sensivity Window"{}});}
+\DoxyCodeLine{00626 }
+\DoxyCodeLine{00627             \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}.size(); i++)}
+\DoxyCodeLine{00628             \{}
+\DoxyCodeLine{00629                 \mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}[i]-\/>SetSensivity(2.0 / \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(10 * \mbox{\hyperlink{class_vibration_detector_a418071707b1348281ef2a434c42de26e}{sensivity\_in\_percents\_}}));\(\backslash\)}
+\DoxyCodeLine{00630             \}}
+\DoxyCodeLine{00631             \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}}.size(); i++)}
+\DoxyCodeLine{00632             \{}
+\DoxyCodeLine{00633                 \mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}}[i]-\/>SetSensivity(2.0 / \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(10 * \mbox{\hyperlink{class_vibration_detector_a418071707b1348281ef2a434c42de26e}{sensivity\_in\_percents\_}}));}
+\DoxyCodeLine{00634             \}}
+\DoxyCodeLine{00635 }
+\DoxyCodeLine{00636             \mbox{\hyperlink{class_vibration_detector_ad3748489d876505deab724e16cf1e767}{current\_mode\_}} = DEFAULT;}
+\DoxyCodeLine{00637             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00638         \}}
+\DoxyCodeLine{00639         \textcolor{comment}{// Фуллскрин. }}
+\DoxyCodeLine{00640         \textcolor{comment}{// Клавиши -\/ "{}F"{} или "{}f"{} (ASCII code)}}
+\DoxyCodeLine{00641         \textcolor{keywordflow}{case} 102:}
+\DoxyCodeLine{00642         \textcolor{keywordflow}{case} 70:}
+\DoxyCodeLine{00643         \{}
+\DoxyCodeLine{00644             \textcolor{comment}{// Проверка на флаг полноэкранного режима. Если он изначально был false, меняем на true, и наоборот в противном случае}}
+\DoxyCodeLine{00645             \textcolor{keywordflow}{if} (!\mbox{\hyperlink{class_vibration_detector_a49b64f3fe433f06af9444e8059d0cbc6}{fullscreen\_}})}
+\DoxyCodeLine{00646             \{}
+\DoxyCodeLine{00647                 \mbox{\hyperlink{class_vibration_detector_a49b64f3fe433f06af9444e8059d0cbc6}{fullscreen\_}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{00648             \}}
+\DoxyCodeLine{00649             \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00650             \{}
+\DoxyCodeLine{00651                 \mbox{\hyperlink{class_vibration_detector_a49b64f3fe433f06af9444e8059d0cbc6}{fullscreen\_}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{00652             \}}
+\DoxyCodeLine{00653             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00654         \}}
+\DoxyCodeLine{00655         \textcolor{comment}{// Изменение режима подсветки точек при активном регионе интереса (ROI)}}
+\DoxyCodeLine{00656         \textcolor{comment}{// Клавиши -\/ "{}M"{} или "{}m"{} (ASCII code)}}
+\DoxyCodeLine{00657         \textcolor{keywordflow}{case} 77:}
+\DoxyCodeLine{00658         \textcolor{keywordflow}{case} 109:}
+\DoxyCodeLine{00659         \{}
+\DoxyCodeLine{00660             \textcolor{comment}{// Перебираем режимы по порядку}}
+\DoxyCodeLine{00661             \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_vibration_detector_af75ebe29dd6955ae7a249c4c854c2657}{colored\_point\_mode\_}} == 2)}
+\DoxyCodeLine{00662                 \mbox{\hyperlink{class_vibration_detector_af75ebe29dd6955ae7a249c4c854c2657}{colored\_point\_mode\_}} = 0;}
+\DoxyCodeLine{00663             \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00664                 \mbox{\hyperlink{class_vibration_detector_af75ebe29dd6955ae7a249c4c854c2657}{colored\_point\_mode\_}}++;}
+\DoxyCodeLine{00665 }
+\DoxyCodeLine{00666             \mbox{\hyperlink{class_vibration_detector_a41634272ca48ff33bf21b39d11559eaa}{grad\_scale\_}} = \mbox{\hyperlink{class_vibration_detector_a57b58c6da673cafcca839e5f48d9045c}{frame\_handler}}-\/>\mbox{\hyperlink{class_frame_handler_ac586501514225a9e054845c69fe9ccc7}{GenerateGradScale}}(0, \mbox{\hyperlink{class_vibration_detector_a779ca47185d36d5fe0cf216c1cb9f48e}{fps\_}} / 2, \mbox{\hyperlink{class_vibration_detector_af75ebe29dd6955ae7a249c4c854c2657}{colored\_point\_mode\_}});}
+\DoxyCodeLine{00667             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00668         \}}
+\DoxyCodeLine{00669         \textcolor{comment}{// Выделение региона интереса (ROI)}}
+\DoxyCodeLine{00670         \textcolor{comment}{// Клавиши -\/ "{}R"{} или "{}r"{} (ASCII code)}}
+\DoxyCodeLine{00671         \textcolor{keywordflow}{case} 82:}
+\DoxyCodeLine{00672         \textcolor{keywordflow}{case} 114:}
+\DoxyCodeLine{00673         \{}
+\DoxyCodeLine{00674             \textcolor{comment}{// Обновляем текущий режим}}
+\DoxyCodeLine{00675             \mbox{\hyperlink{class_vibration_detector_ad3748489d876505deab724e16cf1e767}{current\_mode\_}} = SELECTINGROI;}
+\DoxyCodeLine{00676             \textcolor{comment}{// Регион интереса}}
+\DoxyCodeLine{00677             Rect roi;}
+\DoxyCodeLine{00678             \textcolor{comment}{// Сбрасываеи флаг выделенного региона интереса}}
+\DoxyCodeLine{00679             \mbox{\hyperlink{class_vibration_detector_afd9f8f38bcde73bb14c9cf643f270d36}{roi\_selected\_}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{00680             \textcolor{comment}{// Флаг выхода из режима}}
+\DoxyCodeLine{00681             \textcolor{keywordtype}{bool} wanna\_quit = \textcolor{keyword}{false};}
+\DoxyCodeLine{00682 }
+\DoxyCodeLine{00683             \textcolor{keywordflow}{while} (!\mbox{\hyperlink{class_vibration_detector_afd9f8f38bcde73bb14c9cf643f270d36}{roi\_selected\_}} \&\& !wanna\_quit)}
+\DoxyCodeLine{00684             \{}
+\DoxyCodeLine{00685                 \textcolor{comment}{// создаю копию current\_tracking\_frame\_}}
+\DoxyCodeLine{00686                 Mat frame = \mbox{\hyperlink{class_vibration_detector_a3c823c70560e24ce3e8484ae25440357}{current\_tracking\_frame\_}}.clone();}
+\DoxyCodeLine{00687                 }
+\DoxyCodeLine{00688                 \textcolor{comment}{// Пока происходит выделение региона интереса (в нашем случае пока не была отпущена ЛКМ), отрисовываем прямоугольник}}
+\DoxyCodeLine{00689                 \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_vibration_detector_aacb53723f4a18df998738d0d54c5290b}{roi\_selecting\_}})}
+\DoxyCodeLine{00690                 \{}
+\DoxyCodeLine{00691                     roi = Rect(\mbox{\hyperlink{class_vibration_detector_aef49bdadca0536214393e22addf4ce04}{tl\_click\_coords\_}}, \mbox{\hyperlink{class_vibration_detector_a69f64f7b483a4295abd6e5a48ab161ff}{last\_mouse\_position\_}});}
+\DoxyCodeLine{00692                     rectangle(frame, roi, Scalar(0, 255, 0), 1 * (1 / \mbox{\hyperlink{class_vibration_detector_a5c0d42618889da70c073056ba3e4065c}{res\_mp\_}}));}
+\DoxyCodeLine{00693                 \}}
+\DoxyCodeLine{00694 }
+\DoxyCodeLine{00695                 \mbox{\hyperlink{class_vibration_detector_ad8741b76c24a08ec2ce54ff9d934ce76}{DrawAndOutput}}(frame);}
+\DoxyCodeLine{00696 }
+\DoxyCodeLine{00697                 \textcolor{keywordflow}{switch} (waitKey(20))}
+\DoxyCodeLine{00698                 \{}
+\DoxyCodeLine{00699                 \textcolor{comment}{// R for reset}}
+\DoxyCodeLine{00700                 \textcolor{keywordflow}{case} \textcolor{charliteral}{'r'}:}
+\DoxyCodeLine{00701                 \{}
+\DoxyCodeLine{00702                     wanna\_quit = \textcolor{keyword}{true};}
+\DoxyCodeLine{00703                     \textcolor{comment}{// Удаляем старые "{}цветные"{} точки}}
+\DoxyCodeLine{00704                     \mbox{\hyperlink{class_vibration_detector_ab0f3c59d611f15ff9505429bcf2e45b7}{DeleteColoredPoints}}();}
+\DoxyCodeLine{00705                     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00706                 \}}
+\DoxyCodeLine{00707                 \textcolor{comment}{// Esc}}
+\DoxyCodeLine{00708                 \textcolor{keywordflow}{case} 27:}
+\DoxyCodeLine{00709                 \{}
+\DoxyCodeLine{00710                     wanna\_quit = \textcolor{keyword}{true};}
+\DoxyCodeLine{00711                     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00712                 \}}
+\DoxyCodeLine{00713                 \}}
+\DoxyCodeLine{00714             \}}
+\DoxyCodeLine{00715             \textcolor{comment}{// ROI может быть пустым после выхода из цикла выше кейсом в свитче}}
+\DoxyCodeLine{00716             \textcolor{keywordflow}{if} (!roi.empty())}
+\DoxyCodeLine{00717                 \mbox{\hyperlink{class_vibration_detector_a48e1f58a28d451445a23ea6575ef9b38}{c\_point\_queue\_}} = \mbox{\hyperlink{class_vibration_detector_a58f70fe74fee9f702773a0d2ab18643a}{FindGoodFeatures}}(\mbox{\hyperlink{class_vibration_detector_a3c823c70560e24ce3e8484ae25440357}{current\_tracking\_frame\_}}, roi);}
+\DoxyCodeLine{00718 }
+\DoxyCodeLine{00719             \mbox{\hyperlink{class_vibration_detector_ad3748489d876505deab724e16cf1e767}{current\_mode\_}} = DEFAULT;}
+\DoxyCodeLine{00720             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00721         \}}
+\DoxyCodeLine{00722         \textcolor{keywordflow}{case} \textcolor{charliteral}{'q'}:}
+\DoxyCodeLine{00723         \{}
+\DoxyCodeLine{00724             \mbox{\hyperlink{class_vibration_detector_ab0fa5fb784f1db6bdb7a9d9e5d608bb3}{running\_}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{00725             std::cout << \mbox{\hyperlink{class_vibration_detector_a57b58c6da673cafcca839e5f48d9045c}{frame\_handler}}-\/>\mbox{\hyperlink{class_frame_handler_a18519accbae4e5e7a043e81bd6a9d2c6}{GetInputCapStatus}}() << std::endl;}
+\DoxyCodeLine{00726             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00727         \}}
+\DoxyCodeLine{00728         \}}
+\DoxyCodeLine{00729     \}}
+\DoxyCodeLine{00730 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_vibration_detector_aba1212595904b3a3d4f1ef8ebef89d87}\label{class_vibration_detector_aba1212595904b3a3d4f1ef8ebef89d87}} 
+\index{VibrationDetector@{VibrationDetector}!FindAndDeleteUncofidentPoints@{FindAndDeleteUncofidentPoints}}
+\index{FindAndDeleteUncofidentPoints@{FindAndDeleteUncofidentPoints}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{FindAndDeleteUncofidentPoints()}{FindAndDeleteUncofidentPoints()}}
+{\footnotesize\ttfamily void Vibration\+Detector\+::\+Find\+And\+Delete\+Uncofident\+Points (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Удаляет \char`\"{}цветные\char`\"{} и \char`\"{}обычные\char`\"{} точки, если уровень доверия к нми слишком низкий 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8cpp_source}{vibration\+\_\+detector.\+cpp}} строка \mbox{\hyperlink{vibration__detector_8cpp_source_l00194}{194}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00195 \{}
+\DoxyCodeLine{00196     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}.size(); i++)}
+\DoxyCodeLine{00197     \{}
+\DoxyCodeLine{00198         \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}[i]-\/>GetCurrentConfidenceLevel() < 0.0)}
+\DoxyCodeLine{00199         \{}
+\DoxyCodeLine{00200             \textcolor{keyword}{delete}(*(std::begin(\mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}) + i));}
+\DoxyCodeLine{00201             \textcolor{comment}{// удаляем первую точку (первую в векторе и по сути первую по номеру)}}
+\DoxyCodeLine{00202             \mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}.erase(std::begin(\mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}) + i);}
+\DoxyCodeLine{00203         \}}
+\DoxyCodeLine{00204     \}}
+\DoxyCodeLine{00205     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}}.size(); i++)}
+\DoxyCodeLine{00206     \{}
+\DoxyCodeLine{00207         \textcolor{keywordflow}{if} ((\mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}}[i]-\/>GetCurrentConfidenceLevel() < 0.0))}
+\DoxyCodeLine{00208         \{}
+\DoxyCodeLine{00209             \textcolor{keyword}{delete}(*(std::begin(\mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}}) + i));}
+\DoxyCodeLine{00210             \textcolor{comment}{// удаляем первую точку (первую в векторе и по сути первую по номеру)}}
+\DoxyCodeLine{00211             \mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}}.erase(std::begin(\mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}}) + i);}
+\DoxyCodeLine{00212         \}}
+\DoxyCodeLine{00213     \}}
+\DoxyCodeLine{00214 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_vibration_detector_a58f70fe74fee9f702773a0d2ab18643a}\label{class_vibration_detector_a58f70fe74fee9f702773a0d2ab18643a}} 
+\index{VibrationDetector@{VibrationDetector}!FindGoodFeatures@{FindGoodFeatures}}
+\index{FindGoodFeatures@{FindGoodFeatures}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{FindGoodFeatures()}{FindGoodFeatures()}}
+{\footnotesize\ttfamily std\+::vector$<$ Point2f $>$ Vibration\+Detector\+::\+Find\+Good\+Features (\begin{DoxyParamCaption}\item[{Mat}]{frame,  }\item[{Rect}]{roi }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Находит подходящие для трекинга точки на изображении 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8cpp_source}{vibration\+\_\+detector.\+cpp}} строка \mbox{\hyperlink{vibration__detector_8cpp_source_l00432}{432}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00433 \{}
+\DoxyCodeLine{00434     std::vector<Point2f> good\_features;}
+\DoxyCodeLine{00435     \textcolor{comment}{// Если изображение не черно-\/белое}}
+\DoxyCodeLine{00436     \textcolor{keywordflow}{if} (frame.channels() > 2)}
+\DoxyCodeLine{00437         cvtColor(frame, frame, COLOR\_BGR2GRAY);}
+\DoxyCodeLine{00438 }
+\DoxyCodeLine{00439     \textcolor{comment}{// Устанавливаем ROI на нашем изображении}}
+\DoxyCodeLine{00440     Mat frame\_with\_roi = frame(roi);}
+\DoxyCodeLine{00441     goodFeaturesToTrack(frame\_with\_roi, good\_features, 1000, 0.1, 20, noArray(), 3);}
+\DoxyCodeLine{00442 }
+\DoxyCodeLine{00443     \textcolor{comment}{// Перевод в координаты изначального изображения}}
+\DoxyCodeLine{00444     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < good\_features.size(); i++)}
+\DoxyCodeLine{00445     \{}
+\DoxyCodeLine{00446         good\_features[i].x = good\_features[i].x + roi.tl().x;}
+\DoxyCodeLine{00447         good\_features[i].y = good\_features[i].y + roi.tl().y;}
+\DoxyCodeLine{00448     \}}
+\DoxyCodeLine{00449 }
+\DoxyCodeLine{00450     \mbox{\hyperlink{class_contour_handler}{ContourHandler}} contour\_handler(frame, \&roi);}
+\DoxyCodeLine{00451     std::vector<Point2f> features\_to\_be\_append = contour\_handler.GetContinousContours();}
+\DoxyCodeLine{00452 }
+\DoxyCodeLine{00453     \textcolor{keyword}{auto} itt = features\_to\_be\_append.begin();}
+\DoxyCodeLine{00454     \textcolor{keywordtype}{int} count = 0;}
+\DoxyCodeLine{00455     \textcolor{keywordflow}{while} (itt != features\_to\_be\_append.end())}
+\DoxyCodeLine{00456     \{}
+\DoxyCodeLine{00457         good\_features.push\_back(*itt);}
+\DoxyCodeLine{00458         itt++;}
+\DoxyCodeLine{00459         count++;}
+\DoxyCodeLine{00460     \}}
+\DoxyCodeLine{00461 }
+\DoxyCodeLine{00462     \textcolor{keywordflow}{return} good\_features;}
+\DoxyCodeLine{00463 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_vibration_detector_aa43b85f7a90ea3021b63608b378a81f4}\label{class_vibration_detector_aa43b85f7a90ea3021b63608b378a81f4}} 
+\index{VibrationDetector@{VibrationDetector}!LeftClickHandler@{LeftClickHandler}}
+\index{LeftClickHandler@{LeftClickHandler}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{LeftClickHandler()}{LeftClickHandler()}}
+{\footnotesize\ttfamily void Vibration\+Detector\+::\+Left\+Click\+Handler (\begin{DoxyParamCaption}\item[{Point2f}]{mouse\+\_\+coordinates }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Обработчик левых кликов 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8cpp_source}{vibration\+\_\+detector.\+cpp}} строка \mbox{\hyperlink{vibration__detector_8cpp_source_l00063}{63}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00064 \{}
+\DoxyCodeLine{00065     \textcolor{comment}{// если вектор пустой -\/ просто добавляем новую точку}}
+\DoxyCodeLine{00066     \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}.empty())}
+\DoxyCodeLine{00067     \{}
+\DoxyCodeLine{00068         \textcolor{keywordtype}{bool} flag\_colored\_interacted\_ = \textcolor{keyword}{false};}
+\DoxyCodeLine{00069         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}}.size(); i++)}
+\DoxyCodeLine{00070         \{}
+\DoxyCodeLine{00071             \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}}[i]-\/>\mbox{\hyperlink{class_vibrating_point_a342c75a6ac0f9ab85de1a0dd663eab03}{VibratingPoint::IsInteracted}}(mouse\_coordinates))}
+\DoxyCodeLine{00072             \{}
+\DoxyCodeLine{00073                 \mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}}[i]-\/>SetHistogramFlag(\textcolor{keyword}{true});}
+\DoxyCodeLine{00074                 flag\_colored\_interacted\_ = \textcolor{keyword}{true};}
+\DoxyCodeLine{00075             \}}
+\DoxyCodeLine{00076         \}}
+\DoxyCodeLine{00077         \textcolor{keywordflow}{if} (flag\_colored\_interacted\_ == \textcolor{keyword}{false})}
+\DoxyCodeLine{00078             \mbox{\hyperlink{class_vibration_detector_a176e5b0d0ca409c6cfcacdeca13240de}{CreateNewPoint}}(mouse\_coordinates);}
+\DoxyCodeLine{00079     \}}
+\DoxyCodeLine{00080     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00081     \{}
+\DoxyCodeLine{00082         \textcolor{comment}{// проходим по всему вектору точек}}
+\DoxyCodeLine{00083         \textcolor{keywordtype}{bool} flag\_lonely\_interacted\_ = \textcolor{keyword}{false};}
+\DoxyCodeLine{00084         \textcolor{keywordtype}{bool} flag\_colored\_interacted\_ = \textcolor{keyword}{false};}
+\DoxyCodeLine{00085         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}.size(); i++)}
+\DoxyCodeLine{00086         \{}
+\DoxyCodeLine{00087             \textcolor{comment}{// если произошло пересечение с мышкой, то новую точку не добавляем}}
+\DoxyCodeLine{00088             \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}[i]-\/>\mbox{\hyperlink{class_vibrating_point_a342c75a6ac0f9ab85de1a0dd663eab03}{VibratingPoint::IsInteracted}}(mouse\_coordinates))}
+\DoxyCodeLine{00089             \{}
+\DoxyCodeLine{00090                 \mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}[i]-\/>SetHistogramFlag(\textcolor{keyword}{true});}
+\DoxyCodeLine{00091                 \textcolor{comment}{//vec\_lonely\_point\_handlers\_[i]-\/>SetHistogramWindowProperty(WND\_PROP\_TOPMOST, true);}}
+\DoxyCodeLine{00092                 flag\_lonely\_interacted\_ = \textcolor{keyword}{true};}
+\DoxyCodeLine{00093             \}}
+\DoxyCodeLine{00094         \}}
+\DoxyCodeLine{00095         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}}.size(); i++)}
+\DoxyCodeLine{00096         \{}
+\DoxyCodeLine{00097             \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}}[i]-\/>\mbox{\hyperlink{class_vibrating_point_a342c75a6ac0f9ab85de1a0dd663eab03}{VibratingPoint::IsInteracted}}(mouse\_coordinates))}
+\DoxyCodeLine{00098             \{}
+\DoxyCodeLine{00099                 \mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}}[i]-\/>SetHistogramFlag(\textcolor{keyword}{true});}
+\DoxyCodeLine{00100                 flag\_colored\_interacted\_ = \textcolor{keyword}{true};}
+\DoxyCodeLine{00101             \}}
+\DoxyCodeLine{00102         \}}
+\DoxyCodeLine{00103         \textcolor{keywordflow}{if} (flag\_lonely\_interacted\_ == \textcolor{keyword}{false} \&\& flag\_colored\_interacted\_ == \textcolor{keyword}{false})}
+\DoxyCodeLine{00104             \mbox{\hyperlink{class_vibration_detector_a176e5b0d0ca409c6cfcacdeca13240de}{CreateNewPoint}}(mouse\_coordinates);}
+\DoxyCodeLine{00105     \}}
+\DoxyCodeLine{00106 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_vibration_detector_ae2fadec69d259a03125901ad988e7137}\label{class_vibration_detector_ae2fadec69d259a03125901ad988e7137}} 
+\index{VibrationDetector@{VibrationDetector}!MakeWarpedFrame@{MakeWarpedFrame}}
+\index{MakeWarpedFrame@{MakeWarpedFrame}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{MakeWarpedFrame()}{MakeWarpedFrame()}}
+{\footnotesize\ttfamily Mat Vibration\+Detector\+::\+Make\+Warped\+Frame (\begin{DoxyParamCaption}\item[{Mat}]{frame,  }\item[{std\+::vector$<$ Point2i $>$}]{warping\+\_\+figure }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Удаляет перспективные искажения 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8cpp_source}{vibration\+\_\+detector.\+cpp}} строка \mbox{\hyperlink{vibration__detector_8cpp_source_l00310}{310}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00311 \{}
+\DoxyCodeLine{00312     \textcolor{keywordtype}{int} coeff = 1;}
+\DoxyCodeLine{00313 }
+\DoxyCodeLine{00314     Point2f src[4] = \{ warping\_figure[0], warping\_figure[1], warping\_figure[2], warping\_figure[3] \};}
+\DoxyCodeLine{00315 }
+\DoxyCodeLine{00316     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 4; i++)}
+\DoxyCodeLine{00317     \{}
+\DoxyCodeLine{00318         src[i].x = src[i].x * coeff;}
+\DoxyCodeLine{00319         src[i].y = src[i].y * coeff;}
+\DoxyCodeLine{00320         warping\_figure[i].x = warping\_figure[i].x * coeff;}
+\DoxyCodeLine{00321         warping\_figure[i].y = warping\_figure[i].y * coeff;}
+\DoxyCodeLine{00322     \}}
+\DoxyCodeLine{00323 }
+\DoxyCodeLine{00324     \textcolor{comment}{/*float w =}}
+\DoxyCodeLine{00325 \textcolor{comment}{        sqrt((warping\_figure[2].x -\/ warping\_figure[3].x) * (warping\_figure[2].x -\/ warping\_figure[3].x)}}
+\DoxyCodeLine{00326 \textcolor{comment}{        +}}
+\DoxyCodeLine{00327 \textcolor{comment}{        (warping\_figure[2].y -\/ warping\_figure[3].y) * (warping\_figure[2].y -\/ warping\_figure[3].y)) * 2 / 3;*/}}
+\DoxyCodeLine{00328     \textcolor{keywordtype}{float} h =}
+\DoxyCodeLine{00329         sqrt((warping\_figure[1].x -\/ warping\_figure[3].x) * (warping\_figure[1].x -\/ warping\_figure[3].x)}
+\DoxyCodeLine{00330         +}
+\DoxyCodeLine{00331         (warping\_figure[1].y -\/ warping\_figure[3].y) * (warping\_figure[1].y -\/ warping\_figure[3].y));}
+\DoxyCodeLine{00332     \textcolor{keywordtype}{float} w = h * 2 / 3;}
+\DoxyCodeLine{00333 }
+\DoxyCodeLine{00334     Point2f dst[4] = \{ \{0.0f,0.0f\},\{w,0.0f\},\{0.0f,h\},\{w,h\} \};}
+\DoxyCodeLine{00335 }
+\DoxyCodeLine{00336     Mat matrix = getPerspectiveTransform(src, dst);}
+\DoxyCodeLine{00337     warpPerspective(frame, frame, matrix, Point(w, h));}
+\DoxyCodeLine{00338 }
+\DoxyCodeLine{00339     \textcolor{keywordflow}{return} frame;}
+\DoxyCodeLine{00340 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_vibration_detector_a3596d10b3b4e68b7c4151631fbb7aeb1}\label{class_vibration_detector_a3596d10b3b4e68b7c4151631fbb7aeb1}} 
+\index{VibrationDetector@{VibrationDetector}!OnMouse@{OnMouse}}
+\index{OnMouse@{OnMouse}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{OnMouse()}{OnMouse()}}
+{\footnotesize\ttfamily void Vibration\+Detector\+::\+On\+Mouse (\begin{DoxyParamCaption}\item[{int}]{event,  }\item[{int}]{x,  }\item[{int}]{y,  }\item[{int}]{flags,  }\item[{void $\ast$}]{userdata }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+callback functions for detecting the click 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8cpp_source}{vibration\+\_\+detector.\+cpp}} строка \mbox{\hyperlink{vibration__detector_8cpp_source_l00217}{217}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00218 \{}
+\DoxyCodeLine{00219     \mbox{\hyperlink{class_vibration_detector}{VibrationDetector}}* d = \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{class_vibration_detector}{VibrationDetector}}*\textcolor{keyword}{>}(userdata);}
+\DoxyCodeLine{00220     d-\/>\mbox{\hyperlink{class_vibration_detector_a7b586f40cc32c90aef3467d2c906758a}{DetectEvent}}(event, x, y, flags);}
+\DoxyCodeLine{00221 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_vibration_detector_a30c131133b8faa624d16839036c2a046}\label{class_vibration_detector_a30c131133b8faa624d16839036c2a046}} 
+\index{VibrationDetector@{VibrationDetector}!RoiSelectionModeHandler@{RoiSelectionModeHandler}}
+\index{RoiSelectionModeHandler@{RoiSelectionModeHandler}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{RoiSelectionModeHandler()}{RoiSelectionModeHandler()}}
+{\footnotesize\ttfamily void Vibration\+Detector\+::\+Roi\+Selection\+Mode\+Handler (\begin{DoxyParamCaption}\item[{int}]{event,  }\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Режим выделения региона интереса 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8cpp_source}{vibration\+\_\+detector.\+cpp}} строка \mbox{\hyperlink{vibration__detector_8cpp_source_l00272}{272}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00273 \{}
+\DoxyCodeLine{00274     \textcolor{keywordflow}{switch} (event)}
+\DoxyCodeLine{00275     \{}
+\DoxyCodeLine{00276     \textcolor{keywordflow}{case} EVENT\_LBUTTONDOWN:}
+\DoxyCodeLine{00277     \{}
+\DoxyCodeLine{00278         \textcolor{comment}{// Удаляем старые "{}цветные"{} точки}}
+\DoxyCodeLine{00279         \mbox{\hyperlink{class_vibration_detector_ab0f3c59d611f15ff9505429bcf2e45b7}{DeleteColoredPoints}}();}
+\DoxyCodeLine{00280         \textcolor{comment}{// Делаем флаг для выделения ROI активным}}
+\DoxyCodeLine{00281         \mbox{\hyperlink{class_vibration_detector_aacb53723f4a18df998738d0d54c5290b}{roi\_selecting\_}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{00282         \textcolor{comment}{// Сохраняем координаты клика как одну из границ ROI}}
+\DoxyCodeLine{00283         \mbox{\hyperlink{class_vibration_detector_aef49bdadca0536214393e22addf4ce04}{tl\_click\_coords\_}}.x = x;}
+\DoxyCodeLine{00284         \mbox{\hyperlink{class_vibration_detector_aef49bdadca0536214393e22addf4ce04}{tl\_click\_coords\_}}.y = y;}
+\DoxyCodeLine{00285         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00286     \}}
+\DoxyCodeLine{00287     \textcolor{keywordflow}{case} EVENT\_LBUTTONUP:}
+\DoxyCodeLine{00288     \{}
+\DoxyCodeLine{00289         \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_vibration_detector_aacb53723f4a18df998738d0d54c5290b}{roi\_selecting\_}})}
+\DoxyCodeLine{00290         \{}
+\DoxyCodeLine{00291             \textcolor{comment}{// Отключаем флаг для выделения ROI}}
+\DoxyCodeLine{00292             \mbox{\hyperlink{class_vibration_detector_aacb53723f4a18df998738d0d54c5290b}{roi\_selecting\_}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{00293             \mbox{\hyperlink{class_vibration_detector_afd9f8f38bcde73bb14c9cf643f270d36}{roi\_selected\_}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{00294             \textcolor{comment}{// Сохраняем последние позиции}}
+\DoxyCodeLine{00295             \mbox{\hyperlink{class_vibration_detector_a69f64f7b483a4295abd6e5a48ab161ff}{last\_mouse\_position\_}}.x = x;}
+\DoxyCodeLine{00296             \mbox{\hyperlink{class_vibration_detector_a69f64f7b483a4295abd6e5a48ab161ff}{last\_mouse\_position\_}}.y = y;}
+\DoxyCodeLine{00297         \}}
+\DoxyCodeLine{00298         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00299     \}}
+\DoxyCodeLine{00300     \textcolor{keywordflow}{case} EVENT\_MOUSEMOVE:}
+\DoxyCodeLine{00301     \{}
+\DoxyCodeLine{00302         \textcolor{comment}{// Координаты последнего перемещения мыши}}
+\DoxyCodeLine{00303         \mbox{\hyperlink{class_vibration_detector_a69f64f7b483a4295abd6e5a48ab161ff}{last\_mouse\_position\_}}.x = x;}
+\DoxyCodeLine{00304         \mbox{\hyperlink{class_vibration_detector_a69f64f7b483a4295abd6e5a48ab161ff}{last\_mouse\_position\_}}.y = y;}
+\DoxyCodeLine{00305         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00306     \}}
+\DoxyCodeLine{00307     \}}
+\DoxyCodeLine{00308 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_vibration_detector_af1da28823c948acc115fc862378b62d8}\label{class_vibration_detector_af1da28823c948acc115fc862378b62d8}} 
+\index{VibrationDetector@{VibrationDetector}!ServeTheQueues@{ServeTheQueues}}
+\index{ServeTheQueues@{ServeTheQueues}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{ServeTheQueues()}{ServeTheQueues()}}
+{\footnotesize\ttfamily void Vibration\+Detector\+::\+Serve\+The\+Queues (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Обслуживает очереди на удаление и создание. Необходимо для того, чтобы не нарушить нумерацию точек во время выполнения основного цикла 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8cpp_source}{vibration\+\_\+detector.\+cpp}} строка \mbox{\hyperlink{vibration__detector_8cpp_source_l00038}{38}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00039 \{}
+\DoxyCodeLine{00040     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_vibration_detector_a51842be0abc4ac57d3e07bbb7ff33d8e}{l\_click\_queue\_}}.size(); i++)}
+\DoxyCodeLine{00041     \{}
+\DoxyCodeLine{00042         \mbox{\hyperlink{class_vibration_detector_aa43b85f7a90ea3021b63608b378a81f4}{LeftClickHandler}}(\mbox{\hyperlink{class_vibration_detector_a51842be0abc4ac57d3e07bbb7ff33d8e}{l\_click\_queue\_}}[i]);}
+\DoxyCodeLine{00043     \}}
+\DoxyCodeLine{00044     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_vibration_detector_a48e1f58a28d451445a23ea6575ef9b38}{c\_point\_queue\_}}.size(); i++)}
+\DoxyCodeLine{00045     \{}
+\DoxyCodeLine{00046         \mbox{\hyperlink{class_vibration_detector_a725d87ae6c09ef9f18c95f8490086478}{CreateNewColoredPoint}}(\mbox{\hyperlink{class_vibration_detector_a48e1f58a28d451445a23ea6575ef9b38}{c\_point\_queue\_}}[i]);}
+\DoxyCodeLine{00047     \}}
+\DoxyCodeLine{00048     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_vibration_detector_a290fb09835aef1220fc44485e0f391de}{delete\_queue\_}}.size(); i++)}
+\DoxyCodeLine{00049     \{}
+\DoxyCodeLine{00050         \mbox{\hyperlink{class_vibration_detector_a6c1ef9b4b8a5a8f2159398a05571c410}{DeletePoints}}(\mbox{\hyperlink{class_vibration_detector_a290fb09835aef1220fc44485e0f391de}{delete\_queue\_}}[i]);}
+\DoxyCodeLine{00051     \}}
+\DoxyCodeLine{00052     \mbox{\hyperlink{class_vibration_detector_a51842be0abc4ac57d3e07bbb7ff33d8e}{l\_click\_queue\_}}.clear();}
+\DoxyCodeLine{00053     \mbox{\hyperlink{class_vibration_detector_a48e1f58a28d451445a23ea6575ef9b38}{c\_point\_queue\_}}.clear();}
+\DoxyCodeLine{00054     \mbox{\hyperlink{class_vibration_detector_a290fb09835aef1220fc44485e0f391de}{delete\_queue\_}}.clear();}
+\DoxyCodeLine{00055 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_vibration_detector_a81f38d7f3d0599b01186a122d68d09ee}\label{class_vibration_detector_a81f38d7f3d0599b01186a122d68d09ee}} 
+\index{VibrationDetector@{VibrationDetector}!TrackAndCalc@{TrackAndCalc}}
+\index{TrackAndCalc@{TrackAndCalc}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{TrackAndCalc()}{TrackAndCalc()}}
+{\footnotesize\ttfamily void Vibration\+Detector\+::\+Track\+And\+Calc (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Трекает точки алгоритмом Лукаса-\/Канаде и вызывает БПФ 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8cpp_source}{vibration\+\_\+detector.\+cpp}} строка \mbox{\hyperlink{vibration__detector_8cpp_source_l00342}{342}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00343 \{}
+\DoxyCodeLine{00344     \textcolor{comment}{// Находим и удаляем точки с низким параметром confidence}}
+\DoxyCodeLine{00345     \mbox{\hyperlink{class_vibration_detector_aba1212595904b3a3d4f1ef8ebef89d87}{FindAndDeleteUncofidentPoints}}();}
+\DoxyCodeLine{00346 }
+\DoxyCodeLine{00347     std::vector<Point2f> PrevPts;}
+\DoxyCodeLine{00348     std::vector<Point2f> NextPts;}
+\DoxyCodeLine{00349     std::vector<uchar> status;}
+\DoxyCodeLine{00350     std::vector<float> error;}
+\DoxyCodeLine{00351 }
+\DoxyCodeLine{00352     \textcolor{comment}{// "{}Достаем"{} из lonely point handler'ов последние найденные точки, чтобы использовать их в качестве "{}начальных"{} значений для calcOpticalFlowPyrLK()}}
+\DoxyCodeLine{00353     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}.size(); i++)}
+\DoxyCodeLine{00354     \{}
+\DoxyCodeLine{00355         PrevPts.push\_back(\mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}[i]-\/>GetLastFoundCoordinates());}
+\DoxyCodeLine{00356     \}}
+\DoxyCodeLine{00357     \textcolor{comment}{// "{}Достаем"{} из colored point handler'ов последние найденные точки, чтобы использовать их в качестве "{}начальных"{} значений для calcOpticalFlowPyrLK()}}
+\DoxyCodeLine{00358     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}}.size(); i++)}
+\DoxyCodeLine{00359     \{}
+\DoxyCodeLine{00360 }
+\DoxyCodeLine{00361         PrevPts.push\_back(\mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}}[i]-\/>GetLastFoundCoordinates());}
+\DoxyCodeLine{00362     \}}
+\DoxyCodeLine{00363 }
+\DoxyCodeLine{00364     \textcolor{keywordflow}{if} ((!\mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}.empty()) || (!\mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}}.empty()))}
+\DoxyCodeLine{00365         \textcolor{comment}{// вызов Lucas-\/Kanade алгоритма}}
+\DoxyCodeLine{00366         calcOpticalFlowPyrLK(}
+\DoxyCodeLine{00367             \mbox{\hyperlink{class_vibration_detector_a3c524b0b7ab0348fe4fb6018f64b4dcf}{prev\_img\_gray\_}},}
+\DoxyCodeLine{00368             \mbox{\hyperlink{class_vibration_detector_a016d906a3746e6d61b9468c7127a717f}{next\_img\_gray\_}},}
+\DoxyCodeLine{00369             PrevPts,}
+\DoxyCodeLine{00370             NextPts,}
+\DoxyCodeLine{00371             status,}
+\DoxyCodeLine{00372             error,}
+\DoxyCodeLine{00373             Size(\mbox{\hyperlink{class_vibration_detector_abc8267e01dbf92e742db792c530e490a}{lk\_win\_size\_}}, \mbox{\hyperlink{class_vibration_detector_abc8267e01dbf92e742db792c530e490a}{lk\_win\_size\_}}),}
+\DoxyCodeLine{00374             \mbox{\hyperlink{class_vibration_detector_a2a3692c7dd7a78cbc9af4d070d71264a}{level\_amount\_}},}
+\DoxyCodeLine{00375             TermCriteria(}
+\DoxyCodeLine{00376                 TermCriteria::MAX\_ITER | TermCriteria::EPS,}
+\DoxyCodeLine{00377                 500,}
+\DoxyCodeLine{00378                 0.001}
+\DoxyCodeLine{00379             ),}
+\DoxyCodeLine{00380             OPTFLOW\_LK\_GET\_MIN\_EIGENVALS}
+\DoxyCodeLine{00381         );}
+\DoxyCodeLine{00382 }
+\DoxyCodeLine{00383     \textcolor{comment}{// проверяем равны ли размеры векторов хэндлеров точек и найденных точек на картинке}}
+\DoxyCodeLine{00384     \textcolor{keywordflow}{if} (NextPts.size() != (\mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}.size() + \mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}}.size()))}
+\DoxyCodeLine{00385     \{}
+\DoxyCodeLine{00386         std::cout << \textcolor{stringliteral}{"{}DEBUG: ERROR -\/ NextPts size doesnt match vec\_point\_handlers\_ size"{}} << std::endl;}
+\DoxyCodeLine{00387     \}}
+\DoxyCodeLine{00388 }
+\DoxyCodeLine{00389     std::vector<double> point\_amplitudes;}
+\DoxyCodeLine{00390 }
+\DoxyCodeLine{00391     \textcolor{comment}{// Закидываем найденные значения обратно в point handler'ы}}
+\DoxyCodeLine{00392     \textcolor{comment}{// Сначала проходимся по lonely хэндлерам}}
+\DoxyCodeLine{00393     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}.size(); i++)}
+\DoxyCodeLine{00394     \{}
+\DoxyCodeLine{00395         \mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}[i]-\/>AddNewPointPosition(NextPts[i]);}
+\DoxyCodeLine{00396         \mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}[i]-\/>AddNewPointTime(\mbox{\hyperlink{class_vibration_detector_a4cf6c4a052388d4fb17ec01815bc0bbe}{frame\_time\_}});}
+\DoxyCodeLine{00397         \textcolor{comment}{// Вызов БПФ (FFT)}}
+\DoxyCodeLine{00398         \mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}[i]-\/>ExecuteFFT();}
+\DoxyCodeLine{00399         \textcolor{comment}{// Вычисляем амплитуду}}
+\DoxyCodeLine{00400         \mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}[i]-\/>CalculateAmplitude();}
+\DoxyCodeLine{00401         \textcolor{keywordtype}{double} ampl\_x = \mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}[i]-\/>GetCurrentAmplitude().x, ampl\_y = \mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}[i]-\/>GetCurrentAmplitude().y;}
+\DoxyCodeLine{00402         point\_amplitudes.push\_back(sqrt(ampl\_x * ampl\_x + ampl\_y * ampl\_y));}
+\DoxyCodeLine{00403     \}}
+\DoxyCodeLine{00404     \textcolor{comment}{// После проходимся по colored хэндлерам}}
+\DoxyCodeLine{00405     \textcolor{comment}{// }}
+\DoxyCodeLine{00406     \textcolor{comment}{// Небольшое пояснение:}}
+\DoxyCodeLine{00407     \textcolor{comment}{// В контейнере NextPts содержатся одновременно lonely и colored точки (причём именно в таком порядке). По сути они делят NextPts на две части -\/ левую (lonely) и правую (colored)}}
+\DoxyCodeLine{00408     \textcolor{comment}{// Поэтому, добавляя в хэндлер цветных точек новые координаты, надо идти по NextPts, учитывая возможное (если таковые были добавлены) наличие lonely точек в левой части}}
+\DoxyCodeLine{00409     \textcolor{comment}{// Для этого индекс у NextPts = индекс вектора с хэндлерами colored точек + размер вектора с хэндлерами lonely точек (i + vec\_lonely\_point\_handlers\_.size())}}
+\DoxyCodeLine{00410     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}}.size(); i++)}
+\DoxyCodeLine{00411     \{}
+\DoxyCodeLine{00412         \mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}}[i]-\/>AddNewPointPosition(NextPts[i + \mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}.size()]);}
+\DoxyCodeLine{00413         \mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}}[i]-\/>AddNewPointTime(\mbox{\hyperlink{class_vibration_detector_a4cf6c4a052388d4fb17ec01815bc0bbe}{frame\_time\_}});}
+\DoxyCodeLine{00414         \textcolor{comment}{// Вызов БПФ (FFT)}}
+\DoxyCodeLine{00415         \mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}}[i]-\/>ExecuteFFT();}
+\DoxyCodeLine{00416         \textcolor{comment}{// Вычисляем амплитуду}}
+\DoxyCodeLine{00417         \mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}}[i]-\/>CalculateAmplitude();}
+\DoxyCodeLine{00418         \textcolor{keywordtype}{double} ampl\_x = \mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}}[i]-\/>GetCurrentAmplitude().x, ampl\_y = \mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}}[i]-\/>GetCurrentAmplitude().y;}
+\DoxyCodeLine{00419         point\_amplitudes.push\_back(sqrt(ampl\_x * ampl\_x + ampl\_y * ampl\_y));}
+\DoxyCodeLine{00420     \}}
+\DoxyCodeLine{00421 }
+\DoxyCodeLine{00422     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}{vec\_colored\_point\_handlers\_}}.empty() || !\mbox{\hyperlink{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}{vec\_lonely\_point\_handlers\_}}.empty())}
+\DoxyCodeLine{00423     \{}
+\DoxyCodeLine{00424         \textcolor{keywordtype}{int} max\_idx = \mbox{\hyperlink{group___helper_functions_gacc82d70b750eb60ad49c7a36e5c7f0ca}{HelperFunctions::FindGlobalMaxIdx}}(point\_amplitudes);}
+\DoxyCodeLine{00425         \textcolor{keywordtype}{int} min\_idx = \mbox{\hyperlink{group___helper_functions_gabe168b250f6a7c6c89fe5b685c3898a0}{HelperFunctions::FindGlobalMinIdx}}(point\_amplitudes);}
+\DoxyCodeLine{00426 }
+\DoxyCodeLine{00427         \mbox{\hyperlink{class_vibrating_point_afdefa096df21cf891ae6835a6df4ffc9}{VibratingPoint::extremum\_amplitude\_}}.first = point\_amplitudes[max\_idx];}
+\DoxyCodeLine{00428         \mbox{\hyperlink{class_vibrating_point_afdefa096df21cf891ae6835a6df4ffc9}{VibratingPoint::extremum\_amplitude\_}}.second = *(std::min\_element(point\_amplitudes.begin(), point\_amplitudes.end()));}
+\DoxyCodeLine{00429     \}}
+\DoxyCodeLine{00430 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Данные класса}
+\mbox{\Hypertarget{class_vibration_detector_a48e1f58a28d451445a23ea6575ef9b38}\label{class_vibration_detector_a48e1f58a28d451445a23ea6575ef9b38}} 
+\index{VibrationDetector@{VibrationDetector}!c\_point\_queue\_@{c\_point\_queue\_}}
+\index{c\_point\_queue\_@{c\_point\_queue\_}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{c\_point\_queue\_}{c\_point\_queue\_}}
+{\footnotesize\ttfamily std\+::vector$<$Point2f$>$ Vibration\+Detector\+::c\+\_\+point\+\_\+queue\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Очередь на создание \char`\"{}цветных\char`\"{} точек 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8h_source}{vibration\+\_\+detector.\+h}} строка \mbox{\hyperlink{vibration__detector_8h_source_l00166}{166}}
+
+\mbox{\Hypertarget{class_vibration_detector_af75ebe29dd6955ae7a249c4c854c2657}\label{class_vibration_detector_af75ebe29dd6955ae7a249c4c854c2657}} 
+\index{VibrationDetector@{VibrationDetector}!colored\_point\_mode\_@{colored\_point\_mode\_}}
+\index{colored\_point\_mode\_@{colored\_point\_mode\_}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{colored\_point\_mode\_}{colored\_point\_mode\_}}
+{\footnotesize\ttfamily int Vibration\+Detector\+::colored\+\_\+point\+\_\+mode\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Текущий режим подсветки точек при выбранном регионе интереса (по амплитуде/по частоте) 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8h_source}{vibration\+\_\+detector.\+h}} строка \mbox{\hyperlink{vibration__detector_8h_source_l00213}{213}}
+
+\mbox{\Hypertarget{class_vibration_detector_ad3748489d876505deab724e16cf1e767}\label{class_vibration_detector_ad3748489d876505deab724e16cf1e767}} 
+\index{VibrationDetector@{VibrationDetector}!current\_mode\_@{current\_mode\_}}
+\index{current\_mode\_@{current\_mode\_}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{current\_mode\_}{current\_mode\_}}
+{\footnotesize\ttfamily int Vibration\+Detector\+::current\+\_\+mode\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Основной режим работы (enum main\+\_\+mode) 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8h_source}{vibration\+\_\+detector.\+h}} строка \mbox{\hyperlink{vibration__detector_8h_source_l00150}{150}}
+
+\mbox{\Hypertarget{class_vibration_detector_a3c823c70560e24ce3e8484ae25440357}\label{class_vibration_detector_a3c823c70560e24ce3e8484ae25440357}} 
+\index{VibrationDetector@{VibrationDetector}!current\_tracking\_frame\_@{current\_tracking\_frame\_}}
+\index{current\_tracking\_frame\_@{current\_tracking\_frame\_}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{current\_tracking\_frame\_}{current\_tracking\_frame\_}}
+{\footnotesize\ttfamily Mat Vibration\+Detector\+::current\+\_\+tracking\+\_\+frame\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Текущий Mat-\/instance только что найденного кадра из видео 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8h_source}{vibration\+\_\+detector.\+h}} строка \mbox{\hyperlink{vibration__detector_8h_source_l00199}{199}}
+
+\mbox{\Hypertarget{class_vibration_detector_a290fb09835aef1220fc44485e0f391de}\label{class_vibration_detector_a290fb09835aef1220fc44485e0f391de}} 
+\index{VibrationDetector@{VibrationDetector}!delete\_queue\_@{delete\_queue\_}}
+\index{delete\_queue\_@{delete\_queue\_}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{delete\_queue\_}{delete\_queue\_}}
+{\footnotesize\ttfamily std\+::vector$<$Point2i$>$ Vibration\+Detector\+::delete\+\_\+queue\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Очередь на удаление точек 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8h_source}{vibration\+\_\+detector.\+h}} строка \mbox{\hyperlink{vibration__detector_8h_source_l00170}{170}}
+
+\mbox{\Hypertarget{class_vibration_detector_a779ca47185d36d5fe0cf216c1cb9f48e}\label{class_vibration_detector_a779ca47185d36d5fe0cf216c1cb9f48e}} 
+\index{VibrationDetector@{VibrationDetector}!fps\_@{fps\_}}
+\index{fps\_@{fps\_}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{fps\_}{fps\_}}
+{\footnotesize\ttfamily int Vibration\+Detector\+::fps\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ФПС входного видео (две ширины полосы частот вибрации, которые можно отследить) 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8h_source}{vibration\+\_\+detector.\+h}} строка \mbox{\hyperlink{vibration__detector_8h_source_l00281}{281}}
+
+\mbox{\Hypertarget{class_vibration_detector_a57b58c6da673cafcca839e5f48d9045c}\label{class_vibration_detector_a57b58c6da673cafcca839e5f48d9045c}} 
+\index{VibrationDetector@{VibrationDetector}!frame\_handler@{frame\_handler}}
+\index{frame\_handler@{frame\_handler}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{frame\_handler}{frame\_handler}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_frame_handler}{Frame\+Handler}}$\ast$ Vibration\+Detector\+::frame\+\_\+handler\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Фреймпроцессор 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8h_source}{vibration\+\_\+detector.\+h}} строка \mbox{\hyperlink{vibration__detector_8h_source_l00129}{129}}
+
+\mbox{\Hypertarget{class_vibration_detector_a4cf6c4a052388d4fb17ec01815bc0bbe}\label{class_vibration_detector_a4cf6c4a052388d4fb17ec01815bc0bbe}} 
+\index{VibrationDetector@{VibrationDetector}!frame\_time\_@{frame\_time\_}}
+\index{frame\_time\_@{frame\_time\_}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{frame\_time\_}{frame\_time\_}}
+{\footnotesize\ttfamily double Vibration\+Detector\+::frame\+\_\+time\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Текущее время кадра в мс (таймкод) 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8h_source}{vibration\+\_\+detector.\+h}} строка \mbox{\hyperlink{vibration__detector_8h_source_l00285}{285}}
+
+\mbox{\Hypertarget{class_vibration_detector_ace1d4e3045fea22507c11b44cc6fb920}\label{class_vibration_detector_ace1d4e3045fea22507c11b44cc6fb920}} 
+\index{VibrationDetector@{VibrationDetector}!frame\_to\_be\_shown\_@{frame\_to\_be\_shown\_}}
+\index{frame\_to\_be\_shown\_@{frame\_to\_be\_shown\_}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{frame\_to\_be\_shown\_}{frame\_to\_be\_shown\_}}
+{\footnotesize\ttfamily Mat Vibration\+Detector\+::frame\+\_\+to\+\_\+be\+\_\+shown\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Mat-\/instance, который будет показан в окне 
+
+\begin{DoxySeeAlso}{См. также}
+\mbox{\hyperlink{class_vibration_detector_ad8741b76c24a08ec2ce54ff9d934ce76}{Draw\+And\+Output()}} 
+\end{DoxySeeAlso}
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8h_source}{vibration\+\_\+detector.\+h}} строка \mbox{\hyperlink{vibration__detector_8h_source_l00204}{204}}
+
+\mbox{\Hypertarget{class_vibration_detector_a49b64f3fe433f06af9444e8059d0cbc6}\label{class_vibration_detector_a49b64f3fe433f06af9444e8059d0cbc6}} 
+\index{VibrationDetector@{VibrationDetector}!fullscreen\_@{fullscreen\_}}
+\index{fullscreen\_@{fullscreen\_}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{fullscreen\_}{fullscreen\_}}
+{\footnotesize\ttfamily bool Vibration\+Detector\+::fullscreen\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Флаг для полноэкранного режима 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8h_source}{vibration\+\_\+detector.\+h}} строка \mbox{\hyperlink{vibration__detector_8h_source_l00154}{154}}
+
+\mbox{\Hypertarget{class_vibration_detector_a41634272ca48ff33bf21b39d11559eaa}\label{class_vibration_detector_a41634272ca48ff33bf21b39d11559eaa}} 
+\index{VibrationDetector@{VibrationDetector}!grad\_scale\_@{grad\_scale\_}}
+\index{grad\_scale\_@{grad\_scale\_}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{grad\_scale\_}{grad\_scale\_}}
+{\footnotesize\ttfamily Mat Vibration\+Detector\+::grad\+\_\+scale\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Изображение цветной шкалы внизу экрана 
+
+\begin{DoxySeeAlso}{См. также}
+\mbox{\hyperlink{class_frame_handler_ac586501514225a9e054845c69fe9ccc7}{Frame\+Handler\+::\+Generate\+Grad\+Scale()}} и \mbox{\hyperlink{class_vibration_detector_ad8741b76c24a08ec2ce54ff9d934ce76}{Draw\+And\+Output()}} 
+\end{DoxySeeAlso}
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8h_source}{vibration\+\_\+detector.\+h}} строка \mbox{\hyperlink{vibration__detector_8h_source_l00209}{209}}
+
+\mbox{\Hypertarget{class_vibration_detector_a0cdb940eece1b90795717d39cbac187d}\label{class_vibration_detector_a0cdb940eece1b90795717d39cbac187d}} 
+\index{VibrationDetector@{VibrationDetector}!histograms\_queue\_@{histograms\_queue\_}}
+\index{histograms\_queue\_@{histograms\_queue\_}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{histograms\_queue\_}{histograms\_queue\_}}
+{\footnotesize\ttfamily std\+::vector$<$Point2i$>$ Vibration\+Detector\+::histograms\+\_\+queue\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Очередь на отрисовку гистограм 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8h_source}{vibration\+\_\+detector.\+h}} строка \mbox{\hyperlink{vibration__detector_8h_source_l00174}{174}}
+
+\mbox{\Hypertarget{class_vibration_detector_a5f9772794a4f76bb0503a9f046d65b72}\label{class_vibration_detector_a5f9772794a4f76bb0503a9f046d65b72}} 
+\index{VibrationDetector@{VibrationDetector}!input\_file\_name\_@{input\_file\_name\_}}
+\index{input\_file\_name\_@{input\_file\_name\_}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{input\_file\_name\_}{input\_file\_name\_}}
+{\footnotesize\ttfamily std\+::string Vibration\+Detector\+::input\+\_\+file\+\_\+name\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Имя (путь) входного видео 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8h_source}{vibration\+\_\+detector.\+h}} строка \mbox{\hyperlink{vibration__detector_8h_source_l00235}{235}}
+
+\mbox{\Hypertarget{class_vibration_detector_a51842be0abc4ac57d3e07bbb7ff33d8e}\label{class_vibration_detector_a51842be0abc4ac57d3e07bbb7ff33d8e}} 
+\index{VibrationDetector@{VibrationDetector}!l\_click\_queue\_@{l\_click\_queue\_}}
+\index{l\_click\_queue\_@{l\_click\_queue\_}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{l\_click\_queue\_}{l\_click\_queue\_}}
+{\footnotesize\ttfamily std\+::vector$<$Point2i$>$ Vibration\+Detector\+::l\+\_\+click\+\_\+queue\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Очередь на создание \char`\"{}обычных\char`\"{} точек 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8h_source}{vibration\+\_\+detector.\+h}} строка \mbox{\hyperlink{vibration__detector_8h_source_l00162}{162}}
+
+\mbox{\Hypertarget{class_vibration_detector_a69f64f7b483a4295abd6e5a48ab161ff}\label{class_vibration_detector_a69f64f7b483a4295abd6e5a48ab161ff}} 
+\index{VibrationDetector@{VibrationDetector}!last\_mouse\_position\_@{last\_mouse\_position\_}}
+\index{last\_mouse\_position\_@{last\_mouse\_position\_}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{last\_mouse\_position\_}{last\_mouse\_position\_}}
+{\footnotesize\ttfamily Point Vibration\+Detector\+::last\+\_\+mouse\+\_\+position\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Последняя позиция курсора в главном окне 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8h_source}{vibration\+\_\+detector.\+h}} строка \mbox{\hyperlink{vibration__detector_8h_source_l00146}{146}}
+
+\mbox{\Hypertarget{class_vibration_detector_a2a3692c7dd7a78cbc9af4d070d71264a}\label{class_vibration_detector_a2a3692c7dd7a78cbc9af4d070d71264a}} 
+\index{VibrationDetector@{VibrationDetector}!level\_amount\_@{level\_amount\_}}
+\index{level\_amount\_@{level\_amount\_}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{level\_amount\_}{level\_amount\_}}
+{\footnotesize\ttfamily int Vibration\+Detector\+::level\+\_\+amount\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Количество слоев пирамиды изображений в алгоритме Л-\/К 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8h_source}{vibration\+\_\+detector.\+h}} строка \mbox{\hyperlink{vibration__detector_8h_source_l00274}{274}}
+
+\mbox{\Hypertarget{class_vibration_detector_abc8267e01dbf92e742db792c530e490a}\label{class_vibration_detector_abc8267e01dbf92e742db792c530e490a}} 
+\index{VibrationDetector@{VibrationDetector}!lk\_win\_size\_@{lk\_win\_size\_}}
+\index{lk\_win\_size\_@{lk\_win\_size\_}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{lk\_win\_size\_}{lk\_win\_size\_}}
+{\footnotesize\ttfamily int Vibration\+Detector\+::lk\+\_\+win\+\_\+size\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Размер окна для алгоритма Лукаса-\/Канаде 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8h_source}{vibration\+\_\+detector.\+h}} строка \mbox{\hyperlink{vibration__detector_8h_source_l00270}{270}}
+
+\mbox{\Hypertarget{class_vibration_detector_a016d906a3746e6d61b9468c7127a717f}\label{class_vibration_detector_a016d906a3746e6d61b9468c7127a717f}} 
+\index{VibrationDetector@{VibrationDetector}!next\_img\_gray\_@{next\_img\_gray\_}}
+\index{next\_img\_gray\_@{next\_img\_gray\_}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{next\_img\_gray\_}{next\_img\_gray\_}}
+{\footnotesize\ttfamily Mat Vibration\+Detector\+::next\+\_\+img\+\_\+gray\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Следующий (или текущий после \char`\"{}предыдущего\char`\"{} -\/ смотря как удобнее для понимания) кадр видео в грейскейл и с небольшим блюром (\mbox{\hyperlink{class_frame_handler_a4bd1108adbbd4c21c4c3233efa8c8d1e}{Frame\+Handler\+::\+Make\+Gray\+Frame()}}) 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8h_source}{vibration\+\_\+detector.\+h}} строка \mbox{\hyperlink{vibration__detector_8h_source_l00266}{266}}
+
+\mbox{\Hypertarget{class_vibration_detector_adda01acf92ced4b8bfa5880bb475ce55}\label{class_vibration_detector_adda01acf92ced4b8bfa5880bb475ce55}} 
+\index{VibrationDetector@{VibrationDetector}!output\_csv\_file\_name\_@{output\_csv\_file\_name\_}}
+\index{output\_csv\_file\_name\_@{output\_csv\_file\_name\_}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{output\_csv\_file\_name\_}{output\_csv\_file\_name\_}}
+{\footnotesize\ttfamily std\+::string Vibration\+Detector\+::output\+\_\+csv\+\_\+file\+\_\+name\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Имя (путь) файла для хранения метаданных 
+
+\begin{DoxySeeAlso}{См. также}
+\mbox{\hyperlink{class_output_to_csv}{Output\+To\+Csv}} 
+\end{DoxySeeAlso}
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8h_source}{vibration\+\_\+detector.\+h}} строка \mbox{\hyperlink{vibration__detector_8h_source_l00244}{244}}
+
+\mbox{\Hypertarget{class_vibration_detector_a7e4bada48fc235b2c02ad07fcec6fdd1}\label{class_vibration_detector_a7e4bada48fc235b2c02ad07fcec6fdd1}} 
+\index{VibrationDetector@{VibrationDetector}!output\_file\_name\_@{output\_file\_name\_}}
+\index{output\_file\_name\_@{output\_file\_name\_}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{output\_file\_name\_}{output\_file\_name\_}}
+{\footnotesize\ttfamily std\+::string Vibration\+Detector\+::output\+\_\+file\+\_\+name\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Имя (путь) видео, в котором будет результат детектинга 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8h_source}{vibration\+\_\+detector.\+h}} строка \mbox{\hyperlink{vibration__detector_8h_source_l00239}{239}}
+
+\mbox{\Hypertarget{class_vibration_detector_af7093e56d2391aceaeb9d9cbd389eaaf}\label{class_vibration_detector_af7093e56d2391aceaeb9d9cbd389eaaf}} 
+\index{VibrationDetector@{VibrationDetector}!point\_id\_@{point\_id\_}}
+\index{point\_id\_@{point\_id\_}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{point\_id\_}{point\_id\_}}
+{\footnotesize\ttfamily int Vibration\+Detector\+::point\+\_\+id\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Псевдо-\/id (порядковывй номер точки) 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8h_source}{vibration\+\_\+detector.\+h}} строка \mbox{\hyperlink{vibration__detector_8h_source_l00142}{142}}
+
+\mbox{\Hypertarget{class_vibration_detector_a3c524b0b7ab0348fe4fb6018f64b4dcf}\label{class_vibration_detector_a3c524b0b7ab0348fe4fb6018f64b4dcf}} 
+\index{VibrationDetector@{VibrationDetector}!prev\_img\_gray\_@{prev\_img\_gray\_}}
+\index{prev\_img\_gray\_@{prev\_img\_gray\_}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{prev\_img\_gray\_}{prev\_img\_gray\_}}
+{\footnotesize\ttfamily Mat Vibration\+Detector\+::prev\+\_\+img\+\_\+gray\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Предыдущий кадр видео в грейскейл и с небольшим блюром (\mbox{\hyperlink{class_frame_handler_a4bd1108adbbd4c21c4c3233efa8c8d1e}{Frame\+Handler\+::\+Make\+Gray\+Frame()}}) 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8h_source}{vibration\+\_\+detector.\+h}} строка \mbox{\hyperlink{vibration__detector_8h_source_l00262}{262}}
+
+\mbox{\Hypertarget{class_vibration_detector_a5c0d42618889da70c073056ba3e4065c}\label{class_vibration_detector_a5c0d42618889da70c073056ba3e4065c}} 
+\index{VibrationDetector@{VibrationDetector}!res\_mp\_@{res\_mp\_}}
+\index{res\_mp\_@{res\_mp\_}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{res\_mp\_}{res\_mp\_}}
+{\footnotesize\ttfamily float Vibration\+Detector\+::res\+\_\+mp\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Коэффициент автоскейла размеров окна в зависимости от разрешения исходного видео 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8h_source}{vibration\+\_\+detector.\+h}} строка \mbox{\hyperlink{vibration__detector_8h_source_l00138}{138}}
+
+\mbox{\Hypertarget{class_vibration_detector_afd9f8f38bcde73bb14c9cf643f270d36}\label{class_vibration_detector_afd9f8f38bcde73bb14c9cf643f270d36}} 
+\index{VibrationDetector@{VibrationDetector}!roi\_selected\_@{roi\_selected\_}}
+\index{roi\_selected\_@{roi\_selected\_}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{roi\_selected\_}{roi\_selected\_}}
+{\footnotesize\ttfamily bool Vibration\+Detector\+::roi\+\_\+selected\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Флаг, показывающий был ли выделен ROI или нет 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8h_source}{vibration\+\_\+detector.\+h}} строка \mbox{\hyperlink{vibration__detector_8h_source_l00226}{226}}
+
+\mbox{\Hypertarget{class_vibration_detector_aacb53723f4a18df998738d0d54c5290b}\label{class_vibration_detector_aacb53723f4a18df998738d0d54c5290b}} 
+\index{VibrationDetector@{VibrationDetector}!roi\_selecting\_@{roi\_selecting\_}}
+\index{roi\_selecting\_@{roi\_selecting\_}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{roi\_selecting\_}{roi\_selecting\_}}
+{\footnotesize\ttfamily bool Vibration\+Detector\+::roi\+\_\+selecting\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Флаг, показывающий происходит ли в данный момент выделение ROI. 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8h_source}{vibration\+\_\+detector.\+h}} строка \mbox{\hyperlink{vibration__detector_8h_source_l00222}{222}}
+
+\mbox{\Hypertarget{class_vibration_detector_ab0fa5fb784f1db6bdb7a9d9e5d608bb3}\label{class_vibration_detector_ab0fa5fb784f1db6bdb7a9d9e5d608bb3}} 
+\index{VibrationDetector@{VibrationDetector}!running\_@{running\_}}
+\index{running\_@{running\_}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{running\_}{running\_}}
+{\footnotesize\ttfamily bool Vibration\+Detector\+::running\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Флаг запущенного основного алгоритма 
+
+\begin{DoxySeeAlso}{См. также}
+\mbox{\hyperlink{class_vibration_detector_ae93a14aa147af694a90c012f16efc924}{Execute\+Vibration\+Detection()}} 
+\end{DoxySeeAlso}
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8h_source}{vibration\+\_\+detector.\+h}} строка \mbox{\hyperlink{vibration__detector_8h_source_l00134}{134}}
+
+\mbox{\Hypertarget{class_vibration_detector_a418071707b1348281ef2a434c42de26e}\label{class_vibration_detector_a418071707b1348281ef2a434c42de26e}} 
+\index{VibrationDetector@{VibrationDetector}!sensivity\_in\_percents\_@{sensivity\_in\_percents\_}}
+\index{sensivity\_in\_percents\_@{sensivity\_in\_percents\_}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{sensivity\_in\_percents\_}{sensivity\_in\_percents\_}}
+{\footnotesize\ttfamily int Vibration\+Detector\+::sensivity\+\_\+in\+\_\+percents\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Чувствительность при трекинге вибрации 
+
+Окно для изменения чувствительности вызывается кнопкой \char`\"{}\+A\char`\"{} при работающей проге
+
+Чем выше значение -\/ тем больше шумов будет поймано, но и тем меньше по амплитуде вибрации можно будет задетектить 
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8h_source}{vibration\+\_\+detector.\+h}} строка \mbox{\hyperlink{vibration__detector_8h_source_l00194}{194}}
+
+\mbox{\Hypertarget{class_vibration_detector_aef49bdadca0536214393e22addf4ce04}\label{class_vibration_detector_aef49bdadca0536214393e22addf4ce04}} 
+\index{VibrationDetector@{VibrationDetector}!tl\_click\_coords\_@{tl\_click\_coords\_}}
+\index{tl\_click\_coords\_@{tl\_click\_coords\_}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{tl\_click\_coords\_}{tl\_click\_coords\_}}
+{\footnotesize\ttfamily Point2i Vibration\+Detector\+::tl\+\_\+click\+\_\+coords\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Координаты первой точки прямоугольник (top left, bottom left, top right, bottom right -\/ смотря \char`\"{}в какую сторону\char`\"{} выделять ROI с помощью мыши (курсора)) 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8h_source}{vibration\+\_\+detector.\+h}} строка \mbox{\hyperlink{vibration__detector_8h_source_l00230}{230}}
+
+\mbox{\Hypertarget{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}\label{class_vibration_detector_add86750dfd1683f09410d3fe3822a950}} 
+\index{VibrationDetector@{VibrationDetector}!vec\_colored\_point\_handlers\_@{vec\_colored\_point\_handlers\_}}
+\index{vec\_colored\_point\_handlers\_@{vec\_colored\_point\_handlers\_}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{vec\_colored\_point\_handlers\_}{vec\_colored\_point\_handlers\_}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{class_colored_point_handler}{Colored\+Point\+Handler}}$\ast$$>$ Vibration\+Detector\+::vec\+\_\+colored\+\_\+point\+\_\+handlers\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Вектор обработчиков \char`\"{}цветных\char`\"{} точек 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8h_source}{vibration\+\_\+detector.\+h}} строка \mbox{\hyperlink{vibration__detector_8h_source_l00182}{182}}
+
+\mbox{\Hypertarget{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}\label{class_vibration_detector_a5085a389a0ff26924331ab5022eea1af}} 
+\index{VibrationDetector@{VibrationDetector}!vec\_lonely\_point\_handlers\_@{vec\_lonely\_point\_handlers\_}}
+\index{vec\_lonely\_point\_handlers\_@{vec\_lonely\_point\_handlers\_}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{vec\_lonely\_point\_handlers\_}{vec\_lonely\_point\_handlers\_}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{class_lonely_point_handler}{Lonely\+Point\+Handler}}$\ast$$>$ Vibration\+Detector\+::vec\+\_\+lonely\+\_\+point\+\_\+handlers\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Вектор обработчиков \char`\"{}одиноких\char`\"{} точек 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8h_source}{vibration\+\_\+detector.\+h}} строка \mbox{\hyperlink{vibration__detector_8h_source_l00178}{178}}
+
+\mbox{\Hypertarget{class_vibration_detector_a901927a4199f5bf914675f19cae9a651}\label{class_vibration_detector_a901927a4199f5bf914675f19cae9a651}} 
+\index{VibrationDetector@{VibrationDetector}!warping\_figure\_@{warping\_figure\_}}
+\index{warping\_figure\_@{warping\_figure\_}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{warping\_figure\_}{warping\_figure\_}}
+{\footnotesize\ttfamily std\+::vector$<$Point$>$ Vibration\+Detector\+::warping\+\_\+figure\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Координаты фигуры для исправления перспективы 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8h_source}{vibration\+\_\+detector.\+h}} строка \mbox{\hyperlink{vibration__detector_8h_source_l00257}{257}}
+
+\mbox{\Hypertarget{class_vibration_detector_a3b8ea35de43e2702a889f8def948ece4}\label{class_vibration_detector_a3b8ea35de43e2702a889f8def948ece4}} 
+\index{VibrationDetector@{VibrationDetector}!warping\_figure\_selecting\_@{warping\_figure\_selecting\_}}
+\index{warping\_figure\_selecting\_@{warping\_figure\_selecting\_}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{warping\_figure\_selecting\_}{warping\_figure\_selecting\_}}
+{\footnotesize\ttfamily bool Vibration\+Detector\+::warping\+\_\+figure\+\_\+selecting\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Флаг, показывающий, происходит ли в данный момент выделение фигуры (эта возможность отключена временно) 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8h_source}{vibration\+\_\+detector.\+h}} строка \mbox{\hyperlink{vibration__detector_8h_source_l00253}{253}}
+
+\mbox{\Hypertarget{class_vibration_detector_a1dddb74ae6ef1b1f5cb4b66e2a352509}\label{class_vibration_detector_a1dddb74ae6ef1b1f5cb4b66e2a352509}} 
+\index{VibrationDetector@{VibrationDetector}!window\_name\_@{window\_name\_}}
+\index{window\_name\_@{window\_name\_}!VibrationDetector@{VibrationDetector}}
+\doxysubsubsection{\texorpdfstring{window\_name\_}{window\_name\_}}
+{\footnotesize\ttfamily std\+::string Vibration\+Detector\+::window\+\_\+name\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Имя главного окна 
+
+
+
+См. определение в файле \mbox{\hyperlink{vibration__detector_8h_source}{vibration\+\_\+detector.\+h}} строка \mbox{\hyperlink{vibration__detector_8h_source_l00248}{248}}
+
+
+
+Объявления и описания членов классов находятся в файлах\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/seeyo/source/repos/\+Visual-\/\+Vibration-\/\+Tracking-\/\+V2/include/\+VVT-\/\+V2/vibration\+\_\+detector.\+h\item 
+C\+:/\+Users/seeyo/source/repos/\+Visual-\/\+Vibration-\/\+Tracking-\/\+V2/source/vibration\+\_\+detector.\+cpp\end{DoxyCompactItemize}

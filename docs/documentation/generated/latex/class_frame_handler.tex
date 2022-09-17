@@ -1,0 +1,1189 @@
+\hypertarget{class_frame_handler}{}\doxysection{Класс Frame\+Handler}
+\label{class_frame_handler}\index{FrameHandler@{FrameHandler}}
+
+
+Класс для чтения и сохранения кадров видео, а также различной их обработки  
+
+
+
+
+{\ttfamily \#include $<$frame\+\_\+handler.\+h$>$}
+
+\doxysubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_frame_handler_a1e87b87f91fc59dfedae6e9d3a650a3d}{Frame\+Handler}} (const std\+::string input\+\_\+file\+\_\+name, const std\+::string output\+\_\+file\+\_\+name, const std\+::string main\+\_\+window\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Конструктор этого класса \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_frame_handler_a3837bca5a13d8e1e4969edf0d831baf3}{Read\+Next\+Frame}} ()
+\begin{DoxyCompactList}\small\item\em Считывает следующий кадр видео \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_frame_handler_a194e20bc41e1d8bb849dc6666f182202}{Show\+Frame}} (Mat frame, bool fullscreen)
+\begin{DoxyCompactList}\small\item\em Выводит в главное окно принимаемое изображение \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_frame_handler_a43fe77a59e8e5d99f7bb0ad3499591ef}{Write\+Frame}} (Mat frame)
+\begin{DoxyCompactList}\small\item\em Записывает кадр с помощью output\+\_\+cap. \end{DoxyCompactList}\item 
+Mat \mbox{\hyperlink{class_frame_handler_a94cec95a902939c5e56361737d113933}{Concatenate\+Frames\+Horizontally}} (Mat left\+\_\+frame, Mat right\+\_\+frame)
+\begin{DoxyCompactList}\small\item\em Объединяет два кадра горизонтально \end{DoxyCompactList}\item 
+Mat \mbox{\hyperlink{class_frame_handler_a93befa779beed3a21639b629993195d8}{Concatenate\+Frames\+Vertically}} (Mat top\+\_\+frame, Mat bottom\+\_\+frame)
+\begin{DoxyCompactList}\small\item\em Объединяет два кадра вертикально \end{DoxyCompactList}\item 
+Mat \mbox{\hyperlink{class_frame_handler_a7c33b8ad150344db93c24d29bbabd853}{Put\+Frame\+Over\+Frame}} (Mat foreground\+\_\+frame, Mat background\+\_\+frame, Point2i translation\+\_\+vector)
+\begin{DoxyCompactList}\small\item\em Накладывает изображение (переднний план) на другое изображение (задний план) \end{DoxyCompactList}\item 
+Mat \mbox{\hyperlink{class_frame_handler_a4bd1108adbbd4c21c4c3233efa8c8d1e}{Make\+Gray\+Frame}} (Mat frame\+\_\+to\+\_\+be\+\_\+grayed)
+\begin{DoxyCompactList}\small\item\em Возвращает серый кадр с блюром \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_frame_handler_a18519accbae4e5e7a043e81bd6a9d2c6}{Get\+Input\+Cap\+Status}} ()
+\begin{DoxyCompactList}\small\item\em Возвращает текущий статус input\+\_\+cap. \end{DoxyCompactList}\item 
+Mat \mbox{\hyperlink{class_frame_handler_a26b5695df6161f00af36210e4d3d78ad}{Get\+Current\+Frame}} ()
+\begin{DoxyCompactList}\small\item\em Возвращает последний прочитанный на данный момент кадр \end{DoxyCompactList}\item 
+String \mbox{\hyperlink{class_frame_handler_a115a1da50a8bc1b00d703b6f8c44222b}{Get\+Main\+Window\+Name}} ()
+\begin{DoxyCompactList}\small\item\em Возвращает название главного окна, в которое выводятся кадры \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_frame_handler_a61109313b6d4a9a21783a9c7b66dea68}{Get\+Current\+Time\+Of\+Frame}} ()
+\begin{DoxyCompactList}\small\item\em Возвращает текущее время кадра (таймкод в мс) \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_frame_handler_a79ab90b6a2ce7ea8fef695a11bef514c}{Get\+Current\+Pos\+Of\+Frame}} ()
+\begin{DoxyCompactList}\small\item\em Возвращает текущее положение кадра относительно первого \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_frame_handler_a0a926273fbb3a3901c9a5a75e3380e16}{Get\+Amount\+Of\+Frames}} ()
+\begin{DoxyCompactList}\small\item\em Возвращает общее количество кадров \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_frame_handler_a7871807bfd918b88272a175aa33ea165}{Get\+Input\+Fps}} ()
+\begin{DoxyCompactList}\small\item\em Возвращает FPS считываемого видео \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_frame_handler_a128638bf1c2d42a6ef84bdd67d6bf442}{Get\+Frame\+Width}} ()
+\begin{DoxyCompactList}\small\item\em Возвращает ширину исходного видео \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_frame_handler_abd588ce2d914edf1d719f86cca3912c5}{Get\+Frame\+Height}} ()
+\begin{DoxyCompactList}\small\item\em Возвращает высоту считываемого видео \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_frame_handler_ae37c57501fea114483f4ea51da37d08a}{Get\+Text\+Resize\+Factor}} ()
+\begin{DoxyCompactList}\small\item\em Возвращает коэффициент масштабирования \end{DoxyCompactList}\item 
+Mat \mbox{\hyperlink{class_frame_handler_a13af7fdd06b373db04ece2adc6e62d14}{Add\+Tips}} (Mat frame, int mode)
+\begin{DoxyCompactList}\small\item\em Добавляет (отрисовывает) подсказки для пользователя на кадр \end{DoxyCompactList}\item 
+Mat \mbox{\hyperlink{class_frame_handler_ac586501514225a9e054845c69fe9ccc7}{Generate\+Grad\+Scale}} (int left\+\_\+limit, int right\+\_\+limit, int colored\+\_\+point\+\_\+mode)
+\begin{DoxyCompactList}\small\item\em Генерирует шкалу с градиентом и подписями. Ширина шкалы -\/ ширина исходного видео. Высота регулируется внутри \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Закрытые члены}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_frame_handler_ae3165c660c17d4b410c1690d13fda93c}{Init\+Text\+Resize\+Factors}} ()
+\begin{DoxyCompactList}\small\item\em Инициализирует коэффициент масштабирования текста в зависимости от разрешения видео \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Закрытые данные}
+\begin{DoxyCompactItemize}
+\item 
+Mat \mbox{\hyperlink{class_frame_handler_a2047595394b429b3233474c17af56c3d}{current\+\_\+frame\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Последнний прочитанный кадр \end{DoxyCompactList}\item 
+Video\+Capture $\ast$ \mbox{\hyperlink{class_frame_handler_a56190979d8bfe9b896ca05fa23052136}{input\+\_\+cap\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Указатель на объект-\/захватчик входных кадров видео \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_frame_handler_a6644d694da107a0b432d7a4d9d3afd39}{input\+\_\+cap\+\_\+status\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Флаг, принимающий true при удачном чтении кадра и false, если следующий кадр не был считан \end{DoxyCompactList}\item 
+Video\+Writer $\ast$ \mbox{\hyperlink{class_frame_handler_af77346c9760c6406958ff9bd9034be2c}{output\+\_\+cap\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Указатель на объект, сохраняющий кадры в последовательность (видео) в зависимости от выбранного кодека (cv\+::fourcc) \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_frame_handler_af5a948132ceb761b1c9f1c5c71deee75}{main\+\_\+window\+\_\+name\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Имя главного окна \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_frame_handler_a053396cb9e34ffe2b301b29fec72a0cc}{fullscreen\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Флаг полноэкранного режима \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_frame_handler_acc1333f07f5bb10f34c2d37459e79b9e}{input\+\_\+frame\+\_\+width\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Ширина кадра исходного видео \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_frame_handler_a90b32b3317313f0affe872c2d9ab63f6}{input\+\_\+frame\+\_\+height\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Высота кадра исходного видео \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_frame_handler_afab579c6e630ae2bf9fdc47a2f9177dc}{input\+\_\+frame\+\_\+size\+\_\+ratio\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Соотношение сторон исходного видео \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_frame_handler_a52b12ec33b607d0eb0250c648e819609}{input\+\_\+fps\+\_\+}}
+\begin{DoxyCompactList}\small\item\em FPS исходного видео \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_frame_handler_a103fd8c5d4ab70aae5b5e8fe9a8b57fd}{current\+\_\+time\+\_\+of\+\_\+frame\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Текущее время кадра из последовательности \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_frame_handler_ae97cfa371c3ac3ecdde04f19422c986c}{current\+\_\+pos\+\_\+of\+\_\+frame\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Текущий номер кадра из последовательности \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_frame_handler_a51cbdce3182856d3fa5e4209bfd859b4}{text\+\_\+resize\+\_\+factor\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Коэффициент масштабирования текста (зависит от разрешения исходного видео) \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{class_frame_handler_a2aa22fb456140327c3848efdea1536b4}{tip\+\_\+text\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Тексты подсказок для пользователя \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Класс для чтения и сохранения кадров видео, а также различной их обработки 
+
+Объект класса захватывает последовательность кадров по имени (пути) входного видео, после чего, обращаясь к объекту класса можно считывать кадры с помощью метода Read\+Next\+Frame
+
+Для записи кадра необходимо использовать метод Write\+Frame, который в качестве аргумента принимает cv\+::\+Mat объект (изображение) и записывает его в конец выходной последовательности (видео) \begin{DoxyNote}{Заметки}
+Дополнительно добавляет на кадр подсказки для пользователя (метод Add\+Tips) и градиент (Generate\+Grad\+Scale) 
+
+Дополнительно может конкатенировать (объединять в одно изображение два) cv\+::\+Mat-\/сущности по горизонтали или по вертикали 
+\end{DoxyNote}
+
+
+См. определение в файле \mbox{\hyperlink{frame__handler_8h_source}{frame\+\_\+handler.\+h}} строка \mbox{\hyperlink{frame__handler_8h_source_l00028}{28}}
+
+
+
+\doxysubsection{Конструктор(ы)}
+\mbox{\Hypertarget{class_frame_handler_a1e87b87f91fc59dfedae6e9d3a650a3d}\label{class_frame_handler_a1e87b87f91fc59dfedae6e9d3a650a3d}} 
+\index{FrameHandler@{FrameHandler}!FrameHandler@{FrameHandler}}
+\index{FrameHandler@{FrameHandler}!FrameHandler@{FrameHandler}}
+\doxysubsubsection{\texorpdfstring{FrameHandler()}{FrameHandler()}}
+{\footnotesize\ttfamily Frame\+Handler\+::\+Frame\+Handler (\begin{DoxyParamCaption}\item[{const std\+::string}]{input\+\_\+file\+\_\+name,  }\item[{const std\+::string}]{output\+\_\+file\+\_\+name,  }\item[{const std\+::string}]{main\+\_\+window\+\_\+name }\end{DoxyParamCaption})}
+
+
+
+Конструктор этого класса 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em input\+\_\+file\+\_\+name} & имя (путь) входного видео для обработки \\
+\hline
+{\em output\+\_\+file\+\_\+name} & имя (путь) выходдного видео после обработки \\
+\hline
+{\em main\+\_\+window\+\_\+name} & название главного окна \\
+\hline
+\end{DoxyParams}
+
+
+См. определение в файле \mbox{\hyperlink{frame__handler_8cpp_source}{frame\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{frame__handler_8cpp_source_l00003}{3}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00003                                                                                                                               :}
+\DoxyCodeLine{00004     \mbox{\hyperlink{class_frame_handler_a56190979d8bfe9b896ca05fa23052136}{input\_cap\_}}\{ \textcolor{keyword}{new} VideoCapture(input\_file\_name) \},}
+\DoxyCodeLine{00005     \mbox{\hyperlink{class_frame_handler_a6644d694da107a0b432d7a4d9d3afd39}{input\_cap\_status\_}}\{ \textcolor{keyword}{false} \},}
+\DoxyCodeLine{00006     \mbox{\hyperlink{class_frame_handler_af77346c9760c6406958ff9bd9034be2c}{output\_cap\_}}\{ \textcolor{keyword}{new} VideoWriter(output\_file\_name, VideoWriter::fourcc(\textcolor{charliteral}{'D'}, \textcolor{charliteral}{'I'}, \textcolor{charliteral}{'V'}, \textcolor{charliteral}{'X'}), \mbox{\hyperlink{class_frame_handler_a56190979d8bfe9b896ca05fa23052136}{input\_cap\_}}-\/>get(CAP\_PROP\_FPS), Size(\mbox{\hyperlink{class_frame_handler_a56190979d8bfe9b896ca05fa23052136}{input\_cap\_}}-\/>get(CAP\_PROP\_FRAME\_WIDTH), \mbox{\hyperlink{class_frame_handler_a56190979d8bfe9b896ca05fa23052136}{input\_cap\_}}-\/>get(CAP\_PROP\_FRAME\_HEIGHT))) \},}
+\DoxyCodeLine{00007     \mbox{\hyperlink{class_frame_handler_af5a948132ceb761b1c9f1c5c71deee75}{main\_window\_name\_}}\{ main\_window\_name \},}
+\DoxyCodeLine{00008     \mbox{\hyperlink{class_frame_handler_a103fd8c5d4ab70aae5b5e8fe9a8b57fd}{current\_time\_of\_frame\_}}\{ 0 \},}
+\DoxyCodeLine{00009     \mbox{\hyperlink{class_frame_handler_ae97cfa371c3ac3ecdde04f19422c986c}{current\_pos\_of\_frame\_}}\{ 0 \},}
+\DoxyCodeLine{00010     \mbox{\hyperlink{class_frame_handler_a053396cb9e34ffe2b301b29fec72a0cc}{fullscreen\_}}\{ \textcolor{keyword}{false} \},}
+\DoxyCodeLine{00011     \mbox{\hyperlink{class_frame_handler_a52b12ec33b607d0eb0250c648e819609}{input\_fps\_}}\{ \mbox{\hyperlink{class_frame_handler_a56190979d8bfe9b896ca05fa23052136}{input\_cap\_}}-\/>get(CAP\_PROP\_FPS) \},}
+\DoxyCodeLine{00012     \mbox{\hyperlink{class_frame_handler_a90b32b3317313f0affe872c2d9ab63f6}{input\_frame\_height\_}}\{ \mbox{\hyperlink{class_frame_handler_a56190979d8bfe9b896ca05fa23052136}{input\_cap\_}}-\/>get(CAP\_PROP\_FRAME\_HEIGHT) \},}
+\DoxyCodeLine{00013     \mbox{\hyperlink{class_frame_handler_acc1333f07f5bb10f34c2d37459e79b9e}{input\_frame\_width\_}}\{ \mbox{\hyperlink{class_frame_handler_a56190979d8bfe9b896ca05fa23052136}{input\_cap\_}}-\/>get(CAP\_PROP\_FRAME\_WIDTH) \},}
+\DoxyCodeLine{00014     \mbox{\hyperlink{class_frame_handler_afab579c6e630ae2bf9fdc47a2f9177dc}{input\_frame\_size\_ratio\_}}\{ \mbox{\hyperlink{class_frame_handler_acc1333f07f5bb10f34c2d37459e79b9e}{input\_frame\_width\_}} / \mbox{\hyperlink{class_frame_handler_a90b32b3317313f0affe872c2d9ab63f6}{input\_frame\_height\_}} \},}
+\DoxyCodeLine{00015     \mbox{\hyperlink{class_frame_handler_a51cbdce3182856d3fa5e4209bfd859b4}{text\_resize\_factor\_}}\{ 1.0f \}}
+\DoxyCodeLine{00016 \{}
+\DoxyCodeLine{00017     std::cout << \textcolor{stringliteral}{"{}Input fps is: "{}} << \mbox{\hyperlink{class_frame_handler_a52b12ec33b607d0eb0250c648e819609}{input\_fps\_}} << std::endl;}
+\DoxyCodeLine{00018     \textcolor{comment}{// создаём окно}}
+\DoxyCodeLine{00019     namedWindow(\mbox{\hyperlink{class_frame_handler_af5a948132ceb761b1c9f1c5c71deee75}{main\_window\_name\_}}, WINDOW\_NORMAL);}
+\DoxyCodeLine{00020 }
+\DoxyCodeLine{00021     \textcolor{comment}{// Находим коэффициент масштабирования для текста}}
+\DoxyCodeLine{00022     \mbox{\hyperlink{class_frame_handler_ae3165c660c17d4b410c1690d13fda93c}{InitTextResizeFactors}}();}
+\DoxyCodeLine{00023     }
+\DoxyCodeLine{00024     \textcolor{comment}{// Инициализируем текст подсказок}}
+\DoxyCodeLine{00025     \mbox{\hyperlink{class_frame_handler_a2aa22fb456140327c3848efdea1536b4}{tip\_text\_}}.push\_back(\textcolor{stringliteral}{"{}Default Mode"{}});}
+\DoxyCodeLine{00026     \mbox{\hyperlink{class_frame_handler_a2aa22fb456140327c3848efdea1536b4}{tip\_text\_}}.push\_back(\textcolor{stringliteral}{"{}ROI selecting mode (Press 'R')"{}});}
+\DoxyCodeLine{00027     \mbox{\hyperlink{class_frame_handler_a2aa22fb456140327c3848efdea1536b4}{tip\_text\_}}.push\_back(\textcolor{stringliteral}{"{}Pause (Press 'Space')"{}});}
+\DoxyCodeLine{00028     \mbox{\hyperlink{class_frame_handler_a2aa22fb456140327c3848efdea1536b4}{tip\_text\_}}.push\_back(\textcolor{stringliteral}{"{}Fullscreen (Press 'F')"{}});}
+\DoxyCodeLine{00029 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_frame_handler_a9bf8775f79aae7cc236f7e2844881f5c}\label{class_frame_handler_a9bf8775f79aae7cc236f7e2844881f5c}} 
+\index{FrameHandler@{FrameHandler}!````~FrameHandler@{$\sim$FrameHandler}}
+\index{````~FrameHandler@{$\sim$FrameHandler}!FrameHandler@{FrameHandler}}
+\doxysubsubsection{\texorpdfstring{$\sim$FrameHandler()}{~FrameHandler()}}
+{\footnotesize\ttfamily Frame\+Handler\+::$\sim$\+Frame\+Handler (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+См. определение в файле \mbox{\hyperlink{frame__handler_8cpp_source}{frame\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{frame__handler_8cpp_source_l00031}{31}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00032 \{}
+\DoxyCodeLine{00033     destroyWindow(\mbox{\hyperlink{class_frame_handler_af5a948132ceb761b1c9f1c5c71deee75}{main\_window\_name\_}});}
+\DoxyCodeLine{00034     this-\/>\mbox{\hyperlink{class_frame_handler_a56190979d8bfe9b896ca05fa23052136}{input\_cap\_}}-\/>release();}
+\DoxyCodeLine{00035     \textcolor{keyword}{delete} this-\/>\mbox{\hyperlink{class_frame_handler_a56190979d8bfe9b896ca05fa23052136}{input\_cap\_}};}
+\DoxyCodeLine{00036     this-\/>\mbox{\hyperlink{class_frame_handler_af77346c9760c6406958ff9bd9034be2c}{output\_cap\_}}-\/>release();}
+\DoxyCodeLine{00037     \textcolor{keyword}{delete} this-\/>\mbox{\hyperlink{class_frame_handler_af77346c9760c6406958ff9bd9034be2c}{output\_cap\_}};}
+\DoxyCodeLine{00038 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Методы}
+\mbox{\Hypertarget{class_frame_handler_a13af7fdd06b373db04ece2adc6e62d14}\label{class_frame_handler_a13af7fdd06b373db04ece2adc6e62d14}} 
+\index{FrameHandler@{FrameHandler}!AddTips@{AddTips}}
+\index{AddTips@{AddTips}!FrameHandler@{FrameHandler}}
+\doxysubsubsection{\texorpdfstring{AddTips()}{AddTips()}}
+{\footnotesize\ttfamily Mat Frame\+Handler\+::\+Add\+Tips (\begin{DoxyParamCaption}\item[{Mat}]{frame,  }\item[{int}]{mode }\end{DoxyParamCaption})}
+
+
+
+Добавляет (отрисовывает) подсказки для пользователя на кадр 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em frame} & изображение, на которое будут нанесены подсказки для пользователя \\
+\hline
+{\em mode} & текущий режим работы приложения \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+cv\+::\+Mat кадр с подсказками 
+\end{DoxyReturn}
+\begin{DoxyNote}{Заметки}
+Режимы работы приложения\+: default, ROI selecting, pause 
+\end{DoxyNote}
+
+
+См. определение в файле \mbox{\hyperlink{frame__handler_8cpp_source}{frame\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{frame__handler_8cpp_source_l00201}{201}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00202 \{}
+\DoxyCodeLine{00203     \textcolor{comment}{// Параметры шрифта}}
+\DoxyCodeLine{00204     \textcolor{keywordtype}{int} font = FONT\_HERSHEY\_PLAIN;}
+\DoxyCodeLine{00205     \textcolor{keywordtype}{double} font\_scale = 1.5 * \mbox{\hyperlink{class_frame_handler_a51cbdce3182856d3fa5e4209bfd859b4}{text\_resize\_factor\_}};}
+\DoxyCodeLine{00206     \textcolor{keywordtype}{int} thickness = 2;}
+\DoxyCodeLine{00207     \textcolor{keywordtype}{int} baseline = 0;}
+\DoxyCodeLine{00208     \textcolor{keywordtype}{int} line\_spacing = 5;}
+\DoxyCodeLine{00209     \textcolor{keywordtype}{int} border\_offset = 15;}
+\DoxyCodeLine{00210     Scalar default\_tip\_color(150, 150, 150);}
+\DoxyCodeLine{00211     Scalar mode\_color(100, 255, 100);}
+\DoxyCodeLine{00212     \textcolor{comment}{// Выводим тексты подсказок для режимов}}
+\DoxyCodeLine{00213     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_frame_handler_a2aa22fb456140327c3848efdea1536b4}{tip\_text\_}}.size() -\/ 1; i++)}
+\DoxyCodeLine{00214     \{}
+\DoxyCodeLine{00215         Scalar font\_color = default\_tip\_color;}
+\DoxyCodeLine{00216         \textcolor{keywordflow}{if} (i == mode)}
+\DoxyCodeLine{00217         \{}
+\DoxyCodeLine{00218             font\_color = mode\_color;}
+\DoxyCodeLine{00219             \textcolor{comment}{// Замена кнопки для переключения режимов подсвечивания точек. Пока так)}}
+\DoxyCodeLine{00220         \}}
+\DoxyCodeLine{00221         putText(}
+\DoxyCodeLine{00222             frame,}
+\DoxyCodeLine{00223             \mbox{\hyperlink{class_frame_handler_a2aa22fb456140327c3848efdea1536b4}{tip\_text\_}}[i],}
+\DoxyCodeLine{00224             Point2i(}
+\DoxyCodeLine{00225                 border\_offset,}
+\DoxyCodeLine{00226                 border\_offset * \mbox{\hyperlink{class_frame_handler_afab579c6e630ae2bf9fdc47a2f9177dc}{input\_frame\_size\_ratio\_}} + i * (getTextSize(\mbox{\hyperlink{class_frame_handler_a2aa22fb456140327c3848efdea1536b4}{tip\_text\_}}[i], font, font\_scale, thickness, \&baseline).height + line\_spacing)}
+\DoxyCodeLine{00227             ),}
+\DoxyCodeLine{00228             font,}
+\DoxyCodeLine{00229             font\_scale,}
+\DoxyCodeLine{00230             font\_color,}
+\DoxyCodeLine{00231             thickness,}
+\DoxyCodeLine{00232             4}
+\DoxyCodeLine{00233         );}
+\DoxyCodeLine{00234     \}}
+\DoxyCodeLine{00235 }
+\DoxyCodeLine{00236     \textcolor{comment}{// Выводим текст подсказки для полноэкранного режима}}
+\DoxyCodeLine{00237     Scalar font\_color = default\_tip\_color;}
+\DoxyCodeLine{00238 }
+\DoxyCodeLine{00239     \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_frame_handler_a053396cb9e34ffe2b301b29fec72a0cc}{fullscreen\_}})}
+\DoxyCodeLine{00240         font\_color = Scalar(255, 100, 100);}
+\DoxyCodeLine{00241     putText(}
+\DoxyCodeLine{00242         frame,}
+\DoxyCodeLine{00243         \mbox{\hyperlink{class_frame_handler_a2aa22fb456140327c3848efdea1536b4}{tip\_text\_}}.back(),}
+\DoxyCodeLine{00244         Point2i(}
+\DoxyCodeLine{00245             (\mbox{\hyperlink{class_frame_handler_acc1333f07f5bb10f34c2d37459e79b9e}{input\_frame\_width\_}} -\/ border\_offset -\/ (getTextSize(\mbox{\hyperlink{class_frame_handler_a2aa22fb456140327c3848efdea1536b4}{tip\_text\_}}.back(), font, font\_scale, thickness, \&baseline).width)),}
+\DoxyCodeLine{00246             border\_offset * \mbox{\hyperlink{class_frame_handler_afab579c6e630ae2bf9fdc47a2f9177dc}{input\_frame\_size\_ratio\_}}}
+\DoxyCodeLine{00247         ),}
+\DoxyCodeLine{00248         font,}
+\DoxyCodeLine{00249         font\_scale,}
+\DoxyCodeLine{00250         font\_color,}
+\DoxyCodeLine{00251         thickness,}
+\DoxyCodeLine{00252         4}
+\DoxyCodeLine{00253     );}
+\DoxyCodeLine{00254 }
+\DoxyCodeLine{00255     \textcolor{keywordflow}{return} frame;}
+\DoxyCodeLine{00256 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_frame_handler_a94cec95a902939c5e56361737d113933}\label{class_frame_handler_a94cec95a902939c5e56361737d113933}} 
+\index{FrameHandler@{FrameHandler}!ConcatenateFramesHorizontally@{ConcatenateFramesHorizontally}}
+\index{ConcatenateFramesHorizontally@{ConcatenateFramesHorizontally}!FrameHandler@{FrameHandler}}
+\doxysubsubsection{\texorpdfstring{ConcatenateFramesHorizontally()}{ConcatenateFramesHorizontally()}}
+{\footnotesize\ttfamily Mat Frame\+Handler\+::\+Concatenate\+Frames\+Horizontally (\begin{DoxyParamCaption}\item[{Mat}]{left\+\_\+frame,  }\item[{Mat}]{right\+\_\+frame }\end{DoxyParamCaption})}
+
+
+
+Объединяет два кадра горизонтально 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em left\+\_\+frame} & кадр, который будет слева \\
+\hline
+{\em right\+\_\+frame} & кадр, который будет справа \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+dst\+: объединённый кадр 
+\end{DoxyReturn}
+
+
+См. определение в файле \mbox{\hyperlink{frame__handler_8cpp_source}{frame\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{frame__handler_8cpp_source_l00067}{67}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00068 \{}
+\DoxyCodeLine{00069     Mat dst;}
+\DoxyCodeLine{00070     std::vector<Mat> vec\_of\_frames;}
+\DoxyCodeLine{00071     vec\_of\_frames.push\_back(left\_frame);}
+\DoxyCodeLine{00072     vec\_of\_frames.push\_back(right\_frame);}
+\DoxyCodeLine{00073     hconcat(vec\_of\_frames, dst);}
+\DoxyCodeLine{00074     \textcolor{keywordflow}{return} dst;}
+\DoxyCodeLine{00075 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_frame_handler_a93befa779beed3a21639b629993195d8}\label{class_frame_handler_a93befa779beed3a21639b629993195d8}} 
+\index{FrameHandler@{FrameHandler}!ConcatenateFramesVertically@{ConcatenateFramesVertically}}
+\index{ConcatenateFramesVertically@{ConcatenateFramesVertically}!FrameHandler@{FrameHandler}}
+\doxysubsubsection{\texorpdfstring{ConcatenateFramesVertically()}{ConcatenateFramesVertically()}}
+{\footnotesize\ttfamily Mat Frame\+Handler\+::\+Concatenate\+Frames\+Vertically (\begin{DoxyParamCaption}\item[{Mat}]{top\+\_\+frame,  }\item[{Mat}]{bottom\+\_\+frame }\end{DoxyParamCaption})}
+
+
+
+Объединяет два кадра вертикально 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em top\+\_\+frame} & кадр, который будет сверху \\
+\hline
+{\em bottom\+\_\+frame} & кадр, который будет снизу \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+dst\+: объединённый кадр 
+\end{DoxyReturn}
+
+
+См. определение в файле \mbox{\hyperlink{frame__handler_8cpp_source}{frame\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{frame__handler_8cpp_source_l00077}{77}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00078 \{}
+\DoxyCodeLine{00079     Mat dst;}
+\DoxyCodeLine{00080     std::vector<Mat> vec\_of\_frames;}
+\DoxyCodeLine{00081     vec\_of\_frames.push\_back(top\_frame);}
+\DoxyCodeLine{00082     vec\_of\_frames.push\_back(bottom\_frame);}
+\DoxyCodeLine{00083     vconcat(vec\_of\_frames, dst);}
+\DoxyCodeLine{00084     \textcolor{keywordflow}{return} dst;}
+\DoxyCodeLine{00085 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_frame_handler_ac586501514225a9e054845c69fe9ccc7}\label{class_frame_handler_ac586501514225a9e054845c69fe9ccc7}} 
+\index{FrameHandler@{FrameHandler}!GenerateGradScale@{GenerateGradScale}}
+\index{GenerateGradScale@{GenerateGradScale}!FrameHandler@{FrameHandler}}
+\doxysubsubsection{\texorpdfstring{GenerateGradScale()}{GenerateGradScale()}}
+{\footnotesize\ttfamily Mat Frame\+Handler\+::\+Generate\+Grad\+Scale (\begin{DoxyParamCaption}\item[{int}]{left\+\_\+limit,  }\item[{int}]{right\+\_\+limit,  }\item[{int}]{colored\+\_\+point\+\_\+mode }\end{DoxyParamCaption})}
+
+
+
+Генерирует шкалу с градиентом и подписями. Ширина шкалы -\/ ширина исходного видео. Высота регулируется внутри 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em left\+\_\+limit} & граница градации цветов слева \\
+\hline
+{\em right\+\_\+limit} & граница градации цветов справа \\
+\hline
+{\em colored\+\_\+point\+\_\+mode} & режим подсветки цветных точек \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+cv\+::\+Mat сущность с изображением градиента шириной равной ширине исходного видео и настраиваемой внутри высотой 
+\end{DoxyReturn}
+\begin{DoxyNote}{Заметки}
+Режимы подсветки цветных точек\+: стандартный (default), подсветка по частоте вибрации, подсветка по амплитуде 
+\end{DoxyNote}
+
+
+См. определение в файле \mbox{\hyperlink{frame__handler_8cpp_source}{frame\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{frame__handler_8cpp_source_l00258}{258}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00259 \{}
+\DoxyCodeLine{00260     \textcolor{comment}{// Параметры шрифта}}
+\DoxyCodeLine{00261     \textcolor{keywordtype}{int} font = FONT\_HERSHEY\_PLAIN;}
+\DoxyCodeLine{00262     \textcolor{keywordtype}{double} font\_scale = 1 * \mbox{\hyperlink{class_frame_handler_a51cbdce3182856d3fa5e4209bfd859b4}{text\_resize\_factor\_}};}
+\DoxyCodeLine{00263     \textcolor{keywordtype}{int} thickness = 1;}
+\DoxyCodeLine{00264     \textcolor{keywordtype}{int} baseline = 0;}
+\DoxyCodeLine{00265     \textcolor{keywordtype}{int} font\_offset = 5;}
+\DoxyCodeLine{00266     \textcolor{keywordtype}{int} font\_height = getTextSize(\textcolor{stringliteral}{"{}tmp"{}}, font, font\_scale, thickness, \&baseline).height;}
+\DoxyCodeLine{00267     \textcolor{comment}{// Параметры окна шкалы}}
+\DoxyCodeLine{00268     \textcolor{keywordtype}{int} mat\_width = \mbox{\hyperlink{class_frame_handler_acc1333f07f5bb10f34c2d37459e79b9e}{input\_frame\_width\_}};}
+\DoxyCodeLine{00269     \textcolor{keywordtype}{int} scale\_height = 10;}
+\DoxyCodeLine{00270     \textcolor{keywordtype}{int} mat\_height = scale\_height + font\_height + font\_offset;}
+\DoxyCodeLine{00271     \textcolor{keywordtype}{int} scale\_left\_offset = \mbox{\hyperlink{class_frame_handler_acc1333f07f5bb10f34c2d37459e79b9e}{input\_frame\_width\_}} * 0.1;}
+\DoxyCodeLine{00272     \textcolor{keywordtype}{int} scale\_width = \mbox{\hyperlink{class_frame_handler_acc1333f07f5bb10f34c2d37459e79b9e}{input\_frame\_width\_}} -\/ scale\_left\_offset;}
+\DoxyCodeLine{00273 }
+\DoxyCodeLine{00274     Mat frame = Mat(Size(mat\_width, mat\_height), \mbox{\hyperlink{class_frame_handler_a2047595394b429b3233474c17af56c3d}{current\_frame\_}}.type(), Scalar(0, 0, 0));}
+\DoxyCodeLine{00275     \textcolor{keywordtype}{float} interval = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(scale\_width) / \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(right\_limit -\/ left\_limit + 1);}
+\DoxyCodeLine{00276     \textcolor{comment}{// Флаг текущей итерации}}
+\DoxyCodeLine{00277     \textcolor{keywordtype}{int} iteration = 0;}
+\DoxyCodeLine{00278 }
+\DoxyCodeLine{00279     \textcolor{comment}{// Отрисовываем цветные прямоугольнички}}
+\DoxyCodeLine{00280     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} x = left\_limit; x <= right\_limit; x++)}
+\DoxyCodeLine{00281     \{}
+\DoxyCodeLine{00282         Rect scale\_unit = Rect(}
+\DoxyCodeLine{00283             Point2f(interval * iteration + scale\_left\_offset, 0),}
+\DoxyCodeLine{00284             Point2f(interval + interval * iteration + scale\_left\_offset, scale\_height)}
+\DoxyCodeLine{00285         );}
+\DoxyCodeLine{00286         rectangle(}
+\DoxyCodeLine{00287             frame,}
+\DoxyCodeLine{00288             scale\_unit,}
+\DoxyCodeLine{00289             \mbox{\hyperlink{group___helper_functions_ga79584d71167afeb72ca384eaf87c1419}{HelperFunctions::RatioToRgb}}(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(x) / \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(right\_limit)),}
+\DoxyCodeLine{00290             FILLED}
+\DoxyCodeLine{00291         );}
+\DoxyCodeLine{00292 }
+\DoxyCodeLine{00293         std::string scale\_signature = std::to\_string(x);}
+\DoxyCodeLine{00294         Size current\_text\_size = getTextSize(scale\_signature, font, font\_scale, thickness, \&baseline);}
+\DoxyCodeLine{00295 }
+\DoxyCodeLine{00296         putText(}
+\DoxyCodeLine{00297             frame,}
+\DoxyCodeLine{00298             scale\_signature,}
+\DoxyCodeLine{00299             Point2f(}
+\DoxyCodeLine{00300                 scale\_unit.tl().x + (interval) / 2 -\/ current\_text\_size.width / 2,}
+\DoxyCodeLine{00301                 scale\_unit.br().y + scale\_height + (current\_text\_size.height) / 2}
+\DoxyCodeLine{00302             ),}
+\DoxyCodeLine{00303             font,}
+\DoxyCodeLine{00304             font\_scale,}
+\DoxyCodeLine{00305             Scalar(255, 255, 255),}
+\DoxyCodeLine{00306             thickness,}
+\DoxyCodeLine{00307             4}
+\DoxyCodeLine{00308         );}
+\DoxyCodeLine{00309 }
+\DoxyCodeLine{00310         iteration++;}
+\DoxyCodeLine{00311     \}}
+\DoxyCodeLine{00312 }
+\DoxyCodeLine{00313     \textcolor{comment}{// TEMPORARY!!!}}
+\DoxyCodeLine{00314     \textcolor{comment}{// Отдельно выводим два варианта режима при активном ROI -\/ подсвечивание точек по амплитуде/частоте}}
+\DoxyCodeLine{00315     std::string coloring\_points\_mode\_tips[3] = \{ \textcolor{stringliteral}{"{}Default"{}}, \textcolor{stringliteral}{"{}Coloring by Frequency"{}}, \textcolor{stringliteral}{"{}Coloring by Amplitude"{}} \};}
+\DoxyCodeLine{00316     Size current\_text\_size = getTextSize(coloring\_points\_mode\_tips[colored\_point\_mode], font, font\_scale, thickness, \&baseline);}
+\DoxyCodeLine{00317 }
+\DoxyCodeLine{00318     std::cout << \textcolor{stringliteral}{"{}current mode: "{}} << coloring\_points\_mode\_tips[colored\_point\_mode] << std::endl;}
+\DoxyCodeLine{00319 }
+\DoxyCodeLine{00320     putText(}
+\DoxyCodeLine{00321         frame,}
+\DoxyCodeLine{00322         coloring\_points\_mode\_tips[colored\_point\_mode],}
+\DoxyCodeLine{00323         Point2f(}
+\DoxyCodeLine{00324             scale\_left\_offset / 2 -\/ current\_text\_size.width / 2,}
+\DoxyCodeLine{00325             mat\_height / 2 + current\_text\_size.height / 2}
+\DoxyCodeLine{00326         ),}
+\DoxyCodeLine{00327         font,}
+\DoxyCodeLine{00328         font\_scale,}
+\DoxyCodeLine{00329         Scalar(255, 255, 255),}
+\DoxyCodeLine{00330         thickness,}
+\DoxyCodeLine{00331         4}
+\DoxyCodeLine{00332     );}
+\DoxyCodeLine{00333 }
+\DoxyCodeLine{00334     \textcolor{keywordflow}{return} frame;}
+\DoxyCodeLine{00335 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_frame_handler_a0a926273fbb3a3901c9a5a75e3380e16}\label{class_frame_handler_a0a926273fbb3a3901c9a5a75e3380e16}} 
+\index{FrameHandler@{FrameHandler}!GetAmountOfFrames@{GetAmountOfFrames}}
+\index{GetAmountOfFrames@{GetAmountOfFrames}!FrameHandler@{FrameHandler}}
+\doxysubsubsection{\texorpdfstring{GetAmountOfFrames()}{GetAmountOfFrames()}}
+{\footnotesize\ttfamily int Frame\+Handler\+::\+Get\+Amount\+Of\+Frames (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Возвращает общее количество кадров 
+
+\begin{DoxyReturn}{Возвращает}
+Количество кадров в последовательности 
+\end{DoxyReturn}
+
+
+См. определение в файле \mbox{\hyperlink{frame__handler_8cpp_source}{frame\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{frame__handler_8cpp_source_l00176}{176}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00177 \{}
+\DoxyCodeLine{00178     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_frame_handler_a56190979d8bfe9b896ca05fa23052136}{input\_cap\_}}-\/>get(CAP\_PROP\_FRAME\_COUNT);}
+\DoxyCodeLine{00179 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_frame_handler_a26b5695df6161f00af36210e4d3d78ad}\label{class_frame_handler_a26b5695df6161f00af36210e4d3d78ad}} 
+\index{FrameHandler@{FrameHandler}!GetCurrentFrame@{GetCurrentFrame}}
+\index{GetCurrentFrame@{GetCurrentFrame}!FrameHandler@{FrameHandler}}
+\doxysubsubsection{\texorpdfstring{GetCurrentFrame()}{GetCurrentFrame()}}
+{\footnotesize\ttfamily Mat Frame\+Handler\+::\+Get\+Current\+Frame (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Возвращает последний прочитанный на данный момент кадр 
+
+\begin{DoxyReturn}{Возвращает}
+cv\+::\+Mat instance 
+\end{DoxyReturn}
+
+
+См. определение в файле \mbox{\hyperlink{frame__handler_8cpp_source}{frame\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{frame__handler_8cpp_source_l00156}{156}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00157 \{}
+\DoxyCodeLine{00158     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_frame_handler_a2047595394b429b3233474c17af56c3d}{current\_frame\_}};}
+\DoxyCodeLine{00159 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_frame_handler_a79ab90b6a2ce7ea8fef695a11bef514c}\label{class_frame_handler_a79ab90b6a2ce7ea8fef695a11bef514c}} 
+\index{FrameHandler@{FrameHandler}!GetCurrentPosOfFrame@{GetCurrentPosOfFrame}}
+\index{GetCurrentPosOfFrame@{GetCurrentPosOfFrame}!FrameHandler@{FrameHandler}}
+\doxysubsubsection{\texorpdfstring{GetCurrentPosOfFrame()}{GetCurrentPosOfFrame()}}
+{\footnotesize\ttfamily int Frame\+Handler\+::\+Get\+Current\+Pos\+Of\+Frame (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Возвращает текущее положение кадра относительно первого 
+
+\begin{DoxyReturn}{Возвращает}
+Номер кадра в последовательности 
+\end{DoxyReturn}
+
+
+См. определение в файле \mbox{\hyperlink{frame__handler_8cpp_source}{frame\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{frame__handler_8cpp_source_l00171}{171}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00172 \{}
+\DoxyCodeLine{00173     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_frame_handler_ae97cfa371c3ac3ecdde04f19422c986c}{current\_pos\_of\_frame\_}};}
+\DoxyCodeLine{00174 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_frame_handler_a61109313b6d4a9a21783a9c7b66dea68}\label{class_frame_handler_a61109313b6d4a9a21783a9c7b66dea68}} 
+\index{FrameHandler@{FrameHandler}!GetCurrentTimeOfFrame@{GetCurrentTimeOfFrame}}
+\index{GetCurrentTimeOfFrame@{GetCurrentTimeOfFrame}!FrameHandler@{FrameHandler}}
+\doxysubsubsection{\texorpdfstring{GetCurrentTimeOfFrame()}{GetCurrentTimeOfFrame()}}
+{\footnotesize\ttfamily double Frame\+Handler\+::\+Get\+Current\+Time\+Of\+Frame (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Возвращает текущее время кадра (таймкод в мс) 
+
+\begin{DoxyReturn}{Возвращает}
+Текущее время кадра в миллисекундах 
+\end{DoxyReturn}
+
+
+См. определение в файле \mbox{\hyperlink{frame__handler_8cpp_source}{frame\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{frame__handler_8cpp_source_l00166}{166}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00167 \{}
+\DoxyCodeLine{00168     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_frame_handler_a103fd8c5d4ab70aae5b5e8fe9a8b57fd}{current\_time\_of\_frame\_}};}
+\DoxyCodeLine{00169 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_frame_handler_abd588ce2d914edf1d719f86cca3912c5}\label{class_frame_handler_abd588ce2d914edf1d719f86cca3912c5}} 
+\index{FrameHandler@{FrameHandler}!GetFrameHeight@{GetFrameHeight}}
+\index{GetFrameHeight@{GetFrameHeight}!FrameHandler@{FrameHandler}}
+\doxysubsubsection{\texorpdfstring{GetFrameHeight()}{GetFrameHeight()}}
+{\footnotesize\ttfamily int Frame\+Handler\+::\+Get\+Frame\+Height (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Возвращает высоту считываемого видео 
+
+\begin{DoxyReturn}{Возвращает}
+Высота исходного видео 
+\end{DoxyReturn}
+
+
+См. определение в файле \mbox{\hyperlink{frame__handler_8cpp_source}{frame\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{frame__handler_8cpp_source_l00191}{191}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00192 \{}
+\DoxyCodeLine{00193     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_frame_handler_a90b32b3317313f0affe872c2d9ab63f6}{input\_frame\_height\_}};}
+\DoxyCodeLine{00194 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_frame_handler_a128638bf1c2d42a6ef84bdd67d6bf442}\label{class_frame_handler_a128638bf1c2d42a6ef84bdd67d6bf442}} 
+\index{FrameHandler@{FrameHandler}!GetFrameWidth@{GetFrameWidth}}
+\index{GetFrameWidth@{GetFrameWidth}!FrameHandler@{FrameHandler}}
+\doxysubsubsection{\texorpdfstring{GetFrameWidth()}{GetFrameWidth()}}
+{\footnotesize\ttfamily int Frame\+Handler\+::\+Get\+Frame\+Width (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Возвращает ширину исходного видео 
+
+\begin{DoxyReturn}{Возвращает}
+Ширина исходного видео 
+\end{DoxyReturn}
+
+
+См. определение в файле \mbox{\hyperlink{frame__handler_8cpp_source}{frame\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{frame__handler_8cpp_source_l00186}{186}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00187 \{}
+\DoxyCodeLine{00188     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_frame_handler_acc1333f07f5bb10f34c2d37459e79b9e}{input\_frame\_width\_}};}
+\DoxyCodeLine{00189 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_frame_handler_a18519accbae4e5e7a043e81bd6a9d2c6}\label{class_frame_handler_a18519accbae4e5e7a043e81bd6a9d2c6}} 
+\index{FrameHandler@{FrameHandler}!GetInputCapStatus@{GetInputCapStatus}}
+\index{GetInputCapStatus@{GetInputCapStatus}!FrameHandler@{FrameHandler}}
+\doxysubsubsection{\texorpdfstring{GetInputCapStatus()}{GetInputCapStatus()}}
+{\footnotesize\ttfamily bool Frame\+Handler\+::\+Get\+Input\+Cap\+Status (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Возвращает текущий статус input\+\_\+cap. 
+
+\begin{DoxyReturn}{Возвращает}
+true\+: кадр был считан, false\+: кадр не был считан 
+\end{DoxyReturn}
+
+
+См. определение в файле \mbox{\hyperlink{frame__handler_8cpp_source}{frame\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{frame__handler_8cpp_source_l00151}{151}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00152 \{}
+\DoxyCodeLine{00153     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_frame_handler_a6644d694da107a0b432d7a4d9d3afd39}{input\_cap\_status\_}};}
+\DoxyCodeLine{00154 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_frame_handler_a7871807bfd918b88272a175aa33ea165}\label{class_frame_handler_a7871807bfd918b88272a175aa33ea165}} 
+\index{FrameHandler@{FrameHandler}!GetInputFps@{GetInputFps}}
+\index{GetInputFps@{GetInputFps}!FrameHandler@{FrameHandler}}
+\doxysubsubsection{\texorpdfstring{GetInputFps()}{GetInputFps()}}
+{\footnotesize\ttfamily int Frame\+Handler\+::\+Get\+Input\+Fps (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Возвращает FPS считываемого видео 
+
+\begin{DoxyReturn}{Возвращает}
+FPS 
+\end{DoxyReturn}
+
+
+См. определение в файле \mbox{\hyperlink{frame__handler_8cpp_source}{frame\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{frame__handler_8cpp_source_l00181}{181}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00182 \{}
+\DoxyCodeLine{00183     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_frame_handler_a52b12ec33b607d0eb0250c648e819609}{input\_fps\_}};}
+\DoxyCodeLine{00184 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_frame_handler_a115a1da50a8bc1b00d703b6f8c44222b}\label{class_frame_handler_a115a1da50a8bc1b00d703b6f8c44222b}} 
+\index{FrameHandler@{FrameHandler}!GetMainWindowName@{GetMainWindowName}}
+\index{GetMainWindowName@{GetMainWindowName}!FrameHandler@{FrameHandler}}
+\doxysubsubsection{\texorpdfstring{GetMainWindowName()}{GetMainWindowName()}}
+{\footnotesize\ttfamily String Frame\+Handler\+::\+Get\+Main\+Window\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Возвращает название главного окна, в которое выводятся кадры 
+
+\begin{DoxyReturn}{Возвращает}
+Название окна 
+\end{DoxyReturn}
+
+
+См. определение в файле \mbox{\hyperlink{frame__handler_8cpp_source}{frame\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{frame__handler_8cpp_source_l00161}{161}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00162 \{}
+\DoxyCodeLine{00163     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_frame_handler_af5a948132ceb761b1c9f1c5c71deee75}{main\_window\_name\_}};}
+\DoxyCodeLine{00164 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_frame_handler_ae37c57501fea114483f4ea51da37d08a}\label{class_frame_handler_ae37c57501fea114483f4ea51da37d08a}} 
+\index{FrameHandler@{FrameHandler}!GetTextResizeFactor@{GetTextResizeFactor}}
+\index{GetTextResizeFactor@{GetTextResizeFactor}!FrameHandler@{FrameHandler}}
+\doxysubsubsection{\texorpdfstring{GetTextResizeFactor()}{GetTextResizeFactor()}}
+{\footnotesize\ttfamily float Frame\+Handler\+::\+Get\+Text\+Resize\+Factor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Возвращает коэффициент масштабирования 
+
+\begin{DoxyReturn}{Возвращает}
+Коэффициент масштабирования 
+\end{DoxyReturn}
+
+
+См. определение в файле \mbox{\hyperlink{frame__handler_8cpp_source}{frame\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{frame__handler_8cpp_source_l00196}{196}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00197 \{}
+\DoxyCodeLine{00198     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_frame_handler_a51cbdce3182856d3fa5e4209bfd859b4}{text\_resize\_factor\_}};}
+\DoxyCodeLine{00199 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_frame_handler_ae3165c660c17d4b410c1690d13fda93c}\label{class_frame_handler_ae3165c660c17d4b410c1690d13fda93c}} 
+\index{FrameHandler@{FrameHandler}!InitTextResizeFactors@{InitTextResizeFactors}}
+\index{InitTextResizeFactors@{InitTextResizeFactors}!FrameHandler@{FrameHandler}}
+\doxysubsubsection{\texorpdfstring{InitTextResizeFactors()}{InitTextResizeFactors()}}
+{\footnotesize\ttfamily void Frame\+Handler\+::\+Init\+Text\+Resize\+Factors (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Инициализирует коэффициент масштабирования текста в зависимости от разрешения видео 
+
+
+
+См. определение в файле \mbox{\hyperlink{frame__handler_8cpp_source}{frame\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{frame__handler_8cpp_source_l00337}{337}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00338 \{}
+\DoxyCodeLine{00339     std::cout << \textcolor{stringliteral}{"{}frame width: "{}} << \mbox{\hyperlink{class_frame_handler_acc1333f07f5bb10f34c2d37459e79b9e}{input\_frame\_width\_}} << std::endl;}
+\DoxyCodeLine{00340     std::cout << \textcolor{stringliteral}{"{}frame height: "{}} << \mbox{\hyperlink{class_frame_handler_a90b32b3317313f0affe872c2d9ab63f6}{input\_frame\_height\_}} << std::endl;}
+\DoxyCodeLine{00341 }
+\DoxyCodeLine{00342     \textcolor{keywordflow}{if} (\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\mbox{\hyperlink{class_frame_handler_afab579c6e630ae2bf9fdc47a2f9177dc}{input\_frame\_size\_ratio\_}}))}
+\DoxyCodeLine{00343     \{}
+\DoxyCodeLine{00344         \textcolor{keywordflow}{switch} (\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\mbox{\hyperlink{class_frame_handler_a90b32b3317313f0affe872c2d9ab63f6}{input\_frame\_height\_}}))}
+\DoxyCodeLine{00345         \{}
+\DoxyCodeLine{00346         \textcolor{keywordflow}{case} (480):}
+\DoxyCodeLine{00347         \{}
+\DoxyCodeLine{00348             \mbox{\hyperlink{class_frame_handler_a51cbdce3182856d3fa5e4209bfd859b4}{text\_resize\_factor\_}} = 0.44f;}
+\DoxyCodeLine{00349             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00350         \}}
+\DoxyCodeLine{00351         \textcolor{keywordflow}{case} (720):}
+\DoxyCodeLine{00352         \{}
+\DoxyCodeLine{00353             \mbox{\hyperlink{class_frame_handler_a51cbdce3182856d3fa5e4209bfd859b4}{text\_resize\_factor\_}} = 0.67f;}
+\DoxyCodeLine{00354             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00355         \}}
+\DoxyCodeLine{00356         \textcolor{keywordflow}{case} (1080):}
+\DoxyCodeLine{00357         \{}
+\DoxyCodeLine{00358             \mbox{\hyperlink{class_frame_handler_a51cbdce3182856d3fa5e4209bfd859b4}{text\_resize\_factor\_}} = 1.0f;}
+\DoxyCodeLine{00359             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00360         \}}
+\DoxyCodeLine{00361         \textcolor{keywordflow}{case} (1520):}
+\DoxyCodeLine{00362         \{}
+\DoxyCodeLine{00363             \mbox{\hyperlink{class_frame_handler_a51cbdce3182856d3fa5e4209bfd859b4}{text\_resize\_factor\_}} = 1.40f;}
+\DoxyCodeLine{00364             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00365         \}}
+\DoxyCodeLine{00366         \textcolor{keywordflow}{case} (2160):}
+\DoxyCodeLine{00367         \{}
+\DoxyCodeLine{00368             \mbox{\hyperlink{class_frame_handler_a51cbdce3182856d3fa5e4209bfd859b4}{text\_resize\_factor\_}} = 2.0f;}
+\DoxyCodeLine{00369             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00370         \}}
+\DoxyCodeLine{00371         \}}
+\DoxyCodeLine{00372     \}}
+\DoxyCodeLine{00373     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00374     \{}
+\DoxyCodeLine{00375         \textcolor{keywordflow}{switch} (\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\mbox{\hyperlink{class_frame_handler_acc1333f07f5bb10f34c2d37459e79b9e}{input\_frame\_width\_}}))}
+\DoxyCodeLine{00376         \{}
+\DoxyCodeLine{00377         \textcolor{keywordflow}{case} (480):}
+\DoxyCodeLine{00378         \{}
+\DoxyCodeLine{00379             \mbox{\hyperlink{class_frame_handler_a51cbdce3182856d3fa5e4209bfd859b4}{text\_resize\_factor\_}} = 0.44f;}
+\DoxyCodeLine{00380             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00381         \}}
+\DoxyCodeLine{00382         \textcolor{keywordflow}{case} (720):}
+\DoxyCodeLine{00383         \{}
+\DoxyCodeLine{00384             \mbox{\hyperlink{class_frame_handler_a51cbdce3182856d3fa5e4209bfd859b4}{text\_resize\_factor\_}} = 0.67f;}
+\DoxyCodeLine{00385             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00386         \}}
+\DoxyCodeLine{00387         \textcolor{keywordflow}{case} (1080):}
+\DoxyCodeLine{00388         \{}
+\DoxyCodeLine{00389             \mbox{\hyperlink{class_frame_handler_a51cbdce3182856d3fa5e4209bfd859b4}{text\_resize\_factor\_}} = 1.0f;}
+\DoxyCodeLine{00390             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00391         \}}
+\DoxyCodeLine{00392         \textcolor{keywordflow}{case} (1520):}
+\DoxyCodeLine{00393         \{}
+\DoxyCodeLine{00394             \mbox{\hyperlink{class_frame_handler_a51cbdce3182856d3fa5e4209bfd859b4}{text\_resize\_factor\_}} = 1.4f;}
+\DoxyCodeLine{00395             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00396         \}}
+\DoxyCodeLine{00397         \textcolor{keywordflow}{case} (2160):}
+\DoxyCodeLine{00398         \{}
+\DoxyCodeLine{00399             \mbox{\hyperlink{class_frame_handler_a51cbdce3182856d3fa5e4209bfd859b4}{text\_resize\_factor\_}} = 2.0f;}
+\DoxyCodeLine{00400             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00401         \}}
+\DoxyCodeLine{00402         \}}
+\DoxyCodeLine{00403     \}}
+\DoxyCodeLine{00404 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_frame_handler_a4bd1108adbbd4c21c4c3233efa8c8d1e}\label{class_frame_handler_a4bd1108adbbd4c21c4c3233efa8c8d1e}} 
+\index{FrameHandler@{FrameHandler}!MakeGrayFrame@{MakeGrayFrame}}
+\index{MakeGrayFrame@{MakeGrayFrame}!FrameHandler@{FrameHandler}}
+\doxysubsubsection{\texorpdfstring{MakeGrayFrame()}{MakeGrayFrame()}}
+{\footnotesize\ttfamily Mat Frame\+Handler\+::\+Make\+Gray\+Frame (\begin{DoxyParamCaption}\item[{Mat}]{frame\+\_\+to\+\_\+be\+\_\+grayed }\end{DoxyParamCaption})}
+
+
+
+Возвращает серый кадр с блюром 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em frame\+\_\+to\+\_\+be\+\_\+grayed} & изображение, которое будет сконвертировано в grayscale и на которое будет наложен небольшой блюр (для удаления цифровых шумов) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+Обработанный кадр (cv\+::\+Mat) 
+\end{DoxyReturn}
+
+
+См. определение в файле \mbox{\hyperlink{frame__handler_8cpp_source}{frame\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{frame__handler_8cpp_source_l00137}{137}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00138 \{}
+\DoxyCodeLine{00139     Mat grayed\_frame;}
+\DoxyCodeLine{00140     }
+\DoxyCodeLine{00141     \textcolor{keywordflow}{if} (!frame\_to\_be\_grayed.empty())}
+\DoxyCodeLine{00142     \{}
+\DoxyCodeLine{00143         \textcolor{comment}{// Конвертируем входной Mat из РГБ(БГР) в грейскейл}}
+\DoxyCodeLine{00144         cvtColor(frame\_to\_be\_grayed, grayed\_frame, COLOR\_BGR2GRAY);}
+\DoxyCodeLine{00145         GaussianBlur(grayed\_frame, grayed\_frame, Size(3, 3), 0);}
+\DoxyCodeLine{00146     \}}
+\DoxyCodeLine{00147     }
+\DoxyCodeLine{00148     \textcolor{keywordflow}{return} grayed\_frame;}
+\DoxyCodeLine{00149 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_frame_handler_a7c33b8ad150344db93c24d29bbabd853}\label{class_frame_handler_a7c33b8ad150344db93c24d29bbabd853}} 
+\index{FrameHandler@{FrameHandler}!PutFrameOverFrame@{PutFrameOverFrame}}
+\index{PutFrameOverFrame@{PutFrameOverFrame}!FrameHandler@{FrameHandler}}
+\doxysubsubsection{\texorpdfstring{PutFrameOverFrame()}{PutFrameOverFrame()}}
+{\footnotesize\ttfamily Mat Frame\+Handler\+::\+Put\+Frame\+Over\+Frame (\begin{DoxyParamCaption}\item[{Mat}]{foreground\+\_\+frame,  }\item[{Mat}]{background\+\_\+frame,  }\item[{Point2i}]{translation\+\_\+vector }\end{DoxyParamCaption})}
+
+
+
+Накладывает изображение (переднний план) на другое изображение (задний план) 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em foreground\+\_\+frame} & изображение на переднем плане \\
+\hline
+{\em background\+\_\+frame} & изображение на заднем плане \\
+\hline
+{\em translation\+\_\+vector} & вектор (направленный отрезок) перемещения переднего изображения относительно заднего \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+dst\+: выходное изображение с наложенным на фоновое изображение переднеплановое изображение 
+\end{DoxyReturn}
+
+
+См. определение в файле \mbox{\hyperlink{frame__handler_8cpp_source}{frame\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{frame__handler_8cpp_source_l00087}{87}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00088 \{}
+\DoxyCodeLine{00089     \textcolor{comment}{// Количество каналов переднепланового изображения}}
+\DoxyCodeLine{00090     \textcolor{keywordtype}{int} channels\_number = foreground\_frame.channels();}
+\DoxyCodeLine{00091     \textcolor{comment}{// Количества каналов двух изображений должны совпадать}}
+\DoxyCodeLine{00092     \textcolor{keywordflow}{if} (channels\_number != background\_frame.channels())}
+\DoxyCodeLine{00093         \textcolor{keywordflow}{return} background\_frame;}
+\DoxyCodeLine{00094 }
+\DoxyCodeLine{00095     \textcolor{comment}{// Разделяем переднее изображение по каналам}}
+\DoxyCodeLine{00096     std::vector<Mat> foreground\_planes(channels\_number);}
+\DoxyCodeLine{00097     split(foreground\_frame, foreground\_planes);}
+\DoxyCodeLine{00098 }
+\DoxyCodeLine{00099     \textcolor{comment}{// Разделяем переднее изображение по каналам}}
+\DoxyCodeLine{00100     std::vector<Mat> background\_planes(channels\_number);}
+\DoxyCodeLine{00101     split(background\_frame, background\_planes);}
+\DoxyCodeLine{00102 }
+\DoxyCodeLine{00103     \textcolor{comment}{// Проходимся сначала по рядам переднего изображения (по его высоте)}}
+\DoxyCodeLine{00104     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} foreground\_row = 0; foreground\_row < foreground\_frame.rows; foreground\_row++)}
+\DoxyCodeLine{00105     \{}
+\DoxyCodeLine{00106         \textcolor{comment}{// Проходимся по колонкам переднего изображения (по его ширине)}}
+\DoxyCodeLine{00107         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} foreground\_col = 0; foreground\_col < foreground\_frame.cols; foreground\_col++)}
+\DoxyCodeLine{00108         \{}
+\DoxyCodeLine{00109             \textcolor{comment}{// Инициализируем значения ширины (col) и высоты (row) отображения (трансляции)}}
+\DoxyCodeLine{00110             \textcolor{keywordtype}{int} translated\_col = foreground\_col + translation\_vector.x;}
+\DoxyCodeLine{00111             \textcolor{keywordtype}{int} translated\_row = foreground\_row + translation\_vector.y;}
+\DoxyCodeLine{00112             }
+\DoxyCodeLine{00113             \textcolor{comment}{// Проверка, необходимая, чтобы случайно не обратиться к пикселю, находящемуся за границами фонового (заднего) изображения}}
+\DoxyCodeLine{00114             \textcolor{keywordflow}{if} (!((translated\_col) < background\_frame.cols \&\& (translated\_row) < background\_frame.rows))}
+\DoxyCodeLine{00115             \{}
+\DoxyCodeLine{00116                 \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00117             \}}
+\DoxyCodeLine{00118 }
+\DoxyCodeLine{00119             \textcolor{comment}{// Итераторы для прохода по векторам каналов переднего и заднего изображений}}
+\DoxyCodeLine{00120             \textcolor{keyword}{auto} backgnd\_it = background\_planes.begin();}
+\DoxyCodeLine{00121             \textcolor{keyword}{auto} foregnd\_it = foreground\_planes.begin();}
+\DoxyCodeLine{00122             \textcolor{keywordflow}{while} (backgnd\_it != background\_planes.end())}
+\DoxyCodeLine{00123             \{}
+\DoxyCodeLine{00124                 \textcolor{comment}{// Попиксельно отображаем (транслируем) пиксели переднего изображения на заднее изображение}}
+\DoxyCodeLine{00125                 backgnd\_it-\/>at<uchar>(translated\_row, translated\_col) = foregnd\_it-\/>at<uchar>(foreground\_row, foreground\_col);}
+\DoxyCodeLine{00126                 backgnd\_it++;}
+\DoxyCodeLine{00127                 foregnd\_it++;}
+\DoxyCodeLine{00128             \}}
+\DoxyCodeLine{00129         \}}
+\DoxyCodeLine{00130     \}}
+\DoxyCodeLine{00131     }
+\DoxyCodeLine{00132     Mat result;}
+\DoxyCodeLine{00133     merge(background\_planes, result);}
+\DoxyCodeLine{00134     \textcolor{keywordflow}{return} result;}
+\DoxyCodeLine{00135 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_frame_handler_a3837bca5a13d8e1e4969edf0d831baf3}\label{class_frame_handler_a3837bca5a13d8e1e4969edf0d831baf3}} 
+\index{FrameHandler@{FrameHandler}!ReadNextFrame@{ReadNextFrame}}
+\index{ReadNextFrame@{ReadNextFrame}!FrameHandler@{FrameHandler}}
+\doxysubsubsection{\texorpdfstring{ReadNextFrame()}{ReadNextFrame()}}
+{\footnotesize\ttfamily void Frame\+Handler\+::\+Read\+Next\+Frame (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Считывает следующий кадр видео 
+
+
+
+См. определение в файле \mbox{\hyperlink{frame__handler_8cpp_source}{frame\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{frame__handler_8cpp_source_l00039}{39}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00040 \{}
+\DoxyCodeLine{00041     \mbox{\hyperlink{class_frame_handler_a6644d694da107a0b432d7a4d9d3afd39}{input\_cap\_status\_}} = \mbox{\hyperlink{class_frame_handler_a56190979d8bfe9b896ca05fa23052136}{input\_cap\_}}-\/>read(\mbox{\hyperlink{class_frame_handler_a2047595394b429b3233474c17af56c3d}{current\_frame\_}});}
+\DoxyCodeLine{00042     \mbox{\hyperlink{class_frame_handler_a103fd8c5d4ab70aae5b5e8fe9a8b57fd}{current\_time\_of\_frame\_}} = \mbox{\hyperlink{class_frame_handler_a56190979d8bfe9b896ca05fa23052136}{input\_cap\_}}-\/>get(CAP\_PROP\_POS\_MSEC);}
+\DoxyCodeLine{00043     \mbox{\hyperlink{class_frame_handler_ae97cfa371c3ac3ecdde04f19422c986c}{current\_pos\_of\_frame\_}} = \mbox{\hyperlink{class_frame_handler_a56190979d8bfe9b896ca05fa23052136}{input\_cap\_}}-\/>get(CAP\_PROP\_POS\_FRAMES);}
+\DoxyCodeLine{00044 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_frame_handler_a194e20bc41e1d8bb849dc6666f182202}\label{class_frame_handler_a194e20bc41e1d8bb849dc6666f182202}} 
+\index{FrameHandler@{FrameHandler}!ShowFrame@{ShowFrame}}
+\index{ShowFrame@{ShowFrame}!FrameHandler@{FrameHandler}}
+\doxysubsubsection{\texorpdfstring{ShowFrame()}{ShowFrame()}}
+{\footnotesize\ttfamily void Frame\+Handler\+::\+Show\+Frame (\begin{DoxyParamCaption}\item[{Mat}]{frame,  }\item[{bool}]{fullscreen }\end{DoxyParamCaption})}
+
+
+
+Выводит в главное окно принимаемое изображение 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em frame} & изображение, которое нужно отобразить в окне \\
+\hline
+{\em fullscreen} & флаг полноэкрааного режима \\
+\hline
+\end{DoxyParams}
+
+
+См. определение в файле \mbox{\hyperlink{frame__handler_8cpp_source}{frame\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{frame__handler_8cpp_source_l00046}{46}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00047 \{}
+\DoxyCodeLine{00048     \mbox{\hyperlink{class_frame_handler_a053396cb9e34ffe2b301b29fec72a0cc}{fullscreen\_}} = fullscreen;}
+\DoxyCodeLine{00049 }
+\DoxyCodeLine{00050     \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_frame_handler_a053396cb9e34ffe2b301b29fec72a0cc}{fullscreen\_}})}
+\DoxyCodeLine{00051     \{}
+\DoxyCodeLine{00052         setWindowProperty(\mbox{\hyperlink{class_frame_handler_af5a948132ceb761b1c9f1c5c71deee75}{main\_window\_name\_}}, WND\_PROP\_FULLSCREEN, WINDOW\_FULLSCREEN);}
+\DoxyCodeLine{00053     \}}
+\DoxyCodeLine{00054     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00055     \{}
+\DoxyCodeLine{00056         setWindowProperty(\mbox{\hyperlink{class_frame_handler_af5a948132ceb761b1c9f1c5c71deee75}{main\_window\_name\_}}, WND\_PROP\_FULLSCREEN, WINDOW\_NORMAL);}
+\DoxyCodeLine{00057     \}}
+\DoxyCodeLine{00058 }
+\DoxyCodeLine{00059     imshow(\mbox{\hyperlink{class_frame_handler_af5a948132ceb761b1c9f1c5c71deee75}{main\_window\_name\_}}, frame);}
+\DoxyCodeLine{00060 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_frame_handler_a43fe77a59e8e5d99f7bb0ad3499591ef}\label{class_frame_handler_a43fe77a59e8e5d99f7bb0ad3499591ef}} 
+\index{FrameHandler@{FrameHandler}!WriteFrame@{WriteFrame}}
+\index{WriteFrame@{WriteFrame}!FrameHandler@{FrameHandler}}
+\doxysubsubsection{\texorpdfstring{WriteFrame()}{WriteFrame()}}
+{\footnotesize\ttfamily void Frame\+Handler\+::\+Write\+Frame (\begin{DoxyParamCaption}\item[{Mat}]{frame }\end{DoxyParamCaption})}
+
+
+
+Записывает кадр с помощью output\+\_\+cap. 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em frame} & изображение, которое будет записано в последовательность (фактически добавлено в её конец) \\
+\hline
+\end{DoxyParams}
+
+
+См. определение в файле \mbox{\hyperlink{frame__handler_8cpp_source}{frame\+\_\+handler.\+cpp}} строка \mbox{\hyperlink{frame__handler_8cpp_source_l00062}{62}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00063 \{}
+\DoxyCodeLine{00064     \mbox{\hyperlink{class_frame_handler_af77346c9760c6406958ff9bd9034be2c}{output\_cap\_}}-\/>write(frame\_to\_be\_written);}
+\DoxyCodeLine{00065 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Данные класса}
+\mbox{\Hypertarget{class_frame_handler_a2047595394b429b3233474c17af56c3d}\label{class_frame_handler_a2047595394b429b3233474c17af56c3d}} 
+\index{FrameHandler@{FrameHandler}!current\_frame\_@{current\_frame\_}}
+\index{current\_frame\_@{current\_frame\_}!FrameHandler@{FrameHandler}}
+\doxysubsubsection{\texorpdfstring{current\_frame\_}{current\_frame\_}}
+{\footnotesize\ttfamily Mat Frame\+Handler\+::current\+\_\+frame\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Последнний прочитанный кадр 
+
+
+
+См. определение в файле \mbox{\hyperlink{frame__handler_8h_source}{frame\+\_\+handler.\+h}} строка \mbox{\hyperlink{frame__handler_8h_source_l00163}{163}}
+
+\mbox{\Hypertarget{class_frame_handler_ae97cfa371c3ac3ecdde04f19422c986c}\label{class_frame_handler_ae97cfa371c3ac3ecdde04f19422c986c}} 
+\index{FrameHandler@{FrameHandler}!current\_pos\_of\_frame\_@{current\_pos\_of\_frame\_}}
+\index{current\_pos\_of\_frame\_@{current\_pos\_of\_frame\_}!FrameHandler@{FrameHandler}}
+\doxysubsubsection{\texorpdfstring{current\_pos\_of\_frame\_}{current\_pos\_of\_frame\_}}
+{\footnotesize\ttfamily int Frame\+Handler\+::current\+\_\+pos\+\_\+of\+\_\+frame\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Текущий номер кадра из последовательности 
+
+
+
+См. определение в файле \mbox{\hyperlink{frame__handler_8h_source}{frame\+\_\+handler.\+h}} строка \mbox{\hyperlink{frame__handler_8h_source_l00210}{210}}
+
+\mbox{\Hypertarget{class_frame_handler_a103fd8c5d4ab70aae5b5e8fe9a8b57fd}\label{class_frame_handler_a103fd8c5d4ab70aae5b5e8fe9a8b57fd}} 
+\index{FrameHandler@{FrameHandler}!current\_time\_of\_frame\_@{current\_time\_of\_frame\_}}
+\index{current\_time\_of\_frame\_@{current\_time\_of\_frame\_}!FrameHandler@{FrameHandler}}
+\doxysubsubsection{\texorpdfstring{current\_time\_of\_frame\_}{current\_time\_of\_frame\_}}
+{\footnotesize\ttfamily double Frame\+Handler\+::current\+\_\+time\+\_\+of\+\_\+frame\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Текущее время кадра из последовательности 
+
+
+
+См. определение в файле \mbox{\hyperlink{frame__handler_8h_source}{frame\+\_\+handler.\+h}} строка \mbox{\hyperlink{frame__handler_8h_source_l00206}{206}}
+
+\mbox{\Hypertarget{class_frame_handler_a053396cb9e34ffe2b301b29fec72a0cc}\label{class_frame_handler_a053396cb9e34ffe2b301b29fec72a0cc}} 
+\index{FrameHandler@{FrameHandler}!fullscreen\_@{fullscreen\_}}
+\index{fullscreen\_@{fullscreen\_}!FrameHandler@{FrameHandler}}
+\doxysubsubsection{\texorpdfstring{fullscreen\_}{fullscreen\_}}
+{\footnotesize\ttfamily bool Frame\+Handler\+::fullscreen\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Флаг полноэкранного режима 
+
+
+
+См. определение в файле \mbox{\hyperlink{frame__handler_8h_source}{frame\+\_\+handler.\+h}} строка \mbox{\hyperlink{frame__handler_8h_source_l00184}{184}}
+
+\mbox{\Hypertarget{class_frame_handler_a56190979d8bfe9b896ca05fa23052136}\label{class_frame_handler_a56190979d8bfe9b896ca05fa23052136}} 
+\index{FrameHandler@{FrameHandler}!input\_cap\_@{input\_cap\_}}
+\index{input\_cap\_@{input\_cap\_}!FrameHandler@{FrameHandler}}
+\doxysubsubsection{\texorpdfstring{input\_cap\_}{input\_cap\_}}
+{\footnotesize\ttfamily Video\+Capture$\ast$ Frame\+Handler\+::input\+\_\+cap\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Указатель на объект-\/захватчик входных кадров видео 
+
+
+
+См. определение в файле \mbox{\hyperlink{frame__handler_8h_source}{frame\+\_\+handler.\+h}} строка \mbox{\hyperlink{frame__handler_8h_source_l00167}{167}}
+
+\mbox{\Hypertarget{class_frame_handler_a6644d694da107a0b432d7a4d9d3afd39}\label{class_frame_handler_a6644d694da107a0b432d7a4d9d3afd39}} 
+\index{FrameHandler@{FrameHandler}!input\_cap\_status\_@{input\_cap\_status\_}}
+\index{input\_cap\_status\_@{input\_cap\_status\_}!FrameHandler@{FrameHandler}}
+\doxysubsubsection{\texorpdfstring{input\_cap\_status\_}{input\_cap\_status\_}}
+{\footnotesize\ttfamily bool Frame\+Handler\+::input\+\_\+cap\+\_\+status\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Флаг, принимающий true при удачном чтении кадра и false, если следующий кадр не был считан 
+
+
+
+См. определение в файле \mbox{\hyperlink{frame__handler_8h_source}{frame\+\_\+handler.\+h}} строка \mbox{\hyperlink{frame__handler_8h_source_l00171}{171}}
+
+\mbox{\Hypertarget{class_frame_handler_a52b12ec33b607d0eb0250c648e819609}\label{class_frame_handler_a52b12ec33b607d0eb0250c648e819609}} 
+\index{FrameHandler@{FrameHandler}!input\_fps\_@{input\_fps\_}}
+\index{input\_fps\_@{input\_fps\_}!FrameHandler@{FrameHandler}}
+\doxysubsubsection{\texorpdfstring{input\_fps\_}{input\_fps\_}}
+{\footnotesize\ttfamily double Frame\+Handler\+::input\+\_\+fps\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+FPS исходного видео 
+
+
+
+См. определение в файле \mbox{\hyperlink{frame__handler_8h_source}{frame\+\_\+handler.\+h}} строка \mbox{\hyperlink{frame__handler_8h_source_l00202}{202}}
+
+\mbox{\Hypertarget{class_frame_handler_a90b32b3317313f0affe872c2d9ab63f6}\label{class_frame_handler_a90b32b3317313f0affe872c2d9ab63f6}} 
+\index{FrameHandler@{FrameHandler}!input\_frame\_height\_@{input\_frame\_height\_}}
+\index{input\_frame\_height\_@{input\_frame\_height\_}!FrameHandler@{FrameHandler}}
+\doxysubsubsection{\texorpdfstring{input\_frame\_height\_}{input\_frame\_height\_}}
+{\footnotesize\ttfamily double Frame\+Handler\+::input\+\_\+frame\+\_\+height\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Высота кадра исходного видео 
+
+
+
+См. определение в файле \mbox{\hyperlink{frame__handler_8h_source}{frame\+\_\+handler.\+h}} строка \mbox{\hyperlink{frame__handler_8h_source_l00194}{194}}
+
+\mbox{\Hypertarget{class_frame_handler_afab579c6e630ae2bf9fdc47a2f9177dc}\label{class_frame_handler_afab579c6e630ae2bf9fdc47a2f9177dc}} 
+\index{FrameHandler@{FrameHandler}!input\_frame\_size\_ratio\_@{input\_frame\_size\_ratio\_}}
+\index{input\_frame\_size\_ratio\_@{input\_frame\_size\_ratio\_}!FrameHandler@{FrameHandler}}
+\doxysubsubsection{\texorpdfstring{input\_frame\_size\_ratio\_}{input\_frame\_size\_ratio\_}}
+{\footnotesize\ttfamily double Frame\+Handler\+::input\+\_\+frame\+\_\+size\+\_\+ratio\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Соотношение сторон исходного видео 
+
+
+
+См. определение в файле \mbox{\hyperlink{frame__handler_8h_source}{frame\+\_\+handler.\+h}} строка \mbox{\hyperlink{frame__handler_8h_source_l00198}{198}}
+
+\mbox{\Hypertarget{class_frame_handler_acc1333f07f5bb10f34c2d37459e79b9e}\label{class_frame_handler_acc1333f07f5bb10f34c2d37459e79b9e}} 
+\index{FrameHandler@{FrameHandler}!input\_frame\_width\_@{input\_frame\_width\_}}
+\index{input\_frame\_width\_@{input\_frame\_width\_}!FrameHandler@{FrameHandler}}
+\doxysubsubsection{\texorpdfstring{input\_frame\_width\_}{input\_frame\_width\_}}
+{\footnotesize\ttfamily double Frame\+Handler\+::input\+\_\+frame\+\_\+width\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Ширина кадра исходного видео 
+
+
+
+См. определение в файле \mbox{\hyperlink{frame__handler_8h_source}{frame\+\_\+handler.\+h}} строка \mbox{\hyperlink{frame__handler_8h_source_l00190}{190}}
+
+\mbox{\Hypertarget{class_frame_handler_af5a948132ceb761b1c9f1c5c71deee75}\label{class_frame_handler_af5a948132ceb761b1c9f1c5c71deee75}} 
+\index{FrameHandler@{FrameHandler}!main\_window\_name\_@{main\_window\_name\_}}
+\index{main\_window\_name\_@{main\_window\_name\_}!FrameHandler@{FrameHandler}}
+\doxysubsubsection{\texorpdfstring{main\_window\_name\_}{main\_window\_name\_}}
+{\footnotesize\ttfamily std\+::string Frame\+Handler\+::main\+\_\+window\+\_\+name\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Имя главного окна 
+
+
+
+См. определение в файле \mbox{\hyperlink{frame__handler_8h_source}{frame\+\_\+handler.\+h}} строка \mbox{\hyperlink{frame__handler_8h_source_l00179}{179}}
+
+\mbox{\Hypertarget{class_frame_handler_af77346c9760c6406958ff9bd9034be2c}\label{class_frame_handler_af77346c9760c6406958ff9bd9034be2c}} 
+\index{FrameHandler@{FrameHandler}!output\_cap\_@{output\_cap\_}}
+\index{output\_cap\_@{output\_cap\_}!FrameHandler@{FrameHandler}}
+\doxysubsubsection{\texorpdfstring{output\_cap\_}{output\_cap\_}}
+{\footnotesize\ttfamily Video\+Writer$\ast$ Frame\+Handler\+::output\+\_\+cap\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Указатель на объект, сохраняющий кадры в последовательность (видео) в зависимости от выбранного кодека (cv\+::fourcc) 
+
+
+
+См. определение в файле \mbox{\hyperlink{frame__handler_8h_source}{frame\+\_\+handler.\+h}} строка \mbox{\hyperlink{frame__handler_8h_source_l00175}{175}}
+
+\mbox{\Hypertarget{class_frame_handler_a51cbdce3182856d3fa5e4209bfd859b4}\label{class_frame_handler_a51cbdce3182856d3fa5e4209bfd859b4}} 
+\index{FrameHandler@{FrameHandler}!text\_resize\_factor\_@{text\_resize\_factor\_}}
+\index{text\_resize\_factor\_@{text\_resize\_factor\_}!FrameHandler@{FrameHandler}}
+\doxysubsubsection{\texorpdfstring{text\_resize\_factor\_}{text\_resize\_factor\_}}
+{\footnotesize\ttfamily float Frame\+Handler\+::text\+\_\+resize\+\_\+factor\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Коэффициент масштабирования текста (зависит от разрешения исходного видео) 
+
+
+
+См. определение в файле \mbox{\hyperlink{frame__handler_8h_source}{frame\+\_\+handler.\+h}} строка \mbox{\hyperlink{frame__handler_8h_source_l00214}{214}}
+
+\mbox{\Hypertarget{class_frame_handler_a2aa22fb456140327c3848efdea1536b4}\label{class_frame_handler_a2aa22fb456140327c3848efdea1536b4}} 
+\index{FrameHandler@{FrameHandler}!tip\_text\_@{tip\_text\_}}
+\index{tip\_text\_@{tip\_text\_}!FrameHandler@{FrameHandler}}
+\doxysubsubsection{\texorpdfstring{tip\_text\_}{tip\_text\_}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::string$>$ Frame\+Handler\+::tip\+\_\+text\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Тексты подсказок для пользователя 
+
+
+
+См. определение в файле \mbox{\hyperlink{frame__handler_8h_source}{frame\+\_\+handler.\+h}} строка \mbox{\hyperlink{frame__handler_8h_source_l00218}{218}}
+
+
+
+Объявления и описания членов классов находятся в файлах\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/seeyo/source/repos/\+Visual-\/\+Vibration-\/\+Tracking-\/\+V2/include/\+VVT-\/\+V2/frame\+\_\+handler.\+h\item 
+C\+:/\+Users/seeyo/source/repos/\+Visual-\/\+Vibration-\/\+Tracking-\/\+V2/source/frame\+\_\+handler.\+cpp\end{DoxyCompactItemize}

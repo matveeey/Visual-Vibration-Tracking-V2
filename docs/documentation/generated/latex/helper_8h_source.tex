@@ -1,0 +1,141 @@
+\hypertarget{helper_8h_source}{}\doxysection{helper.\+h}
+\label{helper_8h_source}\index{C:/Users/seeyo/source/repos/Visual-\/Vibration-\/Tracking-\/V2/include/VVT-\/V2/helper.h@{C:/Users/seeyo/source/repos/Visual-\/Vibration-\/Tracking-\/V2/include/VVT-\/V2/helper.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00001}00001 \textcolor{preprocessor}{\#ifndef HELPER\_H}}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00002}00002 \textcolor{preprocessor}{\#define HELPER\_H}}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00004}00004 \textcolor{comment}{// Отключаю варнинги на безопасность, чтобы localtime(\&time) не ругалась. Пока тут Си-\/шная реализация, попозже переделаю}}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00005}00005 \textcolor{preprocessor}{\#define \_CRT\_SECURE\_NO\_WARNINGS}}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00007}00007 \textcolor{comment}{// standart headers}}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00008}00008 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00009}00009 \textcolor{preprocessor}{\#include <fstream>}}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00010}00010 }
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00011}00011 \textcolor{comment}{// OpenCV headers}}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00012}00012 \textcolor{preprocessor}{\#include <opencv2/opencv.hpp>}}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00013}00013 }
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00017}\mbox{\hyperlink{namespace_helper_functions}{00017}} \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_helper_functions}{HelperFunctions}} \{}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00028}00028     std::string \mbox{\hyperlink{group___helper_functions_ga757c85a4bbcc0f0aa436369ac7ed57e0}{GenerateCsvFilename}}(std::string additional\_text = \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00037}00037     cv::Scalar \mbox{\hyperlink{group___helper_functions_ga79584d71167afeb72ca384eaf87c1419}{RatioToRgb}}(\textcolor{keywordtype}{double} ratio);}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00041}00041     \textcolor{keywordtype}{void} \mbox{\hyperlink{group___helper_functions_gae16c29c5ff2a16efc9b9e6ea00f13dbe}{FindLocalMaxima}}(cv::Mat\& input\_array, cv::Mat\& local\_maxima, \textcolor{keywordtype}{double} threshold\_value);}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00048}00048     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00049}\mbox{\hyperlink{group___helper_functions_gad8a95244f86df84c8f5d35197fe0196f}{00049}}     std::string \mbox{\hyperlink{group___helper_functions_gad8a95244f86df84c8f5d35197fe0196f}{ToStringWithPrecision}}(\textcolor{keyword}{const} T value, \textcolor{keyword}{const} \textcolor{keywordtype}{int} n = 9)}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00050}00050     \{}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00051}00051         std::ostringstream out;}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00052}00052         out.precision(n);}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00053}00053         out << std::fixed << value;}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00054}00054         \textcolor{keywordflow}{return} out.str();}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00055}00055     \}}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00060}00060     \textcolor{keyword}{template}<\textcolor{keyword}{class} T>}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00061}\mbox{\hyperlink{group___helper_functions_ga09104c3d04cd6c0eb8bcc39bea203eb6}{00061}}     \textcolor{keywordtype}{void} \mbox{\hyperlink{group___helper_functions_ga09104c3d04cd6c0eb8bcc39bea203eb6}{DeadzoneFilter}}(std::vector<T>\& input\_vector)}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00062}00062     \{}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00063}00063         \textcolor{keywordtype}{float} dead\_zone\_factor = 0.1f;}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00064}00064         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < static\_cast<int>(input\_vector.size() * dead\_zone\_factor); i++)}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00065}00065         \{}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00066}00066             input\_vector.erase(std::begin(input\_vector));}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00067}00067         \}}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00068}00068     \}}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00074}00074     \textcolor{keyword}{template}<\textcolor{keyword}{class} T>}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00075}\mbox{\hyperlink{group___helper_functions_ga9d70762d106466aa0e1177544ae0c72d}{00075}}     std::vector<T> \mbox{\hyperlink{group___helper_functions_ga9d70762d106466aa0e1177544ae0c72d}{MakeShorterFromStart}}(std::vector<T> src, \textcolor{keywordtype}{int} n)}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00076}00076     \{}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00077}00077         \textcolor{keyword}{auto} it = src.end();}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00078}00078         std::vector<T> dst;}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00079}00079 }
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00080}00080         \textcolor{keywordflow}{if} (n < src.size())}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00081}00081             \textcolor{keywordflow}{return} src;}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00082}00082 }
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00083}00083         \textcolor{keywordflow}{while} (it != (src.end() -\/ n))}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00084}00084         \{}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00085}00085             dst.push\_back(*it);}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00086}00086             it-\/-\/;}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00087}00087         \}}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00088}00088 }
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00089}00089         \textcolor{keywordflow}{return} dst;}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00090}00090     \}}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00095}00095     \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00096}\mbox{\hyperlink{group___helper_functions_gae752077bcc98a1b2dcd5a1371d55bca5}{00096}}     T \mbox{\hyperlink{group___helper_functions_gae752077bcc98a1b2dcd5a1371d55bca5}{CalculateMeanDifferenceInVector}}(std::vector<T> src)}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00097}00097     \{}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00098}00098         std::vector<T> difference\_vector;}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00099}00099 }
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00100}00100         \textcolor{keyword}{auto} it = src.begin();}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00101}00101         \textcolor{keywordflow}{while} (it != (src.end() -\/ 1))}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00102}00102         \{}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00103}00103             difference\_vector.push\_back(*(it + 1) -\/ *it);}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00104}00104             it++;}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00105}00105         \}}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00106}00106 }
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00107}00107         T mean\_difference;}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00108}00108 }
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00109}00109         it = difference\_vector.begin();}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00110}00110         mean\_difference = *it;}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00111}00111         it++;}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00112}00112 }
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00113}00113         \textcolor{keywordflow}{while} (it != difference\_vector.end())}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00114}00114         \{}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00115}00115             mean\_difference += *it;}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00116}00116             it++;}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00117}00117         \}}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00118}00118         mean\_difference /= difference\_vector.size();}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00119}00119 }
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00120}00120         \textcolor{keywordflow}{return} mean\_difference;}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00121}00121     \}}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00126}00126     \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00127}\mbox{\hyperlink{group___helper_functions_gacc82d70b750eb60ad49c7a36e5c7f0ca}{00127}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{group___helper_functions_gacc82d70b750eb60ad49c7a36e5c7f0ca}{FindGlobalMaxIdx}}(std::vector<T> src)}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00128}00128     \{}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00129}00129         \textcolor{keyword}{auto} it = src.begin();}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00130}00130         \textcolor{keywordtype}{int} idx = 0;}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00131}00131         T last\_max = 0;}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00132}00132         \textcolor{keywordflow}{while} (it != src.end())}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00133}00133         \{}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00134}00134             \textcolor{keywordflow}{if} (*it > last\_max)}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00135}00135             \{}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00136}00136                 idx = std::distance(src.begin(), it);}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00137}00137                 last\_max = *it;}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00138}00138             \}}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00139}00139             it++;}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00140}00140         \}}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00141}00141 }
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00142}00142         \textcolor{keywordflow}{return} idx;}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00143}00143     \}}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00148}00148     \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00149}\mbox{\hyperlink{group___helper_functions_gabe168b250f6a7c6c89fe5b685c3898a0}{00149}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{group___helper_functions_gabe168b250f6a7c6c89fe5b685c3898a0}{FindGlobalMinIdx}}(std::vector<T> src)}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00150}00150     \{}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00151}00151         \textcolor{keyword}{auto} it = src.begin();}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00152}00152         \textcolor{keywordtype}{int} idx = 0;}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00153}00153         T last\_max = 0;}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00154}00154         \textcolor{keywordflow}{while} (it != src.end())}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00155}00155         \{}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00156}00156             \textcolor{keywordflow}{if} (*it < last\_max)}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00157}00157             \{}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00158}00158                 idx = std::distance(src.begin(), it);}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00159}00159                 last\_max = *it;}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00160}00160             \}}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00161}00161             it++;}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00162}00162         \}}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00163}00163 }
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00164}00164         \textcolor{keywordflow}{return} idx;}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00165}00165     \}}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00170}00170     \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00171}\mbox{\hyperlink{group___helper_functions_gae2aaeb3c9edcae730b5c4fdb6655ef71}{00171}}     T \mbox{\hyperlink{group___helper_functions_gae2aaeb3c9edcae730b5c4fdb6655ef71}{CalculateMaxDifferenceInVector}}(std::vector<T> src)}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00172}00172     \{}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00173}00173         std::vector<T> difference\_vector;}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00174}00174 }
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00175}00175         \textcolor{keyword}{auto} it = src.begin();}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00176}00176         \textcolor{keywordflow}{while} (it != (src.end() -\/ 1))}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00177}00177         \{}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00178}00178             difference\_vector.push\_back(*(it + 1) -\/ *it);}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00179}00179             it++;}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00180}00180         \}}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00181}00181 }
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00182}00182         cv::Scalar cv\_scalar\_mean\_val = cv::mean(src);}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00183}00183         T mean\_val = cv\_scalar\_mean\_val[0];}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00184}00184 }
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00185}00185         \textcolor{keywordflow}{return} difference\_vector[\mbox{\hyperlink{group___helper_functions_gacc82d70b750eb60ad49c7a36e5c7f0ca}{FindGlobalMaxIdx}}(difference\_vector)] / mean\_val;}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00186}00186     \}}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00187}00187 }
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00189}00189 \}}
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00190}00190 }
+\DoxyCodeLine{\Hypertarget{helper_8h_source_l00191}00191 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

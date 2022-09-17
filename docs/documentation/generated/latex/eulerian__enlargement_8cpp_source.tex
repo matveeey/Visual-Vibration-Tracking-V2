@@ -1,0 +1,101 @@
+\hypertarget{eulerian__enlargement_8cpp_source}{}\doxysection{eulerian\+\_\+enlargement.\+cpp}
+\label{eulerian__enlargement_8cpp_source}\index{C:/Users/seeyo/source/repos/Visual-\/Vibration-\/Tracking-\/V2/source/eulerian\_enlargement.cpp@{C:/Users/seeyo/source/repos/Visual-\/Vibration-\/Tracking-\/V2/source/eulerian\_enlargement.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}MovEn/eulerian\_enlargement.h"{}}}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00003}00003 EulerEnlarger::EulerEnlarger() :}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00004}00004     cutoff\_low\_\{ 0.1 \},}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00005}00005     cutoff\_high\_\{ 1.0 \},}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00006}00006     exaggeraiton\_coefficient\_\{ 2.0 \},}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00007}00007     lambda\_\{ 0.0 \}, \textcolor{comment}{// будем изменено в цикле}}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00008}00008     lambda\_cutoff\_\{ 16.0 \},}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00009}00009     color\_attenuation\_coefficient\_\{ 0.0 \},}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00010}00010     delta\_\{ 0.0 \},}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00011}00011     alpha\_\{ 10.0 \},}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00012}00012     levels\_amount\_\{ 3 \}}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00013}00013 \{}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00014}00014     std::cout << \textcolor{stringliteral}{"{}Euler Enlarger constructor"{}} << std::endl;}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00015}00015 \}}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00016}00016 }
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00017}00017 EulerEnlarger::\string~EulerEnlarger()}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00018}00018 \{}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00019}00019     std::cout << \textcolor{stringliteral}{"{}Euler Enlarger destructor"{}} << std::endl;}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00020}00020 \}}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00021}00021 }
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00022}\mbox{\hyperlink{class_euler_enlarger_a4d191318cbe997cd7ac5dd027b508921}{00022}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_euler_enlarger_a4d191318cbe997cd7ac5dd027b508921}{EulerEnlarger::LaplaceEnlarge}}(Mat\& motion\_pyramid\_level, \textcolor{keywordtype}{int} current\_level)}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00023}00023 \{}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00024}00024     \textcolor{keywordtype}{double} current\_alpha = (\mbox{\hyperlink{class_euler_enlarger_a1af2a486a304fd753049f1647ea790e4}{lambda\_}} / \mbox{\hyperlink{class_euler_enlarger_a5ba64d98bf7304db30a7dddfc0009b2b}{delta\_}} / 8.0 -\/ 1.0) * \mbox{\hyperlink{class_euler_enlarger_a2cb21e07ef755dd1e96e12df21077e90}{exaggeraiton\_coefficient\_}};}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00025}00025 }
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00026}00026     \textcolor{keywordflow}{if} (current\_level == \mbox{\hyperlink{class_euler_enlarger_a35076bfb98ab8e0ad28bba64f861b77a}{levels\_amount\_}} || current\_level == 0)}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00027}00027     \{}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00028}00028         \textcolor{comment}{// Для первого и последнего уровней пирамиды устанавливаем усиление на 0}}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00029}00029         motion\_pyramid\_level = motion\_pyramid\_level * 0;}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00030}00030     \}}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00031}00031     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00032}00032     \{}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00033}00033         \textcolor{comment}{// Выполняем для остальных уровней}}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00034}00034         motion\_pyramid\_level = motion\_pyramid\_level * std::min(current\_alpha, alpha\_);}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00035}00035     \}}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00036}00036 \}}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00037}00037 }
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00038}\mbox{\hyperlink{class_euler_enlarger_a6c4a9b97963d309d990bde769f4dc582}{00038}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_euler_enlarger_a6c4a9b97963d309d990bde769f4dc582}{EulerEnlarger::Attenuate}}(Mat\& motion\_frame)}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00039}00039 \{}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00040}00040     \textcolor{comment}{// "{}Приглушение"{} будет происходить только для цветных кадров}}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00041}00041     \textcolor{keywordflow}{if} (motion\_frame.channels() > 2)}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00042}00042     \{}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00043}00043         \textcolor{comment}{//std::vector<Mat> planes;}}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00044}00044         Mat planes[3];}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00045}00045         split(motion\_frame, planes);}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00046}00046         \textcolor{comment}{// Применяем только к 2-\/му и 3-\/му каналу, тк первый отвечает за ч-\/б составляющую картинки в нашем формате}}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00047}00047         planes[1] = planes[1] * \mbox{\hyperlink{class_euler_enlarger_ab6176560a34867b75a7bc019cc550346}{color\_attenuation\_coefficient\_}};}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00048}00048         planes[2] = planes[2] * \mbox{\hyperlink{class_euler_enlarger_ab6176560a34867b75a7bc019cc550346}{color\_attenuation\_coefficient\_}};}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00049}00049         merge(planes, 3, motion\_frame);}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00050}00050     \}}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00051}00051 \}}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00052}00052 }
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00053}\mbox{\hyperlink{class_euler_enlarger_a9937057b5b3fae05bfdc67e66147b20f}{00053}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_euler_enlarger_a9937057b5b3fae05bfdc67e66147b20f}{EulerEnlarger::BuildLaplacePyramid}}(\textcolor{keyword}{const} Mat\& input\_frame, std::vector<Mat>\& input\_pyramid, \textcolor{keyword}{const} \textcolor{keywordtype}{int} levels)}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00054}00054 \{}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00055}00055     input\_pyramid.clear();}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00056}00056     std::vector<Mat> pyramid;}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00057}00057     Mat current\_level = input\_frame.clone();}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00058}00058 }
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00059}00059     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} level = 0; level < levels; level++)}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00060}00060     \{}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00061}00061         Mat down, up;}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00062}00062         \textcolor{comment}{// Блюрим кадр и уменьшаем его размер по ширине и высоте в два раза}}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00063}00063         pyrDown(current\_level, down);}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00064}00064         \textcolor{comment}{// Увеличиваем изображение по ширине и высоте в два раза, затем блюрим его}}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00065}00065         pyrUp(down, up, current\_level.size());}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00066}00066         Mat laplace = current\_level -\/ up;}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00067}00067         pyramid.push\_back(laplace);}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00068}00068         current\_level = down;}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00069}00069     \}}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00070}00070     pyramid.push\_back(current\_level);}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00071}00071     input\_pyramid = pyramid;}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00072}00072 \}}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00073}00073 }
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00074}\mbox{\hyperlink{class_euler_enlarger_a1c982a889d750215233354eba98bc391}{00074}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_euler_enlarger_a1c982a889d750215233354eba98bc391}{EulerEnlarger::IirFilter}}(Mat\& input\_pyramid\_level, Mat\& motion\_pyramid\_level, Mat\& low\_pass\_high\_level, Mat\& low\_pass\_low\_level, \textcolor{keywordtype}{double} cutoff\_low, \textcolor{keywordtype}{double} cutoff\_high)}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00075}00075 \{}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00076}00076     low\_pass\_high\_level = (1 -\/ cutoff\_high) * low\_pass\_high\_level + cutoff\_high * input\_pyramid\_level;}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00077}00077     low\_pass\_low\_level = (1 -\/ cutoff\_low) * low\_pass\_low\_level + cutoff\_low * input\_pyramid\_level;}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00078}00078 }
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00079}00079     motion\_pyramid\_level = low\_pass\_high\_level -\/ low\_pass\_low\_level;}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00080}00080 \}}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00081}00081 }
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00082}\mbox{\hyperlink{class_euler_enlarger_a253b74eea3ae020c1c549e7e0c47fd60}{00082}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_euler_enlarger_a253b74eea3ae020c1c549e7e0c47fd60}{EulerEnlarger::BuildFromLaplacePyramid}}(std::vector<Mat>\& motion\_pyramid, Mat\& motion\_frame, \textcolor{keyword}{const} \textcolor{keywordtype}{int} levels)}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00083}00083 \{}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00084}00084     \textcolor{comment}{// Сначала рассматриваем последний элемент вектора -\/ он же первый уровень пирамиды}}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00085}00085     Mat current\_level = motion\_pyramid[levels];}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00086}00086 }
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00087}00087     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} level = levels -\/ 1; level >= 0; -\/-\/level)}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00088}00088     \{}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00089}00089         Mat up;}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00090}00090         pyrUp(current\_level, up, motion\_pyramid[level].size());}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00091}00091         \textcolor{comment}{// Добавляем только что заапсемпленный уровень к "{}текущему"{} (по сути предыдущему) уровню пирамиды}}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00092}00092         current\_level = up + motion\_pyramid[level];}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00093}00093     \}}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00094}00094     motion\_frame = current\_level.clone();}
+\DoxyCodeLine{\Hypertarget{eulerian__enlargement_8cpp_source_l00095}00095 \}}
+
+\end{DoxyCode}

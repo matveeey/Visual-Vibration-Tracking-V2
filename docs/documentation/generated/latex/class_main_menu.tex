@@ -1,0 +1,1030 @@
+\hypertarget{class_main_menu}{}\doxysection{Класс Main\+Menu}
+\label{class_main_menu}\index{MainMenu@{MainMenu}}
+
+
+Класс для создания начального меню выбора режима работы программы  
+
+
+
+
+{\ttfamily \#include $<$main\+\_\+menu.\+h$>$}
+
+\doxysubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_main_menu_abb33004f27a82400cf8359379347cd51}{Main\+Menu}} (std\+::string txt\+\_\+file\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Конструктор этого класса \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Закрытые типы}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{class_main_menu_af5860e380c7d3b75817fbc9cd7be6dab}{MODE}} \{ {\bfseries CALIBRATION}
+, {\bfseries UNDISTORTION}
+, {\bfseries VIBRATION\+\_\+\+MONITORING}
+, {\bfseries MOVEMENT\+\_\+\+ENLARGEMENT}
+ \}
+\begin{DoxyCompactList}\small\item\em Перечисление со списком основных режимов работы \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Закрытые члены}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_main_menu_acf5b3599f1461c5f9431ea1f704da910}{Load\+Paths}} ()
+\begin{DoxyCompactList}\small\item\em Открывает нужные пути \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_main_menu_a01aeeb1edc954686d13747cb4c12a8e0}{Execute\+Camera\+Calibration}} (std\+::string chessboards\+\_\+path)
+\begin{DoxyCompactList}\small\item\em Запускает калибровку камеры по картинкам шахматных досок \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_main_menu_a30aba8993a7f8e9f39b242f10fbaf931}{Execute\+Video\+Undistortion}} (std\+::string input\+\_\+file\+\_\+name, std\+::string output\+\_\+file\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Запускает удаление дисторсии \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_main_menu_aa5e21268330d9703d6c8bf9f4b33d228}{Execute\+Vibration\+Monitoring}} (std\+::string input\+\_\+file\+\_\+name, std\+::string output\+\_\+file\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Запускает детекцию вибрации (основной режим) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_main_menu_a7110d2e44a744a1556f8a2b2950b9d38}{Execute\+Motion\+Magnification}} (std\+::string input\+\_\+file\+\_\+name, std\+::string output\+\_\+file\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Запускает увеличение движения \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_main_menu_a5ecabae61a1ba65a16966268056fa113}{Create\+Menu}} ()
+\begin{DoxyCompactList}\small\item\em Строит сетку меню с кнопками и надписями на Mat-\/объекте menu\+\_\+. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_main_menu_af6a2070f337a611b3b24be4766bfa826}{Update\+Btn\+Color\+And\+Text}} ()
+\begin{DoxyCompactList}\small\item\em Раскрашивает кнопки и наносит на них текст \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_main_menu_aa378e087eb0805fd1451dcf116e2d56d}{Detect\+Event}} (int event, int x, int y, int flags)
+\begin{DoxyCompactList}\small\item\em callback функция для определения события (используется для хэндлинга клика мышью) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_main_menu_a671d24b20bcb5142a67cb28ca7598747}{Idle}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Закрытые статические члены}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_main_menu_af802f4a248ffeb94f29d460522850b4f}{On\+Mouse}} (int event, int x, int y, int flags, void $\ast$userdata)
+\begin{DoxyCompactList}\small\item\em callback функция для определения события (используется для хэндлинга клика мышью) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Закрытые данные}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{class_main_menu_a300dd1a1e464e73087d4feabb94e8fb9}{params\+\_\+file\+\_\+name\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Путь файла с параметрами \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_main_menu_a8b8a1a133a5ef0bfcb8203b104d9e7d8}{winname\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Название окна \end{DoxyCompactList}\item 
+Mat \mbox{\hyperlink{class_main_menu_a21f7500296ee52056ba2ff187d437558}{menu\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Изображение меню, на котором будет происходить отрисовка \end{DoxyCompactList}\item 
+std\+::vector$<$ Rect $>$ \mbox{\hyperlink{class_main_menu_ac6afebbdaef47782d019da5034768389}{buttons\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Контейнер, хранящий в себе прямоугольники-\/кнопки (фактически тут хранятся координаты кнопок) \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_main_menu_a678f9dbcd2216709540d4af16ed66b38}{button\+\_\+text\+\_\+}} \mbox{[}4\mbox{]}
+\begin{DoxyCompactList}\small\item\em Тексты кнопок \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_main_menu_a72f1383d94f8e16f245d58fc596392d0}{menu\+\_\+width\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Ширина меню \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_main_menu_ae2c50f92a5f3c7486e7a3ad9ef866221}{menu\+\_\+height\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Высота меню \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_main_menu_ad625d2c00b71239f30056eda2709e69d}{button\+\_\+amount\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Количество кнопок \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_main_menu_aafca88e812926ead49f00ec323a987cc}{button\+\_\+width\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Ширина кнопки \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_main_menu_a091b2780210717c4620b8b8bec5edb8e}{button\+\_\+height\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Высота кнопки \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_main_menu_a3609956a27889cec7af6ec85195ac743}{button\+\_\+spacing\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Отступ между кнопками \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_main_menu_a726804731d9b92dc1797ec69c2e48f93}{top\+\_\+offset\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Отступ от застаканных кнопок сверху \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_main_menu_ae9b1fae3596f0d598cdd590e1d799fce}{bottom\+\_\+offset\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Отступ от застаканных кнопок снизу \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_main_menu_ac8cde06a54ac62981f6ee2aaab284dbc}{width\+\_\+offset\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Отступ с двух сторон от кнопки по ширине \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_main_menu_a141c52a3decb4c9f74528cd158347a9e}{font}}
+\begin{DoxyCompactList}\small\item\em Шрифт \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_main_menu_a2c1c1409a6638988fa33fb7e073ba13d}{font\+\_\+scale}}
+\begin{DoxyCompactList}\small\item\em Величина шрифта \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_main_menu_a29d574adf0376f03c3ef3918fd87141e}{thickness}}
+\begin{DoxyCompactList}\small\item\em Толщина шрифта \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_main_menu_a9bcf2dfafca93c905bfea6f0a53cbe15}{baseline}}
+\begin{DoxyCompactList}\small\item\em Параметр для cv\+::get\+Text() \end{DoxyCompactList}\item 
+Point2i \mbox{\hyperlink{class_main_menu_a40e69fd0735c12fa24bc0c6ef37bf237}{last\+\_\+mouse\+\_\+position\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Последние найденные в callback координаты курсора \end{DoxyCompactList}\item 
+std\+::vector$<$ Scalar $>$ \mbox{\hyperlink{class_main_menu_ad7381c9c612fc48c2a21d9a0e0fdb65f}{buttons\+\_\+color\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Контейнер для хранения цвета каждой кнопки \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_main_menu_a7807da405b38a72055b51da2230c551b}{mode\+\_\+chosen\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Флаг выбранного режима \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_main_menu_a5e2264e9d3087ffdc1e64fc48777f7c2}{wanna\+\_\+quit\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Флаг выхода из программы \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_main_menu_a4ecd32d232bdc09bad417fec831efe2b}{input\+\_\+calibration\+\_\+video\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Имя (путь) входного файла (видео) для калибровки \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_main_menu_a43569f3b9d5700184c9cd21e760e78b0}{input\+\_\+distorted\+\_\+video\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Имя (путь) входного файла (видео) для удаления дисторсии \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_main_menu_ae1388275b984f4d7e5975c42bd20a45e}{output\+\_\+undistorted\+\_\+video\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Имя (путь) выходного файла (видео) после удаления дисторсии \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_main_menu_a085f0e7b8a81371f8b868f447b787ac1}{input\+\_\+vibration\+\_\+detection\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Имя (путь) входного файла (видео) для детекции вибрации \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_main_menu_a4e9d0a1af8b544e9f4b856f02864c26f}{output\+\_\+vibration\+\_\+detection\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Имя (путь) выходного файла (видео) после детекции вибрации \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_main_menu_ae70524216396d958e84697846751db33}{chessboards\+\_\+path\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Путь к папке с фотографиями шахматной доски \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_main_menu_abbc9df90951e4ef60b081c2971fbd978}{input\+\_\+movement\+\_\+enlargment\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Имя (путь) входного файла (видео) для усиления движения \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_main_menu_a29d7b279fb12523356ba6e084dd1a5e4}{output\+\_\+movement\+\_\+enlargement\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Имя (путь) выходного файла (видео) для усиления движения \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Класс для создания начального меню выбора режима работы программы 
+
+См. определение в файле \mbox{\hyperlink{main__menu_8h_source}{main\+\_\+menu.\+h}} строка \mbox{\hyperlink{main__menu_8h_source_l00025}{25}}
+
+
+
+\doxysubsection{Перечисления}
+\mbox{\Hypertarget{class_main_menu_af5860e380c7d3b75817fbc9cd7be6dab}\label{class_main_menu_af5860e380c7d3b75817fbc9cd7be6dab}} 
+\index{MainMenu@{MainMenu}!MODE@{MODE}}
+\index{MODE@{MODE}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{MODE}{MODE}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{class_main_menu_af5860e380c7d3b75817fbc9cd7be6dab}{Main\+Menu\+::\+MODE}}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Перечисление со списком основных режимов работы 
+
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8h_source}{main\+\_\+menu.\+h}} строка \mbox{\hyperlink{main__menu_8h_source_l00030}{30}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00031     \{}
+\DoxyCodeLine{00032         CALIBRATION,}
+\DoxyCodeLine{00033         UNDISTORTION,}
+\DoxyCodeLine{00034         VIBRATION\_MONITORING,}
+\DoxyCodeLine{00035         MOVEMENT\_ENLARGEMENT}
+\DoxyCodeLine{00036     \};}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Конструктор(ы)}
+\mbox{\Hypertarget{class_main_menu_abb33004f27a82400cf8359379347cd51}\label{class_main_menu_abb33004f27a82400cf8359379347cd51}} 
+\index{MainMenu@{MainMenu}!MainMenu@{MainMenu}}
+\index{MainMenu@{MainMenu}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{MainMenu()}{MainMenu()}}
+{\footnotesize\ttfamily Main\+Menu\+::\+Main\+Menu (\begin{DoxyParamCaption}\item[{std\+::string}]{txt\+\_\+file\+\_\+name }\end{DoxyParamCaption})}
+
+
+
+Конструктор этого класса 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em txt\+\_\+file\+\_\+name} & имя (путь) текстового документа, содержащий нужные для работы пути к входным и выходным расположениям \\
+\hline
+\end{DoxyParams}
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8cpp_source}{main\+\_\+menu.\+cpp}} строка \mbox{\hyperlink{main__menu_8cpp_source_l00003}{3}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00003                                              :}
+\DoxyCodeLine{00004     \mbox{\hyperlink{class_main_menu_a300dd1a1e464e73087d4feabb94e8fb9}{params\_file\_name\_}}\{ params\_file\_name \},}
+\DoxyCodeLine{00005     \mbox{\hyperlink{class_main_menu_a8b8a1a133a5ef0bfcb8203b104d9e7d8}{winname\_}}\{ MAIN\_MENU\_WINDOW\_NAME \},}
+\DoxyCodeLine{00006     \mbox{\hyperlink{class_main_menu_a72f1383d94f8e16f245d58fc596392d0}{menu\_width\_}}\{ 500 \},}
+\DoxyCodeLine{00007     \mbox{\hyperlink{class_main_menu_ae2c50f92a5f3c7486e7a3ad9ef866221}{menu\_height\_}}\{ 500 \},}
+\DoxyCodeLine{00008     \mbox{\hyperlink{class_main_menu_ad625d2c00b71239f30056eda2709e69d}{button\_amount\_}}\{ 4 \},}
+\DoxyCodeLine{00009     \mbox{\hyperlink{class_main_menu_a7807da405b38a72055b51da2230c551b}{mode\_chosen\_}}\{ \textcolor{keyword}{false} \}}
+\DoxyCodeLine{00010 \{}
+\DoxyCodeLine{00011     namedWindow(\mbox{\hyperlink{class_main_menu_a8b8a1a133a5ef0bfcb8203b104d9e7d8}{winname\_}}, WINDOW\_AUTOSIZE);}
+\DoxyCodeLine{00012     \textcolor{comment}{// Инициализируем отступы}}
+\DoxyCodeLine{00013     \textcolor{keywordtype}{int} x = 20;}
+\DoxyCodeLine{00014     \mbox{\hyperlink{class_main_menu_a3609956a27889cec7af6ec85195ac743}{button\_spacing\_}} = x;}
+\DoxyCodeLine{00015     \mbox{\hyperlink{class_main_menu_a726804731d9b92dc1797ec69c2e48f93}{top\_offset\_}} = 3 * x;}
+\DoxyCodeLine{00016     \mbox{\hyperlink{class_main_menu_ae9b1fae3596f0d598cdd590e1d799fce}{bottom\_offset\_}} = 5 * x;}
+\DoxyCodeLine{00017     \mbox{\hyperlink{class_main_menu_ac8cde06a54ac62981f6ee2aaab284dbc}{width\_offset\_}} = 3 * x;}
+\DoxyCodeLine{00018     \mbox{\hyperlink{class_main_menu_aafca88e812926ead49f00ec323a987cc}{button\_width\_}} = \mbox{\hyperlink{class_main_menu_a72f1383d94f8e16f245d58fc596392d0}{menu\_width\_}} -\/ 2 * \mbox{\hyperlink{class_main_menu_ac8cde06a54ac62981f6ee2aaab284dbc}{width\_offset\_}};}
+\DoxyCodeLine{00019     \mbox{\hyperlink{class_main_menu_a091b2780210717c4620b8b8bec5edb8e}{button\_height\_}} = (\mbox{\hyperlink{class_main_menu_ae2c50f92a5f3c7486e7a3ad9ef866221}{menu\_height\_}} -\/ (\mbox{\hyperlink{class_main_menu_ad625d2c00b71239f30056eda2709e69d}{button\_amount\_}} -\/ 1) * \mbox{\hyperlink{class_main_menu_a3609956a27889cec7af6ec85195ac743}{button\_spacing\_}} -\/ \mbox{\hyperlink{class_main_menu_a726804731d9b92dc1797ec69c2e48f93}{top\_offset\_}} -\/ \mbox{\hyperlink{class_main_menu_ae9b1fae3596f0d598cdd590e1d799fce}{bottom\_offset\_}}) / \mbox{\hyperlink{class_main_menu_ad625d2c00b71239f30056eda2709e69d}{button\_amount\_}};}
+\DoxyCodeLine{00020     \textcolor{comment}{// Надписи на кнопках}}
+\DoxyCodeLine{00021     \mbox{\hyperlink{class_main_menu_a678f9dbcd2216709540d4af16ed66b38}{button\_text\_}}[0] = \textcolor{stringliteral}{"{}CALIBRATION"{}};}
+\DoxyCodeLine{00022     \mbox{\hyperlink{class_main_menu_a678f9dbcd2216709540d4af16ed66b38}{button\_text\_}}[1] = \textcolor{stringliteral}{"{}UNDISTORTION"{}};}
+\DoxyCodeLine{00023     \mbox{\hyperlink{class_main_menu_a678f9dbcd2216709540d4af16ed66b38}{button\_text\_}}[2] = \textcolor{stringliteral}{"{}VIBRATION MONITORING"{}};}
+\DoxyCodeLine{00024     \mbox{\hyperlink{class_main_menu_a678f9dbcd2216709540d4af16ed66b38}{button\_text\_}}[3] = \textcolor{stringliteral}{"{}MOVEMENT ENLARGEMENT"{}};}
+\DoxyCodeLine{00025     \textcolor{comment}{// Инициализируем контейнер цветов кнопок}}
+\DoxyCodeLine{00026     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_main_menu_ad625d2c00b71239f30056eda2709e69d}{button\_amount\_}}; i++)}
+\DoxyCodeLine{00027     \{}
+\DoxyCodeLine{00028         \mbox{\hyperlink{class_main_menu_ad7381c9c612fc48c2a21d9a0e0fdb65f}{buttons\_color\_}}.push\_back(Scalar(255, 255, 255));}
+\DoxyCodeLine{00029     \}}
+\DoxyCodeLine{00030     \textcolor{comment}{// Инициализируем атрибуты текста}}
+\DoxyCodeLine{00031     \mbox{\hyperlink{class_main_menu_a141c52a3decb4c9f74528cd158347a9e}{font}} = FONT\_HERSHEY\_PLAIN;}
+\DoxyCodeLine{00032     \mbox{\hyperlink{class_main_menu_a2c1c1409a6638988fa33fb7e073ba13d}{font\_scale}} = 1;}
+\DoxyCodeLine{00033     \mbox{\hyperlink{class_main_menu_a29d574adf0376f03c3ef3918fd87141e}{thickness}} = 2;}
+\DoxyCodeLine{00034     \mbox{\hyperlink{class_main_menu_a9bcf2dfafca93c905bfea6f0a53cbe15}{baseline}} = 0;}
+\DoxyCodeLine{00035     \textcolor{comment}{// Создание меню на Mat-\/объекте}}
+\DoxyCodeLine{00036     \mbox{\hyperlink{class_main_menu_a5ecabae61a1ba65a16966268056fa113}{CreateMenu}}();}
+\DoxyCodeLine{00037 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Методы}
+\mbox{\Hypertarget{class_main_menu_a5ecabae61a1ba65a16966268056fa113}\label{class_main_menu_a5ecabae61a1ba65a16966268056fa113}} 
+\index{MainMenu@{MainMenu}!CreateMenu@{CreateMenu}}
+\index{CreateMenu@{CreateMenu}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{CreateMenu()}{CreateMenu()}}
+{\footnotesize\ttfamily void Main\+Menu\+::\+Create\+Menu (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Строит сетку меню с кнопками и надписями на Mat-\/объекте menu\+\_\+. 
+
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8cpp_source}{main\+\_\+menu.\+cpp}} строка \mbox{\hyperlink{main__menu_8cpp_source_l00089}{89}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00090 \{}
+\DoxyCodeLine{00091     \textcolor{comment}{// Создадим кнопки в соответствии с их позициями}}
+\DoxyCodeLine{00092     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_main_menu_ad625d2c00b71239f30056eda2709e69d}{button\_amount\_}}; i++)}
+\DoxyCodeLine{00093     \{}
+\DoxyCodeLine{00094         \mbox{\hyperlink{class_main_menu_ac6afebbdaef47782d019da5034768389}{buttons\_}}.push\_back}
+\DoxyCodeLine{00095         (}
+\DoxyCodeLine{00096             Rect(}
+\DoxyCodeLine{00097                 Point2i(}
+\DoxyCodeLine{00098                     \mbox{\hyperlink{class_main_menu_ac8cde06a54ac62981f6ee2aaab284dbc}{width\_offset\_}},}
+\DoxyCodeLine{00099                     \mbox{\hyperlink{class_main_menu_a726804731d9b92dc1797ec69c2e48f93}{top\_offset\_}} + i * (\mbox{\hyperlink{class_main_menu_a091b2780210717c4620b8b8bec5edb8e}{button\_height\_}} + \mbox{\hyperlink{class_main_menu_a3609956a27889cec7af6ec85195ac743}{button\_spacing\_}})}
+\DoxyCodeLine{00100                 ),}
+\DoxyCodeLine{00101                 Point2i(}
+\DoxyCodeLine{00102                     \mbox{\hyperlink{class_main_menu_ac8cde06a54ac62981f6ee2aaab284dbc}{width\_offset\_}} + \mbox{\hyperlink{class_main_menu_aafca88e812926ead49f00ec323a987cc}{button\_width\_}},}
+\DoxyCodeLine{00103                     \mbox{\hyperlink{class_main_menu_a726804731d9b92dc1797ec69c2e48f93}{top\_offset\_}} + \mbox{\hyperlink{class_main_menu_a091b2780210717c4620b8b8bec5edb8e}{button\_height\_}} + i * (\mbox{\hyperlink{class_main_menu_a091b2780210717c4620b8b8bec5edb8e}{button\_height\_}} + \mbox{\hyperlink{class_main_menu_a3609956a27889cec7af6ec85195ac743}{button\_spacing\_}})}
+\DoxyCodeLine{00104                 )}
+\DoxyCodeLine{00105             )}
+\DoxyCodeLine{00106         );}
+\DoxyCodeLine{00107     \}}
+\DoxyCodeLine{00108     }
+\DoxyCodeLine{00109     \mbox{\hyperlink{class_main_menu_a21f7500296ee52056ba2ff187d437558}{menu\_}} = Mat(Size(\mbox{\hyperlink{class_main_menu_a72f1383d94f8e16f245d58fc596392d0}{menu\_width\_}}, \mbox{\hyperlink{class_main_menu_ae2c50f92a5f3c7486e7a3ad9ef866221}{menu\_height\_}}), CV\_8UC3, Scalar(0, 0, 0)); }
+\DoxyCodeLine{00110 }
+\DoxyCodeLine{00111     \textcolor{comment}{// Подсказка для пользователя}}
+\DoxyCodeLine{00112     std::string tip = \textcolor{stringliteral}{"{}Press 'Q' to quit"{}};}
+\DoxyCodeLine{00113     putText(}
+\DoxyCodeLine{00114         \mbox{\hyperlink{class_main_menu_a21f7500296ee52056ba2ff187d437558}{menu\_}},}
+\DoxyCodeLine{00115         tip,}
+\DoxyCodeLine{00116         Point(}
+\DoxyCodeLine{00117             (\mbox{\hyperlink{class_main_menu_a72f1383d94f8e16f245d58fc596392d0}{menu\_width\_}} -\/ getTextSize(tip, \mbox{\hyperlink{class_main_menu_a141c52a3decb4c9f74528cd158347a9e}{font}}, \mbox{\hyperlink{class_main_menu_a2c1c1409a6638988fa33fb7e073ba13d}{font\_scale}}, \mbox{\hyperlink{class_main_menu_a29d574adf0376f03c3ef3918fd87141e}{thickness}}, \&\mbox{\hyperlink{class_main_menu_a9bcf2dfafca93c905bfea6f0a53cbe15}{baseline}}).width) / 2,}
+\DoxyCodeLine{00118             \mbox{\hyperlink{class_main_menu_ae2c50f92a5f3c7486e7a3ad9ef866221}{menu\_height\_}} -\/ (\mbox{\hyperlink{class_main_menu_ae9b1fae3596f0d598cdd590e1d799fce}{bottom\_offset\_}} -\/ getTextSize(tip, \mbox{\hyperlink{class_main_menu_a141c52a3decb4c9f74528cd158347a9e}{font}}, \mbox{\hyperlink{class_main_menu_a2c1c1409a6638988fa33fb7e073ba13d}{font\_scale}}, \mbox{\hyperlink{class_main_menu_a29d574adf0376f03c3ef3918fd87141e}{thickness}}, \&\mbox{\hyperlink{class_main_menu_a9bcf2dfafca93c905bfea6f0a53cbe15}{baseline}}).height) / 2),}
+\DoxyCodeLine{00119         \mbox{\hyperlink{class_main_menu_a141c52a3decb4c9f74528cd158347a9e}{font}},}
+\DoxyCodeLine{00120         \mbox{\hyperlink{class_main_menu_a2c1c1409a6638988fa33fb7e073ba13d}{font\_scale}},}
+\DoxyCodeLine{00121         Scalar(75, 75, 75),}
+\DoxyCodeLine{00122         \mbox{\hyperlink{class_main_menu_a29d574adf0376f03c3ef3918fd87141e}{thickness}} / 2,}
+\DoxyCodeLine{00123         4}
+\DoxyCodeLine{00124     );}
+\DoxyCodeLine{00125 }
+\DoxyCodeLine{00126     \mbox{\hyperlink{class_main_menu_a671d24b20bcb5142a67cb28ca7598747}{Idle}}();}
+\DoxyCodeLine{00127 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_main_menu_aa378e087eb0805fd1451dcf116e2d56d}\label{class_main_menu_aa378e087eb0805fd1451dcf116e2d56d}} 
+\index{MainMenu@{MainMenu}!DetectEvent@{DetectEvent}}
+\index{DetectEvent@{DetectEvent}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{DetectEvent()}{DetectEvent()}}
+{\footnotesize\ttfamily void Main\+Menu\+::\+Detect\+Event (\begin{DoxyParamCaption}\item[{int}]{event,  }\item[{int}]{x,  }\item[{int}]{y,  }\item[{int}]{flags }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+callback функция для определения события (используется для хэндлинга клика мышью) 
+
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8cpp_source}{main\+\_\+menu.\+cpp}} строка \mbox{\hyperlink{main__menu_8cpp_source_l00162}{162}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00163 \{}
+\DoxyCodeLine{00164     \textcolor{comment}{// Загружаем названия директорий}}
+\DoxyCodeLine{00165     \mbox{\hyperlink{class_main_menu_acf5b3599f1461c5f9431ea1f704da910}{LoadPaths}}();}
+\DoxyCodeLine{00166 }
+\DoxyCodeLine{00167     \textcolor{keywordflow}{switch} (event)}
+\DoxyCodeLine{00168     \{}
+\DoxyCodeLine{00169     \textcolor{keywordflow}{case} EVENT\_LBUTTONDOWN:}
+\DoxyCodeLine{00170     \{}
+\DoxyCodeLine{00171         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_main_menu_ac6afebbdaef47782d019da5034768389}{buttons\_}}.size(); i++)}
+\DoxyCodeLine{00172         \{}
+\DoxyCodeLine{00173             \textcolor{comment}{// Если клик пользователя был по кнопке}}
+\DoxyCodeLine{00174             \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_main_menu_ac6afebbdaef47782d019da5034768389}{buttons\_}}[i].contains(Point(x, y)))}
+\DoxyCodeLine{00175             \{}
+\DoxyCodeLine{00176                 \textcolor{keywordflow}{switch} (i)}
+\DoxyCodeLine{00177                 \{}
+\DoxyCodeLine{00178                 \textcolor{keywordflow}{case} CALIBRATION:}
+\DoxyCodeLine{00179                 \{}
+\DoxyCodeLine{00180                     std::cout << \textcolor{stringliteral}{"{}u've chosen camera calibration"{}} << std::endl;}
+\DoxyCodeLine{00181                     \mbox{\hyperlink{class_main_menu_a01aeeb1edc954686d13747cb4c12a8e0}{ExecuteCameraCalibration}}(\mbox{\hyperlink{class_main_menu_ae70524216396d958e84697846751db33}{chessboards\_path\_}});}
+\DoxyCodeLine{00182                     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00183                 \}}
+\DoxyCodeLine{00184                 \textcolor{keywordflow}{case} UNDISTORTION:}
+\DoxyCodeLine{00185                 \{}
+\DoxyCodeLine{00186                     std::cout << \textcolor{stringliteral}{"{}u've chosen undistortion"{}} << std::endl;}
+\DoxyCodeLine{00187                     \mbox{\hyperlink{class_main_menu_a30aba8993a7f8e9f39b242f10fbaf931}{ExecuteVideoUndistortion}}(\mbox{\hyperlink{class_main_menu_a43569f3b9d5700184c9cd21e760e78b0}{input\_distorted\_video\_}}, \mbox{\hyperlink{class_main_menu_ae1388275b984f4d7e5975c42bd20a45e}{output\_undistorted\_video\_}});}
+\DoxyCodeLine{00188                     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00189                 \}}
+\DoxyCodeLine{00190                 \textcolor{keywordflow}{case} VIBRATION\_MONITORING:}
+\DoxyCodeLine{00191                 \{}
+\DoxyCodeLine{00192                     std::cout << \textcolor{stringliteral}{"{}u've chosen vibration monitoring"{}} << std::endl;}
+\DoxyCodeLine{00193                     \mbox{\hyperlink{class_main_menu_aa5e21268330d9703d6c8bf9f4b33d228}{ExecuteVibrationMonitoring}}(\mbox{\hyperlink{class_main_menu_a085f0e7b8a81371f8b868f447b787ac1}{input\_vibration\_detection\_}}, \mbox{\hyperlink{class_main_menu_a4e9d0a1af8b544e9f4b856f02864c26f}{output\_vibration\_detection\_}});}
+\DoxyCodeLine{00194                     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00195                 \}}
+\DoxyCodeLine{00196                 \textcolor{keywordflow}{case} MOVEMENT\_ENLARGEMENT:}
+\DoxyCodeLine{00197                 \{}
+\DoxyCodeLine{00198                     std::cout << \textcolor{stringliteral}{"{}u've chosen movement enlarging"{}} << std::endl;}
+\DoxyCodeLine{00199                     \mbox{\hyperlink{class_main_menu_a7110d2e44a744a1556f8a2b2950b9d38}{ExecuteMotionMagnification}}(\mbox{\hyperlink{class_main_menu_abbc9df90951e4ef60b081c2971fbd978}{input\_movement\_enlargment\_}}, \mbox{\hyperlink{class_main_menu_a29d7b279fb12523356ba6e084dd1a5e4}{output\_movement\_enlargement\_}});}
+\DoxyCodeLine{00200                     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00201                 \}}
+\DoxyCodeLine{00202                 \}}
+\DoxyCodeLine{00203             \}}
+\DoxyCodeLine{00204         \}}
+\DoxyCodeLine{00205         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00206     \}}
+\DoxyCodeLine{00207     \textcolor{keywordflow}{case} EVENT\_MOUSEMOVE:}
+\DoxyCodeLine{00208     \{}
+\DoxyCodeLine{00209         \mbox{\hyperlink{class_main_menu_a40e69fd0735c12fa24bc0c6ef37bf237}{last\_mouse\_position\_}}.x = x;}
+\DoxyCodeLine{00210         \mbox{\hyperlink{class_main_menu_a40e69fd0735c12fa24bc0c6ef37bf237}{last\_mouse\_position\_}}.y = y;}
+\DoxyCodeLine{00211         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00212     \}}
+\DoxyCodeLine{00213     \}}
+\DoxyCodeLine{00214 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_main_menu_a01aeeb1edc954686d13747cb4c12a8e0}\label{class_main_menu_a01aeeb1edc954686d13747cb4c12a8e0}} 
+\index{MainMenu@{MainMenu}!ExecuteCameraCalibration@{ExecuteCameraCalibration}}
+\index{ExecuteCameraCalibration@{ExecuteCameraCalibration}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{ExecuteCameraCalibration()}{ExecuteCameraCalibration()}}
+{\footnotesize\ttfamily void Main\+Menu\+::\+Execute\+Camera\+Calibration (\begin{DoxyParamCaption}\item[{std\+::string}]{chessboards\+\_\+path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Запускает калибровку камеры по картинкам шахматных досок 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em chessboards\+\_\+path} & имя (путь) к папке с изображениями шахматных досок \\
+\hline
+\end{DoxyParams}
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8cpp_source}{main\+\_\+menu.\+cpp}} строка \mbox{\hyperlink{main__menu_8cpp_source_l00059}{59}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00060 \{}
+\DoxyCodeLine{00061     \mbox{\hyperlink{class_camera_calibrator}{CameraCalibrator}} camera\_calibrator(chessboards\_path);}
+\DoxyCodeLine{00062     camera\_calibrator.ExecuteCameraCalibration();}
+\DoxyCodeLine{00063 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_main_menu_a7110d2e44a744a1556f8a2b2950b9d38}\label{class_main_menu_a7110d2e44a744a1556f8a2b2950b9d38}} 
+\index{MainMenu@{MainMenu}!ExecuteMotionMagnification@{ExecuteMotionMagnification}}
+\index{ExecuteMotionMagnification@{ExecuteMotionMagnification}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{ExecuteMotionMagnification()}{ExecuteMotionMagnification()}}
+{\footnotesize\ttfamily void Main\+Menu\+::\+Execute\+Motion\+Magnification (\begin{DoxyParamCaption}\item[{std\+::string}]{input\+\_\+file\+\_\+name,  }\item[{std\+::string}]{output\+\_\+file\+\_\+name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Запускает увеличение движения 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em input\+\_\+file\+\_\+name} & имя (путь) входного видео \\
+\hline
+{\em output\+\_\+file\+\_\+name} & имя (путь) выходного файла \\
+\hline
+\end{DoxyParams}
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8cpp_source}{main\+\_\+menu.\+cpp}} строка \mbox{\hyperlink{main__menu_8cpp_source_l00083}{83}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00084 \{}
+\DoxyCodeLine{00085     \mbox{\hyperlink{class_movement_enlarger}{MovementEnlarger}} movement\_enlarger(input\_file\_name, output\_file\_name);}
+\DoxyCodeLine{00086     movement\_enlarger.ExecuteLaplaceEnlargement();}
+\DoxyCodeLine{00087 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_main_menu_aa5e21268330d9703d6c8bf9f4b33d228}\label{class_main_menu_aa5e21268330d9703d6c8bf9f4b33d228}} 
+\index{MainMenu@{MainMenu}!ExecuteVibrationMonitoring@{ExecuteVibrationMonitoring}}
+\index{ExecuteVibrationMonitoring@{ExecuteVibrationMonitoring}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{ExecuteVibrationMonitoring()}{ExecuteVibrationMonitoring()}}
+{\footnotesize\ttfamily void Main\+Menu\+::\+Execute\+Vibration\+Monitoring (\begin{DoxyParamCaption}\item[{std\+::string}]{input\+\_\+file\+\_\+name,  }\item[{std\+::string}]{output\+\_\+file\+\_\+name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Запускает детекцию вибрации (основной режим) 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em input\+\_\+file\+\_\+name} & имя (путь) входного видео \\
+\hline
+{\em output\+\_\+file\+\_\+name} & имя (путь) выходного файла \\
+\hline
+\end{DoxyParams}
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8cpp_source}{main\+\_\+menu.\+cpp}} строка \mbox{\hyperlink{main__menu_8cpp_source_l00077}{77}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00078 \{}
+\DoxyCodeLine{00079     \mbox{\hyperlink{class_vibration_detector}{VibrationDetector}} vibration\_detector(input\_file\_name, output\_file\_name, MAIN\_WINDOW\_NAME);}
+\DoxyCodeLine{00080     vibration\_detector.ExecuteVibrationDetection();}
+\DoxyCodeLine{00081 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_main_menu_a30aba8993a7f8e9f39b242f10fbaf931}\label{class_main_menu_a30aba8993a7f8e9f39b242f10fbaf931}} 
+\index{MainMenu@{MainMenu}!ExecuteVideoUndistortion@{ExecuteVideoUndistortion}}
+\index{ExecuteVideoUndistortion@{ExecuteVideoUndistortion}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{ExecuteVideoUndistortion()}{ExecuteVideoUndistortion()}}
+{\footnotesize\ttfamily void Main\+Menu\+::\+Execute\+Video\+Undistortion (\begin{DoxyParamCaption}\item[{std\+::string}]{input\+\_\+file\+\_\+name,  }\item[{std\+::string}]{output\+\_\+file\+\_\+name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Запускает удаление дисторсии 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em input\+\_\+file\+\_\+name} & имя (путь) входного видео \\
+\hline
+{\em output\+\_\+file\+\_\+name} & имя (путь) выходного файла \\
+\hline
+\end{DoxyParams}
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8cpp_source}{main\+\_\+menu.\+cpp}} строка \mbox{\hyperlink{main__menu_8cpp_source_l00065}{65}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00066 \{}
+\DoxyCodeLine{00067     std::string params;}
+\DoxyCodeLine{00068 }
+\DoxyCodeLine{00069     std::cout << \textcolor{stringliteral}{"{}Please attach the parameters.txt file: "{}};}
+\DoxyCodeLine{00070     std::cin >> params;}
+\DoxyCodeLine{00071     std::cout << std::endl;}
+\DoxyCodeLine{00072 }
+\DoxyCodeLine{00073     \mbox{\hyperlink{class_video_undistorter}{VideoUndistorter}} video\_undistorter(input\_file\_name, output\_file\_name, params);}
+\DoxyCodeLine{00074     video\_undistorter.ExecuteVideoUndistortion();}
+\DoxyCodeLine{00075 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_main_menu_a671d24b20bcb5142a67cb28ca7598747}\label{class_main_menu_a671d24b20bcb5142a67cb28ca7598747}} 
+\index{MainMenu@{MainMenu}!Idle@{Idle}}
+\index{Idle@{Idle}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{Idle()}{Idle()}}
+{\footnotesize\ttfamily void Main\+Menu\+::\+Idle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Запускает меню 
+
+См. определение в файле \mbox{\hyperlink{main__menu_8cpp_source}{main\+\_\+menu.\+cpp}} строка \mbox{\hyperlink{main__menu_8cpp_source_l00216}{216}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00217 \{}
+\DoxyCodeLine{00218     \textcolor{comment}{// Устанавливаем хэндлер окна}}
+\DoxyCodeLine{00219     setMouseCallback(\mbox{\hyperlink{class_main_menu_a8b8a1a133a5ef0bfcb8203b104d9e7d8}{winname\_}}, \mbox{\hyperlink{class_main_menu_af802f4a248ffeb94f29d460522850b4f}{OnMouse}}, (\textcolor{keywordtype}{void}*)\textcolor{keyword}{this});}
+\DoxyCodeLine{00220 }
+\DoxyCodeLine{00221     \textcolor{keywordflow}{while} (!\mbox{\hyperlink{class_main_menu_a7807da405b38a72055b51da2230c551b}{mode\_chosen\_}})}
+\DoxyCodeLine{00222     \{}
+\DoxyCodeLine{00223         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_main_menu_ac6afebbdaef47782d019da5034768389}{buttons\_}}.size(); i++)}
+\DoxyCodeLine{00224         \{}
+\DoxyCodeLine{00225             \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_main_menu_ac6afebbdaef47782d019da5034768389}{buttons\_}}[i].contains(\mbox{\hyperlink{class_main_menu_a40e69fd0735c12fa24bc0c6ef37bf237}{last\_mouse\_position\_}}))}
+\DoxyCodeLine{00226             \{}
+\DoxyCodeLine{00227                 \mbox{\hyperlink{class_main_menu_ad7381c9c612fc48c2a21d9a0e0fdb65f}{buttons\_color\_}}[i] = Scalar(0, 0, 255);}
+\DoxyCodeLine{00228             \}}
+\DoxyCodeLine{00229             \textcolor{keywordflow}{else} \mbox{\hyperlink{class_main_menu_ad7381c9c612fc48c2a21d9a0e0fdb65f}{buttons\_color\_}}[i] = Scalar(25, 25, 25);}
+\DoxyCodeLine{00230         \}}
+\DoxyCodeLine{00231         \textcolor{comment}{// Обновляем текущие цвета кнопок}}
+\DoxyCodeLine{00232         \mbox{\hyperlink{class_main_menu_af6a2070f337a611b3b24be4766bfa826}{UpdateBtnColorAndText}}();}
+\DoxyCodeLine{00233 }
+\DoxyCodeLine{00234         imshow(\mbox{\hyperlink{class_main_menu_a8b8a1a133a5ef0bfcb8203b104d9e7d8}{winname\_}}, \mbox{\hyperlink{class_main_menu_a21f7500296ee52056ba2ff187d437558}{menu\_}});}
+\DoxyCodeLine{00235         \textcolor{keywordflow}{switch} (waitKey(10))}
+\DoxyCodeLine{00236         \{}
+\DoxyCodeLine{00237         \textcolor{keywordflow}{case} \textcolor{charliteral}{'q'}:}
+\DoxyCodeLine{00238         \{}
+\DoxyCodeLine{00239             \mbox{\hyperlink{class_main_menu_a7807da405b38a72055b51da2230c551b}{mode\_chosen\_}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{00240             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00241         \}}
+\DoxyCodeLine{00242         \}}
+\DoxyCodeLine{00243     \}}
+\DoxyCodeLine{00244 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_main_menu_acf5b3599f1461c5f9431ea1f704da910}\label{class_main_menu_acf5b3599f1461c5f9431ea1f704da910}} 
+\index{MainMenu@{MainMenu}!LoadPaths@{LoadPaths}}
+\index{LoadPaths@{LoadPaths}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{LoadPaths()}{LoadPaths()}}
+{\footnotesize\ttfamily void Main\+Menu\+::\+Load\+Paths (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Открывает нужные пути 
+
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8cpp_source}{main\+\_\+menu.\+cpp}} строка \mbox{\hyperlink{main__menu_8cpp_source_l00039}{39}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00040 \{}
+\DoxyCodeLine{00041     std::ifstream params\_file;}
+\DoxyCodeLine{00042     params\_file.open(\mbox{\hyperlink{class_main_menu_a300dd1a1e464e73087d4feabb94e8fb9}{params\_file\_name\_}});}
+\DoxyCodeLine{00043 }
+\DoxyCodeLine{00044     \textcolor{keywordflow}{if} (!params\_file.is\_open())}
+\DoxyCodeLine{00045     \{}
+\DoxyCodeLine{00046         std::cout << \textcolor{stringliteral}{"{}Wrong filename"{}} << std::endl;}
+\DoxyCodeLine{00047     \}}
+\DoxyCodeLine{00048 }
+\DoxyCodeLine{00049     std::getline(params\_file, \mbox{\hyperlink{class_main_menu_a4ecd32d232bdc09bad417fec831efe2b}{input\_calibration\_video\_}});}
+\DoxyCodeLine{00050     std::getline(params\_file, \mbox{\hyperlink{class_main_menu_a43569f3b9d5700184c9cd21e760e78b0}{input\_distorted\_video\_}});}
+\DoxyCodeLine{00051     std::getline(params\_file, \mbox{\hyperlink{class_main_menu_ae1388275b984f4d7e5975c42bd20a45e}{output\_undistorted\_video\_}});}
+\DoxyCodeLine{00052     std::getline(params\_file, \mbox{\hyperlink{class_main_menu_a085f0e7b8a81371f8b868f447b787ac1}{input\_vibration\_detection\_}});}
+\DoxyCodeLine{00053     std::getline(params\_file, \mbox{\hyperlink{class_main_menu_a4e9d0a1af8b544e9f4b856f02864c26f}{output\_vibration\_detection\_}});}
+\DoxyCodeLine{00054     std::getline(params\_file, \mbox{\hyperlink{class_main_menu_ae70524216396d958e84697846751db33}{chessboards\_path\_}});}
+\DoxyCodeLine{00055     std::getline(params\_file, \mbox{\hyperlink{class_main_menu_abbc9df90951e4ef60b081c2971fbd978}{input\_movement\_enlargment\_}});}
+\DoxyCodeLine{00056     std::getline(params\_file, \mbox{\hyperlink{class_main_menu_a29d7b279fb12523356ba6e084dd1a5e4}{output\_movement\_enlargement\_}});}
+\DoxyCodeLine{00057 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_main_menu_af802f4a248ffeb94f29d460522850b4f}\label{class_main_menu_af802f4a248ffeb94f29d460522850b4f}} 
+\index{MainMenu@{MainMenu}!OnMouse@{OnMouse}}
+\index{OnMouse@{OnMouse}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{OnMouse()}{OnMouse()}}
+{\footnotesize\ttfamily void Main\+Menu\+::\+On\+Mouse (\begin{DoxyParamCaption}\item[{int}]{event,  }\item[{int}]{x,  }\item[{int}]{y,  }\item[{int}]{flags,  }\item[{void $\ast$}]{userdata }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+callback функция для определения события (используется для хэндлинга клика мышью) 
+
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8cpp_source}{main\+\_\+menu.\+cpp}} строка \mbox{\hyperlink{main__menu_8cpp_source_l00156}{156}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00157 \{}
+\DoxyCodeLine{00158     \mbox{\hyperlink{class_main_menu}{MainMenu}}* d = \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{class_main_menu}{MainMenu}}*\textcolor{keyword}{>}(userdata);}
+\DoxyCodeLine{00159     d-\/>\mbox{\hyperlink{class_main_menu_aa378e087eb0805fd1451dcf116e2d56d}{DetectEvent}}(event, x, y, flags);}
+\DoxyCodeLine{00160 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_main_menu_af6a2070f337a611b3b24be4766bfa826}\label{class_main_menu_af6a2070f337a611b3b24be4766bfa826}} 
+\index{MainMenu@{MainMenu}!UpdateBtnColorAndText@{UpdateBtnColorAndText}}
+\index{UpdateBtnColorAndText@{UpdateBtnColorAndText}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{UpdateBtnColorAndText()}{UpdateBtnColorAndText()}}
+{\footnotesize\ttfamily void Main\+Menu\+::\+Update\+Btn\+Color\+And\+Text (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Раскрашивает кнопки и наносит на них текст 
+
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8cpp_source}{main\+\_\+menu.\+cpp}} строка \mbox{\hyperlink{main__menu_8cpp_source_l00129}{129}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00130 \{}
+\DoxyCodeLine{00131     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{class_main_menu_ad625d2c00b71239f30056eda2709e69d}{button\_amount\_}}; i++)}
+\DoxyCodeLine{00132     \{}
+\DoxyCodeLine{00133         \textcolor{comment}{// Рисуем очертания кнопки}}
+\DoxyCodeLine{00134         rectangle(\mbox{\hyperlink{class_main_menu_a21f7500296ee52056ba2ff187d437558}{menu\_}}, \mbox{\hyperlink{class_main_menu_ac6afebbdaef47782d019da5034768389}{buttons\_}}[i], \mbox{\hyperlink{class_main_menu_ad7381c9c612fc48c2a21d9a0e0fdb65f}{buttons\_color\_}}[i], FILLED);}
+\DoxyCodeLine{00135         \textcolor{comment}{// Размеры текста в пикселях}}
+\DoxyCodeLine{00136         Size current\_text\_size = getTextSize(\mbox{\hyperlink{class_main_menu_a678f9dbcd2216709540d4af16ed66b38}{button\_text\_}}[i], \mbox{\hyperlink{class_main_menu_a141c52a3decb4c9f74528cd158347a9e}{font}}, \mbox{\hyperlink{class_main_menu_a2c1c1409a6638988fa33fb7e073ba13d}{font\_scale}}, \mbox{\hyperlink{class_main_menu_a29d574adf0376f03c3ef3918fd87141e}{thickness}}, \&\mbox{\hyperlink{class_main_menu_a9bcf2dfafca93c905bfea6f0a53cbe15}{baseline}});}
+\DoxyCodeLine{00137         \textcolor{comment}{// Координаты текущего текста}}
+\DoxyCodeLine{00138         Point text\_coordinates = Point(}
+\DoxyCodeLine{00139             \mbox{\hyperlink{class_main_menu_ac6afebbdaef47782d019da5034768389}{buttons\_}}[i].tl().x + \mbox{\hyperlink{class_main_menu_aafca88e812926ead49f00ec323a987cc}{button\_width\_}} / 2 -\/ current\_text\_size.width / 2,}
+\DoxyCodeLine{00140             \mbox{\hyperlink{class_main_menu_ac6afebbdaef47782d019da5034768389}{buttons\_}}[i].tl().y + \mbox{\hyperlink{class_main_menu_a091b2780210717c4620b8b8bec5edb8e}{button\_height\_}} / 2 + (current\_text\_size.height) / 2);}
+\DoxyCodeLine{00141         \textcolor{comment}{// Рисуем текст кнопки}}
+\DoxyCodeLine{00142         putText(}
+\DoxyCodeLine{00143             \mbox{\hyperlink{class_main_menu_a21f7500296ee52056ba2ff187d437558}{menu\_}},}
+\DoxyCodeLine{00144             \mbox{\hyperlink{class_main_menu_a678f9dbcd2216709540d4af16ed66b38}{button\_text\_}}[i],}
+\DoxyCodeLine{00145             text\_coordinates,}
+\DoxyCodeLine{00146             \mbox{\hyperlink{class_main_menu_a141c52a3decb4c9f74528cd158347a9e}{font}},}
+\DoxyCodeLine{00147             \mbox{\hyperlink{class_main_menu_a2c1c1409a6638988fa33fb7e073ba13d}{font\_scale}},}
+\DoxyCodeLine{00148             Scalar(255, 255, 255),}
+\DoxyCodeLine{00149             \mbox{\hyperlink{class_main_menu_a29d574adf0376f03c3ef3918fd87141e}{thickness}},}
+\DoxyCodeLine{00150             4 \textcolor{comment}{// тип линии. вроде отличаются сглаживанием. выбрал 4-\/й просто так :)}}
+\DoxyCodeLine{00151         );}
+\DoxyCodeLine{00152 }
+\DoxyCodeLine{00153     \}}
+\DoxyCodeLine{00154 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Данные класса}
+\mbox{\Hypertarget{class_main_menu_a9bcf2dfafca93c905bfea6f0a53cbe15}\label{class_main_menu_a9bcf2dfafca93c905bfea6f0a53cbe15}} 
+\index{MainMenu@{MainMenu}!baseline@{baseline}}
+\index{baseline@{baseline}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{baseline}{baseline}}
+{\footnotesize\ttfamily int Main\+Menu\+::baseline\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Параметр для cv\+::get\+Text() 
+
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8h_source}{main\+\_\+menu.\+h}} строка \mbox{\hyperlink{main__menu_8h_source_l00166}{166}}
+
+\mbox{\Hypertarget{class_main_menu_ae9b1fae3596f0d598cdd590e1d799fce}\label{class_main_menu_ae9b1fae3596f0d598cdd590e1d799fce}} 
+\index{MainMenu@{MainMenu}!bottom\_offset\_@{bottom\_offset\_}}
+\index{bottom\_offset\_@{bottom\_offset\_}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{bottom\_offset\_}{bottom\_offset\_}}
+{\footnotesize\ttfamily int Main\+Menu\+::bottom\+\_\+offset\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Отступ от застаканных кнопок снизу 
+
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8h_source}{main\+\_\+menu.\+h}} строка \mbox{\hyperlink{main__menu_8h_source_l00146}{146}}
+
+\mbox{\Hypertarget{class_main_menu_ad625d2c00b71239f30056eda2709e69d}\label{class_main_menu_ad625d2c00b71239f30056eda2709e69d}} 
+\index{MainMenu@{MainMenu}!button\_amount\_@{button\_amount\_}}
+\index{button\_amount\_@{button\_amount\_}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{button\_amount\_}{button\_amount\_}}
+{\footnotesize\ttfamily int Main\+Menu\+::button\+\_\+amount\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Количество кнопок 
+
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8h_source}{main\+\_\+menu.\+h}} строка \mbox{\hyperlink{main__menu_8h_source_l00126}{126}}
+
+\mbox{\Hypertarget{class_main_menu_a091b2780210717c4620b8b8bec5edb8e}\label{class_main_menu_a091b2780210717c4620b8b8bec5edb8e}} 
+\index{MainMenu@{MainMenu}!button\_height\_@{button\_height\_}}
+\index{button\_height\_@{button\_height\_}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{button\_height\_}{button\_height\_}}
+{\footnotesize\ttfamily int Main\+Menu\+::button\+\_\+height\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Высота кнопки 
+
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8h_source}{main\+\_\+menu.\+h}} строка \mbox{\hyperlink{main__menu_8h_source_l00134}{134}}
+
+\mbox{\Hypertarget{class_main_menu_a3609956a27889cec7af6ec85195ac743}\label{class_main_menu_a3609956a27889cec7af6ec85195ac743}} 
+\index{MainMenu@{MainMenu}!button\_spacing\_@{button\_spacing\_}}
+\index{button\_spacing\_@{button\_spacing\_}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{button\_spacing\_}{button\_spacing\_}}
+{\footnotesize\ttfamily int Main\+Menu\+::button\+\_\+spacing\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Отступ между кнопками 
+
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8h_source}{main\+\_\+menu.\+h}} строка \mbox{\hyperlink{main__menu_8h_source_l00138}{138}}
+
+\mbox{\Hypertarget{class_main_menu_a678f9dbcd2216709540d4af16ed66b38}\label{class_main_menu_a678f9dbcd2216709540d4af16ed66b38}} 
+\index{MainMenu@{MainMenu}!button\_text\_@{button\_text\_}}
+\index{button\_text\_@{button\_text\_}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{button\_text\_}{button\_text\_}}
+{\footnotesize\ttfamily std\+::string Main\+Menu\+::button\+\_\+text\+\_\+\mbox{[}4\mbox{]}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Тексты кнопок 
+
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8h_source}{main\+\_\+menu.\+h}} строка \mbox{\hyperlink{main__menu_8h_source_l00114}{114}}
+
+\mbox{\Hypertarget{class_main_menu_aafca88e812926ead49f00ec323a987cc}\label{class_main_menu_aafca88e812926ead49f00ec323a987cc}} 
+\index{MainMenu@{MainMenu}!button\_width\_@{button\_width\_}}
+\index{button\_width\_@{button\_width\_}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{button\_width\_}{button\_width\_}}
+{\footnotesize\ttfamily int Main\+Menu\+::button\+\_\+width\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Ширина кнопки 
+
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8h_source}{main\+\_\+menu.\+h}} строка \mbox{\hyperlink{main__menu_8h_source_l00130}{130}}
+
+\mbox{\Hypertarget{class_main_menu_ac6afebbdaef47782d019da5034768389}\label{class_main_menu_ac6afebbdaef47782d019da5034768389}} 
+\index{MainMenu@{MainMenu}!buttons\_@{buttons\_}}
+\index{buttons\_@{buttons\_}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{buttons\_}{buttons\_}}
+{\footnotesize\ttfamily std\+::vector$<$Rect$>$ Main\+Menu\+::buttons\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Контейнер, хранящий в себе прямоугольники-\/кнопки (фактически тут хранятся координаты кнопок) 
+
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8h_source}{main\+\_\+menu.\+h}} строка \mbox{\hyperlink{main__menu_8h_source_l00110}{110}}
+
+\mbox{\Hypertarget{class_main_menu_ad7381c9c612fc48c2a21d9a0e0fdb65f}\label{class_main_menu_ad7381c9c612fc48c2a21d9a0e0fdb65f}} 
+\index{MainMenu@{MainMenu}!buttons\_color\_@{buttons\_color\_}}
+\index{buttons\_color\_@{buttons\_color\_}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{buttons\_color\_}{buttons\_color\_}}
+{\footnotesize\ttfamily std\+::vector$<$Scalar$>$ Main\+Menu\+::buttons\+\_\+color\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Контейнер для хранения цвета каждой кнопки 
+
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8h_source}{main\+\_\+menu.\+h}} строка \mbox{\hyperlink{main__menu_8h_source_l00175}{175}}
+
+\mbox{\Hypertarget{class_main_menu_ae70524216396d958e84697846751db33}\label{class_main_menu_ae70524216396d958e84697846751db33}} 
+\index{MainMenu@{MainMenu}!chessboards\_path\_@{chessboards\_path\_}}
+\index{chessboards\_path\_@{chessboards\_path\_}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{chessboards\_path\_}{chessboards\_path\_}}
+{\footnotesize\ttfamily std\+::string Main\+Menu\+::chessboards\+\_\+path\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Путь к папке с фотографиями шахматной доски 
+
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8h_source}{main\+\_\+menu.\+h}} строка \mbox{\hyperlink{main__menu_8h_source_l00209}{209}}
+
+\mbox{\Hypertarget{class_main_menu_a141c52a3decb4c9f74528cd158347a9e}\label{class_main_menu_a141c52a3decb4c9f74528cd158347a9e}} 
+\index{MainMenu@{MainMenu}!font@{font}}
+\index{font@{font}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{font}{font}}
+{\footnotesize\ttfamily int Main\+Menu\+::font\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Шрифт 
+
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8h_source}{main\+\_\+menu.\+h}} строка \mbox{\hyperlink{main__menu_8h_source_l00154}{154}}
+
+\mbox{\Hypertarget{class_main_menu_a2c1c1409a6638988fa33fb7e073ba13d}\label{class_main_menu_a2c1c1409a6638988fa33fb7e073ba13d}} 
+\index{MainMenu@{MainMenu}!font\_scale@{font\_scale}}
+\index{font\_scale@{font\_scale}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{font\_scale}{font\_scale}}
+{\footnotesize\ttfamily double Main\+Menu\+::font\+\_\+scale\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Величина шрифта 
+
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8h_source}{main\+\_\+menu.\+h}} строка \mbox{\hyperlink{main__menu_8h_source_l00158}{158}}
+
+\mbox{\Hypertarget{class_main_menu_a4ecd32d232bdc09bad417fec831efe2b}\label{class_main_menu_a4ecd32d232bdc09bad417fec831efe2b}} 
+\index{MainMenu@{MainMenu}!input\_calibration\_video\_@{input\_calibration\_video\_}}
+\index{input\_calibration\_video\_@{input\_calibration\_video\_}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{input\_calibration\_video\_}{input\_calibration\_video\_}}
+{\footnotesize\ttfamily std\+::string Main\+Menu\+::input\+\_\+calibration\+\_\+video\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Имя (путь) входного файла (видео) для калибровки 
+
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8h_source}{main\+\_\+menu.\+h}} строка \mbox{\hyperlink{main__menu_8h_source_l00189}{189}}
+
+\mbox{\Hypertarget{class_main_menu_a43569f3b9d5700184c9cd21e760e78b0}\label{class_main_menu_a43569f3b9d5700184c9cd21e760e78b0}} 
+\index{MainMenu@{MainMenu}!input\_distorted\_video\_@{input\_distorted\_video\_}}
+\index{input\_distorted\_video\_@{input\_distorted\_video\_}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{input\_distorted\_video\_}{input\_distorted\_video\_}}
+{\footnotesize\ttfamily std\+::string Main\+Menu\+::input\+\_\+distorted\+\_\+video\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Имя (путь) входного файла (видео) для удаления дисторсии 
+
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8h_source}{main\+\_\+menu.\+h}} строка \mbox{\hyperlink{main__menu_8h_source_l00193}{193}}
+
+\mbox{\Hypertarget{class_main_menu_abbc9df90951e4ef60b081c2971fbd978}\label{class_main_menu_abbc9df90951e4ef60b081c2971fbd978}} 
+\index{MainMenu@{MainMenu}!input\_movement\_enlargment\_@{input\_movement\_enlargment\_}}
+\index{input\_movement\_enlargment\_@{input\_movement\_enlargment\_}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{input\_movement\_enlargment\_}{input\_movement\_enlargment\_}}
+{\footnotesize\ttfamily std\+::string Main\+Menu\+::input\+\_\+movement\+\_\+enlargment\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Имя (путь) входного файла (видео) для усиления движения 
+
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8h_source}{main\+\_\+menu.\+h}} строка \mbox{\hyperlink{main__menu_8h_source_l00213}{213}}
+
+\mbox{\Hypertarget{class_main_menu_a085f0e7b8a81371f8b868f447b787ac1}\label{class_main_menu_a085f0e7b8a81371f8b868f447b787ac1}} 
+\index{MainMenu@{MainMenu}!input\_vibration\_detection\_@{input\_vibration\_detection\_}}
+\index{input\_vibration\_detection\_@{input\_vibration\_detection\_}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{input\_vibration\_detection\_}{input\_vibration\_detection\_}}
+{\footnotesize\ttfamily std\+::string Main\+Menu\+::input\+\_\+vibration\+\_\+detection\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Имя (путь) входного файла (видео) для детекции вибрации 
+
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8h_source}{main\+\_\+menu.\+h}} строка \mbox{\hyperlink{main__menu_8h_source_l00201}{201}}
+
+\mbox{\Hypertarget{class_main_menu_a40e69fd0735c12fa24bc0c6ef37bf237}\label{class_main_menu_a40e69fd0735c12fa24bc0c6ef37bf237}} 
+\index{MainMenu@{MainMenu}!last\_mouse\_position\_@{last\_mouse\_position\_}}
+\index{last\_mouse\_position\_@{last\_mouse\_position\_}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{last\_mouse\_position\_}{last\_mouse\_position\_}}
+{\footnotesize\ttfamily Point2i Main\+Menu\+::last\+\_\+mouse\+\_\+position\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Последние найденные в callback координаты курсора 
+
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8h_source}{main\+\_\+menu.\+h}} строка \mbox{\hyperlink{main__menu_8h_source_l00171}{171}}
+
+\mbox{\Hypertarget{class_main_menu_a21f7500296ee52056ba2ff187d437558}\label{class_main_menu_a21f7500296ee52056ba2ff187d437558}} 
+\index{MainMenu@{MainMenu}!menu\_@{menu\_}}
+\index{menu\_@{menu\_}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{menu\_}{menu\_}}
+{\footnotesize\ttfamily Mat Main\+Menu\+::menu\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Изображение меню, на котором будет происходить отрисовка 
+
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8h_source}{main\+\_\+menu.\+h}} строка \mbox{\hyperlink{main__menu_8h_source_l00106}{106}}
+
+\mbox{\Hypertarget{class_main_menu_ae2c50f92a5f3c7486e7a3ad9ef866221}\label{class_main_menu_ae2c50f92a5f3c7486e7a3ad9ef866221}} 
+\index{MainMenu@{MainMenu}!menu\_height\_@{menu\_height\_}}
+\index{menu\_height\_@{menu\_height\_}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{menu\_height\_}{menu\_height\_}}
+{\footnotesize\ttfamily int Main\+Menu\+::menu\+\_\+height\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Высота меню 
+
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8h_source}{main\+\_\+menu.\+h}} строка \mbox{\hyperlink{main__menu_8h_source_l00122}{122}}
+
+\mbox{\Hypertarget{class_main_menu_a72f1383d94f8e16f245d58fc596392d0}\label{class_main_menu_a72f1383d94f8e16f245d58fc596392d0}} 
+\index{MainMenu@{MainMenu}!menu\_width\_@{menu\_width\_}}
+\index{menu\_width\_@{menu\_width\_}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{menu\_width\_}{menu\_width\_}}
+{\footnotesize\ttfamily int Main\+Menu\+::menu\+\_\+width\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Ширина меню 
+
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8h_source}{main\+\_\+menu.\+h}} строка \mbox{\hyperlink{main__menu_8h_source_l00118}{118}}
+
+\mbox{\Hypertarget{class_main_menu_a7807da405b38a72055b51da2230c551b}\label{class_main_menu_a7807da405b38a72055b51da2230c551b}} 
+\index{MainMenu@{MainMenu}!mode\_chosen\_@{mode\_chosen\_}}
+\index{mode\_chosen\_@{mode\_chosen\_}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{mode\_chosen\_}{mode\_chosen\_}}
+{\footnotesize\ttfamily bool Main\+Menu\+::mode\+\_\+chosen\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Флаг выбранного режима 
+
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8h_source}{main\+\_\+menu.\+h}} строка \mbox{\hyperlink{main__menu_8h_source_l00179}{179}}
+
+\mbox{\Hypertarget{class_main_menu_a29d7b279fb12523356ba6e084dd1a5e4}\label{class_main_menu_a29d7b279fb12523356ba6e084dd1a5e4}} 
+\index{MainMenu@{MainMenu}!output\_movement\_enlargement\_@{output\_movement\_enlargement\_}}
+\index{output\_movement\_enlargement\_@{output\_movement\_enlargement\_}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{output\_movement\_enlargement\_}{output\_movement\_enlargement\_}}
+{\footnotesize\ttfamily std\+::string Main\+Menu\+::output\+\_\+movement\+\_\+enlargement\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Имя (путь) выходного файла (видео) для усиления движения 
+
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8h_source}{main\+\_\+menu.\+h}} строка \mbox{\hyperlink{main__menu_8h_source_l00217}{217}}
+
+\mbox{\Hypertarget{class_main_menu_ae1388275b984f4d7e5975c42bd20a45e}\label{class_main_menu_ae1388275b984f4d7e5975c42bd20a45e}} 
+\index{MainMenu@{MainMenu}!output\_undistorted\_video\_@{output\_undistorted\_video\_}}
+\index{output\_undistorted\_video\_@{output\_undistorted\_video\_}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{output\_undistorted\_video\_}{output\_undistorted\_video\_}}
+{\footnotesize\ttfamily std\+::string Main\+Menu\+::output\+\_\+undistorted\+\_\+video\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Имя (путь) выходного файла (видео) после удаления дисторсии 
+
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8h_source}{main\+\_\+menu.\+h}} строка \mbox{\hyperlink{main__menu_8h_source_l00197}{197}}
+
+\mbox{\Hypertarget{class_main_menu_a4e9d0a1af8b544e9f4b856f02864c26f}\label{class_main_menu_a4e9d0a1af8b544e9f4b856f02864c26f}} 
+\index{MainMenu@{MainMenu}!output\_vibration\_detection\_@{output\_vibration\_detection\_}}
+\index{output\_vibration\_detection\_@{output\_vibration\_detection\_}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{output\_vibration\_detection\_}{output\_vibration\_detection\_}}
+{\footnotesize\ttfamily std\+::string Main\+Menu\+::output\+\_\+vibration\+\_\+detection\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Имя (путь) выходного файла (видео) после детекции вибрации 
+
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8h_source}{main\+\_\+menu.\+h}} строка \mbox{\hyperlink{main__menu_8h_source_l00205}{205}}
+
+\mbox{\Hypertarget{class_main_menu_a300dd1a1e464e73087d4feabb94e8fb9}\label{class_main_menu_a300dd1a1e464e73087d4feabb94e8fb9}} 
+\index{MainMenu@{MainMenu}!params\_file\_name\_@{params\_file\_name\_}}
+\index{params\_file\_name\_@{params\_file\_name\_}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{params\_file\_name\_}{params\_file\_name\_}}
+{\footnotesize\ttfamily std\+::string Main\+Menu\+::params\+\_\+file\+\_\+name\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Путь файла с параметрами 
+
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8h_source}{main\+\_\+menu.\+h}} строка \mbox{\hyperlink{main__menu_8h_source_l00098}{98}}
+
+\mbox{\Hypertarget{class_main_menu_a29d574adf0376f03c3ef3918fd87141e}\label{class_main_menu_a29d574adf0376f03c3ef3918fd87141e}} 
+\index{MainMenu@{MainMenu}!thickness@{thickness}}
+\index{thickness@{thickness}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{thickness}{thickness}}
+{\footnotesize\ttfamily int Main\+Menu\+::thickness\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Толщина шрифта 
+
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8h_source}{main\+\_\+menu.\+h}} строка \mbox{\hyperlink{main__menu_8h_source_l00162}{162}}
+
+\mbox{\Hypertarget{class_main_menu_a726804731d9b92dc1797ec69c2e48f93}\label{class_main_menu_a726804731d9b92dc1797ec69c2e48f93}} 
+\index{MainMenu@{MainMenu}!top\_offset\_@{top\_offset\_}}
+\index{top\_offset\_@{top\_offset\_}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{top\_offset\_}{top\_offset\_}}
+{\footnotesize\ttfamily int Main\+Menu\+::top\+\_\+offset\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Отступ от застаканных кнопок сверху 
+
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8h_source}{main\+\_\+menu.\+h}} строка \mbox{\hyperlink{main__menu_8h_source_l00142}{142}}
+
+\mbox{\Hypertarget{class_main_menu_a5e2264e9d3087ffdc1e64fc48777f7c2}\label{class_main_menu_a5e2264e9d3087ffdc1e64fc48777f7c2}} 
+\index{MainMenu@{MainMenu}!wanna\_quit\_@{wanna\_quit\_}}
+\index{wanna\_quit\_@{wanna\_quit\_}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{wanna\_quit\_}{wanna\_quit\_}}
+{\footnotesize\ttfamily bool Main\+Menu\+::wanna\+\_\+quit\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Флаг выхода из программы 
+
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8h_source}{main\+\_\+menu.\+h}} строка \mbox{\hyperlink{main__menu_8h_source_l00183}{183}}
+
+\mbox{\Hypertarget{class_main_menu_ac8cde06a54ac62981f6ee2aaab284dbc}\label{class_main_menu_ac8cde06a54ac62981f6ee2aaab284dbc}} 
+\index{MainMenu@{MainMenu}!width\_offset\_@{width\_offset\_}}
+\index{width\_offset\_@{width\_offset\_}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{width\_offset\_}{width\_offset\_}}
+{\footnotesize\ttfamily int Main\+Menu\+::width\+\_\+offset\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Отступ с двух сторон от кнопки по ширине 
+
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8h_source}{main\+\_\+menu.\+h}} строка \mbox{\hyperlink{main__menu_8h_source_l00150}{150}}
+
+\mbox{\Hypertarget{class_main_menu_a8b8a1a133a5ef0bfcb8203b104d9e7d8}\label{class_main_menu_a8b8a1a133a5ef0bfcb8203b104d9e7d8}} 
+\index{MainMenu@{MainMenu}!winname\_@{winname\_}}
+\index{winname\_@{winname\_}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{winname\_}{winname\_}}
+{\footnotesize\ttfamily std\+::string Main\+Menu\+::winname\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Название окна 
+
+
+
+См. определение в файле \mbox{\hyperlink{main__menu_8h_source}{main\+\_\+menu.\+h}} строка \mbox{\hyperlink{main__menu_8h_source_l00102}{102}}
+
+
+
+Объявления и описания членов классов находятся в файлах\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/seeyo/source/repos/\+Visual-\/\+Vibration-\/\+Tracking-\/\+V2/include/\+GUI/main\+\_\+menu.\+h\item 
+C\+:/\+Users/seeyo/source/repos/\+Visual-\/\+Vibration-\/\+Tracking-\/\+V2/source/main\+\_\+menu.\+cpp\end{DoxyCompactItemize}
