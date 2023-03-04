@@ -18,5 +18,5 @@ int main(int argc, char** argv)
 		txt_file_name = argv[1];
 	}
 
-	MainMenu main_menu(/*txt_file_name*/"C:/Users/seeyo/source/repos/Visual-Vibration-Tracking-V2/docs/input.txt");
+	MainMenu main_menu(/*txt_file_name*/"C:/Users/ass/source/repos/Visual-Vibration-Tracking-V2/docs/input.txt");
 }
