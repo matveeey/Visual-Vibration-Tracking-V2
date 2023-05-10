@@ -2,13 +2,13 @@
 
 MainMenu::MainMenu(std::string params_file_name) :
 	params_file_name_{ params_file_name },
-	winname_{ MAIN_MENU_WINDOW_NAME },
+	winname_{ "window" },
 	menu_width_{ 500 },
 	menu_height_{ 500 },
 	button_amount_{ 4 },
 	mode_chosen_{ false }
 {
-	namedWindow(winname_, WINDOW_AUTOSIZE);
+	namedWindow(winname_);
 	// Инициализируем отступы
 	int x = 20;
 	button_spacing_ = x;

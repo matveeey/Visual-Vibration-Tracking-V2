@@ -1,7 +1,7 @@
 #ifndef MAIN_MENU_H
 #define MAIN_MENU_H
 
-#define MAIN_MENU_WINDOW_NAME "Main menu"
+#define MAIN_MENU_WINDOW_NAME "MainMenu"
 
 // standart headers
 #include <iostream>
