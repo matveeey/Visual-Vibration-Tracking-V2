@@ -14,7 +14,7 @@ The project includes modules for:
 3. The main module with Lucas-Kanade tracking
 
 ## Documentation
-You can check the docs [here](https://ureadulose.github.io/Vibration-detection-using-OpenCV/index.html)
+You can check the docs [here](https://matveeey.github.io/Vibration-detection-using-OpenCV/index.html)
 
 ## Further development
 Probably I would integrate an implementation of Motion Amplifying (or [Motion Magnification](https://github.com/tschnz/Live-Video-Magnification)) technic that I tried in another project.
